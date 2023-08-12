@@ -20,13 +20,11 @@
     "lib/**/*"
   ],
   "scripts": {
-    "clean": "del-cli ./lib",
+    "clean": "rm -rf ./lib",
     "build": "npm run clean && npm run build:esm && npm run build:cjs",
-    "build:esm": "tsc -p ./configs/tsconfig.esm.json && move-file lib/esm/index.js lib/esm/index.mjs",
+    "build:esm": "tsc -p ./configs/tsconfig.esm.json && mv lib/esm/index.js lib/esm/index.mjs",
     "build:cjs": "tsc -p ./configs/tsconfig.cjs.json",
-    "test": "mocha",
-    "semantic-release": "semantic-release",
-    "prepack": "npm run build"
+    "test": "mocha"
   },
   "release": {
     "branches": [
