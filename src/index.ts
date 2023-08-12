@@ -1,8 +1,14 @@
-type TestType = string;
+export function helloWorld() {
+  const message = "Hello World from my example modern npm package!";
+  return message;
+}
 
-export const testFunc = (arg: TestType): string => {
-  console.log(arg);
-  return arg;
+export function goodBye() {
+  const message = "Goodbye from my example modern npm package!";
+  return message;
+}
+
+export default {
+  helloWorld,
+  goodBye,
 };
-
-testFunc("hello from index.ts");
