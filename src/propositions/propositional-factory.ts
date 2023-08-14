@@ -2,14 +2,14 @@ import {
   MAIN_LOGICAL_OPERATORS_LIST,
   PARENTHESES_LIST,
   PREPARED_SYMBOLS,
-} from "./constants";
+} from "../constants";
 import {
   LogicalSymbolHexCode,
   LogicalSymbolRawInput,
-} from "./enums/logical-symbols";
-import { PropositionalOperator } from "./enums/propositional-operator";
-import { regularExpressions } from "./reg-exp";
-import { PropositionalFormula, PropositionalSymbol } from "./types";
+} from "../enums/logical-symbols";
+import { PropositionalOperator } from "../enums/propositional-operator";
+import { regularExpressions } from "../reg-exp";
+import { PropositionalFormula, PropositionalSymbol } from "../types";
 
 const propositionalFactory = {
   createOperator(symbol: PropositionalSymbol): PropositionalOperator {
