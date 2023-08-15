@@ -1,6 +1,6 @@
 import { LogicalSymbolHexCode } from "../src/enums/logical-symbols";
 import { PropositionalOperator } from "../src/enums/propositional-operator";
-import factory from "../src/propositions/propositional-factory";
+import factory from "../src/propositions/factory";
 import mocks from "../__mocks__/formula-items";
 
 describe("Propositional factory tests", () => {
