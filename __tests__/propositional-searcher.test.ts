@@ -39,6 +39,12 @@ describe("Propositional searcher tests", () => {
         mocks.propositionalExpression[9]
       )
     ).toEqual(mocks.propositionalExpression[17]);
+    expect(
+      searcher.findMatchingCloseParenthesis(
+        [],
+        mocks.propositionalExpression[9]
+      )
+    ).toEqual(undefined);
   });
 
   it("findMatchingOpenParenthesis() test", () => {
@@ -60,5 +66,11 @@ describe("Propositional searcher tests", () => {
         mocks.propositionalExpression[17]
       )
     ).toEqual(mocks.propositionalExpression[9]);
+    expect(
+      searcher.findMatchingOpenParenthesis(
+        [],
+        mocks.propositionalExpression[17]
+      )
+    ).toEqual(undefined);
   });
 });

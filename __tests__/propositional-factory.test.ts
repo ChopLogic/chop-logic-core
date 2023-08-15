@@ -2,6 +2,7 @@ import { LogicalSymbolHexCode } from "../src/enums/logical-symbols";
 import { PropositionalOperator } from "../src/enums/propositional-operator";
 import factory from "../src/propositions/factory";
 import mocks from "../__mocks__/formula-items";
+import { PREPARED_SYMBOLS } from "../src/constants";
 
 describe("Propositional factory tests", () => {
   it("createOperator() method returns a propositional operator correctly", () => {
@@ -198,5 +199,23 @@ describe("Propositional factory tests", () => {
       operator: PropositionalOperator.Not,
       values: [mocks.propositionalAtom],
     });
+  });
+
+  it("createBinarySymbol() should return a correct symbol", () => {
+    expect(factory.createBinarySymbol(PropositionalOperator.And)).toBe(
+      PREPARED_SYMBOLS.conjunction
+    );
+    expect(factory.createBinarySymbol(PropositionalOperator.Or)).toBe(
+      PREPARED_SYMBOLS.disjunction
+    );
+    expect(factory.createBinarySymbol(PropositionalOperator.Implies)).toBe(
+      PREPARED_SYMBOLS.implication
+    );
+    expect(factory.createBinarySymbol(PropositionalOperator.Equiv)).toBe(
+      PREPARED_SYMBOLS.equivalence
+    );
+    expect(() => {
+      factory.createBinarySymbol(PropositionalOperator.Not);
+    }).toThrow(Error);
   });
 });
