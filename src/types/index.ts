@@ -34,3 +34,9 @@ export type NaturalProofsTableItem = ProofTableItem & {
   formulaBase: NPFormulaBase;
   assumptionId: string | null;
 };
+
+export type DirectProofsTableItem = ProofTableItem & {
+  expression: PropositionalExpression;
+  friendlyExpression: PropositionalExpression;
+  formula: PropositionalFormula;
+};
