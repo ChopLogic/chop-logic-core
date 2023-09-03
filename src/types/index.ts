@@ -40,3 +40,10 @@ export type DirectProofsTableItem = ProofTableItem & {
   friendlyExpression: PropositionalExpression;
   formula: PropositionalFormula;
 };
+
+export type NPExecutorData = {
+  level: number;
+  dataLength: number;
+  selectedItems: NaturalProofsTableItem[];
+  assumptionId: string | null;
+};
