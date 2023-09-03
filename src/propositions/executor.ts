@@ -9,6 +9,7 @@ import { removeArrayItemByIndex } from "../utils/remove-array-item-by-index";
 import converter from "./converter";
 import factory from "./factory";
 import validator from "./validator";
+import crypto from "crypto";
 
 const propositionalExecutor = {
   performIE(
