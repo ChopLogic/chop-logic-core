@@ -4441,4 +4441,4 @@ const propositionsTableItems = {
   error,
 };
 
-export default propositionsTableItems;
+export default Object.freeze(propositionsTableItems);
