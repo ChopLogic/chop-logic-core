@@ -86,7 +86,8 @@ const propositionalReplacer = {
     newVariable: string,
     oldVariable: string
   ): string {
-    return (input as any).replaceAll(oldVariable, newVariable);
+    const re = new RegExp(oldVariable, "g");
+    return input.replace(re, newVariable);
   },
 
   replaceVariableInPropositionalExpression(
