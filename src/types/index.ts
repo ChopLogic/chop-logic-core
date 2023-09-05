@@ -47,3 +47,23 @@ export type NPExecutorData = {
   selectedItems: NaturalProofsTableItem[];
   assumptionId: string | null;
 };
+
+export type TableColumn = {
+  field?: string;
+  title?: string;
+};
+
+export interface TruthTableColumn extends TableColumn {
+  depth: number;
+  operator: PropositionalOperator;
+  operands: string[];
+}
+
+export type TableItem = {
+  id: string;
+  [key: string]: unknown;
+};
+
+export type TruthSet = {
+  [key: string]: boolean;
+};
