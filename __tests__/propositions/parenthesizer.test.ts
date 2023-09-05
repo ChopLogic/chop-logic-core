@@ -1,5 +1,5 @@
-import mocks from "../__mocks__/formula-items";
-import parenthesizer from "../src/propositions/parenthesizer";
+import mocks from "../../__mocks__/formula-items";
+import parenthesizer from "../../src/propositions/parenthesizer";
 
 describe("Propositional parenthesizer tests", () => {
   it("parenthesizeVariables() test", () => {

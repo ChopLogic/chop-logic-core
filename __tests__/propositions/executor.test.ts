@@ -1,6 +1,6 @@
-import executor from "../src/propositions/executor";
-import mocks from "../__mocks__/formula-items";
-import tMocks from "../__mocks__/table-items";
+import executor from "../../src/propositions/executor";
+import mocks from "../../__mocks__/formula-items";
+import tMocks from "../../__mocks__/table-items";
 
 describe("Propositional executor tests:", () => {
   it("performIE() creates a correct modus ponens", () => {

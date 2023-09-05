@@ -1,5 +1,5 @@
-import mocks from "../__mocks__/formula-items";
-import replacer from "../src/propositions/replacer";
+import mocks from "../../__mocks__/formula-items";
+import replacer from "../../src/propositions/replacer";
 
 describe("Propositional replacer tests", () => {
   it("correctly replace a variable in the table item", () => {

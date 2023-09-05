@@ -1,5 +1,5 @@
-import converter from "../src/propositions/converter";
-import mocks from "../__mocks__/formula-items";
+import converter from "../../src/propositions/converter";
+import mocks from "../../__mocks__/formula-items";
 
 describe("Propositional converter tests", () => {
   it("convertStringToExpression() method returns a correct propositional expression", () => {

@@ -1,7 +1,7 @@
-import validator from "../src/propositions/validator";
-import mocks from "../__mocks__/formula-items";
-import tMocks from "../__mocks__/table-items";
-import { PropositionalOperator } from "../src/enums/propositional-operator";
+import validator from "../../src/propositions/validator";
+import mocks from "../../__mocks__/formula-items";
+import tMocks from "../../__mocks__/table-items";
+import { PropositionalOperator } from "../../src/enums/propositional-operator";
 
 describe("Propositional validator tests", () => {
   it("isPropositionalExpression() test", () => {

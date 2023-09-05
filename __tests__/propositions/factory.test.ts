@@ -1,8 +1,8 @@
-import { LogicalSymbolHexCode } from "../src/enums/logical-symbols";
-import { PropositionalOperator } from "../src/enums/propositional-operator";
-import factory from "../src/propositions/factory";
-import mocks from "../__mocks__/formula-items";
-import { PREPARED_SYMBOLS } from "../src/constants";
+import { LogicalSymbolHexCode } from "../../src/enums/logical-symbols";
+import { PropositionalOperator } from "../../src/enums/propositional-operator";
+import factory from "../../src/propositions/factory";
+import mocks from "../../__mocks__/formula-items";
+import { PREPARED_SYMBOLS } from "../../src/constants";
 
 describe("Propositional factory tests", () => {
   it("createOperator() method returns a propositional operator correctly", () => {

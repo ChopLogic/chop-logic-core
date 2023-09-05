@@ -1,5 +1,5 @@
-import mocks from "../__mocks__/formula-items";
-import searcher from "../src/propositions/searcher";
+import mocks from "../../__mocks__/formula-items";
+import searcher from "../../src/propositions/searcher";
 
 describe("Propositional searcher tests", () => {
   it("findClosestParenthesisIndexes() returns the closest index", () => {

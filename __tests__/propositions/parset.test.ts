@@ -1,5 +1,5 @@
-import mocks from "../__mocks__/formula-items";
-import parser from "../src/propositions/parser";
+import mocks from "../../__mocks__/formula-items";
+import parser from "../../src/propositions/parser";
 
 describe("Propositional parser tests", () => {
   it("getCharsArray() method returns a correct array", () => {

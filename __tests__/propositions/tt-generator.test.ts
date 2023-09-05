@@ -1,7 +1,7 @@
-import generator from "../src/propositions/tt-generator";
-import mocks from "../__mocks__/formula-items";
-import { PropositionalOperator } from "../src/enums/propositional-operator";
-import { LogicalSymbolHexCode } from "../src/enums/logical-symbols";
+import generator from "../../src/propositions/tt-generator";
+import mocks from "../../__mocks__/formula-items";
+import { PropositionalOperator } from "../../src/enums/propositional-operator";
+import { LogicalSymbolHexCode } from "../../src/enums/logical-symbols";
 
 describe("Truth Table Generator tests", () => {
   it("createVariableColumn() method returns a correct TruthTableColumn", () => {
