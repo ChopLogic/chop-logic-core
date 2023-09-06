@@ -67,3 +67,5 @@ export type TableItem = {
 export type TruthSet = {
   [key: string]: boolean;
 };
+
+export type LocalText = { [key in string]: string };
