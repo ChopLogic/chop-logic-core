@@ -23,7 +23,7 @@ const formulaBaseToXML = (base: NPFormulaBase): string =>
   `${XMLTag.FBaseOpen}${base}${XMLTag.FBaseClose}`;
 
 const assumptionIdToXML = (id: string | null): string =>
-  `${XMLTag.AIDOpen}${id ? id : "null"}${XMLTag.AIDClose}`;
+  `${XMLTag.AIDOpen}${id || "null"}${XMLTag.AIDClose}`;
 
 const rawInputToXML = (rawInput: string): string =>
   `${XMLTag.RInputOpen}${rawInput}${XMLTag.RInputClose}`;
