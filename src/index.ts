@@ -1,14 +1,15 @@
-export function helloWorld() {
-  const message = "Hello World from my example modern npm package!";
-  return message;
-}
-
-export function goodBye() {
-  const message = "Goodbye from my example modern npm package!";
-  return message;
-}
+import propositionalConverter from "./propositions/converter";
+import propositionalXMLConverter from "./propositions/xml-converter";
+import truthTableGenerator from "./propositions/tt-generator";
+import propositionalExecutor from "./propositions/executor";
+import propositionalValidator from "./propositions/validator";
+import propositionalReplacer from "./propositions/replacer";
 
 export default {
-  helloWorld,
-  goodBye,
+  propositionalConverter,
+  propositionalXMLConverter,
+  truthTableGenerator,
+  propositionalExecutor,
+  propositionalValidator,
+  propositionalReplacer,
 };
