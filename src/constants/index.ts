@@ -67,3 +67,5 @@ export const PREPARED_SYMBOLS: { [key in string]: PropositionalSymbol } = {
     position: 0,
   },
 };
+
+export const LANGUAGE_OPTIONS = ["en", "ru"];
