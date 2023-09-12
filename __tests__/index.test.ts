@@ -1,4 +1,3 @@
-import { helloWorld } from "../src/index";
 import npmPackage from "../src/index";
 
 describe("NPM Package", () => {
@@ -6,19 +5,27 @@ describe("NPM Package", () => {
     expect(npmPackage).toBeInstanceOf(Object);
   });
 
-  it("should have a helloWorld property", () => {
-    expect(npmPackage).toHaveProperty("helloWorld");
-  });
-});
-
-describe("Hello World Function", () => {
-  it("should be a function", () => {
-    expect(helloWorld).toBeInstanceOf(Function);
+  it("should have a propositionalConverter property", () => {
+    expect(npmPackage).toHaveProperty("propositionalConverter");
   });
 
-  it("should return the hello world message", () => {
-    const expected = "Hello World from my example modern npm package!";
-    const actual = helloWorld();
-    expect(actual).toBe(expected);
+  it("should have a propositionalXMLConverter property", () => {
+    expect(npmPackage).toHaveProperty("propositionalXMLConverter");
+  });
+
+  it("should have a truthTableGenerator property", () => {
+    expect(npmPackage).toHaveProperty("truthTableGenerator");
+  });
+
+  it("should have a propositionalExecutor property", () => {
+    expect(npmPackage).toHaveProperty("propositionalExecutor");
+  });
+
+  it("should have a propositionalValidator property", () => {
+    expect(npmPackage).toHaveProperty("propositionalValidator");
+  });
+
+  it("should have a propositionalReplacer property", () => {
+    expect(npmPackage).toHaveProperty("propositionalReplacer");
   });
 });
