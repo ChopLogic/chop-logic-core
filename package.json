@@ -27,11 +27,6 @@
     "test": "jest",
     "coverage": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'"
   },
-  "release": {
-    "branches": [
-      "main"
-    ]
-  },
   "publishConfig": {
     "access": "public"
   },
@@ -40,18 +35,13 @@
     "url": "https://github.com/SavouryGin/chop-logic-core.git"
   },
   "keywords": [
-    "npm",
-    "javascript",
-    "typescript",
-    "esm",
-    "cjs",
-    "nodejs",
-    "commonjs",
-    "ecmascript",
-    "logic"
+    "Chop Logic",
+    "TypeScript",
+    "logic",
+    "propositions"
   ],
   "author": "Dmitrii Suroviagin",
-  "license": "MIT",
+  "license": "LGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/SavouryGin/chop-logic-core/issues"
   },
