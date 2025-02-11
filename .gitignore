@@ -1,3 +1,10 @@
+# JetBrains IDE
+**/.idea
+
+# VS Code IDE
+**/.vscode
+**/.vs
+
 # Logs
 logs
 *.log
@@ -106,4 +113,3 @@ dist
 .dccache
 .DS_Store
 lib
-*.tgz
