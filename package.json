@@ -25,16 +25,17 @@
     "build:esm": "tsc -p ./configs/tsconfig.esm.json && mv lib/esm/index.js lib/esm/index.mjs",
     "build:cjs": "tsc -p ./configs/tsconfig.cjs.json",
     "lint": "npx eslint",
-    "test": "jest",
+    "lint:fix": "npx eslint --fix --quiet",
+    "test": "jest --watch",
+    "test:ci": "jest",
     "coverage": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "*.ts": ["eslint", "prettier --write"]
+    "*.{ts,md}": [
+      "npm run test:ci",
+      "npm run lint:fix",
+      "prettier --write"
+    ]
   },
   "publishConfig": {
     "access": "public"
@@ -59,6 +60,8 @@
     "@babel/core": "^7.26.8",
     "@babel/preset-env": "^7.26.8",
     "@babel/preset-typescript": "^7.26.0",
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
     "@eslint/js": "^9.20.0",
     "@types/jest": "^29.5.14",
     "babel-jest": "^29.7.0",
