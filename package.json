@@ -27,7 +27,7 @@
     "lint": "npx eslint",
     "lint:fix": "npx eslint --fix --quiet",
     "test": "jest --watch",
-    "test:ci": "jest",
+    "test:ci": "jest --passWithNoTests",
     "coverage": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'"
   },
   "lint-staged": {
@@ -36,6 +36,9 @@
       "npm run lint:fix",
       "prettier --write"
     ]
+  },
+  "commitlint": {
+    "extends": ["@commitlint/config-conventional"]
   },
   "publishConfig": {
     "access": "public"

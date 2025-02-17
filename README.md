@@ -2,6 +2,8 @@
 
 This library contains a set of functions for working with symbolic logic formulas. At the moment the library is under development, but the tested functions can already be used in third-party projects.
 
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+
 ## Exposed Objects
 
 1. Propositional Converter
