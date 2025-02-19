@@ -2,6 +2,7 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Version](https://img.shields.io/npm/v/chop-logic-core)
+[![codecov](https://codecov.io/gh/SavouryGin/chop-logic-core/graph/badge.svg?token=52BX0AMDQQ)](https://codecov.io/gh/SavouryGin/chop-logic-core)
 [![build](https://github.com/SavouryGin/chop-logic-core/actions/workflows/npm.yml/badge.svg)](https://github.com/SavouryGin/chop-logic-core/actions/workflows/npm.yml)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 
