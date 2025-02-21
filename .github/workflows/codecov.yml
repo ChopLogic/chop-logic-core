@@ -1,7 +1,6 @@
-name: Codecov
+name: codecov
 
-on:
-  push
+on: push
 
 jobs:
   test:
