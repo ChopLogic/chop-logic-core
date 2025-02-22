@@ -1,6 +1,6 @@
 {
   "name": "chop-logic-core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An npm package for core functions of the Chop Logic project.",
   "exports": {
     ".": {
@@ -38,7 +38,9 @@
     ]
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"]
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "publishConfig": {
     "access": "public"
