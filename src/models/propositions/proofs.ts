@@ -9,7 +9,7 @@ export type ProofStep = {
   dependentOn: string[];
 };
 
-export type NPProofStep = ProofStep & {
+export type NaturalProofStep = ProofStep & {
   formula: PropFormula;
   expression: PropExpression;
   level: number;
@@ -17,7 +17,7 @@ export type NPProofStep = ProofStep & {
   assumptionId: string | null;
 };
 
-export type AxiomaticProofStep = ProofStep & {
+export type DirectProofStep = ProofStep & {
   expression: PropExpression;
   formula: PropFormula;
 };

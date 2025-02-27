@@ -1,10 +1,10 @@
-import { Operator, SymbolType } from '../../enums';
+import { Operator, GlyphType } from '../../enums';
 
 export type PropAtom = [string];
 
 export type PropSymbol = {
   atom: PropAtom;
-  type: SymbolType;
+  type: GlyphType;
   position: number;
   view: string;
 };
