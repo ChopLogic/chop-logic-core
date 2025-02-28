@@ -2,10 +2,15 @@ import { PropSymbol } from '../common/types';
 import { Glyph, GlyphType, Operator } from '../common/enums';
 
 /**
- * Converts a given PropSymbol into its corresponding logical operator.
- * If the symbol is a known operator glyph, returns the matching Operator enum.
- * If the symbol represents a variable, returns Operator.Var.
- * Throws an error if the symbol is unrecognized and not a variable.
+ * Converts a given `PropSymbol` into its corresponding logical operator.
+ *
+ * - If the symbol represents a known logical operator glyph, returns the matching `Operator` enum.
+ * - If the symbol represents a variable, returns `Operator.Var`.
+ * - Throws an error if the symbol is neither a recognized operator nor a variable.
+ *
+ * @param symbol - The `PropSymbol` to be converted into an `Operator`.
+ * @returns The corresponding `Operator` enum value.
+ * @throws Will throw an error if the symbol is not recognized as an operator or a variable.
  */
 export function createOperator(symbol: PropSymbol): Operator {
   switch (symbol.atom[0]) {

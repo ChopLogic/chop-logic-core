@@ -8,6 +8,16 @@ export enum Glyph {
   CloseParenthesis = ')',
 }
 
+export enum GlyphUnicode {
+  Implication = '\u21D2',
+  Conjunction = '\u2227',
+  Disjunction = '\u2228',
+  Negation = '\xAC',
+  Equivalence = '\u21D4',
+  OpenParenthesis = '\uFF08',
+  CloseParenthesis = '\uFF09',
+}
+
 export enum GlyphType {
   Variable = 'variable',
   Operator = 'operator',

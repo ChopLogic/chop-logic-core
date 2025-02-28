@@ -1,5 +1,5 @@
 import { PropSymbol } from '../../common/types';
-import { createOperator } from '../../propositional/create-operator';
+import { createOperator } from '../create-operator';
 import { Glyph, GlyphType, Operator } from '../../common/enums';
 
 describe('createOperator()', () => {
