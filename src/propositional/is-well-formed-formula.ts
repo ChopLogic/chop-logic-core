@@ -1,4 +1,4 @@
-import { PropExpression } from '../common/types';
+import { PropExpression, PropSymbol } from '../common/types';
 import { Glyph, GlyphType } from '../common/enums';
 
 /**
@@ -20,38 +20,71 @@ export function isWellFormedFormula(expression: PropExpression): boolean {
   let index = 0;
 
   function parseWFF(): boolean {
-    if (index >= expression.length) return false;
-    const symbol = expression[index];
+    if (isEndOfExpression()) return false;
 
-    if (symbol.type === GlyphType.Variable) {
-      index++; // A single variable is a WFF
-      return true;
+    if (isVariable(expression[index])) {
+      return parseVariable();
     }
 
-    if (symbol.atom[0] === Glyph.Negation) {
-      index++; // Consume "~"
-      return parseWFF(); // Negation must be followed by a valid WFF
+    if (isNegation(expression[index])) {
+      return parseNegation();
     }
 
-    if (symbol.atom[0] === Glyph.OpenParenthesis) {
-      index++; // Consume "("
-      if (!parseWFF()) return false; // First WFF
-
-      if (index >= expression.length) return false;
-      const operator = expression[index];
-      if (operator.type !== GlyphType.Operator || operator.atom[0] === Glyph.Negation) return false;
-      index++; // Consume operator
-
-      if (!parseWFF()) return false; // Second WFF
-
-      if (index >= expression.length || expression[index].atom[0] !== Glyph.CloseParenthesis) {
-        return false; // Expect closing ")"
-      }
-      index++; // Consume ")"
-      return true;
+    if (isParenthesizedExpression(expression[index])) {
+      return parseParenthesizedExpression();
     }
 
     return false;
+  }
+
+  function parseVariable(): boolean {
+    index++; // A single variable is a WFF
+    return true;
+  }
+
+  function parseNegation(): boolean {
+    index++; // Consume "~"
+    return parseWFF(); // Negation must be followed by a valid WFF
+  }
+
+  function parseParenthesizedExpression(): boolean {
+    index++; // Consume "("
+
+    if (!parseWFF()) return false; // First WFF must exist
+
+    if (isEndOfExpression() || !isBinaryOperator(expression[index])) return false;
+    index++; // Consume operator
+
+    if (!parseWFF()) return false; // Second WFF must exist
+
+    if (isEndOfExpression() || !isClosingParenthesis(expression[index])) return false;
+    index++; // Consume ")"
+
+    return true;
+  }
+
+  function isEndOfExpression(): boolean {
+    return index >= expression.length;
+  }
+
+  function isVariable(symbol: PropSymbol): boolean {
+    return symbol.type === GlyphType.Variable;
+  }
+
+  function isNegation(symbol: PropSymbol): boolean {
+    return symbol.atom[0] === Glyph.Negation;
+  }
+
+  function isParenthesizedExpression(symbol: PropSymbol): boolean {
+    return symbol.atom[0] === Glyph.OpenParenthesis;
+  }
+
+  function isBinaryOperator(symbol: PropSymbol): boolean {
+    return symbol.type === GlyphType.Operator && symbol.atom[0] !== Glyph.Negation;
+  }
+
+  function isClosingParenthesis(symbol: PropSymbol): boolean {
+    return symbol.atom[0] === Glyph.CloseParenthesis;
   }
 
   const result = parseWFF();
