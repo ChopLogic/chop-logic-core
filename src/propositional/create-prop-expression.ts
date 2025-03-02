@@ -15,5 +15,5 @@ import { createPropositionalSymbol } from './create-prop-symbol';
  */
 export function createPropExpression(input: string): PropSymbol[] {
   const tokens = tokenizePropInput(input);
-  return tokens.map((token, index) => createPropositionalSymbol(token, index + 1));
+  return tokens.map((token, index) => createPropositionalSymbol(token, index));
 }
