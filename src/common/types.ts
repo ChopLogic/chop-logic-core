@@ -16,6 +16,8 @@ export type PropFormula = {
   values: PropFormula[] | PropAtom;
 };
 
+export type TruthAssignmentsMap = Map<number, boolean[]>;
+
 export type ProofStep = {
   id: string;
   index: number;
@@ -36,3 +38,7 @@ export type DirectProofStep = ProofStep & {
   expression: PropExpression;
   formula: PropFormula;
 };
+
+export type TruthTableRow = Record<string, boolean>;
+
+export type TruthTable = TruthTableRow[];
