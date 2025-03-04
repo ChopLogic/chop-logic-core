@@ -18,6 +18,8 @@ export type PropFormula = {
 
 export type TruthAssignmentsMap = Map<number, boolean[]>;
 
+export type PropFormulaVariablesMap = Map<number, PropAtom>;
+
 export type ProofStep = {
   id: string;
   index: number;
