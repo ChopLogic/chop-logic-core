@@ -58,7 +58,7 @@ describe('createPropositionalSymbol', () => {
   });
 
   it('should throw an error for an invalid character', () => {
-    expect(() => createPropositionalSymbol('#', 6)).toThrow('Cannot create a propositional symbol from the character "#".');
+    expect(() => createPropositionalSymbol('+', 6)).toThrow('Cannot create a propositional symbol from the character "+".');
   });
 
   it('should throw an error for an empty string', () => {

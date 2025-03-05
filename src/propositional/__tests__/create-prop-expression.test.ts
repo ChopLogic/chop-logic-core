@@ -7,7 +7,7 @@ describe('createPropExpression', () => {
     expect(createPropExpression('(A => B) & ~C')).toEqual<PropSymbol[]>([
       { position: 0, atom: ['('], type: GlyphType.Parenthesis, view: '（' },
       { position: 1, atom: ['A'], type: GlyphType.Variable, view: 'a' },
-      { position: 2, atom: ['=>'], type: GlyphType.Operator, view: '⇒' },
+      { position: 2, atom: ['=>'], type: GlyphType.Operator, view: '→' },
       { position: 3, atom: ['B'], type: GlyphType.Variable, view: 'b' },
       { position: 4, atom: [')'], type: GlyphType.Parenthesis, view: '）' },
       { position: 5, atom: ['&'], type: GlyphType.Operator, view: '∧' },
@@ -19,7 +19,7 @@ describe('createPropExpression', () => {
   it('should correctly create an expression for "ABC <=> DFR"', () => {
     expect(createPropExpression('ABC <=> DFR')).toEqual<PropSymbol[]>([
       { position: 0, atom: ['ABC'], type: GlyphType.Variable, view: 'a' },
-      { position: 1, atom: ['<=>'], type: GlyphType.Operator, view: '⇔' },
+      { position: 1, atom: ['<=>'], type: GlyphType.Operator, view: '≡' },
       { position: 2, atom: ['DFR'], type: GlyphType.Variable, view: 'd' },
     ]);
   });

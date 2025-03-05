@@ -38,7 +38,7 @@ describe('tokenizePropInput', () => {
   });
 
   it('should throw an error for mixed valid and invalid input', () => {
-    expect(() => tokenizePropInput('A & B @ C')).toThrow('Invalid character(s) found in input: "A & B @ C".');
+    expect(() => tokenizePropInput('A & B + C')).toThrow('Invalid character(s) found in input: "A & B + C".');
   });
 
   it('should throw an error for numbers', () => {
