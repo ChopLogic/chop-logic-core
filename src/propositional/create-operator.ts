@@ -14,27 +14,36 @@ import { Glyph, GlyphType, Operator } from '../common/enums';
  */
 export function createOperator(symbol: PropSymbol): Operator {
   switch (symbol.atom[0]) {
-    case Glyph.Negation: {
+    case Glyph.Negation:
       return Operator.Not;
-    }
-    case Glyph.Conjunction: {
+    case Glyph.Conjunction:
       return Operator.And;
-    }
-    case Glyph.Disjunction: {
+    case Glyph.Disjunction:
       return Operator.Or;
-    }
-    case Glyph.Implication: {
+    case Glyph.Implication:
       return Operator.Implies;
-    }
-    case Glyph.Equivalence: {
+    case Glyph.ReversedImplication:
+      return Operator.ReversedImplies;
+    case Glyph.Equivalence:
       return Operator.Equiv;
-    }
-    default: {
+    case Glyph.ExclusiveConjunction:
+      return Operator.Xor;
+    case Glyph.ShefferStroke:
+      return Operator.Nand;
+    case Glyph.WebbOperation:
+      return Operator.Nor;
+    case Glyph.AntiImplication:
+      return Operator.AntiImplies;
+    case Glyph.ReversedAntiImplication:
+      return Operator.ReversedAntiImplies;
+    case Glyph.Contradiction:
+      return Operator.Contradiction;
+    case Glyph.Tautology:
+      return Operator.Tautology;
+    default:
       if (symbol.type === GlyphType.Variable) {
         return Operator.Var;
-      } else {
-        throw new Error(`Cannot create an operator from symbol "${symbol.atom[0]}".`);
       }
-    }
+      throw new Error(`Cannot create an operator from symbol "${symbol.atom[0]}".`);
   }
 }

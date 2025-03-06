@@ -43,10 +43,18 @@ export enum GlyphType {
 export enum Operator {
   Var = 'VAR',
   Not = 'NOT',
-  Or = 'OR',
   And = 'AND',
+  Or = 'OR',
   Implies = 'IMPLIES',
+  ReversedImplies = 'REVERSED_IMPLIES',
   Equiv = 'EQUIV',
+  Xor = 'XOR',
+  Nand = 'NAND',
+  Nor = 'NOR',
+  AntiImplies = 'ANTI_IMPLIES',
+  ReversedAntiImplies = 'REVERSED_ANTI_IMPLIES',
+  Contradiction = 'CONTRADICTION',
+  Tautology = 'TAUTOLOGY',
 }
 
 export enum StepReason {
