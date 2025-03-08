@@ -57,6 +57,33 @@ describe('createPropositionalSymbol', () => {
     });
   });
 
+  it('should create a variable symbol for "⊕"', () => {
+    expect(createPropositionalSymbol(Glyph.ExclusiveConjunction, 5)).toEqual<PropSymbol>({
+      position: 5,
+      atom: ['^'],
+      type: GlyphType.Operator,
+      view: '⊕',
+    });
+  });
+
+  it('should create a variable symbol for "↚"', () => {
+    expect(createPropositionalSymbol(Glyph.ReversedAntiImplication, 57)).toEqual<PropSymbol>({
+      position: 57,
+      atom: ['!<='],
+      type: GlyphType.Operator,
+      view: '↚',
+    });
+  });
+
+  it('should create a variable symbol for "@"', () => {
+    expect(createPropositionalSymbol(Glyph.Tautology, 1)).toEqual<PropSymbol>({
+      position: 1,
+      atom: ['@'],
+      type: GlyphType.Operator,
+      view: '⊤',
+    });
+  });
+
   it('should throw an error for an invalid character', () => {
     expect(() => createPropositionalSymbol('+', 6)).toThrow('Cannot create a propositional symbol from the character "+".');
   });

@@ -30,8 +30,12 @@ describe('getGlyphUnicode', () => {
     expect(getGlyphUnicode(Glyph.CloseParenthesis)).toBe(GlyphUnicode.CloseParenthesis);
   });
 
+  it('should return the correct Unicode for Tautology', () => {
+    expect(getGlyphUnicode(Glyph.Tautology)).toBe(GlyphUnicode.Tautology);
+  });
+
   it('should throw an error for an unrecognized character', () => {
-    expect(() => getGlyphUnicode('#')).toThrow('Cannot get a GlyphUnicode for the character "#"');
+    expect(() => getGlyphUnicode('+')).toThrow('Cannot get a GlyphUnicode for the character "+"');
   });
 
   it('should throw an error for an empty string', () => {

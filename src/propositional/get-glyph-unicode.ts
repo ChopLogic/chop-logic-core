@@ -12,6 +12,9 @@ export function getGlyphUnicode(char: string): GlyphUnicode {
     case Glyph.Implication: {
       return GlyphUnicode.Implication;
     }
+    case Glyph.ReversedImplication: {
+      return GlyphUnicode.ReversedImplication;
+    }
     case Glyph.Conjunction: {
       return GlyphUnicode.Conjunction;
     }
@@ -23,6 +26,27 @@ export function getGlyphUnicode(char: string): GlyphUnicode {
     }
     case Glyph.Equivalence: {
       return GlyphUnicode.Equivalence;
+    }
+    case Glyph.ExclusiveConjunction: {
+      return GlyphUnicode.ExclusiveConjunction;
+    }
+    case Glyph.ShefferStroke: {
+      return GlyphUnicode.ShefferStroke;
+    }
+    case Glyph.WebbOperation: {
+      return GlyphUnicode.WebbOperation;
+    }
+    case Glyph.AntiImplication: {
+      return GlyphUnicode.AntiImplication;
+    }
+    case Glyph.ReversedAntiImplication: {
+      return GlyphUnicode.ReversedAntiImplication;
+    }
+    case Glyph.Contradiction: {
+      return GlyphUnicode.Contradiction;
+    }
+    case Glyph.Tautology: {
+      return GlyphUnicode.Tautology;
     }
     case Glyph.OpenParenthesis: {
       return GlyphUnicode.OpenParenthesis;

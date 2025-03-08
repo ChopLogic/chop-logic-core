@@ -17,6 +17,10 @@ describe('tokenizePropInput', () => {
     expect(tokenizePropInput('p | q & ~r')).toEqual(['p', '|', 'q', '&', '~', 'r']);
   });
 
+  it('should correctly tokenize "p !& q !| ~@ !=> s ^ #"', () => {
+    expect(tokenizePropInput('p !& q !| ~@ !=> s ^ #')).toEqual(['p', '!&', 'q', '!|', '~', '@', '!=>', 's', '^', '#']);
+  });
+
   it('should correctly tokenize a single letter', () => {
     expect(tokenizePropInput('z')).toEqual(['z']);
   });
