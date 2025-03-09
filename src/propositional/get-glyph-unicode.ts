@@ -1,5 +1,23 @@
 import { Glyph, GlyphUnicode } from '../common/enums';
 
+const GlyphsDictionary: { [key in Glyph]: GlyphUnicode } = {
+  [Glyph.Implication]: GlyphUnicode.Implication,
+  [Glyph.ReversedImplication]: GlyphUnicode.ReversedImplication,
+  [Glyph.Conjunction]: GlyphUnicode.Conjunction,
+  [Glyph.Disjunction]: GlyphUnicode.Disjunction,
+  [Glyph.Negation]: GlyphUnicode.Negation,
+  [Glyph.Equivalence]: GlyphUnicode.Equivalence,
+  [Glyph.ExclusiveConjunction]: GlyphUnicode.ExclusiveConjunction,
+  [Glyph.ShefferStroke]: GlyphUnicode.ShefferStroke,
+  [Glyph.WebbOperation]: GlyphUnicode.WebbOperation,
+  [Glyph.AntiImplication]: GlyphUnicode.AntiImplication,
+  [Glyph.ReversedAntiImplication]: GlyphUnicode.ReversedAntiImplication,
+  [Glyph.Contradiction]: GlyphUnicode.Contradiction,
+  [Glyph.Tautology]: GlyphUnicode.Tautology,
+  [Glyph.OpenParenthesis]: GlyphUnicode.OpenParenthesis,
+  [Glyph.CloseParenthesis]: GlyphUnicode.CloseParenthesis,
+};
+
 /**
  * Converts a given logical glyph character into its corresponding Unicode representation.
  *
@@ -8,54 +26,9 @@ import { Glyph, GlyphUnicode } from '../common/enums';
  * @throws Will throw an error if the character is not a recognized `Glyph`.
  */
 export function getGlyphUnicode(char: string): GlyphUnicode {
-  switch (char) {
-    case Glyph.Implication: {
-      return GlyphUnicode.Implication;
-    }
-    case Glyph.ReversedImplication: {
-      return GlyphUnicode.ReversedImplication;
-    }
-    case Glyph.Conjunction: {
-      return GlyphUnicode.Conjunction;
-    }
-    case Glyph.Disjunction: {
-      return GlyphUnicode.Disjunction;
-    }
-    case Glyph.Negation: {
-      return GlyphUnicode.Negation;
-    }
-    case Glyph.Equivalence: {
-      return GlyphUnicode.Equivalence;
-    }
-    case Glyph.ExclusiveConjunction: {
-      return GlyphUnicode.ExclusiveConjunction;
-    }
-    case Glyph.ShefferStroke: {
-      return GlyphUnicode.ShefferStroke;
-    }
-    case Glyph.WebbOperation: {
-      return GlyphUnicode.WebbOperation;
-    }
-    case Glyph.AntiImplication: {
-      return GlyphUnicode.AntiImplication;
-    }
-    case Glyph.ReversedAntiImplication: {
-      return GlyphUnicode.ReversedAntiImplication;
-    }
-    case Glyph.Contradiction: {
-      return GlyphUnicode.Contradiction;
-    }
-    case Glyph.Tautology: {
-      return GlyphUnicode.Tautology;
-    }
-    case Glyph.OpenParenthesis: {
-      return GlyphUnicode.OpenParenthesis;
-    }
-    case Glyph.CloseParenthesis: {
-      return GlyphUnicode.CloseParenthesis;
-    }
-    default: {
-      throw new Error(`Cannot get a GlyphUnicode for the character "${char}".`);
-    }
+  if (char in GlyphsDictionary) {
+    return GlyphsDictionary[char];
+  } else {
+    throw new Error(`Cannot get a GlyphUnicode for the character "${char}".`);
   }
 }
