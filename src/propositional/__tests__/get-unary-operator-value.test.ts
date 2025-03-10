@@ -1,7 +1,7 @@
 import { getUnaryOperationValue } from '../get-unary-operation-value';
 import { Operator } from '../../common/enums';
 
-describe('getUnaryOperationValue()', () => {
+describe('getUnaryOperationValue', () => {
   it('should return the operand value for Operator.Var', () => {
     expect(getUnaryOperationValue({ operator: Operator.Var, operand: true })).toBe(true);
     expect(getUnaryOperationValue({ operator: Operator.Var, operand: false })).toBe(false);

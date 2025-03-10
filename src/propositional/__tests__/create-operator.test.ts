@@ -2,7 +2,7 @@ import { PropSymbol } from '../../common/types';
 import { createOperator } from '../create-operator';
 import { Glyph, GlyphType, Operator } from '../../common/enums';
 
-describe('createOperator()', () => {
+describe('createOperator', () => {
   it('should return Operator.Not for Negation glyph', () => {
     const symbol: PropSymbol = { atom: [Glyph.Negation], type: GlyphType.Operator, position: 0, view: '~' };
     expect(createOperator(symbol)).toBe(Operator.Not);

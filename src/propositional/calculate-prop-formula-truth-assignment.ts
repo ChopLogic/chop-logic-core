@@ -2,26 +2,29 @@ import { PropFormula, PropFormulaVariablesMap } from '../common/types';
 import { Operator } from '../common/enums';
 import { getUnaryOperationValue } from './get-unary-operation-value';
 import { getBinaryOperationValue } from './get-binary-operation-value';
+import { extractPropVariables } from './extract-prop-variables';
 
 /**
  * Evaluates a propositional formula based on a given truth assignment.
  *
  * @param {Object} params - Function parameters.
  * @param {PropFormula} params.formula - The propositional formula in tree-like structure.
- * @param {variables} params.variables -  The map of formula variables ordered alphabetically
  * @param {boolean[]} params.assignment - The truth assignment for the variables.
+ * @param {variablesMap} [params.variablesMap] -  The map of formula variables ordered alphabetically
  * @returns {boolean} - The boolean result of the evaluated formula.
  * @throws {Error} If the number of variables in the formula does not match the assignment length.
  */
 export function calculatePropFormulaValueOnTruthAssignment({
   formula,
-  variables,
   assignment,
+  variablesMap,
 }: {
   formula: PropFormula;
-  variables: PropFormulaVariablesMap;
   assignment: boolean[];
+  variablesMap?: PropFormulaVariablesMap;
 }): boolean {
+  const variables = variablesMap ?? extractPropVariables(formula);
+
   if (variables.size !== assignment.length) {
     throw new Error(`Mismatch between formula variables (${variables.size}) and assignment length (${assignment.length}).`);
   }
