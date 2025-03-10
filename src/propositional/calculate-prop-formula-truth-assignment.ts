@@ -1,5 +1,4 @@
-import { PropFormula } from '../common/types';
-import { extractPropVariables } from './extract-prop-variables';
+import { PropFormula, PropFormulaVariablesMap } from '../common/types';
 import { Operator } from '../common/enums';
 import { getUnaryOperationValue } from './get-unary-operation-value';
 import { getBinaryOperationValue } from './get-binary-operation-value';
@@ -9,26 +8,27 @@ import { getBinaryOperationValue } from './get-binary-operation-value';
  *
  * @param {Object} params - Function parameters.
  * @param {PropFormula} params.formula - The propositional formula in tree-like structure.
+ * @param {variables} params.variables -  The map of formula variables ordered alphabetically
  * @param {boolean[]} params.assignment - The truth assignment for the variables.
  * @returns {boolean} - The boolean result of the evaluated formula.
  * @throws {Error} If the number of variables in the formula does not match the assignment length.
  */
 export function calculatePropFormulaValueOnTruthAssignment({
   formula,
+  variables,
   assignment,
 }: {
   formula: PropFormula;
+  variables: PropFormulaVariablesMap;
   assignment: boolean[];
 }): boolean {
-  const variableMap = extractPropVariables(formula);
-
-  if (variableMap.size !== assignment.length) {
-    throw new Error(`Mismatch between formula variables (${variableMap.size}) and assignment length (${assignment.length}).`);
+  if (variables.size !== assignment.length) {
+    throw new Error(`Mismatch between formula variables (${variables.size}) and assignment length (${assignment.length}).`);
   }
 
   const variableValues = new Map<string, boolean>();
 
-  variableMap.forEach((atom, index) => {
+  variables.forEach((atom, index) => {
     variableValues.set(atom[0], assignment[index]);
   });
 

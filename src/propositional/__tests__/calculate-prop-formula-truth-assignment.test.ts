@@ -1,4 +1,4 @@
-import { PropFormula } from '../../common/types';
+import { PropFormula, PropFormulaVariablesMap } from '../../common/types';
 import { Operator } from '../../common/enums';
 import { calculatePropFormulaValueOnTruthAssignment } from '../calculate-prop-formula-truth-assignment';
 
@@ -11,9 +11,13 @@ describe('calculatePropFormulaValueOnTruthAssignment()', () => {
         { operator: Operator.Var, values: ['B'] },
       ],
     };
-    expect(calculatePropFormulaValueOnTruthAssignment({ formula, assignment: [true, false] })).toBe(false);
-    expect(calculatePropFormulaValueOnTruthAssignment({ formula, assignment: [true, true] })).toBe(false);
-    expect(calculatePropFormulaValueOnTruthAssignment({ formula, assignment: [false, false] })).toBe(true);
+    const variables = new Map([
+      [0, ['A']],
+      [1, ['B']],
+    ]) as PropFormulaVariablesMap;
+    expect(calculatePropFormulaValueOnTruthAssignment({ formula, variables, assignment: [true, false] })).toBe(false);
+    expect(calculatePropFormulaValueOnTruthAssignment({ formula, variables, assignment: [true, true] })).toBe(false);
+    expect(calculatePropFormulaValueOnTruthAssignment({ formula, variables, assignment: [false, false] })).toBe(true);
   });
 
   it('should evaluate a NOT operation', () => {
@@ -21,8 +25,9 @@ describe('calculatePropFormulaValueOnTruthAssignment()', () => {
       operator: Operator.Not,
       values: [{ operator: Operator.Var, values: ['A'] }],
     };
-    expect(calculatePropFormulaValueOnTruthAssignment({ formula, assignment: [true] })).toBe(false);
-    expect(calculatePropFormulaValueOnTruthAssignment({ formula, assignment: [false] })).toBe(true);
+    const variables = new Map([[0, ['A']]]) as PropFormulaVariablesMap;
+    expect(calculatePropFormulaValueOnTruthAssignment({ formula, variables, assignment: [true] })).toBe(false);
+    expect(calculatePropFormulaValueOnTruthAssignment({ formula, variables, assignment: [false] })).toBe(true);
   });
 
   it('should evaluate a more complex formula ((A & ~B) => C)', () => {
@@ -39,9 +44,14 @@ describe('calculatePropFormulaValueOnTruthAssignment()', () => {
         { operator: Operator.Var, values: ['C'] },
       ],
     };
-    expect(calculatePropFormulaValueOnTruthAssignment({ formula, assignment: [true, false, true] })).toBe(true);
-    expect(calculatePropFormulaValueOnTruthAssignment({ formula, assignment: [true, true, true] })).toBe(true);
-    expect(calculatePropFormulaValueOnTruthAssignment({ formula, assignment: [true, false, false] })).toBe(false);
+    const variables = new Map([
+      [0, ['A']],
+      [1, ['B']],
+      [2, ['C']],
+    ]) as PropFormulaVariablesMap;
+    expect(calculatePropFormulaValueOnTruthAssignment({ formula, variables, assignment: [true, false, true] })).toBe(true);
+    expect(calculatePropFormulaValueOnTruthAssignment({ formula, variables, assignment: [true, true, true] })).toBe(true);
+    expect(calculatePropFormulaValueOnTruthAssignment({ formula, variables, assignment: [true, false, false] })).toBe(false);
   });
 
   it('should evaluate a more complex formula ((A & B) <=> (C | D))', () => {
@@ -64,10 +74,16 @@ describe('calculatePropFormulaValueOnTruthAssignment()', () => {
         },
       ],
     };
-    expect(calculatePropFormulaValueOnTruthAssignment({ formula, assignment: [false, false, false, false] })).toBe(true);
-    expect(calculatePropFormulaValueOnTruthAssignment({ formula, assignment: [true, true, true, true] })).toBe(true);
-    expect(calculatePropFormulaValueOnTruthAssignment({ formula, assignment: [true, false, false, true] })).toBe(false);
-    expect(calculatePropFormulaValueOnTruthAssignment({ formula, assignment: [true, true, false, true] })).toBe(true);
+    const variables = new Map([
+      [0, ['A']],
+      [1, ['B']],
+      [2, ['C']],
+      [3, ['D']],
+    ]) as PropFormulaVariablesMap;
+    expect(calculatePropFormulaValueOnTruthAssignment({ formula, variables, assignment: [false, false, false, false] })).toBe(true);
+    expect(calculatePropFormulaValueOnTruthAssignment({ formula, variables, assignment: [true, true, true, true] })).toBe(true);
+    expect(calculatePropFormulaValueOnTruthAssignment({ formula, variables, assignment: [true, false, false, true] })).toBe(false);
+    expect(calculatePropFormulaValueOnTruthAssignment({ formula, variables, assignment: [true, true, false, true] })).toBe(true);
   });
 
   it('should throw an error for mismatched assignment length', () => {
@@ -75,7 +91,8 @@ describe('calculatePropFormulaValueOnTruthAssignment()', () => {
       operator: Operator.Var,
       values: ['A'],
     };
-    expect(() => calculatePropFormulaValueOnTruthAssignment({ formula, assignment: [] })).toThrow(
+    const variables = new Map([[0, ['A']]]) as PropFormulaVariablesMap;
+    expect(() => calculatePropFormulaValueOnTruthAssignment({ formula, variables, assignment: [] })).toThrow(
       'Mismatch between formula variables (1) and assignment length (0).',
     );
   });
