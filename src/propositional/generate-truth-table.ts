@@ -1,7 +1,7 @@
 import { PropFormula, TruthAssignmentsMap } from '../common/types';
 import { extractPropVariables } from './extract-prop-variables';
-import { generateTruthAssignments } from './generate-truth-assignments';
-import { calculatePropFormulaValueOnTruthAssignment } from './calculate-prop-formula-truth-assignment';
+import { generateTruthAssignments } from '../common/utils/generate-truth-assignments';
+import { calculatePropFormula } from './calculate-prop-formula';
 
 /**
  * Generates a truth table for the given propositional formula.
@@ -23,7 +23,7 @@ export function generateTruthTable(formula: PropFormula, limit = 100): TruthAssi
   const truthTable: TruthAssignmentsMap = new Map();
 
   truthAssignments.forEach((assignment, index) => {
-    const formulaValue = calculatePropFormulaValueOnTruthAssignment({
+    const formulaValue = calculatePropFormula({
       formula,
       assignment,
       variablesMap,

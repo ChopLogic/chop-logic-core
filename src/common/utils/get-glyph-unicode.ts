@@ -1,4 +1,4 @@
-import { Glyph, GlyphUnicode } from '../common/enums';
+import { Glyph, GlyphUnicode } from '../enums';
 
 const GlyphsDictionary: { [key in Glyph]: GlyphUnicode } = {
   [Glyph.Implication]: GlyphUnicode.Implication,

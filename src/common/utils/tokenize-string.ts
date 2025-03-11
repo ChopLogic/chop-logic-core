@@ -1,4 +1,4 @@
-import { Glyph } from '../common/enums';
+import { Glyph } from '../enums';
 
 /**
  * Tokenizes an input string into an array of known logical glyphs and variable names.
@@ -12,7 +12,7 @@ import { Glyph } from '../common/enums';
  * @returns An array of tokens (glyphs and variables).
  * @throws Will throw an error if the input contains unsupported characters.
  */
-export function tokenizePropInput(input: string): string[] {
+export function tokenizeString(input: string): string[] {
   if (!input.length) return [];
   // Sort by length to match longest first
   const glyphs = Object.values(Glyph).sort((a, b) => b.length - a.length);

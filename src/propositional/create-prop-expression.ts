@@ -1,11 +1,11 @@
 import { PropSymbol } from '../common/types';
-import { tokenizePropInput } from './tokenize-prop-input';
+import { tokenizeString } from '../common/utils/tokenize-string';
 import { createPropositionalSymbol } from './create-prop-symbol';
 
 /**
  * Converts a logical expression string into an array of PropSymbols.
  *
- * - Uses `tokenizePropInput` to split the input string into tokens.
+ * - Uses `tokenizeString` to split the input string into tokens.
  * - Uses `createPropositionalSymbol` to convert tokens into `PropSymbol` objects.
  * - Assigns an index-based position to each symbol.
  *
@@ -14,6 +14,6 @@ import { createPropositionalSymbol } from './create-prop-symbol';
  * @throws Will throw an error if the input contains invalid characters.
  */
 export function createPropExpression(input: string): PropSymbol[] {
-  const tokens = tokenizePropInput(input);
+  const tokens = tokenizeString(input);
   return tokens.map((token, index) => createPropositionalSymbol(token, index));
 }

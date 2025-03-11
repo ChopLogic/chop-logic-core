@@ -1,4 +1,4 @@
-import { TruthAssignmentsMap } from '../common/types';
+import { TruthAssignmentsMap } from '../types';
 
 /**
  * Generates all possible truth assignments for a given number of variables.

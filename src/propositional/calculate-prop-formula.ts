@@ -1,7 +1,7 @@
 import { PropFormula, PropFormulaVariablesMap } from '../common/types';
 import { Operator } from '../common/enums';
-import { getUnaryOperationValue } from './get-unary-operation-value';
-import { getBinaryOperationValue } from './get-binary-operation-value';
+import { getUnaryOperationValue } from '../common/utils/get-unary-operation-value';
+import { getBinaryOperationValue } from '../common/utils/get-binary-operation-value';
 import { extractPropVariables } from './extract-prop-variables';
 
 /**
@@ -14,7 +14,7 @@ import { extractPropVariables } from './extract-prop-variables';
  * @returns {boolean} - The boolean result of the evaluated formula.
  * @throws {Error} If the number of variables in the formula does not match the assignment length.
  */
-export function calculatePropFormulaValueOnTruthAssignment({
+export function calculatePropFormula({
   formula,
   assignment,
   variablesMap,

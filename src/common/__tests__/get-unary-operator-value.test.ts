@@ -1,5 +1,5 @@
-import { getUnaryOperationValue } from '../get-unary-operation-value';
-import { Operator } from '../../common/enums';
+import { getUnaryOperationValue } from '../utils/get-unary-operation-value';
+import { Operator } from '../enums';
 
 describe('getUnaryOperationValue', () => {
   it('should return the operand value for Operator.Var', () => {

@@ -1,6 +1,6 @@
 import { PropSymbol } from '../common/types';
 import { Glyph, GlyphType } from '../common/enums';
-import { getGlyphUnicode } from './get-glyph-unicode';
+import { getGlyphUnicode } from '../common/utils/get-glyph-unicode';
 
 /**
  * Creates a `PropSymbol` representing a propositional logic symbol.
