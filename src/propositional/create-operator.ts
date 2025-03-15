@@ -10,7 +10,7 @@ import { Glyph, GlyphType, Operator } from '../common/enums';
  *
  * @param symbol - The `PropSymbol` to be converted into an `Operator`.
  * @returns The corresponding `Operator` enum value.
- * @throws Will throw an error if the symbol is not recognized as an operator or a variable.
+ * @throws {Error} If the symbol is not recognized as an operator or a variable.
  */
 export function createOperator(symbol: PropSymbol): Operator {
   switch (symbol.atom[0]) {

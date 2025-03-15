@@ -13,7 +13,7 @@ import { getGlyphUnicode } from '../common/utils/get-glyph-unicode';
  * @param char - A single character representing a logical symbol.
  * @param position - The position of the symbol in the input expression.
  * @returns A `PropSymbol` containing the atom, type, position, and view.
- * @throws Will throw an error if the character is not a recognized logical symbol or a Latin letter.
+ * @throws {Error} If the character is not a recognized logical symbol or a Latin letter.
  */
 export function createPropositionalSymbol(char: string, position: number): PropSymbol {
   const knownGlyphs = Object.values(Glyph);

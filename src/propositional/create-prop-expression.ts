@@ -11,7 +11,7 @@ import { createPropositionalSymbol } from './create-prop-symbol';
  *
  * @param input - The logical expression as a string.
  * @returns An array of `PropSymbol` objects representing the parsed expression.
- * @throws Will throw an error if the input contains invalid characters.
+ * @throws {Error}  If the input contains invalid characters.
  */
 export function createPropExpression(input: string): PropSymbol[] {
   const tokens = tokenizeString(input);

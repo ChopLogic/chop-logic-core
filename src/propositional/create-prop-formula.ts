@@ -8,7 +8,7 @@ import { createOperator } from './create-operator';
  *
  * @param expression - A validated propositional expression.
  * @returns The corresponding PropFormula.
- * @throws Error if the expression is not a well-formed formula.
+ * @throws {Error} If the expression is not a well-formed formula.
  */
 export function createPropFormula(expression: PropExpression): PropFormula {
   if (!isWellFormedFormula(expression)) {

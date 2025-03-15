@@ -10,7 +10,7 @@ import { Glyph } from '../enums';
  *
  * @param input - The logical expression as a string.
  * @returns An array of tokens (glyphs and variables).
- * @throws Will throw an error if the input contains unsupported characters.
+ * @throws {Error} If the input contains unsupported characters.
  */
 export function tokenizeString(input: string): string[] {
   if (!input.length) return [];

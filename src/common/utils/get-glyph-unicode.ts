@@ -23,7 +23,7 @@ const GlyphsDictionary: { [key in Glyph]: GlyphUnicode } = {
  *
  * @param char - A string representing a logical glyph (e.g., '=>', '&', '|', '~', etc.).
  * @returns The corresponding Unicode character from the `GlyphUnicode` enum.
- * @throws Will throw an error if the character is not a recognized `Glyph`.
+ * @throws {Error} If the character is not a recognized `Glyph`.
  */
 export function getGlyphUnicode(char: string): GlyphUnicode {
   if (char in GlyphsDictionary) {

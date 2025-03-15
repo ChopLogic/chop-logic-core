@@ -5,7 +5,7 @@ import { Glyph, Operator } from '../enums';
  *
  * @param {Operator} operator - The logical operator to convert.
  * @returns {Glyph} - The corresponding glyph.
- * @throws {Error} - Throws an error if the operator is not recognized.
+ * @throws {Error} If the operator is not recognized.
  */
 export function getOperatorGlyph(operator: Operator): Glyph {
   switch (operator) {

@@ -6,7 +6,7 @@ import { TruthAssignmentsMap } from '../types';
  * @param varCount - The number of boolean variables.
  * @param limit - The maximum allowed number of variables (default: 100).
  * @returns A map of truth assignments, indexed by binary count.
- * @throws Error if varCount exceeds the limit.
+ * @throws {Error} If varCount exceeds the limit.
  */
 export function generateTruthAssignments(varCount: number, limit: number = 100): TruthAssignmentsMap {
   if (varCount > limit) {
