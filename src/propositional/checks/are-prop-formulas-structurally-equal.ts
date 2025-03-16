@@ -1,4 +1,4 @@
-import { PropFormula } from '../common/types';
+import { PropFormula } from '../../common/types';
 
 /**
  * Checks whether two propositional formulas are structurally equivalent.

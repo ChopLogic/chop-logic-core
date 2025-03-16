@@ -1,6 +1,6 @@
 import { createPropExpression } from '../create-prop-expression';
 import { createPropFormula } from '../create-prop-formula';
-import { Operator } from '../../common/enums';
+import { Operator } from '../../../common/enums';
 
 describe('createPropFormula', () => {
   it('should correctly parse a single variable', () => {

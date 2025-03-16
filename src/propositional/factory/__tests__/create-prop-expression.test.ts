@@ -1,6 +1,6 @@
 import { createPropExpression } from '../create-prop-expression';
-import { GlyphType } from '../../common/enums';
-import { PropSymbol } from '../../common/types';
+import { GlyphType } from '../../../common/enums';
+import { PropSymbol } from '../../../common/types';
 
 describe('createPropExpression', () => {
   it('should correctly create an expression for "(A => B) & ~C"', () => {

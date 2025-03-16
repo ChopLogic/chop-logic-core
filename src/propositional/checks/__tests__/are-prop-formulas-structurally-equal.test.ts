@@ -1,5 +1,5 @@
-import { PropFormula } from '../../common/types';
-import { Operator } from '../../common/enums';
+import { PropFormula } from '../../../common/types';
+import { Operator } from '../../../common/enums';
 import { arePropFormulasStructurallyEqual } from '../are-prop-formulas-structurally-equal';
 
 describe('arePropFormulasStructurallyEqual', () => {

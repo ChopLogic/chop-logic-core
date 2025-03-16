@@ -1,6 +1,6 @@
-import { PropSymbol } from '../common/types';
-import { Glyph, GlyphType } from '../common/enums';
-import { getGlyphUnicode } from '../common/utils/get-glyph-unicode';
+import { PropSymbol } from '../../common/types';
+import { Glyph, GlyphType } from '../../common/enums';
+import { getGlyphUnicode } from '../../common/utils/get-glyph-unicode';
 
 /**
  * Creates a `PropSymbol` representing a propositional logic symbol.
@@ -15,7 +15,7 @@ import { getGlyphUnicode } from '../common/utils/get-glyph-unicode';
  * @returns A `PropSymbol` containing the atom, type, position, and view.
  * @throws {Error} If the character is not a recognized logical symbol or a Latin letter.
  */
-export function createPropositionalSymbol(char: string, position: number): PropSymbol {
+export function createPropSymbol(char: string, position: number): PropSymbol {
   const knownGlyphs = Object.values(Glyph);
   const onlyLatinLetters = /^[a-zA-Z]+$/;
 

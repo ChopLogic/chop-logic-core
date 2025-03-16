@@ -1,6 +1,6 @@
-import { PropSymbol } from '../common/types';
-import { tokenizeString } from '../common/utils/tokenize-string';
-import { createPropositionalSymbol } from './create-prop-symbol';
+import { PropSymbol } from '../../common/types';
+import { tokenizeString } from '../../common/utils/tokenize-string';
+import { createPropSymbol } from './create-prop-symbol';
 
 /**
  * Converts a logical expression string into an array of PropSymbols.
@@ -15,5 +15,5 @@ import { createPropositionalSymbol } from './create-prop-symbol';
  */
 export function createPropExpression(input: string): PropSymbol[] {
   const tokens = tokenizeString(input);
-  return tokens.map((token, index) => createPropositionalSymbol(token, index));
+  return tokens.map((token, index) => createPropSymbol(token, index));
 }
