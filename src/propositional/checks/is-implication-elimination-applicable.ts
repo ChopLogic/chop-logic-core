@@ -6,7 +6,7 @@ import { arePropFormulasStructurallyEqual } from './are-prop-formulas-structural
  * Checks if implication elimination (modus ponens) is applicable to two given formulas.
  *
  * This function verifies that:
- * - One of the formulas is an implication (Operator.Implies).
+ * - One of the formulas is an implication.
  * - The other formula is structurally equal to the antecedent of the implication.
  *
  * @param formula1 - The first propositional formula.
