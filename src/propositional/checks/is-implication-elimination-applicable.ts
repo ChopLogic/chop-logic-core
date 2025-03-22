@@ -6,14 +6,17 @@ import { arePropFormulasStructurallyEqual } from './are-prop-formulas-structural
  * Checks if implication elimination (modus ponens) is applicable to two given formulas.
  *
  * This function verifies that:
+ * - Exactly two formulas in the input array
  * - One of the formulas is an implication.
  * - The other formula is structurally equal to the antecedent of the implication.
  *
- * @param formula1 - The first propositional formula.
- * @param formula2 - The second propositional formula.
+ * @param formulas - An array of propositional formulas to check.
  * @returns True if implication elimination can be applied, false otherwise.
  */
-export function isImplicationEliminationApplicable(formula1: PropFormula, formula2: PropFormula): boolean {
+export function isImplicationEliminationApplicable(formulas: PropFormula[]): boolean {
+  if (formulas.length !== 2) return false;
+  const [formula1, formula2] = formulas;
+
   const checkImplication = (implication: PropFormula, antecedent: PropFormula) =>
     implication.operator === Operator.Implies &&
     Array.isArray(implication.values) &&

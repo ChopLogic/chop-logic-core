@@ -12,7 +12,7 @@ describe('isImplicationEliminationApplicable', () => {
       ],
     };
     const formula2: PropFormula = { operator: Operator.Var, values: ['P'] };
-    expect(isImplicationEliminationApplicable(formula1, formula2)).toBe(true);
+    expect(isImplicationEliminationApplicable([formula1, formula2])).toBe(true);
   });
 
   it('should return true when implication and antecedent positions are swapped', () => {
@@ -24,7 +24,7 @@ describe('isImplicationEliminationApplicable', () => {
         { operator: Operator.Var, values: ['Q'] },
       ],
     };
-    expect(isImplicationEliminationApplicable(formula1, formula2)).toBe(true);
+    expect(isImplicationEliminationApplicable([formula1, formula2])).toBe(true);
   });
 
   it('should return false if there is no implication', () => {
@@ -36,7 +36,7 @@ describe('isImplicationEliminationApplicable', () => {
       ],
     };
     const formula2: PropFormula = { operator: Operator.Var, values: ['P'] };
-    expect(isImplicationEliminationApplicable(formula1, formula2)).toBe(false);
+    expect(isImplicationEliminationApplicable([formula1, formula2])).toBe(false);
   });
 
   it('should return false if antecedent does not match implication', () => {
@@ -48,7 +48,7 @@ describe('isImplicationEliminationApplicable', () => {
       ],
     };
     const formula2: PropFormula = { operator: Operator.Var, values: ['P'] };
-    expect(isImplicationEliminationApplicable(formula1, formula2)).toBe(false);
+    expect(isImplicationEliminationApplicable([formula1, formula2])).toBe(false);
   });
 
   it('should return false if both formulas are implications but unrelated', () => {
@@ -66,6 +66,31 @@ describe('isImplicationEliminationApplicable', () => {
         { operator: Operator.Var, values: ['D'] },
       ],
     };
-    expect(isImplicationEliminationApplicable(formula1, formula2)).toBe(false);
+    expect(isImplicationEliminationApplicable([formula1, formula2])).toBe(false);
+  });
+
+  it('should return false for more that two formulas in the input array', () => {
+    const formula1: PropFormula = {
+      operator: Operator.Implies,
+      values: [
+        { operator: Operator.Var, values: ['A'] },
+        { operator: Operator.Var, values: ['B'] },
+      ],
+    };
+    const formula2: PropFormula = {
+      operator: Operator.Implies,
+      values: [
+        { operator: Operator.Var, values: ['C'] },
+        { operator: Operator.Var, values: ['D'] },
+      ],
+    };
+    const formula3: PropFormula = {
+      operator: Operator.Implies,
+      values: [
+        { operator: Operator.Var, values: ['F'] },
+        { operator: Operator.Var, values: ['G'] },
+      ],
+    };
+    expect(isImplicationEliminationApplicable([formula1, formula2, formula3])).toBe(false);
   });
 });

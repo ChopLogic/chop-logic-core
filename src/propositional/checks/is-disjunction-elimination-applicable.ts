@@ -6,15 +6,18 @@ import { arePropFormulasStructurallyEqual } from './are-prop-formulas-structural
  * Checks whether the Disjunction Elimination rule is applicable to three given formulas.
  *
  * Conditions for applicability:
+ * - Exactly three formulas in the input array
  * - Two formulas must be implications with the same consequent.
  * - The third formula must be a disjunction of the antecedents of the other two implications.
  *
- * @param formula1 - First propositional formula
- * @param formula2 - Second propositional formula
- * @param formula3 - Third propositional formula
+ * @param formulas - An array of propositional formulas to check.
  * @returns boolean indicating whether the rule is applicable
  */
-export function isDisjunctionEliminationApplicable(formula1: PropFormula, formula2: PropFormula, formula3: PropFormula): boolean {
+export function isDisjunctionEliminationApplicable(formulas: PropFormula[]): boolean {
+  if (formulas.length !== 3) return false;
+
+  const [formula1, formula2, formula3] = formulas;
+
   // Identify the disjunction formula
   let disjunction: PropFormula | null = null;
   let implication1: PropFormula | null = null;
