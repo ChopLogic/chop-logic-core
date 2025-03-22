@@ -5,13 +5,13 @@ import { PropFormula } from '../../common/types';
  * Two formulas are considered structurally equivalent if they have the exact same structure,
  * operators, and variable names in the same positions.
  *
- * @param formula1 - The first propositional formula.
- * @param formula2 - The second propositional formula.
+ * @param formulas - An array of propositional formulas to check.
  * @returns True if the formulas are structurally equivalent, otherwise false.
  */
-export function arePropFormulasStructurallyEqual(formula1: PropFormula, formula2: PropFormula): boolean {
-  const firstArgument = JSON.stringify(formula1);
-  const secondArgument = JSON.stringify(formula2);
+export function arePropFormulasStructurallyEqual(formulas: PropFormula[]): boolean {
+  if (!formulas.length) return false;
 
-  return firstArgument === secondArgument;
+  const strings = formulas.map((formula) => JSON.stringify(formula));
+
+  return strings.every((item) => item === strings[0]);
 }

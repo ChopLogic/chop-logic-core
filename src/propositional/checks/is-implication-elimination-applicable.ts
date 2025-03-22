@@ -21,7 +21,7 @@ export function isImplicationEliminationApplicable(formulas: PropFormula[]): boo
     implication.operator === Operator.Implies &&
     Array.isArray(implication.values) &&
     implication.values.length === 2 &&
-    arePropFormulasStructurallyEqual(implication.values[0], antecedent);
+    arePropFormulasStructurallyEqual([implication.values[0], antecedent]);
 
   return checkImplication(formula1, formula2) || checkImplication(formula2, formula1);
 }

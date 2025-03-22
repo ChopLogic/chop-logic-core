@@ -45,13 +45,13 @@ export function isDisjunctionEliminationApplicable(formulas: PropFormula[]): boo
   const [antecedent2, consequent2] = implication2.values as PropFormula[];
 
   // Check if the implications have the same consequent
-  if (!arePropFormulasStructurallyEqual(consequent1, consequent2)) {
+  if (!arePropFormulasStructurallyEqual([consequent1, consequent2])) {
     return false;
   }
 
   // Check if the disjunction consists of the antecedents of the two implications
   return (
-    (arePropFormulasStructurallyEqual(disjunct1, antecedent1) && arePropFormulasStructurallyEqual(disjunct2, antecedent2)) ||
-    (arePropFormulasStructurallyEqual(disjunct1, antecedent2) && arePropFormulasStructurallyEqual(disjunct2, antecedent1))
+    (arePropFormulasStructurallyEqual([disjunct1, antecedent1]) && arePropFormulasStructurallyEqual([disjunct2, antecedent2])) ||
+    (arePropFormulasStructurallyEqual([disjunct1, antecedent2]) && arePropFormulasStructurallyEqual([disjunct2, antecedent1]))
   );
 }

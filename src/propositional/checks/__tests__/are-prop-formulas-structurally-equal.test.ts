@@ -12,7 +12,25 @@ describe('arePropFormulasStructurallyEqual', () => {
       ],
     };
     const formula2 = { ...formula1 };
-    expect(arePropFormulasStructurallyEqual(formula1, formula2)).toBe(true);
+    expect(arePropFormulasStructurallyEqual([formula1, formula2])).toBe(true);
+  });
+
+  it('should return false for an empty array', () => {
+    expect(arePropFormulasStructurallyEqual([])).toBe(false);
+  });
+
+  it('should return true for more than two identical formulas', () => {
+    const formula1: PropFormula = {
+      operator: Operator.And,
+      values: [
+        { operator: Operator.Var, values: ['A'] },
+        { operator: Operator.Var, values: ['B'] },
+      ],
+    };
+    const formula2 = { ...formula1 };
+    const formula3 = { ...formula1 };
+    const formula4 = { ...formula1 };
+    expect(arePropFormulasStructurallyEqual([formula1, formula2, formula3, formula4])).toBe(true);
   });
 
   it('should return false for different structures', () => {
@@ -30,7 +48,7 @@ describe('arePropFormulasStructurallyEqual', () => {
         { operator: Operator.Var, values: ['B'] },
       ],
     };
-    expect(arePropFormulasStructurallyEqual(formula1, formula2)).toBe(false);
+    expect(arePropFormulasStructurallyEqual([formula1, formula2])).toBe(false);
   });
 
   it('should return false for different variable names', () => {
@@ -48,7 +66,7 @@ describe('arePropFormulasStructurallyEqual', () => {
         { operator: Operator.Var, values: ['C'] },
       ],
     };
-    expect(arePropFormulasStructurallyEqual(formula1, formula2)).toBe(false);
+    expect(arePropFormulasStructurallyEqual([formula1, formula2])).toBe(false);
   });
 
   it('should return true for deeply nested identical formulas', () => {
@@ -72,7 +90,7 @@ describe('arePropFormulasStructurallyEqual', () => {
       ],
     };
     const formula2 = { ...formula1 };
-    expect(arePropFormulasStructurallyEqual(formula1, formula2)).toBe(true);
+    expect(arePropFormulasStructurallyEqual([formula1, formula2])).toBe(true);
   });
 
   it('should return false for deeply nested different formulas', () => {
@@ -114,6 +132,6 @@ describe('arePropFormulasStructurallyEqual', () => {
         },
       ],
     };
-    expect(arePropFormulasStructurallyEqual(formula1, formula2)).toBe(false);
+    expect(arePropFormulasStructurallyEqual([formula1, formula2])).toBe(false);
   });
 });
