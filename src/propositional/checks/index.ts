@@ -8,6 +8,7 @@ import { isNegationEliminationApplicable } from './is-negation-elimination-appli
 import { isDisjunctionCreationApplicable } from './is-dusjunction-creation-applicable';
 import { isConjunctionCreationApplicable } from './is-conjunction-creation-applicable';
 import { isEquivalenceCreationApplicable } from './is-equivalence-creation-applicable';
+import { isNegationCreationApplicable } from './is-negation-creation-applicable';
 
 export const PropositionalChecks = {
   areStructurallyEqual: arePropFormulasStructurallyEqual,
@@ -22,4 +23,5 @@ export const PropositionalChecks = {
   isDC: isDisjunctionCreationApplicable,
   isCC: isConjunctionCreationApplicable,
   isEC: isEquivalenceCreationApplicable,
+  isNC: isNegationCreationApplicable,
 };
