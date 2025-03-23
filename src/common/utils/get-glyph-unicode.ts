@@ -1,6 +1,6 @@
 import { Glyph, GlyphUnicode } from '../enums';
 
-const GlyphsDictionary: { [key in Glyph]: GlyphUnicode } = {
+const GlyphsDictionary: Record<Glyph, GlyphUnicode> = {
   [Glyph.Implication]: GlyphUnicode.Implication,
   [Glyph.ReversedImplication]: GlyphUnicode.ReversedImplication,
   [Glyph.Conjunction]: GlyphUnicode.Conjunction,

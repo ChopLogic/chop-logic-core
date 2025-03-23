@@ -1,7 +1,7 @@
 import { PropExpression, PropFormula, PropSymbol } from '../../common/types';
 import { Glyph, GlyphType, Operator } from '../../common/enums';
 import { createOperator } from '../../common/utils/create-operator';
-import { PropositionalChecks } from '../checks';
+import { isWellFormedFormula } from '../is-well-formed-formula';
 
 /**
  * Converts a well-formed propositional expression into a tree-like PropFormula.
@@ -11,7 +11,7 @@ import { PropositionalChecks } from '../checks';
  * @throws {Error} If the expression is not a well-formed formula.
  */
 export function createPropFormula(expression: PropExpression): PropFormula {
-  if (!PropositionalChecks.isWellFormed(expression)) {
+  if (!isWellFormedFormula(expression)) {
     throw new Error('Invalid propositional expression: Not a well-formed formula (WFF).');
   }
 

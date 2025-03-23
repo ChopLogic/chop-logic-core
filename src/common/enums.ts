@@ -72,3 +72,18 @@ export enum StepReason {
   NE = 'Negation Introduction',
   NI = 'Negation Elimination',
 }
+
+export enum PropFormulaCheck {
+  areEqual = 'areEqual',
+  // Elimination rules
+  isIE = 'isIE',
+  isDE = 'isDE',
+  isCE = 'isCE',
+  isEE = 'isEE',
+  isNE = 'isNE',
+  // Creation rules
+  isDC = 'isDC',
+  isCC = 'isCC',
+  isEC = 'isEC',
+  isNC = 'isNC',
+}
