@@ -38,7 +38,7 @@ const PROP_FORMULA_CHECKS: Record<PropFormulaCheck, PropFormulaCheckFunction> = 
 export function applyPropFormulaChecks(
   formulas: PropFormula[],
   checks: PropFormulaCheck[] = Object.keys(PropFormulaCheck) as PropFormulaCheck[],
-): Record<string, boolean> {
+): Record<PropFormulaCheck, boolean> {
   return checks.reduce<Record<string, boolean>>((results, checkName) => {
     const checkFunction = PROP_FORMULA_CHECKS[checkName];
     results[checkName] = checkFunction ? checkFunction(formulas) : false;
