@@ -7,18 +7,19 @@ import { Operator } from '../../common/enums';
  * Given two formulas A and B, this function returns the formula:
  * (A => (B => A)).
  *
- * @param firstFormula - The first propositional formula (A).
- * @param secondFormula - The second propositional formula (B).
+ * @param {Object} params - Premises or prover formulas.
+ * @param {PropFormula} params.A - The first propositional formula (A).
+ * @param {PropFormula} params.B - The second propositional formula (B).
  * @returns A new formula representing (A => (B => A)).
  */
-export function addImplicationIntroduction(firstFormula: PropFormula, secondFormula: PropFormula): PropFormula {
+export function implicationIntroduction({ A, B }: { A: PropFormula; B: PropFormula }): PropFormula {
   return {
     operator: Operator.Implies,
     values: [
-      firstFormula,
+      A,
       {
         operator: Operator.Implies,
-        values: [secondFormula, firstFormula],
+        values: [B, A],
       },
     ],
   };

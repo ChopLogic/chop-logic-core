@@ -1,5 +1,5 @@
-import { addImplicationIntroduction } from './add-implication-introduction';
+import { implicationIntroduction } from './implication-introduction';
 
 export const HilbertAxioms = {
-  II: addImplicationIntroduction,
+  II: implicationIntroduction,
 };
