@@ -5,9 +5,9 @@ import { arePropFormulasStructurallyEqual } from './are-prop-formulas-structural
 /**
  * Checks if negation creation is applicable.
  *
- * Negation creation allows us to infer ¬A from two implications:
+ * Negation creation allows us to infer ~A from two implications:
  *  1) A => B
- *  2) A => ¬B
+ *  2) A => ~B
  *
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if we can infer negation, otherwise `false`.
