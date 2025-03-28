@@ -8,6 +8,6 @@ import { PropFormula } from '../../common/types';
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if all there is exactly one formula in the array, otherwise `false`.
  */
-export function isDisjunctionCreationApplicable(formulas: PropFormula[]): boolean {
+export function isDisjunctionIntroductionApplicable(formulas: PropFormula[]): boolean {
   return formulas.length === 1;
 }

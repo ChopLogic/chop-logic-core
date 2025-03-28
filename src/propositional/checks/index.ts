@@ -4,10 +4,10 @@ import { isDisjunctionEliminationApplicable } from './is-disjunction-elimination
 import { isConjunctionEliminationApplicable } from './is-conjunction-elimination-applicable';
 import { isEquivalenceEliminationApplicable } from './is-equivalence-elimination-applicable';
 import { isNegationEliminationApplicable } from './is-negation-elimination-applicable';
-import { isDisjunctionCreationApplicable } from './is-dusjunction-creation-applicable';
-import { isConjunctionCreationApplicable } from './is-conjunction-creation-applicable';
-import { isEquivalenceCreationApplicable } from './is-equivalence-creation-applicable';
-import { isNegationCreationApplicable } from './is-negation-creation-applicable';
+import { isDisjunctionIntroductionApplicable } from './is-dusjunction-introduction-applicable';
+import { isConjunctionIntroductionApplicable } from './is-conjunction-introduction-applicable';
+import { isEquivalenceIntroductionApplicable } from './is-equivalence-introduction-applicable';
+import { isNegationIntroductionApplicable } from './is-negation-introduction-applicable';
 import { PropFormula } from '../../common/types';
 import { PropFormulaCheck } from '../../common/enums';
 
@@ -21,11 +21,11 @@ const PROP_FORMULA_CHECKS: Record<PropFormulaCheck, PropFormulaCheckFunction> = 
   [PropFormulaCheck.isCE]: isConjunctionEliminationApplicable,
   [PropFormulaCheck.isEE]: isEquivalenceEliminationApplicable,
   [PropFormulaCheck.isNE]: isNegationEliminationApplicable,
-  // Creation rules
-  [PropFormulaCheck.isDC]: isDisjunctionCreationApplicable,
-  [PropFormulaCheck.isCC]: isConjunctionCreationApplicable,
-  [PropFormulaCheck.isEC]: isEquivalenceCreationApplicable,
-  [PropFormulaCheck.isNC]: isNegationCreationApplicable,
+  // Introduction rules
+  [PropFormulaCheck.isDI]: isDisjunctionIntroductionApplicable,
+  [PropFormulaCheck.isCI]: isConjunctionIntroductionApplicable,
+  [PropFormulaCheck.isEI]: isEquivalenceIntroductionApplicable,
+  [PropFormulaCheck.isNI]: isNegationIntroductionApplicable,
 };
 
 /**

@@ -33,8 +33,8 @@ describe('applyPropFormulaChecks', () => {
   });
 
   it('handles conjunction creation correctly', () => {
-    const results = applyPropFormulaChecks([formulaA, formulaB], [PropFormulaCheck.isCC]);
-    expect(results.isCC).toBe(true);
+    const results = applyPropFormulaChecks([formulaA, formulaB], [PropFormulaCheck.isCI]);
+    expect(results.isCI).toBe(true);
   });
 
   it('handles conjunction elimination correctly', () => {
@@ -51,21 +51,21 @@ describe('applyPropFormulaChecks', () => {
     const results = applyPropFormulaChecks([implicationAB, formulaA]);
     expect(results).toEqual({
       areEqual: false,
-      isCC: true,
+      isCI: true,
       isCE: false,
-      isDC: false,
+      isDI: false,
       isDE: false,
-      isEC: false,
+      isEI: false,
       isEE: false,
       isIE: true,
-      isNC: false,
+      isNI: false,
       isNE: false,
     });
   });
 
   it('allows check destructuring', () => {
-    const { areEqual, isCC } = applyPropFormulaChecks([formulaB, formulaA], [PropFormulaCheck.areEqual, PropFormulaCheck.isCC]);
+    const { areEqual, isCI } = applyPropFormulaChecks([formulaB, formulaA], [PropFormulaCheck.areEqual, PropFormulaCheck.isCI]);
     expect(areEqual).toBe(false);
-    expect(isCC).toBe(true);
+    expect(isCI).toBe(true);
   });
 });

@@ -81,9 +81,9 @@ export enum PropFormulaCheck {
   isCE = 'isCE',
   isEE = 'isEE',
   isNE = 'isNE',
-  // Creation rules
-  isDC = 'isDC',
-  isCC = 'isCC',
-  isEC = 'isEC',
-  isNC = 'isNC',
+  // Introduction rules
+  isDI = 'isDI',
+  isCI = 'isCI',
+  isEI = 'isEI',
+  isNI = 'isNI',
 }

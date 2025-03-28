@@ -1,5 +1,5 @@
 import { PropFormula } from '../../common/types';
-import { isNegationCreationApplicable } from '../checks/is-negation-creation-applicable';
+import { isNegationIntroductionApplicable } from '../checks/is-negation-introduction-applicable';
 import { Operator } from '../../common/enums';
 
 /**
@@ -12,7 +12,7 @@ import { Operator } from '../../common/enums';
  * @throws {Error} if negation introduction is not applicable.
  */
 export function negationIntroduction(formulas: PropFormula[]): PropFormula {
-  if (!isNegationCreationApplicable(formulas)) {
+  if (!isNegationIntroductionApplicable(formulas)) {
     throw new Error('Negation introduction is not applicable to the given formulas.');
   }
 

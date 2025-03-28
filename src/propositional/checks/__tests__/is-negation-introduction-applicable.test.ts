@@ -1,8 +1,8 @@
 import { PropFormula } from '../../../common/types';
 import { Operator } from '../../../common/enums';
-import { isNegationCreationApplicable } from '../is-negation-creation-applicable';
+import { isNegationIntroductionApplicable } from '../is-negation-introduction-applicable';
 
-describe('isNegationCreationApplicable', () => {
+describe('isNegationIntroductionApplicable', () => {
   it('should return true for two implications with the same antecedent and negated consequents', () => {
     const formula1: PropFormula = {
       operator: Operator.Implies,
@@ -20,7 +20,7 @@ describe('isNegationCreationApplicable', () => {
       ],
     };
 
-    expect(isNegationCreationApplicable([formula1, formula2])).toBe(true);
+    expect(isNegationIntroductionApplicable([formula1, formula2])).toBe(true);
   });
 
   it('should return true when negation is in the first formula', () => {
@@ -40,7 +40,7 @@ describe('isNegationCreationApplicable', () => {
       ],
     };
 
-    expect(isNegationCreationApplicable([formula1, formula2])).toBe(true);
+    expect(isNegationIntroductionApplicable([formula1, formula2])).toBe(true);
   });
 
   it('should return false if there are not exactly two formulas', () => {
@@ -52,8 +52,8 @@ describe('isNegationCreationApplicable', () => {
       ],
     };
 
-    expect(isNegationCreationApplicable([formula])).toBe(false);
-    expect(isNegationCreationApplicable([])).toBe(false);
+    expect(isNegationIntroductionApplicable([formula])).toBe(false);
+    expect(isNegationIntroductionApplicable([])).toBe(false);
   });
 
   it('should return false if at least one formula is not an implication', () => {
@@ -73,7 +73,7 @@ describe('isNegationCreationApplicable', () => {
       ],
     };
 
-    expect(isNegationCreationApplicable([formula1, formula2])).toBe(false);
+    expect(isNegationIntroductionApplicable([formula1, formula2])).toBe(false);
   });
 
   it('should return false if antecedents are not structurally equal', () => {
@@ -93,7 +93,7 @@ describe('isNegationCreationApplicable', () => {
       ],
     };
 
-    expect(isNegationCreationApplicable([formula1, formula2])).toBe(false);
+    expect(isNegationIntroductionApplicable([formula1, formula2])).toBe(false);
   });
 
   it('should return false if consequents are not exact negations of each other', () => {
@@ -113,6 +113,6 @@ describe('isNegationCreationApplicable', () => {
       ],
     };
 
-    expect(isNegationCreationApplicable([formula1, formula2])).toBe(false);
+    expect(isNegationIntroductionApplicable([formula1, formula2])).toBe(false);
   });
 });

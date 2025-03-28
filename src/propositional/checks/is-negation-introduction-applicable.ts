@@ -12,7 +12,7 @@ import { arePropFormulasStructurallyEqual } from './are-prop-formulas-structural
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if we can infer negation, otherwise `false`.
  */
-export function isNegationCreationApplicable(formulas: PropFormula[]): boolean {
+export function isNegationIntroductionApplicable(formulas: PropFormula[]): boolean {
   if (formulas.length !== 2) {
     return false;
   }

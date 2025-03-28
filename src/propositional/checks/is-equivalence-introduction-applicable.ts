@@ -11,7 +11,7 @@ import { arePropFormulasStructurallyEqual } from './are-prop-formulas-structural
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if we can infer equivalence, otherwise `false`.
  */
-export function isEquivalenceCreationApplicable(formulas: PropFormula[]): boolean {
+export function isEquivalenceIntroductionApplicable(formulas: PropFormula[]): boolean {
   if (formulas.length !== 2) {
     return false;
   }

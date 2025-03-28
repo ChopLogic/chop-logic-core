@@ -1,8 +1,8 @@
 import { PropFormula } from '../../../common/types';
 import { Operator } from '../../../common/enums';
-import { isEquivalenceCreationApplicable } from '../is-equivalence-creation-applicable';
+import { isEquivalenceIntroductionApplicable } from '../is-equivalence-introduction-applicable';
 
-describe('isEquivalenceCreationApplicable', () => {
+describe('isEquivalenceIntroductionApplicable', () => {
   it('should return true for two implications that form an equivalence', () => {
     const formula1: PropFormula = {
       operator: Operator.Implies,
@@ -20,7 +20,7 @@ describe('isEquivalenceCreationApplicable', () => {
       ],
     };
 
-    expect(isEquivalenceCreationApplicable([formula1, formula2])).toBe(true);
+    expect(isEquivalenceIntroductionApplicable([formula1, formula2])).toBe(true);
   });
 
   it('should return false if there are not exactly two formulas', () => {
@@ -32,8 +32,8 @@ describe('isEquivalenceCreationApplicable', () => {
       ],
     };
 
-    expect(isEquivalenceCreationApplicable([formula])).toBe(false);
-    expect(isEquivalenceCreationApplicable([])).toBe(false);
+    expect(isEquivalenceIntroductionApplicable([formula])).toBe(false);
+    expect(isEquivalenceIntroductionApplicable([])).toBe(false);
   });
 
   it('should return false if at least one formula is not an implication', () => {
@@ -53,7 +53,7 @@ describe('isEquivalenceCreationApplicable', () => {
       ],
     };
 
-    expect(isEquivalenceCreationApplicable([formula1, formula2])).toBe(false);
+    expect(isEquivalenceIntroductionApplicable([formula1, formula2])).toBe(false);
   });
 
   it('should return false if implications do not form an equivalence', () => {
@@ -73,6 +73,6 @@ describe('isEquivalenceCreationApplicable', () => {
       ],
     };
 
-    expect(isEquivalenceCreationApplicable([formula1, formula2])).toBe(false);
+    expect(isEquivalenceIntroductionApplicable([formula1, formula2])).toBe(false);
   });
 });
