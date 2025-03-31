@@ -11,7 +11,7 @@ import { Operator } from '../../common/enums';
  * @returns The inferred negation formula.
  * @throws {Error} if negation introduction is not applicable.
  */
-export function negationIntroduction(formulas: PropFormula[]): PropFormula {
+export function negationIntroduction(formulas: PropFormula[]): PropFormula[] {
   if (!isNegationIntroductionApplicable(formulas)) {
     throw new Error('Negation introduction is not applicable to the given formulas.');
   }
@@ -19,8 +19,10 @@ export function negationIntroduction(formulas: PropFormula[]): PropFormula {
   // Extract antecedent from the input formulas (both must have the same antecedent)
   const antecedent = formulas[0].values[0] as PropFormula;
 
-  return {
-    operator: Operator.Not,
-    values: [antecedent],
-  };
+  return [
+    {
+      operator: Operator.Not,
+      values: [antecedent],
+    },
+  ];
 }

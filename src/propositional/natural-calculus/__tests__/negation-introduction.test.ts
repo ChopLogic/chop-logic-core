@@ -20,10 +20,12 @@ describe('negationIntroduction', () => {
     };
 
     const result = negationIntroduction([formulaAtoB, formulaAtoNotB]);
-    expect(result).toEqual({
-      operator: Operator.Not,
-      values: [{ operator: Operator.Var, values: ['A'] }],
-    });
+    expect(result).toEqual([
+      {
+        operator: Operator.Not,
+        values: [{ operator: Operator.Var, values: ['A'] }],
+      },
+    ]);
   });
 
   it('should throw an error if negation introduction is not applicable', () => {

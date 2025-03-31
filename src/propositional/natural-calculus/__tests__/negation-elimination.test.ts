@@ -7,7 +7,7 @@ describe('negationElimination', () => {
     const A: PropFormula = { operator: Operator.Var, values: ['A'] };
     const doubleNegation: PropFormula = { operator: Operator.Not, values: [{ operator: Operator.Not, values: [A] }] };
 
-    expect(negationElimination([doubleNegation])).toEqual(A);
+    expect(negationElimination([doubleNegation])).toEqual([A]);
   });
 
   it('should return ~A when given ~(~(~A))', () => {
@@ -15,7 +15,7 @@ describe('negationElimination', () => {
     const notA: PropFormula = { operator: Operator.Not, values: [A] };
     const doubleNegation: PropFormula = { operator: Operator.Not, values: [{ operator: Operator.Not, values: [notA] }] };
 
-    expect(negationElimination([doubleNegation])).toEqual(notA);
+    expect(negationElimination([doubleNegation])).toEqual([notA]);
   });
 
   it('should throw an error when input is empty', () => {

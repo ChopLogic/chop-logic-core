@@ -21,13 +21,15 @@ describe('equivalenceIntroduction', () => {
 
     const result = equivalenceIntroduction([formulaAtoB, formulaBtoA]);
 
-    expect(result).toEqual({
-      operator: Operator.Equiv,
-      values: [
-        { operator: Operator.Var, values: ['A'] },
-        { operator: Operator.Var, values: ['B'] },
-      ],
-    });
+    expect(result).toEqual([
+      {
+        operator: Operator.Equiv,
+        values: [
+          { operator: Operator.Var, values: ['A'] },
+          { operator: Operator.Var, values: ['B'] },
+        ],
+      },
+    ]);
   });
 
   it('should throw an error if the formulas are not valid for equivalence introduction', () => {

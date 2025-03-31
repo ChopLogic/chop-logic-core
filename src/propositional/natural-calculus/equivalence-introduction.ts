@@ -9,7 +9,7 @@ import { Operator } from '../../common/enums';
  * @returns A new formula representing (A <=> B).
  * @throws {Error} if the input formulas do not satisfy the equivalence introduction conditions.
  */
-export function equivalenceIntroduction(formulas: PropFormula[]): PropFormula {
+export function equivalenceIntroduction(formulas: PropFormula[]): PropFormula[] {
   if (!isEquivalenceIntroductionApplicable(formulas)) {
     throw new Error('Equivalence introduction is not applicable to the given formulas.');
   }
@@ -18,8 +18,10 @@ export function equivalenceIntroduction(formulas: PropFormula[]): PropFormula {
   const firstAntecedent = implication1.values[0] as PropFormula;
   const secondAntecedent = implication2.values[0] as PropFormula;
 
-  return {
-    operator: Operator.Equiv,
-    values: [firstAntecedent, secondAntecedent],
-  };
+  return [
+    {
+      operator: Operator.Equiv,
+      values: [firstAntecedent, secondAntecedent],
+    },
+  ];
 }
