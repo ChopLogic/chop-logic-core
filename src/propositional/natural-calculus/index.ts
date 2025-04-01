@@ -2,6 +2,7 @@ import { negationIntroduction } from './negation-introduction';
 import { negationElimination } from './negation-elimination';
 import { equivalenceIntroduction } from './equivalence-introduction';
 import { equivalenceElimination } from './equivalence-elimination';
+import { implicationElimination } from './implication-elimination';
 
 export const NaturalCalculus = Object.freeze({
   // Introduction rules
@@ -10,4 +11,5 @@ export const NaturalCalculus = Object.freeze({
   // Elimination rules
   NE: negationElimination,
   EE: equivalenceElimination,
+  IE: implicationElimination,
 });
