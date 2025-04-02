@@ -7,9 +7,9 @@ import { Operator } from '../../common/enums';
  *
  * If A <=> B, then we derive (A => B) and (B => A).
  *
- * @param formulas - An array of propositional formulas.
- * @returns An array of derived implications.
- * @throws Error if the formulas are not all equivalences.
+ * @param formulas An array of propositional formulas.
+ * @returns {PropFormula[]} An array containing the inferred formulas.
+ * @throws {Error} if the formulas are not all equivalences.
  */
 export function equivalenceElimination(formulas: PropFormula[]): PropFormula[] {
   if (!isEquivalenceEliminationApplicable(formulas)) {

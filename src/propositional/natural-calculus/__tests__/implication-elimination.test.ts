@@ -8,7 +8,7 @@ describe('implicationElimination', () => {
     const G: PropFormula = { operator: Operator.Var, values: ['G'] };
     const implication: PropFormula = { operator: Operator.Implies, values: [F, G] };
 
-    expect(implicationElimination([implication, F])).toEqual(G);
+    expect(implicationElimination([implication, F])).toEqual([G]);
   });
 
   it('should throw an error if IE is not applicable', () => {

@@ -3,15 +3,14 @@ import { isNegationIntroductionApplicable } from '../checks/is-negation-introduc
 import { Operator } from '../../common/enums';
 
 /**
- * Applies negation introduction rule.
- *
- * If A => B and A => ~B, then we can infer ~A.
+ * Applies negation introduction rule:
+ * If (A => B) and (A => ~B), then we can infer ~A.
  *
  * @param formulas - An array of propositional formulas.
- * @returns The inferred negation formula.
+ * @returns {[PropFormula]} A tuple containing the inferred formula.
  * @throws {Error} if negation introduction is not applicable.
  */
-export function negationIntroduction(formulas: PropFormula[]): PropFormula[] {
+export function negationIntroduction(formulas: PropFormula[]): [PropFormula] {
   if (!isNegationIntroductionApplicable(formulas)) {
     throw new Error('Negation introduction is not applicable to the given formulas.');
   }
