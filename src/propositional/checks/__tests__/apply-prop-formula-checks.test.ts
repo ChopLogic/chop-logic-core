@@ -53,7 +53,7 @@ describe('applyPropFormulaChecks', () => {
       areEqual: false,
       isCI: true,
       isCE: false,
-      isDI: false,
+      isDI: true,
       isDE: false,
       isEI: false,
       isEE: false,

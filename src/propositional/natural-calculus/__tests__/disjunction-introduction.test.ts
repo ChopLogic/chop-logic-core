@@ -2,12 +2,12 @@ import { Operator } from '../../../common/enums';
 import { PropFormula } from '../../../common/types';
 import { disjunctionIntroduction } from '../disjunction-introduction';
 
-describe('implicationIntroduction', () => {
+describe('disjunctionIntroduction', () => {
   it('should return an implication for given formulas', () => {
     const A: PropFormula = { operator: Operator.Var, values: ['A'] };
     const B: PropFormula = { operator: Operator.Var, values: ['B'] };
 
-    const result = disjunctionIntroduction(A, B);
+    const result = disjunctionIntroduction([A, B]);
 
     expect(result).toEqual([
       { operator: Operator.Or, values: [A, B] },
@@ -25,11 +25,19 @@ describe('implicationIntroduction', () => {
       ],
     };
 
-    const result = disjunctionIntroduction(A, B);
+    const result = disjunctionIntroduction([A, B]);
 
     expect(result).toEqual([
       { operator: Operator.Or, values: [A, B] },
       { operator: Operator.Or, values: [B, A] },
     ]);
+  });
+
+  it('should throw an error if CI is not applicable', () => {
+    const A: PropFormula = { operator: Operator.Var, values: ['A'] };
+    const B: PropFormula = { operator: Operator.Var, values: ['B'] };
+    const C: PropFormula = { operator: Operator.Var, values: ['B'] };
+
+    expect(() => disjunctionIntroduction([A, B, C])).toThrow('Disjunction introduction is not applicable to the given formulas.');
   });
 });
