@@ -60,6 +60,7 @@ describe('applyPropFormulaChecks', () => {
       isIE: true,
       isNI: false,
       isNE: false,
+      isII: true,
     });
   });
 

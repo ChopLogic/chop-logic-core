@@ -7,7 +7,7 @@ describe('implicationIntroduction', () => {
     const A: PropFormula = { operator: Operator.Var, values: ['A'] };
     const B: PropFormula = { operator: Operator.Var, values: ['B'] };
 
-    const result = implicationIntroduction(A, B);
+    const result = implicationIntroduction([A, B]);
 
     expect(result).toEqual([{ operator: Operator.Implies, values: [A, B] }]);
   });
@@ -22,8 +22,16 @@ describe('implicationIntroduction', () => {
       ],
     };
 
-    const result = implicationIntroduction(A, B);
+    const result = implicationIntroduction([A, B]);
 
     expect(result).toEqual([{ operator: Operator.Implies, values: [A, B] }]);
+  });
+
+  it('should throw an error if CI is not applicable', () => {
+    const A: PropFormula = { operator: Operator.Var, values: ['A'] };
+    const B: PropFormula = { operator: Operator.Var, values: ['B'] };
+    const C: PropFormula = { operator: Operator.Var, values: ['B'] };
+
+    expect(() => implicationIntroduction([A, B, C])).toThrow('Implication introduction is not applicable to the given formulas.');
   });
 });

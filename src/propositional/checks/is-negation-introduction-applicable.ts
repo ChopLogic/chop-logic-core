@@ -3,11 +3,11 @@ import { Operator } from '../../common/enums';
 import { arePropFormulasStructurallyEqual } from './are-prop-formulas-structurally-equal';
 
 /**
- * Checks if negation creation is applicable.
+ * Checks if negation introduction is applicable.
  *
- * Negation creation allows us to infer ~A from two implications:
- *  1) A => B
- *  2) A => ~B
+ * Negation introduction allows us to infer ¬A from two implications:
+ *  1) A → B
+ *  2) A → ¬B
  *
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if we can infer negation, otherwise `false`.

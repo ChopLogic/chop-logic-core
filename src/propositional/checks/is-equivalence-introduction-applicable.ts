@@ -3,10 +3,10 @@ import { Operator } from '../../common/enums';
 import { arePropFormulasStructurallyEqual } from './are-prop-formulas-structurally-equal';
 
 /**
- * Checks if equivalence creation is applicable.
+ * Checks if equivalence introduction is applicable.
  *
- * Equivalence creation allows us to infer an equivalence (A <=> B)
- * if we have both implications (A => B) and (B => A).
+ * Equivalence introduction allows us to infer an equivalence (A ≡ B)
+ * if we have both implications (A → B) and (B → A).
  *
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if we can infer equivalence, otherwise `false`.

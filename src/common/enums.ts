@@ -86,4 +86,5 @@ export enum PropFormulaCheck {
   isCI = 'isCI',
   isEI = 'isEI',
   isNI = 'isNI',
+  isII = 'isII',
 }

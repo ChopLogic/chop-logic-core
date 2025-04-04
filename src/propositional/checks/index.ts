@@ -8,6 +8,7 @@ import { isDisjunctionIntroductionApplicable } from './is-dusjunction-introducti
 import { isConjunctionIntroductionApplicable } from './is-conjunction-introduction-applicable';
 import { isEquivalenceIntroductionApplicable } from './is-equivalence-introduction-applicable';
 import { isNegationIntroductionApplicable } from './is-negation-introduction-applicable';
+import { isImplicationIntroductionApplicable } from './is-implication-introduction-applicable';
 import { PropFormula } from '../../common/types';
 import { PropFormulaCheck } from '../../common/enums';
 
@@ -26,6 +27,7 @@ const PROP_FORMULA_CHECKS: Record<PropFormulaCheck, PropFormulaCheckFunction> = 
   [PropFormulaCheck.isCI]: isConjunctionIntroductionApplicable,
   [PropFormulaCheck.isEI]: isEquivalenceIntroductionApplicable,
   [PropFormulaCheck.isNI]: isNegationIntroductionApplicable,
+  [PropFormulaCheck.isII]: isImplicationIntroductionApplicable,
 };
 
 /**

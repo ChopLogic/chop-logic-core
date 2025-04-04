@@ -1,9 +1,9 @@
 import { PropFormula } from '../../common/types';
 
 /**
- * Checks if conjunction creation is applicable.
+ * Checks if conjunction introduction is applicable.
  *
- * Conjunction creation allows us to infer a conjunction from any two conjuncts.
+ * Conjunction introduction allows us to infer a conjunction from any two conjuncts.
  *
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if all there are exactly two formulas in the array, otherwise `false`.
