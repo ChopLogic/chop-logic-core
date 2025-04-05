@@ -1,4 +1,4 @@
-name: NPM
+name: npm
 
 on:
   pull_request:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Ensure full git history for versioning
+          fetch-depth: 0 # Ensure full git history for versioning
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -48,7 +48,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Ensure full git history
+          fetch-depth: 0 # Ensure full git history
 
       - name: Pull latest changes
         run: git pull origin main

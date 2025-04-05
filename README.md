@@ -1,12 +1,11 @@
 # Chop Logic Core
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![Version](https://img.shields.io/npm/v/chop-logic-core)
 [![codecov](https://codecov.io/gh/SavouryGin/chop-logic-core/graph/badge.svg?token=52BX0AMDQQ)](https://codecov.io/gh/SavouryGin/chop-logic-core)
-[![build](https://github.com/SavouryGin/chop-logic-core/actions/workflows/npm.yml/badge.svg)](https://github.com/SavouryGin/chop-logic-core/actions/workflows/npm.yml)
+[![npm build](https://github.com/SavouryGin/chop-logic-core/actions/workflows/npm.yml/badge.svg)](https://github.com/SavouryGin/chop-logic-core/actions/workflows/npm.yml)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 
-**Chop Logic Core** is a TypeScript library providing core functions for working with **symbolic logic formulas**. It is part of the broader [Chop Logic](https://github.com/SavouryGin/chop-logic) project and offers essential utilities for propositional logic processing.
+**Chop Logic Core** is a TypeScript library providing core functions for working with **symbolic logic formulas**. It is part of the broader [Chop Logic](https://github.com/users/SavouryGin/projects/1) project and offers essential utilities for propositional logic processing.
 
 🚀 **Current Status:** The library is under active development, but several tested functions are already available for use in third-party projects.
 
@@ -60,7 +59,7 @@ The following npm scripts are available for development and maintenance:
 
 ## 🛠 Contributing
 
-Contributions are welcome! If you find a bug or have an idea for improvement, feel free to open an issue or submit a pull request. Please check the [Countribution guide](CONTRIBUTING.md) for additional info.
+Contributions are welcome! If you find a bug or have an idea for improvement, feel free to open an issue or submit a pull request. Please check the [Contribution guide](CONTRIBUTING.md) for additional info.
 
 1. Fork the repository.
 2. Clone your fork.
