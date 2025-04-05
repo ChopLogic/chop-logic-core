@@ -6,16 +6,20 @@ import { implicationElimination } from './implication-elimination';
 import { disjunctionIntroduction } from './disjunction-introduction';
 import { implicationIntroduction } from './implication-introduction';
 import { conjunctionIntroduction } from './conjunction-introduction';
+import { conjunctionElimination } from './conjunction-elimination';
+import { disjunctionElimination } from './disjunction-elimination';
 
 export const NaturalCalculus = Object.freeze({
   // Introduction rules
   NI: negationIntroduction,
-  EI: equivalenceIntroduction,
+  CI: conjunctionIntroduction,
   DI: disjunctionIntroduction,
   II: implicationIntroduction,
-  CI: conjunctionIntroduction,
+  EI: equivalenceIntroduction,
   // Elimination rules
   NE: negationElimination,
-  EE: equivalenceElimination,
+  CE: conjunctionElimination,
+  DE: disjunctionElimination,
   IE: implicationElimination,
+  EE: equivalenceElimination,
 });
