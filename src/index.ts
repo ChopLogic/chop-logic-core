@@ -1,15 +1,9 @@
-import propositionalConverter from "./propositions/converter";
-import propositionalXMLConverter from "./propositions/xml-converter";
-import truthTableGenerator from "./propositions/tt-generator";
-import propositionalExecutor from "./propositions/executor";
-import propositionalValidator from "./propositions/validator";
-import propositionalReplacer from "./propositions/replacer";
+import { PropositionalFactory } from './propositional/factory';
+import { HilbertCalculus } from './propositional/hilbert-calculus';
+import { NaturalCalculus } from './propositional/natural-calculus';
 
 export default {
-  propositionalConverter,
-  propositionalXMLConverter,
-  truthTableGenerator,
-  propositionalExecutor,
-  propositionalValidator,
-  propositionalReplacer,
+  PropositionalFactory,
+  HilbertCalculus,
+  NaturalCalculus,
 };
