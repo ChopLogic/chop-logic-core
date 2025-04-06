@@ -43,14 +43,20 @@ yarn add chop-logic-core
 ## 🔧 Usage
 
 ```ts
-import { convertFormula, generatePropTruthTable } from 'chop-logic-core';
+import { PropositionalFactory, PropositionalToolkit, HilbertCalculus, NaturalCalculus } from 'chop-logic-core';
 
-const formula = 'A ∧ B → C';
-const converted = convertFormula(formula);
-console.log(converted);
+const expression = PropositionalFactory.createExpression('(A => B) & ~C');
+const formula = PropositionalFactory.createFormula(expression);
+const truthTable = PropositionalToolkit.generateTT(formula);
 
-const truthTable = generatePropTruthTable(formula);
-console.table(truthTable);
+const A = PropositionalFactory.createExpression('A');
+const implication = PropositionalFactory.createFormula(PropositionalFactory.createExpression('(A => B)'));
+
+const consequent = HilbertCalculus.IE([implication, A]);
+
+const conjunction = NaturalCalculus.CC([A, A]);
+
+const stringView = PropositionalToolkit.convertToString(consequent);
 ```
 
 ## ⚙️ Available Scripts
