@@ -7,6 +7,7 @@ import { isWellFormedFormula } from './is-well-formed-formula';
 import { getUnaryOperationValue } from './get-unary-operation-value';
 import { getBinaryOperationValue } from './get-binary-operation-value';
 import { generateTruthAssignments } from './generate-truth-assignments';
+import { applyPropFormulaChecks } from '../checks';
 
 export const PropositionalToolkit = Object.freeze({
   calculateFormula: calculatePropFormula,
@@ -18,4 +19,5 @@ export const PropositionalToolkit = Object.freeze({
   getBinaryValue: getBinaryOperationValue,
   generateTT: generatePropTruthTable,
   generateAssignments: generateTruthAssignments,
+  applyChecks: applyPropFormulaChecks,
 });

@@ -11,12 +11,20 @@
 
 ## ✨ Features
 
-- **Propositional Converter** – Converts logic formulas between different formats.
-- **Propositional XML Converter** – Converts logic expressions to and from XML.
-- **Truth Table Generator** – Generates truth tables for given propositional logic formulas.
-- **Propositional Executor** – Evaluates logical formulas against a set of variable values.
-- **Propositional Validator** – Checks the syntactic correctness of logic formulas.
-- **Propositional Replacer** – Replaces logical symbols with alternative representations.
+## Features
+
+- 🛠️ Factory methods for building logical symbols, operators, expressions, and well-formed formulas (WFF).
+- 🔍 Tools for analyzing formulas:
+  - Variable extraction
+  - Sub-formula extraction
+  - Truth table generation
+  - Formula evaluation
+  - Well-formedness checks
+- ✍️ Inference rules from:
+  - Hilbert-style Calculus
+  - Natural Deduction Calculus (Introduction & Elimination rules)
+- 🧪 Utilities for formula validation and consistency checks.
+- 🔣 Tokenizer for parsing and handling logical strings.
 
 ## 📦 Installation
 
