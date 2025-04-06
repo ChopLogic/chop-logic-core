@@ -1,5 +1,5 @@
-import { getBinaryOperationValue } from '../utils/get-binary-operation-value';
-import { Operator } from '../enums';
+import { getBinaryOperationValue } from '../get-binary-operation-value';
+import { Operator } from '../../../common/enums';
 
 describe('getBinaryOperationValue', () => {
   it('should return correct values for binary logical operators', () => {

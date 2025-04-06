@@ -1,5 +1,5 @@
 import { PropSymbol } from '../../common/types';
-import { tokenizeString } from '../../common/utils/tokenize-string';
+import { tokenizeString } from '../../tokenizer/tokenize-string';
 import { createPropSymbol } from './create-prop-symbol';
 
 /**

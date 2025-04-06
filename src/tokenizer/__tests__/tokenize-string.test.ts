@@ -1,4 +1,4 @@
-import { tokenizeString } from '../utils/tokenize-string';
+import { tokenizeString } from '../tokenize-string';
 
 describe('tokenizeString', () => {
   it('should correctly tokenize "(A => B) & ~C"', () => {

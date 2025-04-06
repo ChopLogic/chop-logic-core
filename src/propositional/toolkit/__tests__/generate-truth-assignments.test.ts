@@ -1,4 +1,4 @@
-import { generateTruthAssignments } from '../utils/generate-truth-assignments';
+import { generateTruthAssignments } from '../generate-truth-assignments';
 
 describe('generateTruthAssignments', () => {
   test('generates truth assignments for 2 variables', () => {

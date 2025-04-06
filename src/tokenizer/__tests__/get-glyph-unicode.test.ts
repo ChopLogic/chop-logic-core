@@ -1,5 +1,5 @@
-import { getGlyphUnicode } from '../utils/get-glyph-unicode';
-import { Glyph, GlyphUnicode } from '../enums';
+import { getGlyphUnicode } from '../get-glyph-unicode';
+import { Glyph, GlyphUnicode } from '../../common/enums';
 
 describe('getGlyphUnicode', () => {
   it('should return the correct Unicode for Implication', () => {

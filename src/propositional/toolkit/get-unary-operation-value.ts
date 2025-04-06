@@ -1,4 +1,4 @@
-import { Operator } from '../enums';
+import { Operator } from '../../common/enums';
 
 /**
  * Computes the logical value of a unary operator applied to an operand.
