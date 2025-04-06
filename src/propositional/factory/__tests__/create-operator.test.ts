@@ -1,6 +1,6 @@
-import { PropSymbol } from '../types';
-import { createOperator } from '../utils/create-operator';
-import { Glyph, GlyphType, Operator } from '../enums';
+import { PropSymbol } from '../../../common/types';
+import { createOperator } from '../create-operator';
+import { Glyph, GlyphType, Operator } from '../../../common/enums';
 
 describe('createOperator', () => {
   it('should return Operator.Not for Negation glyph', () => {

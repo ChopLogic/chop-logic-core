@@ -35,13 +35,13 @@ yarn add chop-logic-core
 ## 🔧 Usage
 
 ```ts
-import { convertFormula, generateTruthTable } from 'chop-logic-core';
+import { convertFormula, generatePropTruthTable } from 'chop-logic-core';
 
 const formula = 'A ∧ B → C';
 const converted = convertFormula(formula);
 console.log(converted);
 
-const truthTable = generateTruthTable(formula);
+const truthTable = generatePropTruthTable(formula);
 console.table(truthTable);
 ```
 

@@ -1,5 +1,5 @@
-import { PropSymbol } from '../types';
-import { Glyph, GlyphType, Operator } from '../enums';
+import { PropSymbol } from '../../common/types';
+import { Glyph, GlyphType, Operator } from '../../common/enums';
 
 /**
  * Converts a given `PropSymbol` into its corresponding logical operator.

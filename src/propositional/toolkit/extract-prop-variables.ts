@@ -1,5 +1,5 @@
-import { PropFormula, PropFormulaVariablesMap } from '../common/types';
-import { Operator } from '../common/enums';
+import { PropFormula, PropFormulaVariablesMap } from '../../common/types';
+import { Operator } from '../../common/enums';
 
 /**
  * Extracts all propositional variables from a given formula and returns them in a sorted map.

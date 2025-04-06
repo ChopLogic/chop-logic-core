@@ -1,7 +1,7 @@
-import { PropFormula } from '../common/types';
-import { Operator } from '../common/enums';
-import { getGlyphUnicode } from '../common/utils/get-glyph-unicode';
-import { getOperatorGlyph } from '../common/utils/get-operator-glyph';
+import { PropFormula } from '../../common/types';
+import { Operator } from '../../common/enums';
+import { getGlyphUnicode } from '../../common/utils/get-glyph-unicode';
+import { getOperatorGlyph } from '../../common/utils/get-operator-glyph';
 
 /**
  * Converts a propositional formula into a string representation using Unicode logical symbols.

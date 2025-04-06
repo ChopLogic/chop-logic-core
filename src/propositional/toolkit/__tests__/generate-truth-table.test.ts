@@ -1,8 +1,8 @@
-import { PropFormula, TruthAssignmentsMap } from '../../common/types';
-import { Operator } from '../../common/enums';
-import { generateTruthTable } from '../generate-truth-table';
+import { PropFormula, TruthAssignmentsMap } from '../../../common/types';
+import { Operator } from '../../../common/enums';
+import { generatePropTruthTable } from '../generate-prop-truth-table';
 
-describe('generateTruthTable', () => {
+describe('generatePropTruthTable', () => {
   it('should generate a truth table for a simple NAND formula', () => {
     const formula: PropFormula = {
       operator: Operator.Nand,
@@ -19,7 +19,7 @@ describe('generateTruthTable', () => {
       [3, [true, true, false]],
     ]);
 
-    expect(generateTruthTable(formula)).toEqual(expectedTable);
+    expect(generatePropTruthTable(formula)).toEqual(expectedTable);
   });
 
   it('should generate a truth table for a formula with NOT operator', () => {
@@ -33,7 +33,7 @@ describe('generateTruthTable', () => {
       [1, [true, false]],
     ]);
 
-    expect(generateTruthTable(formula)).toEqual(expectedTable);
+    expect(generatePropTruthTable(formula)).toEqual(expectedTable);
   });
 
   it('should evaluate a more complex formula ((A & B) <=> (C | D))', () => {
@@ -76,7 +76,7 @@ describe('generateTruthTable', () => {
       [15, [true, true, true, true, true]],
     ]);
 
-    expect(generateTruthTable(formula)).toEqual(expectedTable);
+    expect(generatePropTruthTable(formula)).toEqual(expectedTable);
   });
 
   it('should throw an error if the formula has more variables than the limit allows', () => {
@@ -88,7 +88,7 @@ describe('generateTruthTable', () => {
       })) as PropFormula[],
     };
 
-    expect(() => generateTruthTable(formula)).toThrow();
+    expect(() => generatePropTruthTable(formula)).toThrow();
   });
 
   it('should throw an error if the formula has more variables than the limit in parameter allows', () => {
@@ -100,6 +100,6 @@ describe('generateTruthTable', () => {
       ],
     };
 
-    expect(() => generateTruthTable(formula, 1)).toThrow();
+    expect(() => generatePropTruthTable(formula, 1)).toThrow();
   });
 });

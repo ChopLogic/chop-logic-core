@@ -1,8 +1,8 @@
-import { PropFormula } from '../../common/types';
-import { Operator } from '../../common/enums';
-import { extractSubFormulas } from '../extract-sub-formulas';
+import { PropFormula } from '../../../common/types';
+import { Operator } from '../../../common/enums';
+import { extractPropSubFormulas } from '../extract-prop-sub-formulas';
 
-describe('extractSubFormulas()', () => {
+describe('extractPropSubFormulas()', () => {
   it('should extract all sub-formulas in the correct order', () => {
     const formula: PropFormula = {
       operator: Operator.And,
@@ -17,12 +17,12 @@ describe('extractSubFormulas()', () => {
 
     const expectedSubFormulas: PropFormula[] = [{ operator: Operator.Not, values: [{ operator: Operator.Var, values: ['A'] }] }];
 
-    expect(extractSubFormulas(formula)).toEqual(expectedSubFormulas);
+    expect(extractPropSubFormulas(formula)).toEqual(expectedSubFormulas);
   });
 
   it('should return an empty array for a variable formula', () => {
     const formula: PropFormula = { operator: Operator.Var, values: ['X'] };
-    expect(extractSubFormulas(formula)).toEqual([]);
+    expect(extractPropSubFormulas(formula)).toEqual([]);
   });
 
   it('should extract all sub-formulas, excluding variables and the input formula', () => {
@@ -63,6 +63,6 @@ describe('extractSubFormulas()', () => {
       },
     ];
 
-    expect(extractSubFormulas(formula)).toEqual(expectedSubFormulas);
+    expect(extractPropSubFormulas(formula)).toEqual(expectedSubFormulas);
   });
 });

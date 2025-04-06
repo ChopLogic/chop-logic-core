@@ -1,5 +1,5 @@
-import { PropFormula } from '../common/types';
-import { Operator } from '../common/enums';
+import { PropFormula } from '../../common/types';
+import { Operator } from '../../common/enums';
 
 /**
  * Extracts all true sub-formulas from a given propositional formula.
@@ -9,7 +9,7 @@ import { Operator } from '../common/enums';
  * @param {PropFormula} formula - The propositional formula to extract sub-formulas from.
  * @returns {PropFormula[]} An array of unique sub-formulas, sorted in evaluation order.
  */
-export function extractSubFormulas(formula: PropFormula): PropFormula[] {
+export function extractPropSubFormulas(formula: PropFormula): PropFormula[] {
   if (formula.operator === Operator.Var) return [];
 
   const subFormulas = new Set<string>();

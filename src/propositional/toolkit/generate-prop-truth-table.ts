@@ -1,6 +1,6 @@
-import { PropFormula, TruthAssignmentsMap } from '../common/types';
+import { PropFormula, TruthAssignmentsMap } from '../../common/types';
 import { extractPropVariables } from './extract-prop-variables';
-import { generateTruthAssignments } from '../common/utils/generate-truth-assignments';
+import { generateTruthAssignments } from '../../common/utils/generate-truth-assignments';
 import { calculatePropFormula } from './calculate-prop-formula';
 
 /**
@@ -11,7 +11,7 @@ import { calculatePropFormula } from './calculate-prop-formula';
  * @returns {TruthAssignmentsMap} - A map where keys are assignments, and values are truth values.
  * @throws {Error} If the formula has more variables than the limit allows.
  */
-export function generateTruthTable(formula: PropFormula, limit = 100): TruthAssignmentsMap {
+export function generatePropTruthTable(formula: PropFormula, limit = 100): TruthAssignmentsMap {
   // Step 1: Extract variables from the formula
   const variablesMap = extractPropVariables(formula);
   const variableCount = variablesMap.size;
