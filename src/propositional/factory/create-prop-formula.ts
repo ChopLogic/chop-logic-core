@@ -1,7 +1,7 @@
 import { PropExpression, PropFormula, PropSymbol } from '../../common/types';
 import { Glyph, GlyphType, Operator } from '../../common/enums';
-import { createOperator } from '../../common/utils/create-operator';
-import { isWellFormedFormula } from '../is-well-formed-formula';
+import { createOperator } from './create-operator';
+import { isWellFormedFormula } from '../toolkit/is-well-formed-formula';
 
 /**
  * Converts a well-formed propositional expression into a tree-like PropFormula.

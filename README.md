@@ -11,12 +11,20 @@
 
 ## ✨ Features
 
-- **Propositional Converter** – Converts logic formulas between different formats.
-- **Propositional XML Converter** – Converts logic expressions to and from XML.
-- **Truth Table Generator** – Generates truth tables for given propositional logic formulas.
-- **Propositional Executor** – Evaluates logical formulas against a set of variable values.
-- **Propositional Validator** – Checks the syntactic correctness of logic formulas.
-- **Propositional Replacer** – Replaces logical symbols with alternative representations.
+## Features
+
+- 🛠️ Factory methods for building logical symbols, operators, expressions, and well-formed formulas (WFF).
+- 🔍 Tools for analyzing formulas:
+  - Variable extraction
+  - Sub-formula extraction
+  - Truth table generation
+  - Formula evaluation
+  - Well-formedness checks
+- ✍️ Inference rules from:
+  - Hilbert-style Calculus
+  - Natural Deduction Calculus (Introduction & Elimination rules)
+- 🧪 Utilities for formula validation and consistency checks.
+- 🔣 Tokenizer for parsing and handling logical strings.
 
 ## 📦 Installation
 
@@ -35,14 +43,20 @@ yarn add chop-logic-core
 ## 🔧 Usage
 
 ```ts
-import { convertFormula, generateTruthTable } from 'chop-logic-core';
+import { PropositionalFactory, PropositionalToolkit, HilbertCalculus, NaturalCalculus } from 'chop-logic-core';
 
-const formula = 'A ∧ B → C';
-const converted = convertFormula(formula);
-console.log(converted);
+const expression = PropositionalFactory.createExpression('(A => B) & ~C');
+const formula = PropositionalFactory.createFormula(expression);
+const truthTable = PropositionalToolkit.generateTT(formula);
 
-const truthTable = generateTruthTable(formula);
-console.table(truthTable);
+const A = PropositionalFactory.createExpression('A');
+const implication = PropositionalFactory.createFormula(PropositionalFactory.createExpression('(A => B)'));
+
+const consequent = HilbertCalculus.IE([implication, A]);
+
+const conjunction = NaturalCalculus.CC([A, A]);
+
+const stringView = PropositionalToolkit.convertToString(consequent);
 ```
 
 ## ⚙️ Available Scripts
