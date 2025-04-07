@@ -1,5 +1,5 @@
 import { getOperatorGlyph } from '../get-operator-glyph';
-import { Glyph, Operator } from '../../common/enums';
+import { Glyph, Operator } from '../../enums';
 
 describe('getOperatorGlyph', () => {
   it('should return the correct glyph for logical operators', () => {

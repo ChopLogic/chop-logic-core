@@ -11,8 +11,6 @@
 
 ## ✨ Features
 
-## Features
-
 - 🛠️ Factory methods for building logical symbols, operators, expressions, and well-formed formulas (WFF).
 - 🔍 Tools for analyzing formulas:
   - Variable extraction

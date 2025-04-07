@@ -1,4 +1,4 @@
-import { Glyph } from '../common/enums';
+import { Glyph } from '../enums';
 
 /**
  * Tokenizes an input string into an array of known logical glyphs and variable names.
