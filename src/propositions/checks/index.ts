@@ -9,7 +9,7 @@ import { isConjunctionIntroductionApplicable } from './is-conjunction-introducti
 import { isEquivalenceIntroductionApplicable } from './is-equivalence-introduction-applicable';
 import { isNegationIntroductionApplicable } from './is-negation-introduction-applicable';
 import { isImplicationIntroductionApplicable } from './is-implication-introduction-applicable';
-import { PropFormula } from '../../types';
+import { PropFormula } from '../../models';
 import { PropFormulaCheck } from '../../enums';
 
 type PropFormulaCheckFunction = (formulas: PropFormula[]) => boolean;

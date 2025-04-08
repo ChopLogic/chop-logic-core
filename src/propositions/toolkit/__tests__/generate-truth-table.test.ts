@@ -1,4 +1,4 @@
-import { PropFormula, TruthAssignmentsMap } from '../../../types';
+import { PropFormula, TruthAssignmentsMap } from '../../../models';
 import { Operator } from '../../../enums';
 import { generatePropTruthTable } from '../generate-prop-truth-table';
 

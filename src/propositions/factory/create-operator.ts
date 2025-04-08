@@ -1,4 +1,4 @@
-import { PropSymbol } from '../../types';
+import { PropSymbol } from '../../models';
 import { Glyph, GlyphType, Operator } from '../../enums';
 
 /**

@@ -1,4 +1,4 @@
-import { PropFormula, PropFormulaVariablesMap } from '../../types';
+import { PropFormula, PropFormulaVariablesMap } from '../../models';
 import { Operator } from '../../enums';
 import { getUnaryOperationValue } from './get-unary-operation-value';
 import { getBinaryOperationValue } from './get-binary-operation-value';

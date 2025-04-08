@@ -1,5 +1,5 @@
 import { isDisjunctionIntroductionApplicable } from '../is-dusjunction-introduction-applicable';
-import { PropFormula } from '../../../types';
+import { PropFormula } from '../../../models';
 import { Operator } from '../../../enums';
 
 describe('isDisjunctionIntroductionApplicable', () => {

@@ -1,4 +1,4 @@
-import { PropFormula } from '../../../types';
+import { PropFormula } from '../../../models';
 import { Operator, PropFormulaCheck } from '../../../enums';
 import { applyPropFormulaChecks } from '../index';
 

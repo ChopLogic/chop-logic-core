@@ -1,5 +1,5 @@
 import { Operator } from '../../../enums';
-import { PropFormula } from '../../../types';
+import { PropFormula } from '../../../models';
 import { implicationReversal } from '../implication-reversal';
 
 describe('implicationReversal', () => {

@@ -1,4 +1,4 @@
-import { PropFormula } from '../../types';
+import { PropFormula } from '../../models';
 import { arePropFormulasStructurallyEqual } from './are-prop-formulas-structurally-equal';
 import { Operator } from '../../enums';
 

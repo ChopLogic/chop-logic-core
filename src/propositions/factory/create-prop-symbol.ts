@@ -1,4 +1,4 @@
-import { PropSymbol } from '../../types';
+import { PropSymbol } from '../../models';
 import { Glyph, GlyphType } from '../../enums';
 import { getGlyphUnicode } from '../../tokenizer/get-glyph-unicode';
 

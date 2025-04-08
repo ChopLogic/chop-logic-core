@@ -1,4 +1,4 @@
-import { PropFormula, TruthAssignmentsMap } from '../../types';
+import { PropFormula, TruthAssignmentsMap } from '../../models';
 import { extractPropVariables } from './extract-prop-variables';
 import { generateTruthAssignments } from './generate-truth-assignments';
 import { calculatePropFormula } from './calculate-prop-formula';

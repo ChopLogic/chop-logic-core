@@ -1,5 +1,5 @@
 import { createPropSymbol } from '../create-prop-symbol';
-import { PropSymbol } from '../../../types';
+import { PropSymbol } from '../../../models';
 import { Glyph, GlyphType, GlyphUnicode } from '../../../enums';
 
 describe('createPropSymbol', () => {

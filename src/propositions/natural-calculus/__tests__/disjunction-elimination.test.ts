@@ -1,5 +1,5 @@
 import { Operator } from '../../../enums';
-import { PropFormula } from '../../../types';
+import { PropFormula } from '../../../models';
 import { disjunctionElimination } from '../disjunction-elimination';
 
 describe('disjunctionElimination', () => {

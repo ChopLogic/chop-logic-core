@@ -1,4 +1,4 @@
-import { PropFormula } from '../../types';
+import { PropFormula } from '../../models';
 import { isNegationIntroductionApplicable } from '../checks/is-negation-introduction-applicable';
 import { Operator } from '../../enums';
 

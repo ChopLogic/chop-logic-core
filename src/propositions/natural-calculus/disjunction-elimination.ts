@@ -1,4 +1,4 @@
-import { PropFormula } from '../../types';
+import { PropFormula } from '../../models';
 import { isDisjunctionEliminationApplicable } from '../checks/is-disjunction-elimination-applicable';
 import { Operator } from '../../enums';
 

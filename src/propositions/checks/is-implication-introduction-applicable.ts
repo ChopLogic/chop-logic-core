@@ -1,4 +1,4 @@
-import { PropFormula } from '../../types';
+import { PropFormula } from '../../models';
 
 /**
  * Checks if implication introduction is applicable.

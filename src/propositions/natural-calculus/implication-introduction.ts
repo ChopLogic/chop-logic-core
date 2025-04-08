@@ -1,4 +1,4 @@
-import { PropFormula } from '../../types';
+import { PropFormula } from '../../models';
 import { Operator } from '../../enums';
 import { isImplicationIntroductionApplicable } from '../checks/is-implication-introduction-applicable';
 

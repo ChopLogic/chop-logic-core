@@ -1,4 +1,4 @@
-import { PropFormula } from '../../types';
+import { PropFormula } from '../../models';
 
 /**
  * Checks if disjunction introduction is applicable.

@@ -1,4 +1,4 @@
-import { PropFormula } from '../../types';
+import { PropFormula } from '../../models';
 import { Operator } from '../../enums';
 import { getGlyphUnicode } from '../../tokenizer/get-glyph-unicode';
 import { getOperatorGlyph } from '../../tokenizer/get-operator-glyph';

@@ -1,4 +1,4 @@
-import { PropFormula, PropFormulaVariablesMap } from '../../types';
+import { PropFormula, PropFormulaVariablesMap } from '../../models';
 import { Operator } from '../../enums';
 
 /**
