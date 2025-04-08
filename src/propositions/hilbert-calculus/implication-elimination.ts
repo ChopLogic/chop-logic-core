@@ -21,5 +21,5 @@ export function implicationElimination(formulas: PropFormula[]): PropFormula {
   const implicationFormula = formulas.find((f) => f.operator === Operator.Implies);
 
   // The consequent of the implication (second value in values array)
-  return implicationFormula.values[1] as PropFormula;
+  return implicationFormula!.values[1] as PropFormula;
 }

@@ -18,5 +18,5 @@ export function disjunctionElimination(formulas: PropFormula[]): [PropFormula] {
   // Extract the consequent from one of the implications
   const implication1 = formulas.find((formula) => formula.operator === Operator.Implies);
 
-  return [implication1.values[1] as PropFormula];
+  return [implication1!.values[1] as PropFormula];
 }

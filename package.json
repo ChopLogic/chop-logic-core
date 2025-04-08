@@ -28,7 +28,8 @@
     "lint:fix": "npx eslint --fix --quiet",
     "test": "jest --watch",
     "test:ci": "jest --passWithNoTests",
-    "coverage": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'"
+    "coverage": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'",
+    "types": "tsc -p configs/tsconfig.base.json --noEmit"
   },
   "lint-staged": {
     "*.{ts,md}": [

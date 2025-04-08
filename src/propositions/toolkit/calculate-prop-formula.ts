@@ -37,7 +37,7 @@ export function calculatePropFormula({
 
   function evaluate(node: PropFormula): boolean {
     if (node.operator === Operator.Var) {
-      return variableValues.get(node.values[0] as string);
+      return !!variableValues.get(node.values[0] as string);
     }
 
     if (node.operator === Operator.Not) {
