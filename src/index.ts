@@ -1,4 +1,10 @@
-export * from './propositions';
-export { Tokenizer } from './tokenizer';
-export * from './enums';
-export * from './models';
+import { Tokenizer } from './tokenizer';
+import { PropositionalFactory, PropositionalToolkit, HilbertCalculus, NaturalCalculus } from './propositions';
+
+export default {
+  Tokenizer,
+  PropositionalFactory,
+  PropositionalToolkit,
+  HilbertCalculus,
+  NaturalCalculus,
+};
