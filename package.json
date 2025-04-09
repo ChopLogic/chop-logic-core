@@ -1,6 +1,6 @@
 {
   "name": "chop-logic-core",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An npm package for core functions of the Chop Logic project.",
   "exports": {
     ".": {
