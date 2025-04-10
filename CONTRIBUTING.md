@@ -95,7 +95,7 @@ We welcome feature requests! Please open an issue and describe:
    npm install
    ```
 
-4. Make changes and test them.
+3. Make changes and test them.
 
 ## Commit Rules
 
@@ -148,6 +148,20 @@ npm run test
 ```
 
 Write tests for new components and features to maintain quality and prevent regressions.
+
+## Folder Structure
+
+| Folder                            | Description                                                                                                   |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `enums/`                          | Contains enums used across the library for consistent values and configuration options.                       |
+| `models/`                         | Defines TypeScript interfaces and types representing the core domain models of the library.                   |
+| `propositional/`                  | Implementation of Propositional Logic utilities, factories, proof systems, and helper methods.                |
+| `propositional/checks/`           | Utility functions for validating and checking well-formed formulas and expressions.                           |
+| `propositional/factory/`          | Factory functions for creating logical symbols, operators, expressions, and formulas.                         |
+| `propositional/hilbert-calculus/` | Proof rules and axioms based on the Hilbert-style proof system.                                               |
+| `propositional/natural-calculus/` | Proof rules for the Natural Deduction proof system.                                                           |
+| `propositional/toolkit/`          | Toolkit utilities for working with propositional formulas (truth tables, formula analysis, evaluation, etc.). |
+| `tokenizer/`                      | Functions for tokenizing input strings, handling logical symbols, and parsing formulas.                       |
 
 ## License
 

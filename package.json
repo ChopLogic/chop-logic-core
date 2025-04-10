@@ -20,8 +20,10 @@
     "types": "tsc --pretty --noEmit"
   },
   "lint-staged": {
+    "*.{ts}": [
+      "npm run types"
+    ],
     "*.{ts,md}": [
-      "npm run types",
       "npm run test:ci",
       "npm run lint:fix",
       "prettier --write"
