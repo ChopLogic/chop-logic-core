@@ -7,7 +7,7 @@ describe('implicationReversal', () => {
     const A: PropFormula = { operator: Operator.Var, values: ['F'] };
     const B: PropFormula = { operator: Operator.Var, values: ['G'] };
 
-    const result = implicationReversal({ A, B });
+    const result = implicationReversal([A, B]);
 
     expect(result).toEqual({
       operator: Operator.Implies,
