@@ -4,4 +4,5 @@ export enum Step {
   Shortcut = 'Shortcut',
   Reiteration = 'Reiteration',
   Derivation = 'Derivation',
+  Axiom = 'Axiom',
 }
