@@ -1,4 +1,4 @@
-import { PropSymbol } from '../../common/types';
+import { PropSymbol } from '../../models';
 import { tokenizeString } from '../../tokenizer/tokenize-string';
 import { createPropSymbol } from './create-prop-symbol';
 

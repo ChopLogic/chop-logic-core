@@ -1,4 +1,4 @@
-import { Glyph, GlyphUnicode } from '../common/enums';
+import { Glyph, GlyphUnicode } from '../enums';
 
 const GlyphsDictionary: Record<Glyph, GlyphUnicode> = {
   [Glyph.Implication]: GlyphUnicode.Implication,
@@ -27,7 +27,7 @@ const GlyphsDictionary: Record<Glyph, GlyphUnicode> = {
  */
 export function getGlyphUnicode(char: string): GlyphUnicode {
   if (char in GlyphsDictionary) {
-    return GlyphsDictionary[char];
+    return GlyphsDictionary[char as Glyph];
   } else {
     throw new Error(`Cannot get a GlyphUnicode for the character "${char}".`);
   }

@@ -1,5 +1,5 @@
-import { PropFormula } from '../../../common/types';
-import { Operator, PropFormulaCheck } from '../../../common/enums';
+import { PropFormula } from '../../../models';
+import { Operator, PropFormulaCheck } from '../../../enums';
 import { applyPropFormulaChecks } from '../index';
 
 describe('applyPropFormulaChecks', () => {

@@ -1,5 +1,5 @@
-import { PropFormula } from '../../../common/types';
-import { Operator } from '../../../common/enums';
+import { PropFormula } from '../../../models';
+import { Operator } from '../../../enums';
 import { isEquivalenceIntroductionApplicable } from '../is-equivalence-introduction-applicable';
 
 describe('isEquivalenceIntroductionApplicable', () => {

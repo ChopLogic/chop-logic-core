@@ -1,13 +1,10 @@
-import { PropositionalFactory } from './propositional/factory';
-import { HilbertCalculus } from './propositional/hilbert-calculus';
-import { NaturalCalculus } from './propositional/natural-calculus';
-import { PropositionalToolkit } from './propositional/toolkit';
 import { Tokenizer } from './tokenizer';
+import { PropositionalFactory, PropositionalToolkit, HilbertCalculus, NaturalCalculus } from './propositional';
 
-export default {
+export const ChopLogicCore = Object.freeze({
   Tokenizer,
   PropositionalFactory,
   PropositionalToolkit,
   HilbertCalculus,
   NaturalCalculus,
-};
+});

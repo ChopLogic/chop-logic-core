@@ -1,5 +1,5 @@
-import { PropFormula } from '../../../common/types';
-import { Operator } from '../../../common/enums';
+import { PropFormula } from '../../../models';
+import { Operator } from '../../../enums';
 import { implicationIntroduction } from '../implication-introduction';
 
 describe('implicationIntroduction', () => {
@@ -9,7 +9,7 @@ describe('implicationIntroduction', () => {
   const negationA: PropFormula = { operator: Operator.Not, values: [formulaA] };
 
   it('should return the correct formula for A => (B => A)', () => {
-    const result = implicationIntroduction({ A: formulaA, B: formulaB });
+    const result = implicationIntroduction([formulaA, formulaB]);
 
     expect(result).toEqual({
       operator: Operator.Implies,
@@ -24,7 +24,7 @@ describe('implicationIntroduction', () => {
   });
 
   it('should handle identical formulas correctly', () => {
-    const result = implicationIntroduction({ A: formulaA, B: formulaA });
+    const result = implicationIntroduction([formulaA, formulaA]);
 
     expect(result).toEqual({
       operator: Operator.Implies,
@@ -39,7 +39,7 @@ describe('implicationIntroduction', () => {
   });
 
   it('should handle complex formulas correctly', () => {
-    const result = implicationIntroduction({ A: implicationAB, B: negationA });
+    const result = implicationIntroduction([implicationAB, negationA]);
 
     expect(result).toEqual({
       operator: Operator.Implies,

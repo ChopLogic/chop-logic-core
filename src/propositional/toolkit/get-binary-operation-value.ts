@@ -1,4 +1,4 @@
-import { Operator } from '../../common/enums';
+import { Operator } from '../../enums';
 
 /**
  * Evaluates the logical value of a binary operation given two boolean operands.

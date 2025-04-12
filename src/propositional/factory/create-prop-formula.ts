@@ -1,5 +1,5 @@
-import { PropExpression, PropFormula, PropSymbol } from '../../common/types';
-import { Glyph, GlyphType, Operator } from '../../common/enums';
+import { PropExpression, PropFormula, PropSymbol } from '../../models';
+import { Glyph, GlyphType, Operator } from '../../enums';
 import { createOperator } from './create-operator';
 import { isWellFormedFormula } from '../toolkit/is-well-formed-formula';
 

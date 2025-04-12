@@ -1,5 +1,5 @@
-import { Operator } from '../../../common/enums';
-import { PropFormula } from '../../../common/types';
+import { Operator } from '../../../enums';
+import { PropFormula } from '../../../models';
 import { implicationDistribution } from '../implication-distribution';
 
 describe('implicationDistribution', () => {
@@ -27,7 +27,7 @@ describe('implicationDistribution', () => {
       ],
     };
 
-    expect(implicationDistribution({ A, B, C })).toEqual(expected);
+    expect(implicationDistribution([A, B, C])).toEqual(expected);
   });
 
   it('should handle complex formulas correctly', () => {
@@ -48,6 +48,6 @@ describe('implicationDistribution', () => {
       ],
     };
 
-    expect(implicationDistribution({ A: implicationAB, B: negationA, C: negationA })).toEqual(expected);
+    expect(implicationDistribution([implicationAB, negationA, negationA])).toEqual(expected);
   });
 });

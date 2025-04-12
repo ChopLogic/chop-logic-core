@@ -1,5 +1,5 @@
-import { PropFormula, PropFormulaVariablesMap } from '../../common/types';
-import { Operator } from '../../common/enums';
+import { PropFormula, PropFormulaVariablesMap } from '../../models';
+import { Operator } from '../../enums';
 import { getUnaryOperationValue } from './get-unary-operation-value';
 import { getBinaryOperationValue } from './get-binary-operation-value';
 import { extractPropVariables } from './extract-prop-variables';
@@ -37,7 +37,7 @@ export function calculatePropFormula({
 
   function evaluate(node: PropFormula): boolean {
     if (node.operator === Operator.Var) {
-      return variableValues.get(node.values[0] as string);
+      return !!variableValues.get(node.values[0] as string);
     }
 
     if (node.operator === Operator.Not) {

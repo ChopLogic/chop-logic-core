@@ -1,6 +1,6 @@
 import { isDisjunctionIntroductionApplicable } from '../is-dusjunction-introduction-applicable';
-import { PropFormula } from '../../../common/types';
-import { Operator } from '../../../common/enums';
+import { PropFormula } from '../../../models';
+import { Operator } from '../../../enums';
 
 describe('isDisjunctionIntroductionApplicable', () => {
   it('should return false when one formula is provided', () => {

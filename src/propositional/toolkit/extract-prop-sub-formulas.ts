@@ -1,5 +1,5 @@
-import { PropFormula } from '../../common/types';
-import { Operator } from '../../common/enums';
+import { PropFormula } from '../../models';
+import { Operator } from '../../enums';
 
 /**
  * Extracts all true sub-formulas from a given propositional formula.

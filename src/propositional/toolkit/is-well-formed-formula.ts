@@ -1,5 +1,5 @@
-import { PropExpression, PropSymbol } from '../../common/types';
-import { Glyph, GlyphType } from '../../common/enums';
+import { PropExpression, PropSymbol } from '../../models';
+import { Glyph, GlyphType } from '../../enums';
 
 /**
  * Checks whether a given propositional expression is a well-formed formula (WFF).

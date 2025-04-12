@@ -1,5 +1,5 @@
-import { PropSymbol } from '../../common/types';
-import { Glyph, GlyphType } from '../../common/enums';
+import { PropSymbol } from '../../models';
+import { Glyph, GlyphType } from '../../enums';
 import { getGlyphUnicode } from '../../tokenizer/get-glyph-unicode';
 
 /**

@@ -1,6 +1,6 @@
-import { PropFormula } from '../../common/types';
+import { PropFormula } from '../../models';
 import { isImplicationEliminationApplicable } from '../checks/is-implication-elimination-applicable';
-import { Operator } from '../../common/enums';
+import { Operator } from '../../enums';
 
 /**
  * Applies the rule of Implication Elimination.
@@ -19,5 +19,5 @@ export function implicationElimination(formulas: PropFormula[]): [PropFormula] {
 
   const implicationFormula = formulas.find((f) => f.operator === Operator.Implies);
 
-  return [implicationFormula.values[1] as PropFormula];
+  return [implicationFormula!.values[1] as PropFormula];
 }

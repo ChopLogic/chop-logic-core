@@ -1,6 +1,6 @@
-import { Operator } from '../../../common/enums';
+import { Operator } from '../../../enums';
 import { convertPropFormulaToString } from '../convert-prop-formula-to-string';
-import { PropFormula } from '../../../common/types';
+import { PropFormula } from '../../../models';
 
 describe('convertPropFormulaToString', () => {
   it('should convert a single variable to a string', () => {

@@ -1,5 +1,5 @@
-import { PropFormula, TruthAssignmentsMap } from '../../../common/types';
-import { Operator } from '../../../common/enums';
+import { PropFormula, TruthAssignmentsMap } from '../../../models';
+import { Operator } from '../../../enums';
 import { generatePropTruthTable } from '../generate-prop-truth-table';
 
 describe('generatePropTruthTable', () => {

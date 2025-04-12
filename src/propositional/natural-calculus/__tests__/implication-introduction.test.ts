@@ -1,5 +1,5 @@
-import { PropFormula } from '../../../common/types';
-import { Operator } from '../../../common/enums';
+import { PropFormula } from '../../../models';
+import { Operator } from '../../../enums';
 import { implicationIntroduction } from '../implication-introduction';
 
 describe('implicationIntroduction', () => {

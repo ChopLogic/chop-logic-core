@@ -1,16 +1,16 @@
-import { PropFormula } from '../../common/types';
-import { Operator } from '../../common/enums';
+import { PropFormula } from '../../models';
+import { Operator } from '../../enums';
 
 /**
  * Constructs a formula based on the Implication Reversal axiom schema:
  * ((~A => ~B) => (B => A))
  *
- * @param {Object} params - Premises or prover formulas.
- * @param {PropFormula} params.A - The first propositional formula (A).
- * @param {PropFormula} params.B - The second propositional formula (B).
+ * @param formulas - An array of propositional formulas.
  * @returns A new propositional formula representing the implication reversal.
  */
-export function implicationReversal({ A, B }: { A: PropFormula; B: PropFormula }): PropFormula {
+export function implicationReversal(formulas: PropFormula[]): PropFormula {
+  const [A, B] = formulas;
+
   return {
     operator: Operator.Implies,
     values: [

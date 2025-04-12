@@ -1,4 +1,4 @@
-import { PropFormula } from '../../common/types';
+import { PropFormula } from '../../models';
 
 /**
  * Checks if conjunction introduction is applicable.

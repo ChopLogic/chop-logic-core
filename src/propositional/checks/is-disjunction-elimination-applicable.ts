@@ -1,6 +1,6 @@
-import { PropFormula } from '../../common/types';
-import { Operator } from '../../common/enums';
+import { PropFormula } from '../../models';
 import { arePropFormulasStructurallyEqual } from './are-prop-formulas-structurally-equal';
+import { Operator } from '../../enums';
 
 /**
  * Checks whether the Disjunction Elimination rule is applicable to three given formulas.

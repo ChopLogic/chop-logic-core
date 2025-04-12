@@ -1,6 +1,6 @@
 import { createPropSymbol } from '../create-prop-symbol';
-import { PropSymbol } from '../../../common/types';
-import { Glyph, GlyphType, GlyphUnicode } from '../../../common/enums';
+import { PropSymbol } from '../../../models';
+import { Glyph, GlyphType, GlyphUnicode } from '../../../enums';
 
 describe('createPropSymbol', () => {
   it('should create a parenthesis symbol for "("', () => {

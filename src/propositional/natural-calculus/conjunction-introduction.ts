@@ -1,6 +1,6 @@
-import { PropFormula } from '../../common/types';
+import { PropFormula } from '../../models';
 import { isConjunctionIntroductionApplicable } from '../checks/is-conjunction-introduction-applicable';
-import { Operator } from '../../common/enums';
+import { Operator } from '../../enums';
 
 /**
  * Applies the conjunction introduction rule.

@@ -1,6 +1,6 @@
-import { PropFormula } from '../../common/types';
+import { PropFormula } from '../../models';
 import { isEquivalenceIntroductionApplicable } from '../checks/is-equivalence-introduction-applicable';
-import { Operator } from '../../common/enums';
+import { Operator } from '../../enums';
 
 /**
  * Introduces an equivalence (A <=> B) given two implications (A => B) and (B => A).

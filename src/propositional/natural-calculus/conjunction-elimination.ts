@@ -1,4 +1,4 @@
-import { PropFormula } from '../../common/types';
+import { PropFormula } from '../../models';
 import { isConjunctionEliminationApplicable } from '../checks/is-conjunction-elimination-applicable';
 
 /**

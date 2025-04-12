@@ -11,8 +11,6 @@
 
 ## ✨ Features
 
-## Features
-
 - 🛠️ Factory methods for building logical symbols, operators, expressions, and well-formed formulas (WFF).
 - 🔍 Tools for analyzing formulas:
   - Variable extraction
@@ -40,10 +38,24 @@ Or using yarn:
 yarn add chop-logic-core
 ```
 
+## ⚙️ Available Scripts
+
+The following npm scripts are available for development and maintenance:
+
+- **`npm run clean`** – Removes the generated `lib` folder.
+- **`npm run build`** – Builds both ESM and CJS versions of the library.
+- **`npm run lint`** – Runs ESLint to check for code quality issues.
+- **`npm run lint:fix`** – Runs ESLint with automatic fixes.
+- **`npm run test`** – Runs Jest in watch mode.
+- **`npm run test:ci`** – Runs Jest in CI mode, allowing zero tests to pass.
+- **`npm run coverage`** – Generates a test coverage report.
+
 ## 🔧 Usage
 
 ```ts
-import { PropositionalFactory, PropositionalToolkit, HilbertCalculus, NaturalCalculus } from 'chop-logic-core';
+import { ChopLogicCore } from 'chop-logic-core';
+
+const { PropositionalFactory, PropositionalToolkit, HilbertCalculus, NaturalCalculus } = ChopLogicCore;
 
 const expression = PropositionalFactory.createExpression('(A => B) & ~C');
 const formula = PropositionalFactory.createFormula(expression);
@@ -58,18 +70,6 @@ const conjunction = NaturalCalculus.CC([A, A]);
 
 const stringView = PropositionalToolkit.convertToString(consequent);
 ```
-
-## ⚙️ Available Scripts
-
-The following npm scripts are available for development and maintenance:
-
-- **`npm run clean`** – Removes the generated `lib` folder.
-- **`npm run build`** – Builds both ESM and CJS versions of the library.
-- **`npm run lint`** – Runs ESLint to check for code quality issues.
-- **`npm run lint:fix`** – Runs ESLint with automatic fixes.
-- **`npm run test`** – Runs Jest in watch mode.
-- **`npm run test:ci`** – Runs Jest in CI mode, allowing zero tests to pass.
-- **`npm run coverage`** – Generates a test coverage report.
 
 ## 🛠 Contributing
 

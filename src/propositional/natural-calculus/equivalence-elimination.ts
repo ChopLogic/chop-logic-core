@@ -1,6 +1,6 @@
-import { PropFormula } from '../../common/types';
+import { PropFormula } from '../../models';
 import { isEquivalenceEliminationApplicable } from '../checks/is-equivalence-elimination-applicable';
-import { Operator } from '../../common/enums';
+import { Operator } from '../../enums';
 
 /**
  * Performs equivalence elimination on the given formulas.

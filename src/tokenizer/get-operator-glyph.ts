@@ -1,4 +1,4 @@
-import { Glyph, Operator } from '../common/enums';
+import { Glyph, Operator } from '../enums';
 
 /**
  * Converts a given Operator into its corresponding Glyph.

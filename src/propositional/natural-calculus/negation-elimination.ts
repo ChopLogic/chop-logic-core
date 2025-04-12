@@ -1,4 +1,4 @@
-import { PropFormula } from '../../common/types';
+import { PropFormula } from '../../models';
 import { isNegationEliminationApplicable } from '../checks/is-negation-elimination-applicable';
 
 /**

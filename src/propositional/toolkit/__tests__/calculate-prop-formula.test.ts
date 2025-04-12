@@ -1,5 +1,5 @@
-import { PropFormula, PropFormulaVariablesMap } from '../../../common/types';
-import { Operator } from '../../../common/enums';
+import { PropFormula, PropFormulaVariablesMap } from '../../../models';
+import { Operator } from '../../../enums';
 import { calculatePropFormula } from '../calculate-prop-formula';
 
 describe('calculatePropFormula', () => {
