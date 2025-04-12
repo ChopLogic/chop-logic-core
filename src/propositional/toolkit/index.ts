@@ -8,10 +8,12 @@ import { getUnaryOperationValue } from './get-unary-operation-value';
 import { getBinaryOperationValue } from './get-binary-operation-value';
 import { generateTruthAssignments } from './generate-truth-assignments';
 import { applyPropFormulaChecks } from '../checks';
+import { convertPropFormulaToExpression } from './convert-prop-formula-to-expression';
 
 export const PropositionalToolkit = Object.freeze({
   calculateFormula: calculatePropFormula,
   convertToString: convertPropFormulaToString,
+  convertToExpression: convertPropFormulaToExpression,
   getVariables: extractPropVariables,
   getSubFormulas: extractPropSubFormulas,
   isWFF: isWellFormedFormula,

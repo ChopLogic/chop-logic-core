@@ -1,6 +1,6 @@
 import { GlyphType, Operator, Step } from '../enums';
 
-type PropAtom = [string];
+export type PropAtom = [string];
 
 export interface PropSymbol {
   atom: PropAtom;

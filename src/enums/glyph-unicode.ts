@@ -12,6 +12,6 @@ export enum GlyphUnicode {
   ReversedAntiImplication = '\u219A', // ↚ (B and not A)
   Contradiction = '\u22A5', // ⊥
   Tautology = '\u22A4', // ⊤
-  OpenParenthesis = '\uFF08', // （
-  CloseParenthesis = '\uFF09', // ）
+  OpenParenthesis = '(',
+  CloseParenthesis = ')',
 }
