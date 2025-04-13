@@ -55,11 +55,11 @@ The following npm scripts are available for development and maintenance:
 ```ts
 import { ChopLogicCore } from 'chop-logic-core';
 
-const { PropositionalFactory, PropositionalToolkit, HilbertCalculus, NaturalCalculus } = ChopLogicCore;
+const { PropositionalFactory, PropositionalUtils, HilbertCalculus, NaturalCalculus } = ChopLogicCore;
 
 const expression = PropositionalFactory.createExpression('(A => B) & ~C');
 const formula = PropositionalFactory.createFormula(expression);
-const truthTable = PropositionalToolkit.generateTT(formula);
+const truthTable = PropositionalUtils.generateTT(formula);
 
 const A = PropositionalFactory.createExpression('A');
 const implication = PropositionalFactory.createFormula(PropositionalFactory.createExpression('(A => B)'));
@@ -68,7 +68,7 @@ const consequent = HilbertCalculus.IE([implication, A]);
 
 const conjunction = NaturalCalculus.CC([A, A]);
 
-const stringView = PropositionalToolkit.convertToString(consequent);
+const stringView = PropositionalUtils.convertToString(consequent);
 ```
 
 ## 🛠 Contributing

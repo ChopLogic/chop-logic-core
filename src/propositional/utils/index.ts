@@ -10,7 +10,7 @@ import { generateTruthAssignments } from './generate-truth-assignments';
 import { applyPropFormulaChecks } from '../checks';
 import { convertPropFormulaToExpression } from './convert-prop-formula-to-expression';
 
-export const PropositionalToolkit = Object.freeze({
+export const PropositionalUtils = Object.freeze({
   calculateFormula: calculatePropFormula,
   convertToString: convertPropFormulaToString,
   convertToExpression: convertPropFormulaToExpression,
