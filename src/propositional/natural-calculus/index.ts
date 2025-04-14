@@ -8,6 +8,7 @@ import { implicationIntroduction } from './implication-introduction';
 import { conjunctionIntroduction } from './conjunction-introduction';
 import { conjunctionElimination } from './conjunction-elimination';
 import { disjunctionElimination } from './disjunction-elimination';
+import { generateNaturalProofSteps } from './generate-natural-proof-steps';
 
 export const NaturalCalculus = Object.freeze({
   // Introduction rules
@@ -22,4 +23,5 @@ export const NaturalCalculus = Object.freeze({
   DE: disjunctionElimination,
   IE: implicationElimination,
   EE: equivalenceElimination,
+  generateSteps: generateNaturalProofSteps,
 });

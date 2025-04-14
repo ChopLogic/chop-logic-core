@@ -9,6 +9,7 @@ import { conjunctionElimination } from '../conjunction-elimination';
 import { disjunctionElimination } from '../disjunction-elimination';
 import { implicationElimination } from '../implication-elimination';
 import { equivalenceElimination } from '../equivalence-elimination';
+import { generateNaturalProofSteps } from '../generate-natural-proof-steps';
 
 describe('NaturalCalculus', () => {
   it('should have all expected rules with correct references', () => {
@@ -23,6 +24,7 @@ describe('NaturalCalculus', () => {
       DE: disjunctionElimination,
       IE: implicationElimination,
       EE: equivalenceElimination,
+      generateSteps: generateNaturalProofSteps,
     });
   });
 
