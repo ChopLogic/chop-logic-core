@@ -3,7 +3,7 @@ import { Operator } from '../../enums';
 import { arePropFormulasStructurallyEqual } from './are-prop-formulas-structurally-equal';
 
 /**
- * Checks if equivalence introduction is applicable.
+ * Checks if equivalence introduction rule is applicable.
  *
  * Equivalence introduction allows us to infer an equivalence (A ≡ B)
  * if we have both implications (A → B) and (B → A).

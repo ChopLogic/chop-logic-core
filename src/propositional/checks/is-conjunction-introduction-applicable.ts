@@ -1,7 +1,7 @@
 import { PropFormula } from '../../models';
 
 /**
- * Checks if conjunction introduction is applicable.
+ * Checks if conjunction introduction rule is applicable.
  *
  * Conjunction introduction allows us to infer a conjunction from any two conjuncts.
  *

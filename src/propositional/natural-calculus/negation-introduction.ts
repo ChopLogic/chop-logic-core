@@ -8,7 +8,7 @@ import { Operator } from '../../enums';
  *
  * @param formulas - An array of propositional formulas.
  * @returns {[PropFormula]} A tuple containing the inferred formula.
- * @throws {Error} if negation introduction is not applicable.
+ * @throws {Error} if negation introduction rule is not applicable.
  */
 export function negationIntroduction(formulas: PropFormula[]): [PropFormula] {
   if (!isNegationIntroductionApplicable(formulas)) {

@@ -11,6 +11,7 @@ import { disjunctionElimination } from './disjunction-elimination';
 import { generateNaturalProofSteps } from './generate-natural-proof-steps';
 
 export const NaturalCalculus = Object.freeze({
+  generateSteps: generateNaturalProofSteps,
   // Introduction rules
   NI: negationIntroduction,
   CI: conjunctionIntroduction,
@@ -23,5 +24,4 @@ export const NaturalCalculus = Object.freeze({
   DE: disjunctionElimination,
   IE: implicationElimination,
   EE: equivalenceElimination,
-  generateSteps: generateNaturalProofSteps,
 });
