@@ -6,8 +6,7 @@ export type {
   PropAtom,
   PropFormula,
   PropFormulaVariablesMap,
-  ProofStep,
-  NaturalProofStep,
+  PropProofStep,
   TruthTableRow,
   TruthTable,
 } from './propositional';

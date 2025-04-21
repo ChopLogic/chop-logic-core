@@ -1,7 +1,7 @@
 import { Operator } from '../../enums';
 
 /**
- * Computes the logical value of a unary operator applied to an operand.
+ * Computes the logical value of an unary operator applied to an operand.
  *
  * @param operator - The unary operator to evaluate.
  * @param operand - The boolean value of the operand.

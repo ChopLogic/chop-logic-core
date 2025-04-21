@@ -20,6 +20,6 @@ export function implicationElimination(formulas: PropFormula[]): PropFormula {
   // Find the implication formula (A => B)
   const implicationFormula = formulas.find((f) => f.operator === Operator.Implies);
 
-  // The consequent of the implication (second value in values array)
+  // The consequent of the implication (second value in the array)
   return implicationFormula!.values[1] as PropFormula;
 }

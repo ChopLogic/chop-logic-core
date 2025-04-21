@@ -1,10 +1,10 @@
 import { Tokenizer } from './tokenizer';
-import { PropositionalFactory, PropositionalToolkit, HilbertCalculus, NaturalCalculus } from './propositional';
+import { PropositionalFactory, PropositionalUtils, HilbertCalculus, NaturalCalculus } from './propositional';
 
 export const ChopLogicCore = Object.freeze({
   Tokenizer,
   PropositionalFactory,
-  PropositionalToolkit,
+  PropositionalUtils,
   HilbertCalculus,
   NaturalCalculus,
 });

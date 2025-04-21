@@ -5,9 +5,7 @@
 [![npm build](https://github.com/SavouryGin/chop-logic-core/actions/workflows/npm.yml/badge.svg)](https://github.com/SavouryGin/chop-logic-core/actions/workflows/npm.yml)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 
-**Chop Logic Core** is a TypeScript library providing core functions for working with **symbolic logic formulas**. It is part of the broader [Chop Logic](https://github.com/users/SavouryGin/projects/1) project and offers essential utilities for propositional logic processing.
-
-🚀 **Current Status:** The library is under active development, but several tested functions are already available for use in third-party projects.
+**Chop Logic Core** is a TypeScript library providing core functions for working with **symbolic logic**. It is part of the broader [Chop Logic](https://github.com/users/SavouryGin/projects/1) project and offers essential utilities for logic processing and deduction.
 
 ## ✨ Features
 
@@ -42,8 +40,8 @@ yarn add chop-logic-core
 
 The following npm scripts are available for development and maintenance:
 
-- **`npm run clean`** – Removes the generated `lib` folder.
 - **`npm run build`** – Builds both ESM and CJS versions of the library.
+- **`npm run clean`** – Removes the generated `lib` folder.
 - **`npm run lint`** – Runs ESLint to check for code quality issues.
 - **`npm run lint:fix`** – Runs ESLint with automatic fixes.
 - **`npm run test`** – Runs Jest in watch mode.
@@ -55,20 +53,20 @@ The following npm scripts are available for development and maintenance:
 ```ts
 import { ChopLogicCore } from 'chop-logic-core';
 
-const { PropositionalFactory, PropositionalToolkit, HilbertCalculus, NaturalCalculus } = ChopLogicCore;
+const { PropositionalFactory, PropositionalUtils, HilbertCalculus } = ChopLogicCore;
+const { createExpression, createFormula } = PropositionalFactory;
+const { generateTT, convertToString } = PropositionalUtils;
 
-const expression = PropositionalFactory.createExpression('(A => B) & ~C');
-const formula = PropositionalFactory.createFormula(expression);
-const truthTable = PropositionalToolkit.generateTT(formula);
+const expression = createExpression('((A => B) & ~C)');
+const formula = createFormula(expression);
+const truthTable = generateTT(formula);
 
-const A = PropositionalFactory.createExpression('A');
-const implication = PropositionalFactory.createFormula(PropositionalFactory.createExpression('(A => B)'));
+const A = createFormula(createExpression('A'));
+const implicationAB = createFormula(createExpression('(A => B)'));
 
-const consequent = HilbertCalculus.IE([implication, A]);
+const consequent = HilbertCalculus.IE([implicationAB, A]);
 
-const conjunction = NaturalCalculus.CC([A, A]);
-
-const stringView = PropositionalToolkit.convertToString(consequent);
+const stringView = convertToString(consequent);
 ```
 
 ## 🛠 Contributing

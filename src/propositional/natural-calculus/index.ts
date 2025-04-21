@@ -8,8 +8,10 @@ import { implicationIntroduction } from './implication-introduction';
 import { conjunctionIntroduction } from './conjunction-introduction';
 import { conjunctionElimination } from './conjunction-elimination';
 import { disjunctionElimination } from './disjunction-elimination';
+import { generateNaturalProofSteps } from './generate-natural-proof-steps';
 
 export const NaturalCalculus = Object.freeze({
+  generateSteps: generateNaturalProofSteps,
   // Introduction rules
   NI: negationIntroduction,
   CI: conjunctionIntroduction,

@@ -18,7 +18,7 @@ export interface PropFormula {
 
 export type PropFormulaVariablesMap = Map<number, PropAtom>;
 
-export interface ProofStep {
+export interface PropProofStep {
   index: number;
   step: Step;
   formula: PropFormula;
@@ -26,10 +26,7 @@ export interface ProofStep {
   stringView: string;
   comment: string;
   derivedFrom?: number[];
-}
-
-export interface NaturalProofStep extends ProofStep {
-  level: number;
+  level?: number;
   assumptionIndex?: number;
 }
 

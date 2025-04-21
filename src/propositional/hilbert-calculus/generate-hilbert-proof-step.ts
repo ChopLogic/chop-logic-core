@@ -1,12 +1,12 @@
-import { ProofStep, PropFormula } from '../../models';
+import { PropProofStep, PropFormula } from '../../models';
 import { HilbertCalculusSchema, Step } from '../../enums';
-import { convertPropFormulaToString } from '../toolkit/convert-prop-formula-to-string';
+import { convertPropFormulaToString } from '../utils/convert-prop-formula-to-string';
 import { createPropExpression } from '../factory/create-prop-expression';
 import { implicationIntroduction } from './implication-introduction';
 import { implicationDistribution } from './implication-distribution';
 import { implicationReversal } from './implication-reversal';
 import { implicationElimination } from './implication-elimination';
-import { convertPropFormulaToExpression } from '../toolkit/convert-prop-formula-to-expression';
+import { convertPropFormulaToExpression } from '../utils/convert-prop-formula-to-expression';
 
 type AxiomPayload = {
   formulas: PropFormula[];
@@ -25,18 +25,22 @@ type BasePayload = {
 
 interface HilbertProofStepInput<T> {
   index: number;
-  step: T extends Step.Derivation ? Step.Derivation : T extends Step.Axiom ? Step.Axiom : Exclude<Step, Step.Derivation | Step.Axiom>;
+  step: T extends Step.Derivation
+    ? Step.Derivation
+    : T extends Step.Axiom
+      ? Step.Axiom
+      : Exclude<Step, Step.Derivation | Step.Axiom | Step.Assumption>;
   payload: T extends Step.Derivation ? DerivedPayload : T extends Step.Axiom ? AxiomPayload : BasePayload;
 }
 
 /**
- * Generates a ProofStep object for use in Hilbert-style logic derivations.
- * Supports Axiom, Derivation, and Base step types. Applies appropriate
+ * Generates a PropProofStep object for use in Hilbert-style logic derivations.
+ * Supports Axiom, Derivation, Premise, Reiteration and Shortcut step types. Applies appropriate
  * schema-based transformations and constructs the string and symbolic expression views.
  * @param input - An object with necessary data for the new proof step.
  * @returns A new proof step based on the input.
  */
-export function generateHilbertProofStep<T>(input: HilbertProofStepInput<T>): ProofStep {
+export function generateHilbertProofStep<T>(input: HilbertProofStepInput<T>): PropProofStep {
   const { index, step } = input;
 
   if (step === Step.Derivation) {
@@ -50,7 +54,7 @@ export function generateHilbertProofStep<T>(input: HilbertProofStepInput<T>): Pr
   return buildBaseStep(index, step, input.payload as BasePayload);
 }
 
-function buildDerivedStep(index: number, payload: DerivedPayload): ProofStep {
+function buildDerivedStep(index: number, payload: DerivedPayload): PropProofStep {
   const { formulas, schema, derivedFrom } = payload;
   const formula = getRuleFunction(schema)(formulas);
   return {
@@ -64,7 +68,7 @@ function buildDerivedStep(index: number, payload: DerivedPayload): ProofStep {
   };
 }
 
-function buildAxiomStep(index: number, payload: AxiomPayload): ProofStep {
+function buildAxiomStep(index: number, payload: AxiomPayload): PropProofStep {
   const { formulas, schema } = payload;
   const formula = getRuleFunction(schema)(formulas);
   return {
@@ -77,7 +81,7 @@ function buildAxiomStep(index: number, payload: AxiomPayload): ProofStep {
   };
 }
 
-function buildBaseStep(index: number, step: Step, payload: BasePayload): ProofStep {
+function buildBaseStep(index: number, step: Step, payload: BasePayload): PropProofStep {
   return {
     index,
     step,

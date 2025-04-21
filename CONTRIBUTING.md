@@ -119,7 +119,7 @@ Allowed commit types:
 - `chore`: Routine tasks or dependency updates
 - `docs`: Documentation updates
 - `refactor`: Code changes that do not fix a bug or add a feature
-- `test`: A new unit test or tests refactoring
+- `test`: A new unit test added or tests refactored
 
 ## Branch Names
 
