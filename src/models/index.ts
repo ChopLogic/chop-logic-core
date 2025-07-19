@@ -1,12 +1,12 @@
-export type { TruthAssignmentsMap } from './common';
+export type { TruthAssignmentsMap } from "./common";
 
 export type {
-  PropSymbol,
-  PropExpression,
-  PropAtom,
-  PropFormula,
-  PropFormulaVariablesMap,
-  PropProofStep,
-  TruthTableRow,
-  TruthTable,
-} from './propositional';
+	PropAtom,
+	PropExpression,
+	PropFormula,
+	PropFormulaVariablesMap,
+	PropProofStep,
+	PropSymbol,
+	TruthTable,
+	TruthTableRow,
+} from "./propositional";

@@ -1,6 +1,6 @@
-import { PropSymbol } from '../../models';
-import { Glyph, GlyphType } from '../../enums';
-import { getGlyphUnicode } from '../../tokenizer/get-glyph-unicode';
+import { Glyph, GlyphType } from "../../enums";
+import type { PropSymbol } from "../../models";
+import { getGlyphUnicode } from "../../tokenizer/get-glyph-unicode";
 
 /**
  * Creates a `PropSymbol` representing a propositional logic symbol.
@@ -16,33 +16,35 @@ import { getGlyphUnicode } from '../../tokenizer/get-glyph-unicode';
  * @throws {Error} If the character is not a recognized logical symbol or a Latin letter.
  */
 export function createPropSymbol(char: string, position: number): PropSymbol {
-  const knownGlyphs = Object.values(Glyph);
-  const onlyLatinLetters = /^[a-zA-Z]+$/;
+	const knownGlyphs = Object.values(Glyph);
+	const onlyLatinLetters = /^[a-zA-Z]+$/;
 
-  if (char === Glyph.OpenParenthesis || char === Glyph.CloseParenthesis) {
-    return {
-      position,
-      atom: [char],
-      type: GlyphType.Parenthesis,
-      view: getGlyphUnicode(char),
-    };
-  } else if (knownGlyphs.includes(char as Glyph)) {
-    return {
-      position,
-      atom: [char],
-      type: GlyphType.Operator,
-      view: getGlyphUnicode(char),
-    };
-  } else if (onlyLatinLetters.test(char)) {
-    const firstLetter = char[0].toLowerCase();
+	if (char === Glyph.OpenParenthesis || char === Glyph.CloseParenthesis) {
+		return {
+			position,
+			atom: [char],
+			type: GlyphType.Parenthesis,
+			view: getGlyphUnicode(char),
+		};
+	} else if (knownGlyphs.includes(char as Glyph)) {
+		return {
+			position,
+			atom: [char],
+			type: GlyphType.Operator,
+			view: getGlyphUnicode(char),
+		};
+	} else if (onlyLatinLetters.test(char)) {
+		const firstLetter = char[0].toLowerCase();
 
-    return {
-      position,
-      atom: [char],
-      type: GlyphType.Variable,
-      view: firstLetter,
-    };
-  } else {
-    throw new Error(`Cannot create a propositional symbol from the character "${char}".`);
-  }
+		return {
+			position,
+			atom: [char],
+			type: GlyphType.Variable,
+			view: firstLetter,
+		};
+	} else {
+		throw new Error(
+			`Cannot create a propositional symbol from the character "${char}".`,
+		);
+	}
 }

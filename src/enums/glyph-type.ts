@@ -1,5 +1,5 @@
 export enum GlyphType {
-  Variable = 'variable',
-  Operator = 'operator',
-  Parenthesis = 'parenthesis',
+	Variable = "variable",
+	Operator = "operator",
+	Parenthesis = "parenthesis",
 }

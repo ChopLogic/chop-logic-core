@@ -1,4 +1,4 @@
-import { PropFormula } from '../../models';
+import type { PropFormula } from "../../models";
 
 /**
  * Checks if implication introduction rule is applicable.
@@ -9,6 +9,8 @@ import { PropFormula } from '../../models';
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if there are exactly two formulas in the array, otherwise `false`.
  */
-export function isImplicationIntroductionApplicable(formulas: PropFormula[]): boolean {
-  return formulas.length === 2;
+export function isImplicationIntroductionApplicable(
+	formulas: PropFormula[],
+): boolean {
+	return formulas.length === 2;
 }

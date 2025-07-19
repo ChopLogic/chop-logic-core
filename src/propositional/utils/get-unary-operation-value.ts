@@ -1,4 +1,4 @@
-import { Operator } from '../../enums';
+import { Operator } from "../../enums";
 
 /**
  * Computes the logical value of an unary operator applied to an operand.
@@ -8,13 +8,19 @@ import { Operator } from '../../enums';
  * @returns The computed boolean value after applying the unary operator.
  * @throws {Error} If an unsupported operator is provided.
  */
-export function getUnaryOperationValue({ operator, operand }: { operator: Operator; operand: boolean }): boolean {
-  switch (operator) {
-    case Operator.Var:
-      return operand; // A variable simply retains its boolean value.
-    case Operator.Not:
-      return !operand; // Logical negation.
-    default:
-      throw new Error(`Operator "${operator}" is not a valid unary operator.`);
-  }
+export function getUnaryOperationValue({
+	operator,
+	operand,
+}: {
+	operator: Operator;
+	operand: boolean;
+}): boolean {
+	switch (operator) {
+		case Operator.Var:
+			return operand; // A variable simply retains its boolean value.
+		case Operator.Not:
+			return !operand; // Logical negation.
+		default:
+			throw new Error(`Operator "${operator}" is not a valid unary operator.`);
+	}
 }

@@ -1,4 +1,4 @@
-import { PropFormula } from '../../models';
+import type { PropFormula } from "../../models";
 
 /**
  * Checks whether two propositional formulas are structurally equivalent.
@@ -8,10 +8,12 @@ import { PropFormula } from '../../models';
  * @param formulas - An array of propositional formulas to check.
  * @returns True if the formulas are structurally equivalent, otherwise false.
  */
-export function arePropFormulasStructurallyEqual(formulas: PropFormula[]): boolean {
-  if (!formulas.length) return false;
+export function arePropFormulasStructurallyEqual(
+	formulas: PropFormula[],
+): boolean {
+	if (!formulas.length) return false;
 
-  const strings = formulas.map((formula) => JSON.stringify(formula));
+	const strings = formulas.map((formula) => JSON.stringify(formula));
 
-  return strings.every((item) => item === strings[0]);
+	return strings.every((item) => item === strings[0]);
 }

@@ -1,5 +1,5 @@
-import { PropFormula } from '../../models';
-import { Operator } from '../../enums';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
 
 /**
  * Constructs a formula based on the Implication Reversal axiom schema:
@@ -9,22 +9,22 @@ import { Operator } from '../../enums';
  * @returns A new propositional formula representing the implication reversal.
  */
 export function implicationReversal(formulas: PropFormula[]): PropFormula {
-  const [A, B] = formulas;
+	const [A, B] = formulas;
 
-  return {
-    operator: Operator.Implies,
-    values: [
-      {
-        operator: Operator.Implies,
-        values: [
-          { operator: Operator.Not, values: [A] },
-          { operator: Operator.Not, values: [B] },
-        ],
-      },
-      {
-        operator: Operator.Implies,
-        values: [B, A],
-      },
-    ],
-  };
+	return {
+		operator: Operator.Implies,
+		values: [
+			{
+				operator: Operator.Implies,
+				values: [
+					{ operator: Operator.Not, values: [A] },
+					{ operator: Operator.Not, values: [B] },
+				],
+			},
+			{
+				operator: Operator.Implies,
+				values: [B, A],
+			},
+		],
+	};
 }

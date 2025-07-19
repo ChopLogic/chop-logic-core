@@ -1,21 +1,21 @@
-import { Glyph, GlyphUnicode } from '../enums';
+import { Glyph, GlyphUnicode } from "../enums";
 
 const GlyphsDictionary: Record<Glyph, GlyphUnicode> = {
-  [Glyph.Implication]: GlyphUnicode.Implication,
-  [Glyph.ReversedImplication]: GlyphUnicode.ReversedImplication,
-  [Glyph.Conjunction]: GlyphUnicode.Conjunction,
-  [Glyph.Disjunction]: GlyphUnicode.Disjunction,
-  [Glyph.Negation]: GlyphUnicode.Negation,
-  [Glyph.Equivalence]: GlyphUnicode.Equivalence,
-  [Glyph.ExclusiveConjunction]: GlyphUnicode.ExclusiveConjunction,
-  [Glyph.ShefferStroke]: GlyphUnicode.ShefferStroke,
-  [Glyph.WebbOperation]: GlyphUnicode.WebbOperation,
-  [Glyph.AntiImplication]: GlyphUnicode.AntiImplication,
-  [Glyph.ReversedAntiImplication]: GlyphUnicode.ReversedAntiImplication,
-  [Glyph.Contradiction]: GlyphUnicode.Contradiction,
-  [Glyph.Tautology]: GlyphUnicode.Tautology,
-  [Glyph.OpenParenthesis]: GlyphUnicode.OpenParenthesis,
-  [Glyph.CloseParenthesis]: GlyphUnicode.CloseParenthesis,
+	[Glyph.Implication]: GlyphUnicode.Implication,
+	[Glyph.ReversedImplication]: GlyphUnicode.ReversedImplication,
+	[Glyph.Conjunction]: GlyphUnicode.Conjunction,
+	[Glyph.Disjunction]: GlyphUnicode.Disjunction,
+	[Glyph.Negation]: GlyphUnicode.Negation,
+	[Glyph.Equivalence]: GlyphUnicode.Equivalence,
+	[Glyph.ExclusiveConjunction]: GlyphUnicode.ExclusiveConjunction,
+	[Glyph.ShefferStroke]: GlyphUnicode.ShefferStroke,
+	[Glyph.WebbOperation]: GlyphUnicode.WebbOperation,
+	[Glyph.AntiImplication]: GlyphUnicode.AntiImplication,
+	[Glyph.ReversedAntiImplication]: GlyphUnicode.ReversedAntiImplication,
+	[Glyph.Contradiction]: GlyphUnicode.Contradiction,
+	[Glyph.Tautology]: GlyphUnicode.Tautology,
+	[Glyph.OpenParenthesis]: GlyphUnicode.OpenParenthesis,
+	[Glyph.CloseParenthesis]: GlyphUnicode.CloseParenthesis,
 };
 
 /**
@@ -26,9 +26,9 @@ const GlyphsDictionary: Record<Glyph, GlyphUnicode> = {
  * @throws {Error} If the character is not a recognized `Glyph`.
  */
 export function getGlyphUnicode(char: string): GlyphUnicode {
-  if (char in GlyphsDictionary) {
-    return GlyphsDictionary[char as Glyph];
-  } else {
-    throw new Error(`Cannot get a GlyphUnicode for the character "${char}".`);
-  }
+	if (char in GlyphsDictionary) {
+		return GlyphsDictionary[char as Glyph];
+	} else {
+		throw new Error(`Cannot get a GlyphUnicode for the character "${char}".`);
+	}
 }

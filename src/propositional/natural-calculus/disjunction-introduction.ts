@@ -1,6 +1,6 @@
-import { PropFormula } from '../../models';
-import { Operator } from '../../enums';
-import { isDisjunctionIntroductionApplicable } from '../checks/is-dusjunction-introduction-applicable';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
+import { isDisjunctionIntroductionApplicable } from "../checks/is-dusjunction-introduction-applicable";
 
 /**
  * Applies the disjunction introduction rule.
@@ -11,16 +11,20 @@ import { isDisjunctionIntroductionApplicable } from '../checks/is-dusjunction-in
  * @returns {[PropFormula, PropFormula]} A tuple containing the two inferred formulas.
  * @throws {Error} if the formulas do not satisfy disjunction introduction conditions.
  */
-export function disjunctionIntroduction(formulas: PropFormula[]): [PropFormula, PropFormula] {
-  if (!isDisjunctionIntroductionApplicable(formulas)) {
-    throw new Error('Disjunction introduction is not applicable to the given formulas.');
-  }
+export function disjunctionIntroduction(
+	formulas: PropFormula[],
+): [PropFormula, PropFormula] {
+	if (!isDisjunctionIntroductionApplicable(formulas)) {
+		throw new Error(
+			"Disjunction introduction is not applicable to the given formulas.",
+		);
+	}
 
-  const disjunct1 = formulas[0];
-  const disjunct2 = formulas[1];
+	const disjunct1 = formulas[0];
+	const disjunct2 = formulas[1];
 
-  return [
-    { operator: Operator.Or, values: [disjunct1, disjunct2] },
-    { operator: Operator.Or, values: [disjunct2, disjunct1] },
-  ];
+	return [
+		{ operator: Operator.Or, values: [disjunct1, disjunct2] },
+		{ operator: Operator.Or, values: [disjunct2, disjunct1] },
+	];
 }

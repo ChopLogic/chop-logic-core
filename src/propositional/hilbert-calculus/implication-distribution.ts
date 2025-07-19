@@ -1,5 +1,5 @@
-import { PropFormula } from '../../models';
-import { Operator } from '../../enums';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
 
 /**
  * Constructs a formula based on the Implication Distribution axiom schema:
@@ -9,22 +9,22 @@ import { Operator } from '../../enums';
  * @returns A new propositional formula representing the axiom schema.
  */
 export function implicationDistribution(formulas: PropFormula[]): PropFormula {
-  const [A, B, C] = formulas;
+	const [A, B, C] = formulas;
 
-  return {
-    operator: Operator.Implies,
-    values: [
-      {
-        operator: Operator.Implies,
-        values: [A, { operator: Operator.Implies, values: [B, C] }],
-      },
-      {
-        operator: Operator.Implies,
-        values: [
-          { operator: Operator.Implies, values: [A, B] },
-          { operator: Operator.Implies, values: [A, C] },
-        ],
-      },
-    ],
-  };
+	return {
+		operator: Operator.Implies,
+		values: [
+			{
+				operator: Operator.Implies,
+				values: [A, { operator: Operator.Implies, values: [B, C] }],
+			},
+			{
+				operator: Operator.Implies,
+				values: [
+					{ operator: Operator.Implies, values: [A, B] },
+					{ operator: Operator.Implies, values: [A, C] },
+				],
+			},
+		],
+	};
 }

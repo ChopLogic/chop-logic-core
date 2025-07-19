@@ -1,6 +1,6 @@
-import { PropFormula } from '../../models';
-import { isDisjunctionEliminationApplicable } from '../checks/is-disjunction-elimination-applicable';
-import { Operator } from '../../enums';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
+import { isDisjunctionEliminationApplicable } from "../checks/is-disjunction-elimination-applicable";
 
 /**
  * Applies the disjunction elimination rule:
@@ -11,12 +11,16 @@ import { Operator } from '../../enums';
  * @throws {Error} if the formulas do not satisfy disjunction elimination conditions.
  */
 export function disjunctionElimination(formulas: PropFormula[]): [PropFormula] {
-  if (!isDisjunctionEliminationApplicable(formulas)) {
-    throw new Error('Disjunction elimination is not applicable to the given formulas.');
-  }
+	if (!isDisjunctionEliminationApplicable(formulas)) {
+		throw new Error(
+			"Disjunction elimination is not applicable to the given formulas.",
+		);
+	}
 
-  // Extract the consequent from one of the implications
-  const implication1 = formulas.find((formula) => formula.operator === Operator.Implies);
+	// Extract the consequent from one of the implications
+	const implication1 = formulas.find(
+		(formula) => formula.operator === Operator.Implies,
+	);
 
-  return [implication1!.values[1] as PropFormula];
+	return [implication1!.values[1] as PropFormula];
 }

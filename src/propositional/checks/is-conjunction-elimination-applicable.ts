@@ -1,5 +1,5 @@
-import { PropFormula } from '../../models';
-import { Operator } from '../../enums';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
 
 /**
  * Checks if conjunction elimination is applicable.
@@ -10,10 +10,12 @@ import { Operator } from '../../enums';
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if all formulas are conjunctions, otherwise `false`.
  */
-export function isConjunctionEliminationApplicable(formulas: PropFormula[]): boolean {
-  if (formulas.length === 0) {
-    return false;
-  }
+export function isConjunctionEliminationApplicable(
+	formulas: PropFormula[],
+): boolean {
+	if (formulas.length === 0) {
+		return false;
+	}
 
-  return formulas.every((formula) => formula.operator === Operator.And);
+	return formulas.every((formula) => formula.operator === Operator.And);
 }

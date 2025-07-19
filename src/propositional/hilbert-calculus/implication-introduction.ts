@@ -1,5 +1,5 @@
-import { PropFormula } from '../../models';
-import { Operator } from '../../enums';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
 
 /**
  * Generates a formula based on the Implication Introduction axiom schema.
@@ -11,16 +11,16 @@ import { Operator } from '../../enums';
  * @returns A new formula representing (A => (B => A)).
  */
 export function implicationIntroduction(formulas: PropFormula[]): PropFormula {
-  const [A, B] = formulas;
+	const [A, B] = formulas;
 
-  return {
-    operator: Operator.Implies,
-    values: [
-      A,
-      {
-        operator: Operator.Implies,
-        values: [B, A],
-      },
-    ],
-  };
+	return {
+		operator: Operator.Implies,
+		values: [
+			A,
+			{
+				operator: Operator.Implies,
+				values: [B, A],
+			},
+		],
+	};
 }

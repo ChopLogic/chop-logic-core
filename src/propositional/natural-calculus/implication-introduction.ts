@@ -1,6 +1,6 @@
-import { PropFormula } from '../../models';
-import { Operator } from '../../enums';
-import { isImplicationIntroductionApplicable } from '../checks/is-implication-introduction-applicable';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
+import { isImplicationIntroductionApplicable } from "../checks/is-implication-introduction-applicable";
 
 /**
  * Applies the implication introduction rule.
@@ -11,12 +11,16 @@ import { isImplicationIntroductionApplicable } from '../checks/is-implication-in
  * @returns {[PropFormula]} A tuple containing the inferred formula.
  * @throws {Error} if the formulas do not satisfy disjunction introduction conditions.
  */
-export function implicationIntroduction(formulas: PropFormula[]): [PropFormula] {
-  if (!isImplicationIntroductionApplicable(formulas)) {
-    throw new Error('Implication introduction is not applicable to the given formulas.');
-  }
+export function implicationIntroduction(
+	formulas: PropFormula[],
+): [PropFormula] {
+	if (!isImplicationIntroductionApplicable(formulas)) {
+		throw new Error(
+			"Implication introduction is not applicable to the given formulas.",
+		);
+	}
 
-  const [premise, conclusion] = formulas;
+	const [premise, conclusion] = formulas;
 
-  return [{ operator: Operator.Implies, values: [premise, conclusion] }];
+	return [{ operator: Operator.Implies, values: [premise, conclusion] }];
 }

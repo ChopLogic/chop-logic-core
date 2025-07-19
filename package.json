@@ -1,79 +1,76 @@
 {
-  "name": "chop-logic-core",
-  "version": "1.2.0",
-  "description": "An npm package for core functions of the Chop Logic project.",
-  "main": "lib/index.cjs",
-  "module": "lib/index.mjs",
-  "types": "lib/index.d.ts",
-  "files": [
-    "lib"
-  ],
-  "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --out-dir lib",
-    "clean": "rm -rf lib",
-    "prepublishOnly": "npm run clean && npm run build",
-    "lint": "npx eslint",
-    "lint:fix": "npx eslint --fix --quiet",
-    "test": "jest --watch",
-    "test:ci": "jest --passWithNoTests",
-    "coverage": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'",
-    "types": "tsc --pretty --noEmit"
-  },
-  "lint-staged": {
-    "*.{ts}": [
-      "npm run types"
-    ],
-    "*.{ts,md}": [
-      "npm run test:ci",
-      "npm run lint:fix",
-      "prettier --write"
-    ]
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SavouryGin/chop-logic-core.git"
-  },
-  "keywords": [
-    "chop-logic",
-    "logic",
-    "propositional-logic",
-    "proof-system",
-    "typescript",
-    "formal-logic",
-    "hilbert",
-    "natural-deduction"
-  ],
-  "author": "Dmitrii Suroviagin",
-  "license": "LGPL-3.0-or-later",
-  "bugs": {
-    "url": "https://github.com/SavouryGin/chop-logic-core/issues"
-  },
-  "homepage": "https://github.com/SavouryGin/chop-logic-core#readme",
-  "devDependencies": {
-    "@babel/core": "^7.26.8",
-    "@babel/preset-env": "^7.26.8",
-    "@babel/preset-typescript": "^7.26.0",
-    "@commitlint/cli": "^19.7.1",
-    "@commitlint/config-conventional": "^19.7.1",
-    "@eslint/js": "^9.20.0",
-    "@types/jest": "^29.5.14",
-    "babel-jest": "^29.7.0",
-    "eslint": "^9.20.1",
-    "globals": "^15.15.0",
-    "husky": "^9.1.7",
-    "jest": "^29.7.0",
-    "lint-staged": "^15.4.3",
-    "prettier": "^3.5.1",
-    "tsup": "^8.4.0",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.24.0"
-  }
+	"name": "chop-logic-core",
+	"version": "1.2.0",
+	"description": "An npm package for core functions of the Chop Logic project.",
+	"main": "lib/index.cjs",
+	"module": "lib/index.mjs",
+	"types": "lib/index.d.ts",
+	"files": [
+		"lib"
+	],
+	"scripts": {
+		"build": "tsup src/index.ts --format esm,cjs --dts --out-dir lib",
+		"clean": "rm -rf lib",
+		"prepublishOnly": "npm run clean && npm run build",
+		"check": "biome check .  --max-diagnostics none",
+		"format": "biome format . --write",
+		"fix": "biome check . --write",
+		"test": "jest --watch",
+		"test:ci": "jest --passWithNoTests",
+		"coverage": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'",
+		"types": "tsc --pretty --noEmit"
+	},
+	"lint-staged": {
+		"*.{ts}": [
+			"npm run types"
+		],
+		"*.{ts,js,json,md}": [
+			"npm run test:ci",
+			"npm run format",
+			"npm run fix"
+		]
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SavouryGin/chop-logic-core.git"
+	},
+	"keywords": [
+		"chop-logic",
+		"logic",
+		"propositional-logic",
+		"proof-system",
+		"typescript",
+		"formal-logic",
+		"hilbert",
+		"natural-deduction"
+	],
+	"author": "Dmitrii Suroviagin",
+	"license": "LGPL-3.0-or-later",
+	"bugs": {
+		"url": "https://github.com/SavouryGin/chop-logic-core/issues"
+	},
+	"homepage": "https://github.com/SavouryGin/chop-logic-core#readme",
+	"devDependencies": {
+		"@babel/core": "^7.26.8",
+		"@babel/preset-env": "^7.26.8",
+		"@babel/preset-typescript": "^7.26.0",
+		"@biomejs/biome": "^2.1.2",
+		"@commitlint/cli": "^19.7.1",
+		"@commitlint/config-conventional": "^19.7.1",
+		"@types/jest": "^29.5.14",
+		"babel-jest": "^29.7.0",
+		"husky": "^9.1.7",
+		"jest": "^29.7.0",
+		"lint-staged": "^15.4.3",
+		"tsup": "^8.4.0",
+		"typescript": "^5.7.3"
+	}
 }
