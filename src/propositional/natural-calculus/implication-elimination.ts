@@ -23,5 +23,5 @@ export function implicationElimination(formulas: PropFormula[]): [PropFormula] {
 		(f) => f.operator === Operator.Implies,
 	);
 
-	return [implicationFormula!.values[1] as PropFormula];
+	return [implicationFormula?.values[1] as PropFormula];
 }

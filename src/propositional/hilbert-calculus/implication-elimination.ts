@@ -25,5 +25,5 @@ export function implicationElimination(formulas: PropFormula[]): PropFormula {
 	);
 
 	// The consequent of the implication (second value in the array)
-	return implicationFormula!.values[1] as PropFormula;
+	return implicationFormula?.values[1] as PropFormula;
 }

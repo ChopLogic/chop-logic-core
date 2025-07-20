@@ -22,5 +22,5 @@ export function disjunctionElimination(formulas: PropFormula[]): [PropFormula] {
 		(formula) => formula.operator === Operator.Implies,
 	);
 
-	return [implication1!.values[1] as PropFormula];
+	return [implication1?.values[1] as PropFormula];
 }
