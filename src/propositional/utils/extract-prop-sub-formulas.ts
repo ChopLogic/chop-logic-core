@@ -1,5 +1,5 @@
-import { PropFormula } from '../../models';
-import { Operator } from '../../enums';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
 
 /**
  * Extracts all true sub-formulas from a given propositional formula.
@@ -10,34 +10,34 @@ import { Operator } from '../../enums';
  * @returns {PropFormula[]} An array of unique sub-formulas, sorted in evaluation order.
  */
 export function extractPropSubFormulas(formula: PropFormula): PropFormula[] {
-  if (formula.operator === Operator.Var) return [];
+	if (formula.operator === Operator.Var) return [];
 
-  const subFormulas = new Set<string>();
-  const result: PropFormula[] = [];
+	const subFormulas = new Set<string>();
+	const result: PropFormula[] = [];
 
-  function traverse(subFormula: PropFormula): void {
-    if (subFormula.operator === Operator.Var) {
-      return;
-    }
+	function traverse(subFormula: PropFormula): void {
+		if (subFormula.operator === Operator.Var) {
+			return;
+		}
 
-    const key = JSON.stringify(subFormula);
-    if (!subFormulas.has(key)) {
-      subFormulas.add(key);
-      result.push(subFormula);
-    }
+		const key = JSON.stringify(subFormula);
+		if (!subFormulas.has(key)) {
+			subFormulas.add(key);
+			result.push(subFormula);
+		}
 
-    if (Array.isArray(subFormula.values)) {
-      for (const value of subFormula.values) {
-        traverse(value as PropFormula);
-      }
-    }
-  }
+		if (Array.isArray(subFormula.values)) {
+			for (const value of subFormula.values) {
+				traverse(value as PropFormula);
+			}
+		}
+	}
 
-  if (Array.isArray(formula.values)) {
-    for (const value of formula.values) {
-      traverse(value as PropFormula);
-    }
-  }
+	if (Array.isArray(formula.values)) {
+		for (const value of formula.values) {
+			traverse(value as PropFormula);
+		}
+	}
 
-  return result;
+	return result;
 }

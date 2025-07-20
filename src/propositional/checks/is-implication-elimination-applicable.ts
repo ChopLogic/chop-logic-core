@@ -1,6 +1,6 @@
-import { PropFormula } from '../../models';
-import { Operator } from '../../enums';
-import { arePropFormulasStructurallyEqual } from './are-prop-formulas-structurally-equal';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
+import { arePropFormulasStructurallyEqual } from "./are-prop-formulas-structurally-equal";
 
 /**
  * Checks if implication elimination (modus ponens) is applicable to two given formulas.
@@ -13,15 +13,22 @@ import { arePropFormulasStructurallyEqual } from './are-prop-formulas-structural
  * @param formulas - An array of propositional formulas to check.
  * @returns True if implication elimination can be applied, false otherwise.
  */
-export function isImplicationEliminationApplicable(formulas: PropFormula[]): boolean {
-  if (formulas.length !== 2) return false;
-  const [formula1, formula2] = formulas;
+export function isImplicationEliminationApplicable(
+	formulas: PropFormula[],
+): boolean {
+	if (formulas.length !== 2) return false;
+	const [formula1, formula2] = formulas;
 
-  const checkImplication = (implication: PropFormula, antecedent: PropFormula) =>
-    implication.operator === Operator.Implies &&
-    Array.isArray(implication.values) &&
-    implication.values.length === 2 &&
-    arePropFormulasStructurallyEqual([implication.values[0], antecedent]);
+	const checkImplication = (
+		implication: PropFormula,
+		antecedent: PropFormula,
+	) =>
+		implication.operator === Operator.Implies &&
+		Array.isArray(implication.values) &&
+		implication.values.length === 2 &&
+		arePropFormulasStructurallyEqual([implication.values[0], antecedent]);
 
-  return checkImplication(formula1, formula2) || checkImplication(formula2, formula1);
+	return (
+		checkImplication(formula1, formula2) || checkImplication(formula2, formula1)
+	);
 }

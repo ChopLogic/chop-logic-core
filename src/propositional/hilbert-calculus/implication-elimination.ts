@@ -1,6 +1,6 @@
-import { PropFormula } from '../../models';
-import { isImplicationEliminationApplicable } from '../checks/is-implication-elimination-applicable';
-import { Operator } from '../../enums';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
+import { isImplicationEliminationApplicable } from "../checks/is-implication-elimination-applicable";
 
 /**
  * Applies the rule of Implication Elimination (Modus Ponens).
@@ -13,13 +13,17 @@ import { Operator } from '../../enums';
  * @throws {Error} if implication elimination is not applicable.
  */
 export function implicationElimination(formulas: PropFormula[]): PropFormula {
-  if (!isImplicationEliminationApplicable(formulas)) {
-    throw new Error('Implication elimination is not applicable to the given formulas.');
-  }
+	if (!isImplicationEliminationApplicable(formulas)) {
+		throw new Error(
+			"Implication elimination is not applicable to the given formulas.",
+		);
+	}
 
-  // Find the implication formula (A => B)
-  const implicationFormula = formulas.find((f) => f.operator === Operator.Implies);
+	// Find the implication formula (A => B)
+	const implicationFormula = formulas.find(
+		(f) => f.operator === Operator.Implies,
+	);
 
-  // The consequent of the implication (second value in the array)
-  return implicationFormula!.values[1] as PropFormula;
+	// The consequent of the implication (second value in the array)
+	return implicationFormula?.values[1] as PropFormula;
 }

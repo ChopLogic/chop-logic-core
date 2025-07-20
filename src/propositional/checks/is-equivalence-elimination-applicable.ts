@@ -1,5 +1,5 @@
-import { PropFormula } from '../../models';
-import { Operator } from '../../enums';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
 
 /**
  * Checks if equivalence elimination is applicable.
@@ -10,10 +10,12 @@ import { Operator } from '../../enums';
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if all formulas are equivalences, otherwise `false`.
  */
-export function isEquivalenceEliminationApplicable(formulas: PropFormula[]): boolean {
-  if (formulas.length === 0) {
-    return false;
-  }
+export function isEquivalenceEliminationApplicable(
+	formulas: PropFormula[],
+): boolean {
+	if (formulas.length === 0) {
+		return false;
+	}
 
-  return formulas.every((formula) => formula.operator === Operator.Equiv);
+	return formulas.every((formula) => formula.operator === Operator.Equiv);
 }

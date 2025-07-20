@@ -1,5 +1,5 @@
-import { PropFormula } from '../../models';
-import { Operator } from '../../enums';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
 
 /**
  * Checks if negation elimination is applicable to all given formulas.
@@ -10,16 +10,18 @@ import { Operator } from '../../enums';
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if all formulas contain exactly two negations, otherwise `false`.
  */
-export function isNegationEliminationApplicable(formulas: PropFormula[]): boolean {
-  if (formulas.length === 0) {
-    return false;
-  }
+export function isNegationEliminationApplicable(
+	formulas: PropFormula[],
+): boolean {
+	if (formulas.length === 0) {
+		return false;
+	}
 
-  return formulas.every(
-    (formula) =>
-      formula.operator === Operator.Not &&
-      Array.isArray(formula.values) &&
-      formula.values.length === 1 &&
-      (formula.values[0] as PropFormula).operator === Operator.Not,
-  );
+	return formulas.every(
+		(formula) =>
+			formula.operator === Operator.Not &&
+			Array.isArray(formula.values) &&
+			formula.values.length === 1 &&
+			(formula.values[0] as PropFormula).operator === Operator.Not,
+	);
 }

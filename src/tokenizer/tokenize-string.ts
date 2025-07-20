@@ -1,4 +1,4 @@
-import { Glyph } from '../enums';
+import { Glyph } from "../enums";
 
 /**
  * Tokenizes an input string into an array of known logical glyphs and variable names.
@@ -13,20 +13,22 @@ import { Glyph } from '../enums';
  * @throws {Error} If the input contains unsupported characters.
  */
 export function tokenizeString(input: string): string[] {
-  if (!input.length) return [];
-  // Sort by length to match longest first
-  const glyphs = Object.values(Glyph).sort((a, b) => b.length - a.length);
-  // Escape special chars
-  const glyphPattern = glyphs.map((g) => g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
-  // Variables: one or more English letters
-  const variablePattern = '[a-zA-Z]+';
-  const tokenizer = new RegExp(`(${glyphPattern})|(${variablePattern})`, 'g');
+	if (!input.length) return [];
+	// Sort by length to match longest first
+	const glyphs = Object.values(Glyph).sort((a, b) => b.length - a.length);
+	// Escape special chars
+	const glyphPattern = glyphs
+		.map((g) => g.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+		.join("|");
+	// Variables: one or more English letters
+	const variablePattern = "[a-zA-Z]+";
+	const tokenizer = new RegExp(`(${glyphPattern})|(${variablePattern})`, "g");
 
-  const tokens = input.match(tokenizer);
+	const tokens = input.match(tokenizer);
 
-  if (!tokens || tokens.join('') !== input.replace(/\s+/g, '')) {
-    throw new Error(`Invalid character(s) found in input: "${input}".`);
-  }
+	if (!tokens || tokens.join("") !== input.replace(/\s+/g, "")) {
+		throw new Error(`Invalid character(s) found in input: "${input}".`);
+	}
 
-  return tokens;
+	return tokens;
 }

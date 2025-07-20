@@ -1,7 +1,7 @@
-import { PropFormula, TruthAssignmentsMap } from '../../models';
-import { extractPropVariables } from './extract-prop-variables';
-import { generateTruthAssignments } from './generate-truth-assignments';
-import { calculatePropFormula } from './calculate-prop-formula';
+import type { PropFormula, TruthAssignmentsMap } from "../../models";
+import { calculatePropFormula } from "./calculate-prop-formula";
+import { extractPropVariables } from "./extract-prop-variables";
+import { generateTruthAssignments } from "./generate-truth-assignments";
 
 /**
  * Generates a truth table for the given propositional formula.
@@ -11,26 +11,29 @@ import { calculatePropFormula } from './calculate-prop-formula';
  * @returns {TruthAssignmentsMap} - A map where keys are assignments, and values are truth values.
  * @throws {Error} If the formula has more variables than the limit allows.
  */
-export function generatePropTruthTable(formula: PropFormula, limit = 100): TruthAssignmentsMap {
-  // Step 1: Extract variables from the formula
-  const variablesMap = extractPropVariables(formula);
-  const variableCount = variablesMap.size;
+export function generatePropTruthTable(
+	formula: PropFormula,
+	limit = 100,
+): TruthAssignmentsMap {
+	// Step 1: Extract variables from the formula
+	const variablesMap = extractPropVariables(formula);
+	const variableCount = variablesMap.size;
 
-  // Step 2: Generate truth assignments
-  const truthAssignments = generateTruthAssignments(variableCount, limit);
+	// Step 2: Generate truth assignments
+	const truthAssignments = generateTruthAssignments(variableCount, limit);
 
-  // Step 3: Compute formula truth values
-  const truthTable: TruthAssignmentsMap = new Map();
+	// Step 3: Compute formula truth values
+	const truthTable: TruthAssignmentsMap = new Map();
 
-  truthAssignments.forEach((assignment, index) => {
-    const formulaValue = calculatePropFormula({
-      formula,
-      assignment,
-      variablesMap,
-    });
+	truthAssignments.forEach((assignment, index) => {
+		const formulaValue = calculatePropFormula({
+			formula,
+			assignment,
+			variablesMap,
+		});
 
-    truthTable.set(index, [...assignment, formulaValue]);
-  });
+		truthTable.set(index, [...assignment, formulaValue]);
+	});
 
-  return truthTable;
+	return truthTable;
 }

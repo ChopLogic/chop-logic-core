@@ -1,6 +1,6 @@
-import { PropFormula } from '../../models';
-import { isEquivalenceEliminationApplicable } from '../checks/is-equivalence-elimination-applicable';
-import { Operator } from '../../enums';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
+import { isEquivalenceEliminationApplicable } from "../checks/is-equivalence-elimination-applicable";
 
 /**
  * Performs equivalence elimination on the given formulas.
@@ -12,15 +12,17 @@ import { Operator } from '../../enums';
  * @throws {Error} if the formulas are not all equivalences.
  */
 export function equivalenceElimination(formulas: PropFormula[]): PropFormula[] {
-  if (!isEquivalenceEliminationApplicable(formulas)) {
-    throw new Error('Equivalence elimination is not applicable. All formulas must be equivalences.');
-  }
+	if (!isEquivalenceEliminationApplicable(formulas)) {
+		throw new Error(
+			"Equivalence elimination is not applicable. All formulas must be equivalences.",
+		);
+	}
 
-  return formulas.flatMap((formula) => {
-    const [A, B] = formula.values as PropFormula[];
-    return [
-      { operator: Operator.Implies, values: [A, B] },
-      { operator: Operator.Implies, values: [B, A] },
-    ];
-  });
+	return formulas.flatMap((formula) => {
+		const [A, B] = formula.values as PropFormula[];
+		return [
+			{ operator: Operator.Implies, values: [A, B] },
+			{ operator: Operator.Implies, values: [B, A] },
+		];
+	});
 }

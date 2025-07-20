@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/SavouryGin/chop-logic-core/graph/badge.svg?token=52BX0AMDQQ)](https://codecov.io/gh/SavouryGin/chop-logic-core)
 [![npm build](https://github.com/SavouryGin/chop-logic-core/actions/workflows/npm.yml/badge.svg)](https://github.com/SavouryGin/chop-logic-core/actions/workflows/npm.yml)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+[![Checked with Biome](https://img.shields.io/badge/Checked_with-Biome-60a5fa?style=flat&logo=biome)](https://biomejs.dev)
 
 **Chop Logic Core** is a TypeScript library providing core functions for working with **symbolic logic**. It is part of the broader [Chop Logic](https://github.com/users/SavouryGin/projects/1) project and offers essential utilities for logic processing and deduction.
 
@@ -40,10 +41,11 @@ yarn add chop-logic-core
 
 The following npm scripts are available for development and maintenance:
 
-- **`npm run build`** – Builds both ESM and CJS versions of the library.
-- **`npm run clean`** – Removes the generated `lib` folder.
-- **`npm run lint`** – Runs ESLint to check for code quality issues.
-- **`npm run lint:fix`** – Runs ESLint with automatic fixes.
+- **`npm run build`** – Build both ESM and CJS versions of the library.
+- **`npm run clean`** – Remove the generated `lib` folder.
+- **`npm run check`** – Run [Biome](https://biomejs.dev/) to check for code quality and formatting issues.
+- **`npm run format`** – Format all files.
+- **`npm run fix`** – Format, lint, and organize imports of all files.
 - **`npm run test`** – Runs Jest in watch mode.
 - **`npm run test:ci`** – Runs Jest in CI mode, allowing zero tests to pass.
 - **`npm run coverage`** – Generates a test coverage report.

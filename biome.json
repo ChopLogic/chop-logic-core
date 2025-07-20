@@ -1,0 +1,19 @@
+{
+	"$schema": "https://biomejs.dev/schemas/schema.json",
+	"files": {
+		"includes": ["**", "!**/lib/**", "!**/coverage/**", "!**/node_modules/**"]
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true
+		},
+		"domains": {
+			"project": "recommended",
+			"test": "recommended"
+		}
+	},
+	"formatter": {
+		"enabled": true
+	}
+}

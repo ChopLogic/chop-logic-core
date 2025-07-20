@@ -1,6 +1,6 @@
-import { PropFormula } from '../../models';
-import { isConjunctionIntroductionApplicable } from '../checks/is-conjunction-introduction-applicable';
-import { Operator } from '../../enums';
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
+import { isConjunctionIntroductionApplicable } from "../checks/is-conjunction-introduction-applicable";
 
 /**
  * Applies the conjunction introduction rule.
@@ -11,22 +11,26 @@ import { Operator } from '../../enums';
  * @returns {[PropFormula, PropFormula]} A tuple containing the two inferred formulas.
  * @throws {Error} if the formulas do not satisfy conjunction introduction conditions.
  */
-export function conjunctionIntroduction(formulas: PropFormula[]): [PropFormula, PropFormula] {
-  if (!isConjunctionIntroductionApplicable(formulas)) {
-    throw new Error('Conjunction introduction is not applicable to the given formulas.');
-  }
+export function conjunctionIntroduction(
+	formulas: PropFormula[],
+): [PropFormula, PropFormula] {
+	if (!isConjunctionIntroductionApplicable(formulas)) {
+		throw new Error(
+			"Conjunction introduction is not applicable to the given formulas.",
+		);
+	}
 
-  const conjunct1 = formulas[0];
-  const conjunct2 = formulas[1];
+	const conjunct1 = formulas[0];
+	const conjunct2 = formulas[1];
 
-  return [
-    {
-      operator: Operator.And,
-      values: [conjunct1, conjunct2],
-    },
-    {
-      operator: Operator.And,
-      values: [conjunct2, conjunct1],
-    },
-  ];
+	return [
+		{
+			operator: Operator.And,
+			values: [conjunct1, conjunct2],
+		},
+		{
+			operator: Operator.And,
+			values: [conjunct2, conjunct1],
+		},
+	];
 }
