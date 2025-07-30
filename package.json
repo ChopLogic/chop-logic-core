@@ -10,6 +10,7 @@
 	],
 	"scripts": {
 		"build": "tsup src/index.ts --format esm,cjs --dts --out-dir lib",
+		"prepare": "npm run build && husky",
 		"clean": "rm -rf lib",
 		"prepublishOnly": "npm run clean && npm run build",
 		"check": "biome check .  --max-diagnostics none",

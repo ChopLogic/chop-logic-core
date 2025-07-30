@@ -42,13 +42,14 @@ yarn add chop-logic-core
 The following npm scripts are available for development and maintenance:
 
 - **`npm run build`** – Build both ESM and CJS versions of the library.
+- **`npm run prepare`** – Run build an husky commands.
 - **`npm run clean`** – Remove the generated `lib` folder.
 - **`npm run check`** – Run [Biome](https://biomejs.dev/) to check for code quality and formatting issues.
 - **`npm run format`** – Format all files.
 - **`npm run fix`** – Format, lint, and organize imports of all files.
-- **`npm run test`** – Runs Jest in watch mode.
-- **`npm run test:ci`** – Runs Jest in CI mode, allowing zero tests to pass.
-- **`npm run coverage`** – Generates a test coverage report.
+- **`npm run test`** – Run Jest in watch mode.
+- **`npm run test:ci`** – Run Jest in CI mode, allowing zero tests to pass.
+- **`npm run coverage`** – Generate a test coverage report.
 
 ## 🔧 Usage
 
