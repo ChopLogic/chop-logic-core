@@ -2,23 +2,17 @@ name: Bug Report
 
 description: File a bug report.
 
-title: "[Bug]: "
+title: ""
 
-labels: [ "Bug", "Core" ]
+labels: [ "Core" ]
+
+projects: ["ChopLogic/1"]
 
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for taking the time to report a bug! Please fill out the information below to help us diagnose the issue.
-
-  - type: input
-    id: bug_description
-    attributes:
-      label: "Describe the bug"
-      description: "A clear and concise description of what the bug is."
-    validations:
-      required: true
 
   - type: textarea
     id: reproduction_steps

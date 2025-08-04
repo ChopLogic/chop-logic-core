@@ -21,8 +21,8 @@ jobs:
       - name: Run tests
         run: npm run coverage
 
-      - name: Upload results to Codecov
+      - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: SavouryGin/chop-logic-core
+          slug: ChopLogic/chop-logic-components

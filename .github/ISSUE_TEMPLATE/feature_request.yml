@@ -2,9 +2,11 @@ name: Feature Request
 
 description: Suggest an idea for this project.
 
-title: "[Feature]: "
+title: ""
 
-labels: [ "Feature", "Core" ]
+labels: [ "Core" ]
+
+projects: ["ChopLogic/1"]
 
 body:
   - type: markdown
@@ -17,14 +19,6 @@ body:
     attributes:
       label: "Feature Summary"
       description: "Provide a clear and concise summary of the feature you want to propose."
-    validations:
-      required: true
-
-  - type: textarea
-    id: problem_statement
-    attributes:
-      label: "Problem Statement"
-      description: "What problem does this feature solve?"
     validations:
       required: true
 
