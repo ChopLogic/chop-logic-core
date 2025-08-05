@@ -18,7 +18,7 @@ If you discover a security vulnerability in Chop Logic, please report it respons
 
 Security updates and patches will be announced via:
 
-- Our GitHub repository's [Security Advisories](https://github.com/SavouryGin/chop-logic-core/security)
+- Our GitHub repository's [Security Advisories](https://github.com/ChopLogic/chop-logic-core/security)
 
 We recommend all users subscribe to notifications to stay informed about important updates.
 

@@ -1,7 +1,7 @@
 {
 	"name": "chop-logic-core",
 	"version": "1.3.1",
-	"description": "An npm package for core functions of the Chop Logic project.",
+	"description": "Core classes, methods and functions for calculating logical formulas and constructing proofs within the Chop Logic project.",
 	"main": "lib/index.cjs",
 	"module": "lib/index.mjs",
 	"types": "lib/index.d.ts",
@@ -40,7 +40,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/SavouryGin/chop-logic-core.git"
+		"url": "git+https://github.com/ChopLogic/chop-logic-core.git"
 	},
 	"keywords": [
 		"chop-logic",
@@ -53,11 +53,11 @@
 		"natural-deduction"
 	],
 	"author": "Dmitrii Suroviagin",
-	"license": "LGPL-3.0-or-later",
+	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/SavouryGin/chop-logic-core/issues"
+		"url": "https://github.com/ChopLogic/chop-logic-core/issues"
 	},
-	"homepage": "https://github.com/SavouryGin/chop-logic-core#readme",
+	"homepage": "https://github.com/ChopLogic/chop-logic-core#readme",
 	"devDependencies": {
 		"@biomejs/biome": "^2.1.2",
 		"@commitlint/cli": "^19.7.1",

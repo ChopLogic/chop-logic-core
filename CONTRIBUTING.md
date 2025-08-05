@@ -26,7 +26,7 @@ Please follow our [Code of Conduct](CODE_OF_CONDUCT.md) to ensure a welcoming an
 ### Reporting Issues
 
 If you encounter a bug, performance issue, or have a suggestion for improvement, please open an issue in
-our [GitHub issue tracker](https://github.com/SavouryGin/chop-logic-core/issues) with the following details:
+our [GitHub issue tracker](https://github.com/ChopLogic/chop-logic-core/issues) with the following details:
 
 - A clear and descriptive title.
 - Steps to reproduce the issue.
@@ -85,7 +85,7 @@ We welcome feature requests! Please open an issue and describe:
 1. Clone the repository:
 
    ```sh
-   git clone git@github.com:SavouryGin/chop-logic-core.git
+   git clone git@github.com:ChopLogic/chop-logic-core.git
    cd chop-logic-core
    ```
 
