@@ -51,6 +51,8 @@ The following npm scripts are available for development and maintenance:
 - **`npm run test`** – Run Jest in watch mode.
 - **`npm run test:ci`** – Run Jest in CI mode, allowing zero tests to pass.
 - **`npm run coverage`** – Generate a test coverage report.
+- **`release:version`** – Bumps the version (`patch`, `minor`, or `major`), commits the change, creates a Git tag, and pushes to `main`. Usage: 
+`npm run release:version patch`
 
 ## 🔧 Usage
 

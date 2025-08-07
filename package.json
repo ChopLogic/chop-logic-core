@@ -20,7 +20,8 @@
 		"test": "jest --watch",
 		"test:ci": "jest --passWithNoTests",
 		"coverage": "jest --coverage --collectCoverageFrom='src/**/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}'",
-		"types": "tsc --pretty --noEmit"
+		"types": "tsc --pretty --noEmit",
+		"release:version": "node scripts/release-version.js"
 	},
 	"lint-staged": {
 		"*.ts": [
