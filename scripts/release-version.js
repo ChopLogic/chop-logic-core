@@ -13,7 +13,10 @@ if (!["patch", "minor", "major"].includes(bump)) {
 
 try {
 	console.log(`🔧 Bumping version: ${bump}...`);
-	execSync(`npm version ${bump} --no-git-tag-version`, { stdio: "inherit" });
+	execSync(`npm version ${bump} --no-git-tag-version`, {
+		stdio: "inherit",
+		shell: false,
+	});
 
 	const __dirname = path.dirname(fileURLToPath(import.meta.url));
 	const pkg = JSON.parse(
@@ -23,14 +26,26 @@ try {
 	const tag = `v${newVersion}`;
 
 	console.log(`📝 Committing version bump...`);
-	execSync(`git add package.json package-lock.json`, { stdio: "inherit" });
-	execSync(`git commit -m "chore: release ${tag}"`, { stdio: "inherit" });
+	execSync(`git add package.json package-lock.json`, {
+		stdio: "inherit",
+		shell: false,
+	});
+	execSync(`git commit -m "chore: release ${tag}"`, {
+		stdio: "inherit",
+		shell: false,
+	});
 
 	console.log(`🏷️ Creating annotated tag ${tag}...`);
-	execSync(`git tag -a ${tag} -m "Release ${tag}"`, { stdio: "inherit" });
+	execSync(`git tag -a ${tag} -m "Release ${tag}"`, {
+		stdio: "inherit",
+		shell: false,
+	});
 
 	console.log(`🚀 Pushing to origin...`);
-	execSync(`git push origin main --follow-tags`, { stdio: "inherit" });
+	execSync(`git push origin main --follow-tags`, {
+		stdio: "inherit",
+		shell: false,
+	});
 
 	console.log(`✅ Release prepared and pushed as ${tag}`);
 } catch (error) {
