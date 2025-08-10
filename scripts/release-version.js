@@ -1,4 +1,4 @@
-import { execSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -11,12 +11,15 @@ if (!["patch", "minor", "major"].includes(bump)) {
 	process.exit(1);
 }
 
+function runCommand(command, args) {
+	const result = spawnSync(command, args, { stdio: "inherit", shell: false });
+	if (result.error) throw result.error;
+	if (result.status !== 0) process.exit(result.status);
+}
+
 try {
 	console.log(`🔧 Bumping version: ${bump}...`);
-	execSync(`npm version ${bump} --no-git-tag-version`, {
-		stdio: "inherit",
-		shell: false,
-	});
+	runCommand("npm", ["version", bump, "--no-git-tag-version"]);
 
 	const __dirname = path.dirname(fileURLToPath(import.meta.url));
 	const pkg = JSON.parse(
@@ -26,26 +29,14 @@ try {
 	const tag = `v${newVersion}`;
 
 	console.log(`📝 Committing version bump...`);
-	execSync(`git add package.json package-lock.json`, {
-		stdio: "inherit",
-		shell: false,
-	});
-	execSync(`git commit -m "chore: release ${tag}"`, {
-		stdio: "inherit",
-		shell: false,
-	});
+	runCommand("git", ["add", "package.json", "package-lock.json"]);
+	runCommand("git", ["commit", "-m", `chore: release ${tag}`]);
 
 	console.log(`🏷️ Creating annotated tag ${tag}...`);
-	execSync(`git tag -a ${tag} -m "Release ${tag}"`, {
-		stdio: "inherit",
-		shell: false,
-	});
+	runCommand("git", ["tag", "-a", tag, "-m", `Release ${tag}`]);
 
 	console.log(`🚀 Pushing to origin...`);
-	execSync(`git push origin main --follow-tags`, {
-		stdio: "inherit",
-		shell: false,
-	});
+	runCommand("git", ["push", "origin", "main", "--follow-tags"]);
 
 	console.log(`✅ Release prepared and pushed as ${tag}`);
 } catch (error) {

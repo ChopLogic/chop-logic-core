@@ -58,7 +58,7 @@
 	"bugs": {
 		"url": "https://github.com/ChopLogic/chop-logic-core/issues"
 	},
-	"homepage": "https://github.com/ChopLogic/chop-logic-core#readme",
+	"homepage": "https://choplogic.github.io/chop-logic-core",
 	"devDependencies": {
 		"@biomejs/biome": "^2.1.2",
 		"@commitlint/cli": "^19.7.1",
