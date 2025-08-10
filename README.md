@@ -5,8 +5,9 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ChopLogic_chop-logic-core&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ChopLogic_chop-logic-core)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![Checked with Biome](https://img.shields.io/badge/Checked_with-Biome-60a5fa?style=flat&logo=biome)](https://biomejs.dev)
+[![npm](https://github.com/ChopLogic/chop-logic-core/actions/workflows/npm.yml/badge.svg)](https://github.com/ChopLogic/chop-logic-core/actions/workflows/npm.yml)
 
-**Chop Logic Core** is a TypeScript library providing core functions for working with **symbolic logic**. It is part of the broader [Chop Logic](https://github.com/users/SavouryGin/projects/1) project and offers essential utilities for logic processing and deduction.
+**Chop Logic Core** is a TypeScript library providing core functions for working with **symbolic logic**. It is part of the broader [Chop Logic](https://github.com/ChopLogic) project and offers essential utilities for logic processing and deduction.
 
 ## ✨ Features
 
@@ -50,6 +51,8 @@ The following npm scripts are available for development and maintenance:
 - **`npm run test`** – Run Jest in watch mode.
 - **`npm run test:ci`** – Run Jest in CI mode, allowing zero tests to pass.
 - **`npm run coverage`** – Generate a test coverage report.
+- **`release:version`** – Bumps the version (`patch`, `minor`, or `major`), commits the change, creates a Git tag, and pushes to `main`. Usage: 
+`npm run release:version patch`
 
 ## 🔧 Usage
 
@@ -88,8 +91,8 @@ This project is licensed under **MIT**. See the [LICENSE](LICENSE) file for deta
 
 ## 🔗 Links
 
-- **GitHub Repository:** [chop-logic-core](https://github.com/SavouryGin/chop-logic-core)
-- **Issue Tracker:** [Report Issues](https://github.com/SavouryGin/chop-logic-core/issues)
+- **GitHub Repository:** [chop-logic-core](https://github.com/ChopLogic/chop-logic-core)
+- **Issue Tracker:** [Report Issues](https://github.com/ChopLogic/chop-logic-core/issues)
 - **npm package**: [chop-logic-core](https://www.npmjs.com/package/chop-logic-core)
 
 ---
