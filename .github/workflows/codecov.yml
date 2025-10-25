@@ -18,11 +18,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
+      - name: Run test coverage
         run: npm run test:coverage
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+      - name: Upload the report to Codecov
+        uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: ChopLogic/chop-logic-core

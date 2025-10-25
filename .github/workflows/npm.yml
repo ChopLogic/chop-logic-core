@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Biome check
-        run: npm run check
+        run: npm run lint:errors
 
       - name: Test
         run: npm run test:ci
