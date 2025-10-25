@@ -22,5 +22,7 @@ export function convertPropFormulaToString(formula: PropFormula): string {
 		return `${glyph}${values[0]}`;
 	}
 
-	return `(${values.join(` ${glyph} `)})`;
+	const glyphSpace = ` ${glyph} `;
+
+	return `(${values.join(glyphSpace)})`;
 }

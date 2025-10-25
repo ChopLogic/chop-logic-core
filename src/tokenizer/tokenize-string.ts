@@ -24,9 +24,15 @@ export function tokenizeString(input: string): string[] {
 	const variablePattern = "[a-zA-Z]+";
 	const tokenizer = new RegExp(`(${glyphPattern})|(${variablePattern})`, "g");
 
-	const tokens = input.match(tokenizer);
+	const tokens: string[] = [];
+	let match: RegExpExecArray | null = tokenizer.exec(input);
 
-	if (!tokens || tokens.join("") !== input.replace(/\s+/g, "")) {
+	while (match !== null) {
+		tokens.push(match[0]);
+		match = tokenizer.exec(input);
+	}
+
+	if (!tokens.length || tokens.join("") !== input.replace(/\s+/g, "")) {
 		throw new Error(`Invalid character(s) found in input: "${input}".`);
 	}
 

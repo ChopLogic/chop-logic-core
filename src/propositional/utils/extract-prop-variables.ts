@@ -26,7 +26,9 @@ export function extractPropVariables(
 
 	traverse(formula);
 
-	const sortedVariables = Array.from(variablesSet).sort();
+	const sortedVariables = Array.from(variablesSet).sort((a, b) =>
+		a.localeCompare(b),
+	);
 
 	return new Map(sortedVariables.map((varName, index) => [index, [varName]]));
 }
