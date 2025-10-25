@@ -1,15 +1,20 @@
-import {
+/**
+ * Main exports for the Chop Logic Core library.
+ * @module ChopLogicCore
+ */
+
+/**
+ * Re-exports core propositional logic functionality
+ */
+export {
 	HilbertCalculus,
 	NaturalCalculus,
 	PropositionalFactory,
 	PropositionalUtils,
 } from "./propositional";
-import { Tokenizer } from "./tokenizer";
 
-export const ChopLogicCore = Object.freeze({
-	Tokenizer,
-	PropositionalFactory,
-	PropositionalUtils,
-	HilbertCalculus,
-	NaturalCalculus,
-});
+/**
+ * Re-exports tokenization utilities
+ * @see {@link Tokenizer}
+ */
+export { Tokenizer } from "./tokenizer";

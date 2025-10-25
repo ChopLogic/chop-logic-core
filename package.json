@@ -21,12 +21,13 @@
 		"test": "jest --watch",
 		"test:ci": "jest --passWithNoTests",
 		"test:coverage": "jest --coverage --collectCoverageFrom='src/**/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}'",
-		"types": "tsc --pretty --noEmit",
+		"typecheck": "tsc --pretty --noEmit",
+		"docs": "typedoc",
 		"release:version": "node scripts/release-version.js"
 	},
 	"lint-staged": {
 		"*.ts": [
-			"npm run types"
+			"npm run typecheck"
 		],
 		"*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
 			"biome format --write",

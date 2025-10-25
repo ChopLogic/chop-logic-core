@@ -1,7 +1,29 @@
 {
-	"entryPoints": ["src/index.ts"],
+	"entryPoints": ["src"],
+	"entryPointStrategy": "expand",
 	"out": "docs",
-	"includeVersion": true,
+	"exclude": [
+		"**/__tests__/**",
+		"**/*.test.ts",
+		"**/*.spec.ts",
+		"**/mocks/**",
+		"**/fixtures/**"
+	],
+	"alwaysCreateEntryPointModule": false,
 	"excludePrivate": true,
-	"excludeProtected": true
+	"excludeProtected": true,
+	"excludeExternals": true,
+	"readme": "README.md",
+	"name": "Chop Logic Core",
+	"sort": ["source-order", "required-first", "kind"],
+	"categorizeByGroup": false,
+	"searchInComments": true,
+	"theme": "default",
+	"includeVersion": true,
+	"visibilityFilters": {
+		"protected": false,
+		"private": false,
+		"inherited": true,
+		"external": false
+	}
 }

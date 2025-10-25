@@ -42,17 +42,19 @@ yarn add chop-logic-core
 
 The following npm scripts are available for development and maintenance:
 
-- **`npm run build`** – Build both ESM and CJS versions of the library.
-- **`npm run prepare`** – Run build an husky commands.
-- **`npm run clean`** – Remove the generated `lib` folder.
+- **`npm run build`** – Builds both ESM and CJS versions of the library.
+- **`npm run prepare`** – Runs build and husky commands.
+- **`npm run clean`** – Removes the generated `lib` folder.
 - **`npm run format`** – Formats all supported files using Biome.
 - **`npm run lint`** – Runs Biome linter to check for code style and quality issues.
 - **`npm run lint:errors`** – Shows only error-level diagnostics from Biome (limited to 100).
 - **`npm run lint:warnings`** – Shows only warning-level diagnostics from Biome (limited to 100 issues).
 - **`npm run lint:fix`** – Automatically fixes Biome issues where possible.
-- **`npm run test`** – Run Jest in watch mode.
-- **`npm run test:ci`** – Run Jest in CI mode, allowing zero tests to pass.
-- **`npm run test:coverage`** – Generate a test coverage report.
+- **`npm run test`** – Runs Jest in watch mode.
+- **`npm run test:ci`** – Runs Jest in CI mode, allowing zero tests to pass.
+- **`npm run test:coverage`** – Generates a test coverage report.
+- **`npm run typecheck`** – Performs a full type check without emitting output.
+- **`npm run docs`** – Generates documentation using typedoc.
 - **`release:version`** – Bumps the version (`patch`, `minor`, or `major`), commits the change, creates a Git tag, and pushes to `main`. Usage: 
 `npm run release:version patch`
 
