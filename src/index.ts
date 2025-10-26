@@ -8,12 +8,7 @@ export * from "./models";
 /**
  * Re-exports core propositional logic functionality
  */
-export {
-	HilbertCalculus,
-	NaturalCalculus,
-	PropositionalFactory,
-	PropositionalUtils,
-} from "./propositional";
+export * from "./propositional";
 /**
  * Re-exports tokenization utilities
  * @see {@link Tokenizer}

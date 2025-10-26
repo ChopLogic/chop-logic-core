@@ -1,5 +1,6 @@
 /**
  * Main tokenization functionality for parsing logical expressions.
+ * @packageDocumentation
  * @module Tokenizer
  */
 
