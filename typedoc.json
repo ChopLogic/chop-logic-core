@@ -1,6 +1,6 @@
 {
-	"entryPoints": ["src"],
-	"entryPointStrategy": "expand",
+	"entryPoints": ["src/enums", "src/models"],
+	"entryPointStrategy": "resolve",
 	"out": "docs",
 	"exclude": [
 		"**/__tests__/**",
