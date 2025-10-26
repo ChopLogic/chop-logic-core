@@ -1,5 +1,5 @@
 {
-	"entryPoints": ["src/enums"],
+	"entryPoints": ["src"],
 	"entryPointStrategy": "expand",
 	"out": "docs",
 	"exclude": [
@@ -20,6 +20,9 @@
 	"searchInComments": true,
 	"theme": "default",
 	"includeVersion": true,
+	"navigation": {
+		"includeCategories": true
+	},
 	"visibilityFilters": {
 		"protected": false,
 		"private": false,

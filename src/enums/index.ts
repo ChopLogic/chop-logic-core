@@ -9,6 +9,8 @@
 
 /**
  * Logical operator types supported in the system.
+ * Defines the core logical operations available in propositional logic.
+ *
  * @enum {string}
  */
 export enum Operator {

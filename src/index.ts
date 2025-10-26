@@ -4,6 +4,7 @@
  */
 
 export * from "./enums";
+export * from "./models";
 /**
  * Re-exports core propositional logic functionality
  */
