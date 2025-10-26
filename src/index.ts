@@ -3,6 +3,7 @@
  * @module ChopLogicCore
  */
 
+export * from "./enums";
 /**
  * Re-exports core propositional logic functionality
  */
@@ -12,7 +13,6 @@ export {
 	PropositionalFactory,
 	PropositionalUtils,
 } from "./propositional";
-
 /**
  * Re-exports tokenization utilities
  * @see {@link Tokenizer}
