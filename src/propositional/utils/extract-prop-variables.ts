@@ -20,7 +20,9 @@ export function extractPropVariables(
 
 		if (Array.isArray(node.values)) {
 			const subFormulas = node.values as PropFormula[];
-			subFormulas.forEach(traverse);
+			for (const subFormula of subFormulas) {
+				traverse(subFormula);
+			}
 		}
 	}
 

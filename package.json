@@ -27,7 +27,7 @@
 	},
 	"lint-staged": {
 		"*.ts": [
-			"npm run typecheck"
+			"bash -c 'npm run typecheck'"
 		],
 		"*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
 			"biome format --write",

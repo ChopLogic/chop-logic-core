@@ -18,7 +18,7 @@ export function tokenizeString(input: string): string[] {
 	const glyphs = Object.values(Glyph).sort((a, b) => b.length - a.length);
 	// Escape special chars
 	const glyphPattern = glyphs
-		.map((g) => g.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+		.map((g) => g.replaceAll(/[.*+?^${}()|[\]\\]/g, "\\$&"))
 		.join("|");
 	// Variables: one or more English letters
 	const variablePattern = "[a-zA-Z]+";
@@ -32,7 +32,7 @@ export function tokenizeString(input: string): string[] {
 		match = tokenizer.exec(input);
 	}
 
-	if (!tokens.length || tokens.join("") !== input.replace(/\s+/g, "")) {
+	if (!tokens.length || tokens.join("") !== input.replaceAll(/\s+/g, "")) {
 		throw new Error(`Invalid character(s) found in input: "${input}".`);
 	}
 
