@@ -1,9 +1,9 @@
-import { getGlyphUnicode } from "./get-glyph-unicode";
-import { getOperatorGlyph } from "./get-operator-glyph";
-import { tokenizeString } from "./tokenize-string";
+/**
+ * Main tokenization functionality for parsing logical expressions.
+ * @packageDocumentation
+ * @module Tokenizer
+ */
 
-export const Tokenizer = Object.freeze({
-	getGlyphUnicode,
-	getOperatorGlyph,
-	tokenizeString,
-});
+export { getGlyphUnicode } from "./get-glyph-unicode";
+export { getOperatorGlyph } from "./get-operator-glyph";
+export { tokenizeString } from "./tokenize-string";

@@ -1,7 +1,37 @@
 {
-	"entryPoints": ["src/index.ts"],
+	"entryPoints": [
+		"src/enums",
+		"src/models",
+		"src/tokenizer",
+		"src/propositional"
+	],
+	"entryPointStrategy": "resolve",
 	"out": "docs",
-	"includeVersion": true,
+	"exclude": [
+		"**/__tests__/**",
+		"**/*.test.ts",
+		"**/*.spec.ts",
+		"**/mocks/**",
+		"**/fixtures/**"
+	],
+	"alwaysCreateEntryPointModule": false,
 	"excludePrivate": true,
-	"excludeProtected": true
+	"excludeProtected": true,
+	"excludeExternals": true,
+	"readme": "README.md",
+	"name": "Chop Logic Core",
+	"sort": ["source-order", "required-first", "kind"],
+	"categorizeByGroup": false,
+	"searchInComments": true,
+	"theme": "default",
+	"includeVersion": true,
+	"navigation": {
+		"includeCategories": true
+	},
+	"visibilityFilters": {
+		"protected": false,
+		"private": false,
+		"inherited": true,
+		"external": false
+	}
 }

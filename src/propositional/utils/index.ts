@@ -10,6 +10,13 @@ import { getBinaryOperationValue } from "./get-binary-operation-value";
 import { getUnaryOperationValue } from "./get-unary-operation-value";
 import { isWellFormedFormula } from "./is-well-formed-formula";
 
+/**
+ * Utility functions for working with propositional formulas.
+ * Provides methods for formula manipulation, evaluation, and validation.
+ *
+ * @namespace
+ * @category Utilities
+ */
 export const PropositionalUtils = Object.freeze({
 	calculateFormula: calculatePropFormula,
 	convertToString: convertPropFormulaToString,

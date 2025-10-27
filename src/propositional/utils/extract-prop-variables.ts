@@ -20,13 +20,17 @@ export function extractPropVariables(
 
 		if (Array.isArray(node.values)) {
 			const subFormulas = node.values as PropFormula[];
-			subFormulas.forEach(traverse);
+			for (const subFormula of subFormulas) {
+				traverse(subFormula);
+			}
 		}
 	}
 
 	traverse(formula);
 
-	const sortedVariables = Array.from(variablesSet).sort();
+	const sortedVariables = Array.from(variablesSet).sort((a, b) =>
+		a.localeCompare(b),
+	);
 
 	return new Map(sortedVariables.map((varName, index) => [index, [varName]]));
 }

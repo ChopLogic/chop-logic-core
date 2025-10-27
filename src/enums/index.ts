@@ -1,8 +1,11 @@
-export { Glyph } from "./glyph";
-export { GlyphType } from "./glyph-type";
-export { GlyphUnicode } from "./glyph-unicode";
-export { HilbertCalculusSchema } from "./hilbert-calculus-schema";
-export { NaturalCalculusRule } from "./natural-calculus-rule";
-export { Operator } from "./operator";
-export { PropFormulaCheck } from "./prop-formula-check";
-export { Step } from "./step";
+/**
+ * Core enumerations used in the ChopLogic system.
+ * This module consolidates all enumeration types used for logical operations,
+ * syntax processing, and proof systems.
+ *
+ * @packageDocumentation
+ * @module Enums
+ */
+
+export * from "./proof";
+export * from "./symbols";

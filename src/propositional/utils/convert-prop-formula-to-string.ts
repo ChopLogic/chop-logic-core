@@ -1,7 +1,6 @@
 import { Operator } from "../../enums";
 import type { PropFormula } from "../../models";
-import { getGlyphUnicode } from "../../tokenizer/get-glyph-unicode";
-import { getOperatorGlyph } from "../../tokenizer/get-operator-glyph";
+import { getGlyphUnicode, getOperatorGlyph } from "../../tokenizer";
 
 /**
  * Converts a propositional formula into a string representation using Unicode logical symbols.
@@ -22,5 +21,7 @@ export function convertPropFormulaToString(formula: PropFormula): string {
 		return `${glyph}${values[0]}`;
 	}
 
-	return `(${values.join(` ${glyph} `)})`;
+	const glyphSpace = ` ${glyph} `;
+
+	return `(${values.join(glyphSpace)})`;
 }

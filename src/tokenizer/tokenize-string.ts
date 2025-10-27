@@ -18,15 +18,21 @@ export function tokenizeString(input: string): string[] {
 	const glyphs = Object.values(Glyph).sort((a, b) => b.length - a.length);
 	// Escape special chars
 	const glyphPattern = glyphs
-		.map((g) => g.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+		.map((g) => g.replaceAll(/[.*+?^${}()|[\]\\]/g, "\\$&"))
 		.join("|");
 	// Variables: one or more English letters
 	const variablePattern = "[a-zA-Z]+";
 	const tokenizer = new RegExp(`(${glyphPattern})|(${variablePattern})`, "g");
 
-	const tokens = input.match(tokenizer);
+	const tokens: string[] = [];
+	let match: RegExpExecArray | null = tokenizer.exec(input);
 
-	if (!tokens || tokens.join("") !== input.replace(/\s+/g, "")) {
+	while (match !== null) {
+		tokens.push(match[0]);
+		match = tokenizer.exec(input);
+	}
+
+	if (!tokens.length || tokens.join("") !== input.replaceAll(/\s+/g, "")) {
 		throw new Error(`Invalid character(s) found in input: "${input}".`);
 	}
 

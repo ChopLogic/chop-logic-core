@@ -13,22 +13,26 @@
 		"prepare": "npm run build && husky",
 		"clean": "rm -rf lib",
 		"prepublishOnly": "npm run clean && npm run build",
-		"check": "biome check .  --max-diagnostics none",
-		"check:ci": "npx @biomejs/biome check --write --files-ignore-unknown=true --no-errors-on-unmatched",
-		"format": "biome format . --write",
-		"fix": "biome check . --write",
+		"format": "biome format --write",
+		"lint": "biome check",
+		"lint:errors": "biome check --diagnostic-level error --max-diagnostics 100",
+		"lint:warnings": "biome check --diagnostic-level warn --max-diagnostics 100",
+		"lint:fix": "biome check --write",
 		"test": "jest --watch",
 		"test:ci": "jest --passWithNoTests",
-		"coverage": "jest --coverage --collectCoverageFrom='src/**/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}'",
-		"types": "tsc --pretty --noEmit",
+		"test:coverage": "jest --coverage --collectCoverageFrom='src/**/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}'",
+		"typecheck": "tsc --pretty --noEmit",
+		"docs": "typedoc",
 		"release:version": "node scripts/release-version.js"
 	},
 	"lint-staged": {
 		"*.ts": [
-			"npm run types"
+			"bash -c 'npm run typecheck'"
 		],
 		"*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
-			"npm run check:ci"
+			"biome format --write",
+			"biome check --write",
+			"biome check --diagnostic-level error"
 		]
 	},
 	"commitlint": {

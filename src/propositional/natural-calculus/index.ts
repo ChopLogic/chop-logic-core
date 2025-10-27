@@ -10,6 +10,18 @@ import { implicationIntroduction } from "./implication-introduction";
 import { negationElimination } from "./negation-elimination";
 import { negationIntroduction } from "./negation-introduction";
 
+/**
+ * Implementation of natural deduction system for propositional logic.
+ * Provides introduction and elimination rules for logical connectives.
+ *
+ * @remarks
+ * Natural deduction is a more intuitive proof system that mirrors human reasoning.
+ * Each logical connective has its own introduction and elimination rules, making
+ * the system more practical for constructing proofs than axiomatic systems.
+ *
+ * @namespace
+ * @category Proof Systems
+ */
 export const NaturalCalculus = Object.freeze({
 	generateSteps: generateNaturalProofSteps,
 	// Introduction rules
