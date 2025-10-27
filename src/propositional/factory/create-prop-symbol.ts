@@ -1,6 +1,6 @@
 import { Glyph, GlyphType } from "../../enums";
 import type { PropSymbol } from "../../models";
-import { getGlyphUnicode } from "../../tokenizer/get-glyph-unicode";
+import { getGlyphUnicode } from "../../tokenizer";
 
 /**
  * Creates a `PropSymbol` representing a propositional logic symbol.

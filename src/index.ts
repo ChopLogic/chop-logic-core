@@ -13,4 +13,4 @@ export * from "./propositional";
  * Re-exports tokenization utilities
  * @see {@link Tokenizer}
  */
-export { Tokenizer } from "./tokenizer";
+export * from "./tokenizer";
