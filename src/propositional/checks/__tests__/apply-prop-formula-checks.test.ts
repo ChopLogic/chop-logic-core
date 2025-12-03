@@ -36,7 +36,9 @@ describe("applyPropFormulaChecks", () => {
 
 	it("handles an empty formulas array", () => {
 		const results = applyPropFormulaChecks([]);
-		Object.values(results).forEach((value) => expect(value).toBe(false));
+		Object.values(results).forEach((value) => {
+			expect(value).toBe(false);
+		});
 	});
 
 	it("handles negation elimination correctly", () => {
