@@ -1,6 +1,6 @@
 import { Operator } from "../../enums";
 import type { PropFormula } from "../../models";
-import { isDisjunctionIntroductionApplicable } from "../checks/is-dusjunction-introduction-applicable";
+import { isDisjunctionIntroductionApplicable } from "../checks/is-disjunction-introduction-applicable";
 
 /**
  * Applies the disjunction introduction rule.

@@ -4,7 +4,7 @@ import { arePropFormulasStructurallyEqual } from "./are-prop-formulas-structural
 import { isConjunctionEliminationApplicable } from "./is-conjunction-elimination-applicable";
 import { isConjunctionIntroductionApplicable } from "./is-conjunction-introduction-applicable";
 import { isDisjunctionEliminationApplicable } from "./is-disjunction-elimination-applicable";
-import { isDisjunctionIntroductionApplicable } from "./is-dusjunction-introduction-applicable";
+import { isDisjunctionIntroductionApplicable } from "./is-disjunction-introduction-applicable";
 import { isEquivalenceEliminationApplicable } from "./is-equivalence-elimination-applicable";
 import { isEquivalenceIntroductionApplicable } from "./is-equivalence-introduction-applicable";
 import { isImplicationEliminationApplicable } from "./is-implication-elimination-applicable";

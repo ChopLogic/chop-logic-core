@@ -8,32 +8,44 @@ import { generatePropTruthTable } from "../generate-prop-truth-table";
 import { generateTruthAssignments } from "../generate-truth-assignments";
 import { getBinaryOperationValue } from "../get-binary-operation-value";
 import { getUnaryOperationValue } from "../get-unary-operation-value";
-import { PropositionalUtils } from "../index";
+import * as utils from "../index";
 import { isWellFormedFormula } from "../is-well-formed-formula";
 
-describe("PropositionalUtils", () => {
-	it("should have all expected rules with correct references", () => {
-		expect(PropositionalUtils).toMatchObject({
-			calculateFormula: calculatePropFormula,
-			convertToString: convertPropFormulaToString,
-			convertToExpression: convertPropFormulaToExpression,
-			getVariables: extractPropVariables,
-			getSubFormulas: extractPropSubFormulas,
-			isWFF: isWellFormedFormula,
-			getUnaryValue: getUnaryOperationValue,
-			getBinaryValue: getBinaryOperationValue,
-			generateTT: generatePropTruthTable,
-			generateAssignments: generateTruthAssignments,
-			applyChecks: applyPropFormulaChecks,
-		});
-	});
+describe("Propositional utils module", () => {
+	it("should have all expected static methods available", () => {
+		expect(typeof utils.applyPropFormulaChecks).toBe("function");
+		expect(utils.applyPropFormulaChecks).toBe(applyPropFormulaChecks);
 
-	it("should be immutable", () => {
-		expect(Object.isFrozen(PropositionalUtils)).toBe(true);
+		expect(typeof utils.calculatePropFormula).toBe("function");
+		expect(utils.calculatePropFormula).toBe(calculatePropFormula);
 
-		expect(() => {
-			// @ts-expect-error checking that the object is frozen
-			PropositionalUtils.isWFF = jest.fn();
-		}).toThrow();
+		expect(typeof utils.convertPropFormulaToExpression).toBe("function");
+		expect(utils.convertPropFormulaToExpression).toBe(
+			convertPropFormulaToExpression,
+		);
+
+		expect(typeof utils.convertPropFormulaToString).toBe("function");
+		expect(utils.convertPropFormulaToString).toBe(convertPropFormulaToString);
+
+		expect(typeof utils.extractPropSubFormulas).toBe("function");
+		expect(utils.extractPropSubFormulas).toBe(extractPropSubFormulas);
+
+		expect(typeof utils.extractPropVariables).toBe("function");
+		expect(utils.extractPropVariables).toBe(extractPropVariables);
+
+		expect(typeof utils.generatePropTruthTable).toBe("function");
+		expect(utils.generatePropTruthTable).toBe(generatePropTruthTable);
+
+		expect(typeof utils.generateTruthAssignments).toBe("function");
+		expect(utils.generateTruthAssignments).toBe(generateTruthAssignments);
+
+		expect(typeof utils.getBinaryOperationValue).toBe("function");
+		expect(utils.getBinaryOperationValue).toBe(getBinaryOperationValue);
+
+		expect(typeof utils.getUnaryOperationValue).toBe("function");
+		expect(utils.getUnaryOperationValue).toBe(getUnaryOperationValue);
+
+		expect(typeof utils.isWellFormedFormula).toBe("function");
+		expect(utils.isWellFormedFormula).toBe(isWellFormedFormula);
 	});
 });
