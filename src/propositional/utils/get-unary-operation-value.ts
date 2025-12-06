@@ -3,8 +3,9 @@ import { Operator } from "../../enums";
 /**
  * Computes the logical value of an unary operator applied to an operand.
  *
- * @param operator - The unary operator to evaluate.
- * @param operand - The boolean value of the operand.
+ * @param {Object} params - Function parameters.
+ * @param params.operator - The unary operator to evaluate.
+ * @param params.operand - The boolean value of the operand.
  * @returns The computed boolean value after applying the unary operator.
  * @throws {Error} If an unsupported operator is provided.
  */

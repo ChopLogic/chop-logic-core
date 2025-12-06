@@ -3,9 +3,10 @@ import { Operator } from "../../enums";
 /**
  * Evaluates the logical value of a binary operation given two boolean operands.
  *
- * @param operator - The logical operator to apply.
- * @param leftOperand - The boolean value of the left operand.
- * @param rightOperand - The boolean value of the right operand.
+ * @param {Object} params - Function parameters.
+ * @param params.operator - The logical operator to apply.
+ * @param params.leftOperand - The boolean value of the left operand.
+ * @param params.rightOperand - The boolean value of the right operand.
  * @returns The result of applying the operator to the operands.
  * @throws {Error} If the operator is not a binary operator.
  */
