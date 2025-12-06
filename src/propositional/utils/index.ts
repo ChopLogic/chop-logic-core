@@ -2,11 +2,7 @@
  * Utility functions for working with propositional formulas.
  * Provides methods for formula manipulation, evaluation, and validation.
  *
- * @packageDocumentation
- * @category Toolkit
  */
-
-export { applyPropFormulaChecks } from "../checks";
 export { calculatePropFormula } from "./calculate-prop-formula";
 export { convertPropFormulaToExpression } from "./convert-prop-formula-to-expression";
 export { convertPropFormulaToString } from "./convert-prop-formula-to-string";

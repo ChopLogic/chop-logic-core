@@ -37,8 +37,9 @@ const PROP_FORMULA_CHECKS: Record<PropFormulaCheck, PropFormulaCheckFunction> =
  * @param formulas - An array of propositional formulas to check.
  * @param checks - An array of check names to apply (defaults to all available checks).
  * @returns An object mapping each check name to its boolean result.
+ * @category Utilities
  */
-export function applyPropFormulaChecks(
+export function validatePropFormulas(
 	formulas: PropFormula[],
 	checks: PropFormulaCheck[] = Object.keys(
 		PropFormulaCheck,

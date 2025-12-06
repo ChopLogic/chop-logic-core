@@ -1,4 +1,3 @@
-import { applyPropFormulaChecks } from "../../checks";
 import { calculatePropFormula } from "../calculate-prop-formula";
 import { convertPropFormulaToExpression } from "../convert-prop-formula-to-expression";
 import { convertPropFormulaToString } from "../convert-prop-formula-to-string";
@@ -13,9 +12,6 @@ import { isWellFormedFormula } from "../is-well-formed-formula";
 
 describe("Propositional utils module", () => {
 	it("should have all expected static methods available", () => {
-		expect(typeof utils.applyPropFormulaChecks).toBe("function");
-		expect(utils.applyPropFormulaChecks).toBe(applyPropFormulaChecks);
-
 		expect(typeof utils.calculatePropFormula).toBe("function");
 		expect(utils.calculatePropFormula).toBe(calculatePropFormula);
 

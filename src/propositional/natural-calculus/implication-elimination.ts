@@ -1,6 +1,6 @@
 import { Operator } from "../../enums";
 import type { PropFormula } from "../../models";
-import { isImplicationEliminationApplicable } from "../checks/is-implication-elimination-applicable";
+import { isImplicationEliminationApplicable } from "../validator/is-implication-elimination-applicable";
 
 /**
  * Applies the rule of Implication Elimination.

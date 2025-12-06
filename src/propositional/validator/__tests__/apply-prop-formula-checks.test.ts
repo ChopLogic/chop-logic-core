@@ -1,8 +1,8 @@
 import { Operator, PropFormulaCheck } from "../../../enums";
 import type { PropFormula } from "../../../models";
-import { applyPropFormulaChecks } from "../index";
+import { validatePropFormulas } from "../index";
 
-describe("applyPropFormulaChecks", () => {
+describe("validatePropFormulas", () => {
 	const formulaA: PropFormula = { operator: Operator.Var, values: ["A"] };
 	const formulaB: PropFormula = { operator: Operator.Var, values: ["B"] };
 	const implicationAB: PropFormula = {
@@ -20,14 +20,14 @@ describe("applyPropFormulaChecks", () => {
 	};
 
 	it("applies all checks by default", () => {
-		const results = applyPropFormulaChecks([formulaA, formulaB]);
+		const results = validatePropFormulas([formulaA, formulaB]);
 		expect(results).toHaveProperty(PropFormulaCheck.areEqual, false);
 		expect(results).toHaveProperty(PropFormulaCheck.isIE, false);
 		expect(results).toHaveProperty(PropFormulaCheck.isCE, false);
 	});
 
 	it("applies selected checks only", () => {
-		const results = applyPropFormulaChecks(
+		const results = validatePropFormulas(
 			[implicationAB, formulaA],
 			[PropFormulaCheck.isIE],
 		);
@@ -35,14 +35,14 @@ describe("applyPropFormulaChecks", () => {
 	});
 
 	it("handles an empty formulas array", () => {
-		const results = applyPropFormulaChecks([]);
+		const results = validatePropFormulas([]);
 		Object.values(results).forEach((value) => {
 			expect(value).toBe(false);
 		});
 	});
 
 	it("handles negation elimination correctly", () => {
-		const results = applyPropFormulaChecks(
+		const results = validatePropFormulas(
 			[negationNegationA],
 			[PropFormulaCheck.isNE],
 		);
@@ -50,7 +50,7 @@ describe("applyPropFormulaChecks", () => {
 	});
 
 	it("handles conjunction creation correctly", () => {
-		const results = applyPropFormulaChecks(
+		const results = validatePropFormulas(
 			[formulaA, formulaB],
 			[PropFormulaCheck.isCI],
 		);
@@ -58,7 +58,7 @@ describe("applyPropFormulaChecks", () => {
 	});
 
 	it("handles conjunction elimination correctly", () => {
-		const results = applyPropFormulaChecks(
+		const results = validatePropFormulas(
 			[conjunctionAB],
 			[PropFormulaCheck.isCE],
 		);
@@ -66,7 +66,7 @@ describe("applyPropFormulaChecks", () => {
 	});
 
 	it("handles invalid check names gracefully", () => {
-		const results = applyPropFormulaChecks(
+		const results = validatePropFormulas(
 			[formulaA, formulaB],
 			["invalidCheck" as PropFormulaCheck],
 		);
@@ -74,7 +74,7 @@ describe("applyPropFormulaChecks", () => {
 	});
 
 	it("applies all check by default", () => {
-		const results = applyPropFormulaChecks([implicationAB, formulaA]);
+		const results = validatePropFormulas([implicationAB, formulaA]);
 		expect(results).toEqual({
 			areEqual: false,
 			isCI: true,
@@ -91,7 +91,7 @@ describe("applyPropFormulaChecks", () => {
 	});
 
 	it("allows check destructuring", () => {
-		const { areEqual, isCI } = applyPropFormulaChecks(
+		const { areEqual, isCI } = validatePropFormulas(
 			[formulaB, formulaA],
 			[PropFormulaCheck.areEqual, PropFormulaCheck.isCI],
 		);
