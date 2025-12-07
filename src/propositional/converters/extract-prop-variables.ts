@@ -6,6 +6,7 @@ import type { PropFormula, PropFormulaVariablesMap } from "../../models";
  *
  * @param formula - The propositional formula.
  * @returns A map of variables, sorted alphabetically.
+ * @category Converters
  */
 export function extractPropVariables(
 	formula: PropFormula,

@@ -8,6 +8,7 @@ import type { PropFormula } from "../../models";
  *
  * @param {PropFormula} formula - The propositional formula to extract sub-formulas from.
  * @returns {PropFormula[]} An array of unique sub-formulas, sorted in evaluation order.
+ * @category Converters
  */
 export function extractPropSubFormulas(formula: PropFormula): PropFormula[] {
 	if (formula.operator === Operator.Var) return [];

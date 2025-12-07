@@ -1,6 +1,6 @@
 import { Operator } from "../../enums";
 import type { PropFormula, PropFormulaVariablesMap } from "../../models";
-import { extractPropVariables } from "./extract-prop-variables";
+import { extractPropVariables } from "../converters/extract-prop-variables";
 import { getBinaryOperationValue } from "./get-binary-operation-value";
 import { getUnaryOperationValue } from "./get-unary-operation-value";
 

@@ -3,6 +3,13 @@ import type { PropExpression, PropFormula } from "../../models";
 import { getOperatorGlyph } from "../../tokenizer";
 import { createPropSymbol } from "../builders/create-prop-symbol";
 
+/**
+ * Converts a propositional formula into its corresponding expression representation.
+ *
+ * @param {PropFormula} formula - The propositional formula to convert.
+ * @returns {PropExpression} The expression representation of the formula.
+ * @category Converters
+ */
 export function convertPropFormulaToExpression(
 	formula: PropFormula,
 ): PropExpression {

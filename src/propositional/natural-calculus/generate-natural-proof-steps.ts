@@ -1,8 +1,8 @@
 import { NaturalCalculusRule, Step } from "../../enums";
 import type { PropFormula, PropProofStep } from "../../models";
 import { createPropExpression } from "../builders/create-prop-expression";
-import { convertPropFormulaToExpression } from "../utils/convert-prop-formula-to-expression";
-import { convertPropFormulaToString } from "../utils/convert-prop-formula-to-string";
+import { convertPropFormulaToExpression } from "../converters/convert-prop-formula-to-expression";
+import { convertPropFormulaToString } from "../converters/convert-prop-formula-to-string";
 import { conjunctionElimination } from "./conjunction-elimination";
 import { conjunctionIntroduction } from "./conjunction-introduction";
 import { disjunctionElimination } from "./disjunction-elimination";

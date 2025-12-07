@@ -7,6 +7,7 @@ import { getGlyphUnicode, getOperatorGlyph } from "../../tokenizer";
  *
  * @param {PropFormula} formula - The propositional formula to convert.
  * @returns {string} The string representation of the formula using Unicode glyphs.
+ * @category Converters
  */
 export function convertPropFormulaToString(formula: PropFormula): string {
 	if (formula.operator === Operator.Var) {

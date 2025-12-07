@@ -1,6 +1,6 @@
 import type { PropFormula, TruthAssignmentsMap } from "../../models";
+import { extractPropVariables } from "../converters/extract-prop-variables";
 import { calculatePropFormula } from "./calculate-prop-formula";
-import { extractPropVariables } from "./extract-prop-variables";
 import { generateTruthAssignments } from "./generate-truth-assignments";
 
 /**
