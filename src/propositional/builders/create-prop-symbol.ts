@@ -14,6 +14,7 @@ import { getGlyphUnicode } from "../../tokenizer";
  * @param position - The position of the symbol in the input expression.
  * @returns A `PropSymbol` containing the atom, type, position, and view.
  * @throws {Error} If the character is not a recognized logical symbol or a Latin letter.
+ * @category Builders
  */
 export function createPropSymbol(char: string, position: number): PropSymbol {
 	const knownGlyphs = Object.values(Glyph);

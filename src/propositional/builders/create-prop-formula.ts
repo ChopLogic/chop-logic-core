@@ -9,6 +9,7 @@ import { createOperator } from "./create-operator";
  * @param expression - A validated propositional expression.
  * @returns The corresponding PropFormula.
  * @throws {Error} If the expression is not a well-formed formula.
+ * @category Builders
  */
 export function createPropFormula(expression: PropExpression): PropFormula {
 	if (!isWellFormedFormula(expression)) {

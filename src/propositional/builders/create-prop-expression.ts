@@ -12,6 +12,7 @@ import { createPropSymbol } from "./create-prop-symbol";
  * @param input - The logical expression as a string.
  * @returns An array of `PropSymbol` objects representing the parsed expression.
  * @throws {Error}  If the input contains invalid characters.
+ * @category Builders
  */
 export function createPropExpression(input: string): PropSymbol[] {
 	const tokens = tokenizeString(input);

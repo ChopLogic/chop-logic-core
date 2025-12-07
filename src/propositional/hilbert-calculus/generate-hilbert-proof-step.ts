@@ -1,6 +1,6 @@
 import { HilbertCalculusSchema, Step } from "../../enums";
 import type { PropFormula, PropProofStep } from "../../models";
-import { createPropExpression } from "../factory/create-prop-expression";
+import { createPropExpression } from "../builders/create-prop-expression";
 import { convertPropFormulaToExpression } from "../utils/convert-prop-formula-to-expression";
 import { convertPropFormulaToString } from "../utils/convert-prop-formula-to-string";
 import { implicationDistribution } from "./implication-distribution";

@@ -1,9 +1,9 @@
 /**
  * Main exports for propositional logic functionality.
- * @module Propositional
+ * @module PropositionalLogic
  */
 
-export { PropositionalFactory } from "./factory";
+export * from "./builders";
 export { HilbertCalculus } from "./hilbert-calculus";
 export { NaturalCalculus } from "./natural-calculus";
 export * from "./utils";

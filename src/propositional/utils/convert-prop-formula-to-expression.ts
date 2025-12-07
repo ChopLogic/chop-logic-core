@@ -1,7 +1,7 @@
 import { Operator } from "../../enums";
 import type { PropExpression, PropFormula } from "../../models";
 import { getOperatorGlyph } from "../../tokenizer";
-import { createPropSymbol } from "../factory/create-prop-symbol";
+import { createPropSymbol } from "../builders/create-prop-symbol";
 
 export function convertPropFormulaToExpression(
 	formula: PropFormula,

@@ -1,4 +1,4 @@
-import { createPropExpression } from "../../factory/create-prop-expression";
+import { createPropExpression } from "../../builders/create-prop-expression";
 import { isWellFormedFormula } from "../is-well-formed-formula";
 
 describe("isWellFormedFormula", () => {

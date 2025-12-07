@@ -1,6 +1,6 @@
 import { HilbertCalculusSchema, Step } from "../../../enums";
-import { createPropExpression } from "../../factory/create-prop-expression";
-import { createPropFormula } from "../../factory/create-prop-formula";
+import { createPropExpression } from "../../builders/create-prop-expression";
+import { createPropFormula } from "../../builders/create-prop-formula";
 import { generateHilbertProofStep } from "../generate-hilbert-proof-step";
 
 describe("generateProofStep", () => {

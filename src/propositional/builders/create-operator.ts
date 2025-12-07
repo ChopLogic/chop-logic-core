@@ -11,6 +11,7 @@ import type { PropSymbol } from "../../models";
  * @param symbol - The `PropSymbol` to be converted into an `Operator`.
  * @returns The corresponding `Operator` enum value.
  * @throws {Error} If the symbol is not recognized as an operator or a variable.
+ * @category Builders
  */
 export function createOperator(symbol: PropSymbol): Operator {
 	switch (symbol.atom[0]) {

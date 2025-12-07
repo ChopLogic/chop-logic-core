@@ -1,7 +1,7 @@
 import { GlyphType, Operator } from "../../../enums";
 import type { PropFormula } from "../../../models";
-import { createPropExpression } from "../../factory/create-prop-expression";
-import { createPropFormula } from "../../factory/create-prop-formula";
+import { createPropExpression } from "../../builders/create-prop-expression";
+import { createPropFormula } from "../../builders/create-prop-formula";
 import { convertPropFormulaToExpression } from "../convert-prop-formula-to-expression";
 
 describe("convertPropFormulaToExpression", () => {
