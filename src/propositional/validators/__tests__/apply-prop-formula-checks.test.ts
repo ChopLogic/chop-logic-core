@@ -1,6 +1,6 @@
 import { Operator, PropFormulaCheck } from "../../../enums";
 import type { PropFormula } from "../../../models";
-import { validatePropFormulas } from "../index";
+import { validatePropFormulas } from "../validate-prop-formulas";
 
 describe("validatePropFormulas", () => {
 	const formulaA: PropFormula = { operator: Operator.Var, values: ["A"] };

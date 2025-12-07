@@ -12,6 +12,7 @@ import { arePropFormulasStructurallyEqual } from "./are-prop-formulas-structural
  *
  * @param formulas - An array of propositional formulas to check.
  * @returns boolean indicating whether the rule is applicable
+ * @category Validators
  */
 export function isDisjunctionEliminationApplicable(
 	formulas: PropFormula[],

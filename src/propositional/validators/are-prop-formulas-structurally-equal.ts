@@ -7,6 +7,7 @@ import type { PropFormula } from "../../models";
  *
  * @param formulas - An array of propositional formulas to check.
  * @returns True if the formulas are structurally equivalent, otherwise false.
+ * @category Validators
  */
 export function arePropFormulasStructurallyEqual(
 	formulas: PropFormula[],

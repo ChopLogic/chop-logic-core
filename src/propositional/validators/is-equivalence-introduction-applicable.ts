@@ -10,6 +10,7 @@ import { arePropFormulasStructurallyEqual } from "./are-prop-formulas-structural
  *
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if we can infer equivalence, otherwise `false`.
+ * @category Validators
  */
 export function isEquivalenceIntroductionApplicable(
 	formulas: PropFormula[],

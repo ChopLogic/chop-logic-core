@@ -1,6 +1,6 @@
 import { Glyph, GlyphType, Operator } from "../../enums";
 import type { PropExpression, PropFormula, PropSymbol } from "../../models";
-import { isWellFormedFormula } from "../utils/is-well-formed-formula";
+import { isWellFormedFormula } from "../validators/is-well-formed-formula";
 import { createOperator } from "./create-operator";
 
 /**

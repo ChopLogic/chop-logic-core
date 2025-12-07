@@ -1,6 +1,6 @@
 import { Operator } from "../../enums";
 import type { PropFormula } from "../../models";
-import { isNegationIntroductionApplicable } from "../validator/is-negation-introduction-applicable";
+import { isNegationIntroductionApplicable } from "../validators/is-negation-introduction-applicable";
 
 /**
  * Applies negation introduction rule:

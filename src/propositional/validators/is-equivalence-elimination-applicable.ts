@@ -9,6 +9,7 @@ import type { PropFormula } from "../../models";
  *
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if all formulas are equivalences, otherwise `false`.
+ * @category Validators
  */
 export function isEquivalenceEliminationApplicable(
 	formulas: PropFormula[],

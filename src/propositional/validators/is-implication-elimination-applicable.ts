@@ -12,6 +12,7 @@ import { arePropFormulasStructurallyEqual } from "./are-prop-formulas-structural
  *
  * @param formulas - An array of propositional formulas to check.
  * @returns True if implication elimination can be applied, false otherwise.
+ * @category Validators
  */
 export function isImplicationEliminationApplicable(
 	formulas: PropFormula[],

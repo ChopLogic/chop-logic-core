@@ -8,7 +8,6 @@ import { generateTruthAssignments } from "../generate-truth-assignments";
 import { getBinaryOperationValue } from "../get-binary-operation-value";
 import { getUnaryOperationValue } from "../get-unary-operation-value";
 import * as utils from "../index";
-import { isWellFormedFormula } from "../is-well-formed-formula";
 
 describe("Propositional utils module", () => {
 	it("should have all expected static methods available", () => {
@@ -40,8 +39,5 @@ describe("Propositional utils module", () => {
 
 		expect(typeof utils.getUnaryOperationValue).toBe("function");
 		expect(utils.getUnaryOperationValue).toBe(getUnaryOperationValue);
-
-		expect(typeof utils.isWellFormedFormula).toBe("function");
-		expect(utils.isWellFormedFormula).toBe(isWellFormedFormula);
 	});
 });

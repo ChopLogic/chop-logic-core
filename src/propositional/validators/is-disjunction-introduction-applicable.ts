@@ -7,6 +7,7 @@ import type { PropFormula } from "../../models";
  *
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if there are exactly two formulas in the array, otherwise `false`.
+ * @category Validators
  */
 export function isDisjunctionIntroductionApplicable(
 	formulas: PropFormula[],

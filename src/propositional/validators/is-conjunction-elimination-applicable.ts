@@ -9,6 +9,7 @@ import type { PropFormula } from "../../models";
  *
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if all formulas are conjunctions, otherwise `false`.
+ * @category Validators
  */
 export function isConjunctionEliminationApplicable(
 	formulas: PropFormula[],

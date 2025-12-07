@@ -9,6 +9,7 @@ import type { PropFormula } from "../../models";
  *
  * @param formulas - An array of propositional formulas to check.
  * @returns `true` if all formulas contain exactly two negations, otherwise `false`.
+ * @category Validators
  */
 export function isNegationEliminationApplicable(
 	formulas: PropFormula[],
