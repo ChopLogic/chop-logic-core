@@ -9,6 +9,7 @@ import { Operator } from "../../enums";
  * @param params.rightOperand - The boolean value of the right operand.
  * @returns The result of applying the operator to the operands.
  * @throws {Error} If the operator is not a binary operator.
+ * @category Evaluators
  */
 export function getBinaryOperationValue({
 	operator,

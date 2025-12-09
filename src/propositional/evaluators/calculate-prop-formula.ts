@@ -13,6 +13,7 @@ import { getUnaryOperationValue } from "./get-unary-operation-value";
  * @param {variablesMap} [params.variablesMap] -  The map of formula variables ordered alphabetically
  * @returns {boolean} - The boolean result of the evaluated formula.
  * @throws {Error} If the number of variables in the formula does not match the assignment length.
+ * @category Evaluators
  */
 export function calculatePropFormula({
 	formula,

@@ -8,6 +8,7 @@ import { Operator } from "../../enums";
  * @param params.operand - The boolean value of the operand.
  * @returns The computed boolean value after applying the unary operator.
  * @throws {Error} If an unsupported operator is provided.
+ * @category Evaluators
  */
 export function getUnaryOperationValue({
 	operator,
