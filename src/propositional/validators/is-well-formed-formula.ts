@@ -13,6 +13,7 @@ import type { PropExpression, PropSymbol } from "../../models";
  *
  * @param expression - The propositional expression as an array of PropSymbols.
  * @returns `true` if the expression is a valid WFF, otherwise `false`.
+ * @category Validators
  */
 export function isWellFormedFormula(expression: PropExpression): boolean {
 	if (expression.length === 0) return false;

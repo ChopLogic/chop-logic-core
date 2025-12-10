@@ -7,6 +7,7 @@ import type { TruthAssignmentsMap } from "../../models";
  * @param limit - The maximum allowed number of variables (default: 100).
  * @returns A map of truth assignments, indexed by binary count.
  * @throws {Error} If varCount exceeds the limit.
+ * @category Truth Tables
  */
 export function generateTruthAssignments(
 	varCount: number,

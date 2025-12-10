@@ -10,6 +10,7 @@ import { generateTruthAssignments } from "./generate-truth-assignments";
  * @param {number} [limit=100] - The max number of variables in the formula.
  * @returns {TruthAssignmentsMap} - A map where keys are assignments, and values are truth values.
  * @throws {Error} If the formula has more variables than the limit allows.
+ * @category Truth Tables
  */
 export function generatePropTruthTable(
 	formula: PropFormula,
