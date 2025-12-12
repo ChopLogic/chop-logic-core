@@ -1,6 +1,6 @@
-import { Operator } from "../../enums";
-import type { PropFormula } from "../../models";
-import { isEquivalenceIntroductionApplicable } from "../validators/is-equivalence-introduction-applicable";
+import { Operator } from "../../../enums";
+import type { PropFormula } from "../../../models";
+import { isEquivalenceIntroductionApplicable } from "../../validators";
 
 /**
  * Introduces an equivalence (A <=> B) given two implications (A => B) and (B => A).

@@ -1,5 +1,5 @@
-import { NaturalCalculusRule, Operator, Step } from "../../../enums";
-import type { PropFormula } from "../../../models";
+import { NaturalCalculusRule, Operator, Step } from "../../../../enums";
+import type { PropFormula } from "../../../../models";
 import { generateNaturalProofSteps } from "../generate-natural-proof-steps";
 
 describe("generateNaturalProofSteps", () => {

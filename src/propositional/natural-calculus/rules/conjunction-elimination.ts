@@ -1,5 +1,5 @@
-import type { PropFormula } from "../../models";
-import { isConjunctionEliminationApplicable } from "../validators/is-conjunction-elimination-applicable";
+import type { PropFormula } from "../../../models";
+import { isConjunctionEliminationApplicable } from "../../validators";
 
 /**
  * Applies Conjunction Elimination rule to an array of conjunction formulas.

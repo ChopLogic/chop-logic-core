@@ -1,23 +1,25 @@
-import { NaturalCalculusRule, Step } from "../../enums";
+import { NaturalCalculusRule, Step } from "../../../enums";
 import type {
 	NaturalBasePayload,
 	NaturalDerivedPayload,
 	NaturalProofStepInput,
 	PropProofStep,
-} from "../../models";
-import { createPropExpression } from "../builders/create-prop-expression";
-import { convertPropFormulaToExpression } from "../converters/convert-prop-formula-to-expression";
-import { convertPropFormulaToString } from "../converters/convert-prop-formula-to-string";
-import { conjunctionElimination } from "./conjunction-elimination";
-import { conjunctionIntroduction } from "./conjunction-introduction";
-import { disjunctionElimination } from "./disjunction-elimination";
-import { disjunctionIntroduction } from "./disjunction-introduction";
-import { equivalenceElimination } from "./equivalence-elimination";
-import { equivalenceIntroduction } from "./equivalence-introduction";
-import { implicationElimination } from "./implication-elimination";
-import { implicationIntroduction } from "./implication-introduction";
-import { negationElimination } from "./negation-elimination";
-import { negationIntroduction } from "./negation-introduction";
+} from "../../../models";
+import { createPropExpression } from "../../builders";
+import {
+	convertPropFormulaToExpression,
+	convertPropFormulaToString,
+} from "../../converters";
+import { conjunctionElimination } from "../rules/conjunction-elimination";
+import { conjunctionIntroduction } from "../rules/conjunction-introduction";
+import { disjunctionElimination } from "../rules/disjunction-elimination";
+import { disjunctionIntroduction } from "../rules/disjunction-introduction";
+import { equivalenceElimination } from "../rules/equivalence-elimination";
+import { equivalenceIntroduction } from "../rules/equivalence-introduction";
+import { implicationElimination } from "../rules/implication-elimination";
+import { implicationIntroduction } from "../rules/implication-introduction";
+import { negationElimination } from "../rules/negation-elimination";
+import { negationIntroduction } from "../rules/negation-introduction";
 
 /**
  * Generates a PropProofStep object for use in Natural-style logic derivations.

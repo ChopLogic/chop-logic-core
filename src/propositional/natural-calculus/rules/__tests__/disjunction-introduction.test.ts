@@ -1,5 +1,5 @@
-import { Operator } from "../../../enums";
-import type { PropFormula } from "../../../models";
+import { Operator } from "../../../../enums";
+import type { PropFormula } from "../../../../models";
 import { disjunctionIntroduction } from "../disjunction-introduction";
 
 describe("disjunctionIntroduction", () => {
