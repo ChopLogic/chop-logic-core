@@ -1,18 +1,18 @@
-import { HilbertCalculusSchema, Step } from "../../enums";
+import { HilbertCalculusSchema, Step } from "../../../enums";
 import type {
 	HilbertAxiomPayload,
 	HilbertBasePayload,
 	HilbertDerivedPayload,
 	HilbertProofStepInput,
 	PropProofStep,
-} from "../../models";
-import { createPropExpression } from "../builders/create-prop-expression";
-import { convertPropFormulaToExpression } from "../converters/convert-prop-formula-to-expression";
-import { convertPropFormulaToString } from "../converters/convert-prop-formula-to-string";
-import { implicationDistribution } from "./implication-distribution";
-import { implicationElimination } from "./implication-elimination";
-import { implicationIntroduction } from "./implication-introduction";
-import { implicationReversal } from "./implication-reversal";
+} from "../../../models";
+import { createPropExpression } from "../../builders/create-prop-expression";
+import { convertPropFormulaToExpression } from "../../converters/convert-prop-formula-to-expression";
+import { convertPropFormulaToString } from "../../converters/convert-prop-formula-to-string";
+import { implicationDistribution } from "../axioms/implication-distribution";
+import { implicationIntroduction } from "../axioms/implication-introduction";
+import { implicationReversal } from "../axioms/implication-reversal";
+import { implicationElimination } from "../rules/implication-elimination";
 
 /**
  * Generates a PropProofStep object for use in Hilbert-style logic derivations.
@@ -20,6 +20,7 @@ import { implicationReversal } from "./implication-reversal";
  * schema-based transformations and constructs the string and symbolic expression views.
  * @param input - An object with necessary data for the new proof step.
  * @returns A new proof step based on the input.
+ * @category Hilbert Proof System
  */
 export function generateHilbertProofStep<T>(
 	input: HilbertProofStepInput<T>,

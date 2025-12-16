@@ -1,4 +1,4 @@
-import { Step } from "../../enums";
+import { Step } from "../../../enums";
 import type {
 	HilbertAxiomPayload,
 	HilbertBasePayload,
@@ -6,15 +6,16 @@ import type {
 	HilbertProofStepInput,
 	PropFormula,
 	PropProofStep,
-} from "../../models";
-import { arePropFormulasStructurallyEqual } from "../validators";
-import { generateHilbertProofStep } from "./generate-hilbert-proof-step";
+} from "../../../models";
+import { arePropFormulasStructurallyEqual } from "../../validators";
+import { generateHilbertProofStep } from "../generators/generate-hilbert-proof-step";
 
 /**
  * Represents a complete proof in Hilbert-style calculus.
  * Manages a sequence of proof steps where the final step is the goal formula.
  * Each step can be an axiom, premise, or derived from previous steps.
  *
+ * @category Hilbert Proof System
  */
 export class HilbertProof {
 	private steps: PropProofStep[] = [];

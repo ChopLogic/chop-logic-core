@@ -2,7 +2,7 @@ import type {
 	HilbertAxiomPayload,
 	HilbertDerivedPayload,
 	PropFormula,
-} from "../../models";
+} from "../../../models";
 import { HilbertProof } from "./hilbert-proof";
 
 /**
