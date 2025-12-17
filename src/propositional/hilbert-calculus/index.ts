@@ -1,3 +1,4 @@
-export { HilbertProof } from "./classes/hilbert-proof";
-export { HilbertProofBuilder } from "./classes/hilbert-proof-builder";
-export { generateHilbertProofStep } from "./generators/generate-hilbert-proof-step";
+export * from "./axioms";
+export * from "./classes";
+export * from "./generators";
+export * from "./rules";
