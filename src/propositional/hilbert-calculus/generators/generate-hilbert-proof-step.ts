@@ -6,7 +6,6 @@ import type {
 	HilbertProofStepInput,
 	PropProofStep,
 } from "../../../models";
-import { createPropExpression } from "../../builders/create-prop-expression";
 import { convertPropFormulaToExpression } from "../../converters/convert-prop-formula-to-expression";
 import { convertPropFormulaToString } from "../../converters/convert-prop-formula-to-string";
 import { implicationDistribution } from "../axioms/implication-distribution";
@@ -81,9 +80,7 @@ function buildBaseStep(
 		step,
 		formula: payload.formula,
 		stringView: convertPropFormulaToString(payload.formula),
-		expression: createPropExpression(
-			convertPropFormulaToString(payload.formula),
-		),
+		expression: convertPropFormulaToExpression(payload.formula),
 		comment: `${step}`,
 	};
 }
