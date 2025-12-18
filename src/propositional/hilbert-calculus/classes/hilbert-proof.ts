@@ -141,7 +141,12 @@ export class HilbertProof {
 			return false;
 		}
 
-		const lastStep = this.steps[this.steps.length - 1];
+		const lastStep = this.getLastStep();
+
+		if (!lastStep) {
+			return false;
+		}
+
 		return arePropFormulasStructurallyEqual([lastStep.formula, this.goal]);
 	}
 
@@ -150,7 +155,7 @@ export class HilbertProof {
 	 * @returns The final proof step, or undefined if no steps exist
 	 */
 	getLastStep(): PropProofStep | undefined {
-		return this.steps[this.steps.length - 1] || undefined;
+		return this.steps.at(-1);
 	}
 
 	/**
