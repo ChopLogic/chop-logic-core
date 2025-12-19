@@ -23,14 +23,6 @@ body:
       required: true
 
   - type: textarea
-    id: proposed_solution
-    attributes:
-      label: "Proposed Solution"
-      description: "Describe how you think this feature should work."
-    validations:
-      required: true
-
-  - type: textarea
     id: additional_context
     attributes:
       label: "Additional Context"

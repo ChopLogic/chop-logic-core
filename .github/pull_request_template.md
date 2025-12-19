@@ -2,16 +2,7 @@
 
 ## Description
 
-Please include a summary of the changes and the related issue if applicable.
-
-## Checklist
-
-- [ ] My code follows the project's coding style.
-- [ ] I have performed a self-review of my code.
-- [ ] I have added tests that prove my fix is effective or that my feature works.
-- [ ] Existing tests pass locally with my changes.
-- [ ] I have documented my code where necessary.
-- [ ] I have updated the documentation accordingly.
+<!--- Please include a summary of the changes and the related issue if applicable. -->
 
 ## Type of Change
 
@@ -25,7 +16,7 @@ Please mark the relevant options with an `x`.
 
 ## Additional Context
 
-_Add any other relevant information about the PR here._
+<!--- Add any other relevant information about the PR here. -->
 
 ---
 
