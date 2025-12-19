@@ -9,10 +9,6 @@ describe("hilbert-calculus/generators index", () => {
 		expect(generators.composeHilbertProof).toBeDefined();
 	});
 
-	it("should export extendHilbertProof", () => {
-		expect(generators.extendHilbertProof).toBeDefined();
-	});
-
 	it("should export generateHilbertProofStep", () => {
 		expect(generators.generateHilbertProofStep).toBeDefined();
 	});

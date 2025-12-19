@@ -25,10 +25,6 @@ describe("hilbert-calculus index", () => {
 		expect(tools.composeHilbertProof).toBeDefined();
 	});
 
-	it("should export extendHilbertProof", () => {
-		expect(tools.extendHilbertProof).toBeDefined();
-	});
-
 	it("should export generateHilbertProofStep", () => {
 		expect(tools.generateHilbertProofStep).toBeDefined();
 	});
