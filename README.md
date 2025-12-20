@@ -60,24 +60,68 @@ The following npm scripts are available for development and maintenance:
 
 ## 🔧 Usage
 
+### Creating and Evaluating Formulas
+
 ```ts
-import { ChopLogicCore } from 'chop-logic-core';
+import {
+  createPropExpression,
+  createPropFormula,
+  calculatePropFormula,
+} from "chop-logic-core";
 
-const { PropositionalFactory, PropositionalUtils, HilbertCalculus } = ChopLogicCore;
-const { createExpression, createFormula } = PropositionalFactory;
-const { generateTT, convertToString } = PropositionalUtils;
+// Create an implication: p → q
+const formula = createPropFormula(createPropExpression("p => q"));
 
-const expression = createExpression('((A => B) & ~C)');
-const formula = createFormula(expression);
-const truthTable = generateTT(formula);
-
-const A = createFormula(createExpression('A'));
-const implicationAB = createFormula(createExpression('(A => B)'));
-
-const consequent = HilbertCalculus.IE([implicationAB, A]);
-
-const stringView = convertToString(consequent);
+// Evaluate the formula with different truth assignments
+const result1 = calculatePropFormula(formula, { p: true, q: true }); // true
+const result2 = calculatePropFormula(formula, { p: true, q: false }); // false
 ```
+
+### Building Proofs
+
+```ts
+import { buildHilbertProof } from "chop-logic-core";
+
+const proof = buildHilbertProof(goalFormula)
+   .addPremise(premiseA, "Given")
+   .addAxiom(axiomPayload, "Axiom II")
+   .addDerivedStep(derivedPayload, "Modus Ponens")
+   .build();
+
+ if (proof.isComplete()) {
+   console.log("Proof is valid!");
+ }
+```
+
+### Truth Table Generation
+
+```ts
+import { generatePropTruthTable } from "chop-logic-core";
+
+// Generate a truth table for a formula
+const formula = createPropFormula(createPropExpression("(~A & B)"));
+
+const truthTable = generatePropTruthTable(formula);
+// Returns all rows with different truth assignments
+```
+
+### Validations and Checks
+
+```ts
+import {
+  isConjunctionIntroductionApplicable,
+  PropFormula,
+  Operator
+} from "chop-logic-core";
+
+const formula1: PropFormula = { operator: Operator.Var, values: ["P"] };
+const formula2: PropFormula = { operator: Operator.Var, values: ["Q"] };
+
+// Check if inference rules are applicable to your formulas
+const applicable = isConjunctionIntroductionApplicable([formula1, formula2]);
+```
+
+For more comprehensive examples and detailed API documentation, visit the [full documentation](https://choplogic.github.io/chop-logic-core).
 
 ## 🛠 Contributing
 

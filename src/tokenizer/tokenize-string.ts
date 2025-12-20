@@ -3,7 +3,7 @@ import { Glyph } from "../enums";
 /**
  * Tokenizes an input string into an array of known logical glyphs and variable names.
  *
- * - Recognizes logical glyphs defined in `Glyph`.
+ * - Recognizes logical glyphs defined in {@link Glyph}.
  * - Groups consecutive English letters into variables.
  * - Ignores spaces in the input.
  * - Throws an error if the input contains unsupported characters.

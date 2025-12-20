@@ -1,6 +1,6 @@
 import { Operator } from "../../enums";
 import type { PropFormula } from "../../models";
-import { isImplicationIntroductionApplicable } from "../checks/is-implication-introduction-applicable";
+import { isImplicationIntroductionApplicable } from "../validators/is-implication-introduction-applicable";
 
 /**
  * Applies the implication introduction rule.

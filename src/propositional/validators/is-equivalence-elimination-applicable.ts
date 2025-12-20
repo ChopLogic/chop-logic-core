@@ -1,0 +1,22 @@
+import { Operator } from "../../enums";
+import type { PropFormula } from "../../models";
+
+/**
+ * Checks if equivalence elimination is applicable.
+ *
+ * Equivalence elimination allows us to infer any argument from an equivalence.
+ * This function verifies whether all provided formulas are equivalences.
+ *
+ * @param formulas - An array of propositional formulas to check.
+ * @returns `true` if all formulas are equivalences, otherwise `false`.
+ * @category Validators
+ */
+export function isEquivalenceEliminationApplicable(
+	formulas: PropFormula[],
+): boolean {
+	if (formulas.length === 0) {
+		return false;
+	}
+
+	return formulas.every((formula) => formula.operator === Operator.Equiv);
+}

@@ -1,8 +1,13 @@
 import { NaturalCalculusRule, Step } from "../../enums";
-import type { PropFormula, PropProofStep } from "../../models";
-import { createPropExpression } from "../factory/create-prop-expression";
-import { convertPropFormulaToExpression } from "../utils/convert-prop-formula-to-expression";
-import { convertPropFormulaToString } from "../utils/convert-prop-formula-to-string";
+import type {
+	NaturalBasePayload,
+	NaturalDerivedPayload,
+	NaturalProofStepInput,
+	PropProofStep,
+} from "../../models";
+import { createPropExpression } from "../builders/create-prop-expression";
+import { convertPropFormulaToExpression } from "../converters/convert-prop-formula-to-expression";
+import { convertPropFormulaToString } from "../converters/convert-prop-formula-to-string";
 import { conjunctionElimination } from "./conjunction-elimination";
 import { conjunctionIntroduction } from "./conjunction-introduction";
 import { disjunctionElimination } from "./disjunction-elimination";
@@ -13,26 +18,6 @@ import { implicationElimination } from "./implication-elimination";
 import { implicationIntroduction } from "./implication-introduction";
 import { negationElimination } from "./negation-elimination";
 import { negationIntroduction } from "./negation-introduction";
-
-type DerivedPayload = {
-	formulas: PropFormula[];
-	rule: NaturalCalculusRule;
-	derivedFrom: number[];
-};
-
-type BasePayload = {
-	formula: PropFormula;
-};
-
-interface NaturalProofStepInput<T> {
-	index: number;
-	level: number;
-	assumptionIndex?: number;
-	step: T extends Step.Derivation
-		? Step.Derivation
-		: Exclude<Step, Step.Derivation | Step.Axiom>;
-	payload: T extends Step.Derivation ? DerivedPayload : BasePayload;
-}
 
 /**
  * Generates a PropProofStep object for use in Natural-style logic derivations.
@@ -51,7 +36,7 @@ export function generateNaturalProofSteps<T>(
 			index,
 			level,
 			assumptionIndex,
-			payload: input.payload as DerivedPayload,
+			payload: input.payload as NaturalDerivedPayload,
 		});
 	}
 
@@ -61,7 +46,7 @@ export function generateNaturalProofSteps<T>(
 			level,
 			step,
 			assumptionIndex,
-			payload: input.payload as BasePayload,
+			payload: input.payload as NaturalBasePayload,
 		}),
 	];
 }
@@ -74,7 +59,7 @@ function buildDerivedSteps({
 }: {
 	index: number;
 	level: number;
-	payload: DerivedPayload;
+	payload: NaturalDerivedPayload;
 	assumptionIndex?: number;
 }): PropProofStep[] {
 	const { formulas, rule, derivedFrom } = payload;
@@ -103,7 +88,7 @@ function buildBaseStep({
 	index: number;
 	level: number;
 	step: Step;
-	payload: BasePayload;
+	payload: NaturalBasePayload;
 	assumptionIndex?: number;
 }): PropProofStep {
 	return {

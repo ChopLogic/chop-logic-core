@@ -1,5 +1,5 @@
 import type { PropFormula } from "../../models";
-import { isNegationEliminationApplicable } from "../checks/is-negation-elimination-applicable";
+import { isNegationEliminationApplicable } from "../validators/is-negation-elimination-applicable";
 
 /**
  * Applies negation elimination rule:

@@ -1,7 +1,7 @@
 import { Glyph, Operator } from "../enums";
 
 /**
- * Converts a given Operator into its corresponding Glyph.
+ * Converts a given Operator into its corresponding {@link Glyph}.
  *
  * @param {Operator} operator - The logical operator to convert.
  * @returns {Glyph} - The corresponding glyph.

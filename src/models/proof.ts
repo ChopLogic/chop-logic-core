@@ -1,4 +1,8 @@
-import type { Step } from "../enums";
+import type {
+	HilbertCalculusSchema,
+	NaturalCalculusRule,
+	Step,
+} from "../enums";
 import type { PropExpression } from "./basic";
 import type { PropFormula } from "./formula";
 
@@ -29,4 +33,104 @@ export interface PropProofStep {
 	level?: number;
 	/** Reference to the assumption this step depends on */
 	assumptionIndex?: number;
+}
+
+// ============== Hilbert Calculus ==============
+
+/**
+ * Payload for an axiom step in Hilbert calculus.
+ * Contains the formulas and schema instance used for the axiom.
+ *
+ * @category Proof System Types
+ */
+export type HilbertAxiomPayload = {
+	formulas: PropFormula[];
+	schema: HilbertCalculusSchema;
+};
+
+/**
+ * Payload for a derived step in Hilbert calculus.
+ * Contains the formulas that justify the derivation and indices of the steps they were derived from.
+ *
+ * @category Proof System Types
+ */
+export type HilbertDerivedPayload = {
+	formulas: PropFormula[];
+	schema: HilbertCalculusSchema.IE;
+	derivedFrom: number[];
+};
+
+/**
+ * Base payload for assumption steps in Hilbert calculus.
+ * Contains a single formula representing the assumption.
+ *
+ * @category Proof System Types
+ */
+export type HilbertBasePayload = {
+	formula: PropFormula;
+};
+
+/**
+ * Generic input interface for creating a Hilbert calculus proof step.
+ * The payload type is determined by the step type (Axiom, Derivation, or Assumption).
+ *
+ * @template T - The step type (Axiom, Derivation, or Assumption)
+ * @category Proof System Types
+ */
+export interface HilbertProofStepInput<T> {
+	index: number;
+	step: T extends Step.Derivation
+		? Step.Derivation
+		: T extends Step.Axiom
+			? Step.Axiom
+			: Exclude<Step, Step.Derivation | Step.Axiom | Step.Assumption>;
+	payload: T extends Step.Derivation
+		? HilbertDerivedPayload
+		: T extends Step.Axiom
+			? HilbertAxiomPayload
+			: HilbertBasePayload;
+}
+
+// ============== Natural Calculus ==============
+
+/**
+ * Payload for a derived step in natural calculus.
+ * Contains the formulas that justify the derivation, the rule used, and indices of the steps they were derived from.
+ *
+ * @category Proof System Types
+ */
+export type NaturalDerivedPayload = {
+	formulas: PropFormula[];
+	rule: NaturalCalculusRule;
+	derivedFrom: number[];
+};
+
+/**
+ * Base payload for assumption steps in natural calculus.
+ * Contains a single formula representing the assumption.
+ *
+ * @category Proof System Types
+ */
+export type NaturalBasePayload = {
+	formula: PropFormula;
+};
+
+/**
+ * Generic input interface for creating a natural calculus proof step.
+ * The payload type is determined by the step type (Derivation or Assumption).
+ * Includes level and optional assumption index for sub-proof handling.
+ *
+ * @template T - The step type (Derivation or Assumption)
+ * @category Proof System Types
+ */
+export interface NaturalProofStepInput<T> {
+	index: number;
+	level: number;
+	assumptionIndex?: number;
+	step: T extends Step.Derivation
+		? Step.Derivation
+		: Exclude<Step, Step.Derivation | Step.Axiom>;
+	payload: T extends Step.Derivation
+		? NaturalDerivedPayload
+		: NaturalBasePayload;
 }
