@@ -70,28 +70,28 @@ export function isWellFormedFormula(expression: PropExpression): boolean {
 		return index >= expression.length;
 	}
 
-	function isVariable(symbol: PropSymbol): boolean {
-		return symbol.type === GlyphType.Variable;
-	}
-
-	function isNegation(symbol: PropSymbol): boolean {
-		return symbol.atom[0] === Glyph.Negation;
-	}
-
-	function isParenthesizedExpression(symbol: PropSymbol): boolean {
-		return symbol.atom[0] === Glyph.OpenParenthesis;
-	}
-
-	function isBinaryOperator(symbol: PropSymbol): boolean {
-		return (
-			symbol.type === GlyphType.Operator && symbol.atom[0] !== Glyph.Negation
-		);
-	}
-
-	function isClosingParenthesis(symbol: PropSymbol): boolean {
-		return symbol.atom[0] === Glyph.CloseParenthesis;
-	}
-
 	const result = parseWFF();
 	return result && index === expression.length; // Ensure full expression is parsed
+}
+
+function isVariable(symbol: PropSymbol): boolean {
+	return symbol.type === GlyphType.Variable;
+}
+
+function isNegation(symbol: PropSymbol): boolean {
+	return symbol.atom[0] === Glyph.Negation;
+}
+
+function isParenthesizedExpression(symbol: PropSymbol): boolean {
+	return symbol.atom[0] === Glyph.OpenParenthesis;
+}
+
+function isBinaryOperator(symbol: PropSymbol): boolean {
+	return (
+		symbol.type === GlyphType.Operator && symbol.atom[0] !== Glyph.Negation
+	);
+}
+
+function isClosingParenthesis(symbol: PropSymbol): boolean {
+	return symbol.atom[0] === Glyph.CloseParenthesis;
 }

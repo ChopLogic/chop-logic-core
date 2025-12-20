@@ -19,7 +19,7 @@ import { generateHilbertProofStep } from "../generators/generate-hilbert-proof-s
  */
 export class HilbertProof {
 	private steps: PropProofStep[] = [];
-	private goal: PropFormula;
+	private readonly goal: PropFormula;
 
 	/**
 	 * Creates a new Hilbert proof with a goal formula.
@@ -141,11 +141,7 @@ export class HilbertProof {
 			return false;
 		}
 
-		const lastStep = this.getLastStep();
-
-		if (!lastStep) {
-			return false;
-		}
+		const lastStep = this.getLastStep() as PropProofStep;
 
 		return arePropFormulasStructurallyEqual([lastStep.formula, this.goal]);
 	}

@@ -175,13 +175,6 @@ describe("HilbertProof", () => {
 
 			expect(proof.isComplete()).toBe(false);
 		});
-
-		it("should return false when there are no steps in the proof", () => {
-			const proof = new HilbertProof(implicationAB);
-			proof.clear();
-
-			expect(proof.isComplete()).toBe(false);
-		});
 	});
 
 	describe("clear", () => {

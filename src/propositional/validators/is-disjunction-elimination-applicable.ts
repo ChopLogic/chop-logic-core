@@ -27,18 +27,20 @@ export function isDisjunctionEliminationApplicable(
 	let implication2: PropFormula | null = null;
 
 	for (const formula of [formula1, formula2, formula3]) {
-		if (
+		const isValidDisjunction =
 			formula.operator === Operator.Or &&
 			Array.isArray(formula.values) &&
-			formula.values.length === 2
-		) {
-			disjunction = formula;
-		} else if (
+			formula.values.length === 2;
+		const isValidImplication =
 			formula.operator === Operator.Implies &&
 			Array.isArray(formula.values) &&
-			formula.values.length === 2
-		) {
-			if (!implication1) {
+			formula.values.length === 2;
+		const isImplication1Missing = !implication1;
+
+		if (isValidDisjunction) {
+			disjunction = formula;
+		} else if (isValidImplication) {
+			if (isImplication1Missing) {
 				implication1 = formula;
 			} else {
 				implication2 = formula;

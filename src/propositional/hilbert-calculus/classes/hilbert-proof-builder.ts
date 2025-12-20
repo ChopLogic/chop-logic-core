@@ -20,7 +20,7 @@ import { HilbertProof } from "./hilbert-proof";
  * @category Hilbert Proof System
  */
 export class HilbertProofBuilder {
-	private proof: HilbertProof;
+	private readonly proof: HilbertProof;
 
 	/**
 	 * Creates a new proof builder with a goal formula.
@@ -36,7 +36,7 @@ export class HilbertProofBuilder {
 	 * @param comment - Optional explanation for the premise
 	 * @returns This builder instance for chaining
 	 */
-	addPremise(formula: PropFormula, comment?: string): HilbertProofBuilder {
+	addPremise(formula: PropFormula, comment?: string): this {
 		this.proof.addPremise(formula, comment);
 		return this;
 	}
@@ -47,10 +47,7 @@ export class HilbertProofBuilder {
 	 * @param comment - Optional explanation for the axiom
 	 * @returns This builder instance for chaining
 	 */
-	addAxiom(
-		payload: HilbertAxiomPayload,
-		comment?: string,
-	): HilbertProofBuilder {
+	addAxiom(payload: HilbertAxiomPayload, comment?: string): this {
 		this.proof.addAxiom(payload, comment);
 		return this;
 	}
@@ -61,10 +58,7 @@ export class HilbertProofBuilder {
 	 * @param comment - Optional explanation for the derivation
 	 * @returns This builder instance for chaining
 	 */
-	addDerivedStep(
-		payload: HilbertDerivedPayload,
-		comment?: string,
-	): HilbertProofBuilder {
+	addDerivedStep(payload: HilbertDerivedPayload, comment?: string): this {
 		this.proof.addDerivedStep(payload, comment);
 		return this;
 	}
@@ -93,7 +87,7 @@ export class HilbertProofBuilder {
 	 * });
 	 * ```
 	 */
-	buildSteps(stepsFn: (builder: this) => void): HilbertProofBuilder {
+	buildSteps(stepsFn: (builder: this) => void): this {
 		stepsFn(this);
 		return this;
 	}
