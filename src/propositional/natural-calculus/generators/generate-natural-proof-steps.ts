@@ -27,6 +27,7 @@ import { negationIntroduction } from "../rules/negation-introduction";
  * rule-based transformations and constructs the string and symbolic expression views.
  * @param input - An object with necessary data for the new proof step.
  * @returns An array of new proof steps based on the input.
+ * @category Natural Calculus
  */
 export function generateNaturalProofSteps<T>(
 	input: NaturalProofStepInput<T>,

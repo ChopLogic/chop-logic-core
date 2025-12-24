@@ -11,9 +11,9 @@ import { negationIntroduction } from "./negation-introduction";
 
 /**
  * @namespace
- * @category Natural Calculus Rules
+ * @category Natural Calculus
  */
-export const NaturalCalculus = Object.freeze({
+export const NaturalRules = Object.freeze({
 	// Introduction rules
 	NI: negationIntroduction,
 	CI: conjunctionIntroduction,
