@@ -5,7 +5,6 @@ import type {
 	NaturalProofStepInput,
 	PropProofStep,
 } from "../../../models";
-import { createPropExpression } from "../../builders";
 import {
 	convertPropFormulaToExpression,
 	convertPropFormulaToString,
@@ -101,9 +100,7 @@ function buildBaseStep({
 		assumptionIndex,
 		formula: payload.formula,
 		stringView: convertPropFormulaToString(payload.formula),
-		expression: createPropExpression(
-			convertPropFormulaToString(payload.formula),
-		),
+		expression: convertPropFormulaToExpression(payload.formula),
 		comment: `${step}`,
 	};
 }
