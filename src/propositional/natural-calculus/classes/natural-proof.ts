@@ -1,4 +1,4 @@
-import { Step } from "../../../enums";
+import { NaturalCalculusRule, Step } from "../../../enums";
 import type {
 	NaturalBasePayload,
 	NaturalDerivedPayload,
@@ -150,36 +150,60 @@ export class NaturalProof {
 	}
 
 	/**
-	 * Closes a sub-proof by applying Implication Elimination (Modus Ponens).
-	 * This is the only rule that can be used to exit a sub-proof and return to the previous level.
-	 * @param payload - The derived step payload for implication elimination
-	 * @param comment - Optional explanation for the closure
-	 * @returns The array of added proof steps
+	 * Closes a sub-proof by applying Implication Introduction.
+	 * Automatically takes the assumption (first step at current level) and the
+	 * derived conclusion (last step at current level) to create an implication F=>G,
+	 * then adds this implication at level-1.
+	 * @param comment - Optional explanation for the implication closure
+	 * @returns The added proof step
 	 */
-	closeSubProof(
-		payload: NaturalDerivedPayload,
-		comment?: string,
-	): PropProofStep[] {
+	closeSubProof(comment?: string): PropProofStep {
 		if (this.currentLevel === 0) {
 			throw new Error("Cannot close sub-proof when already at level 0");
 		}
 
+		// Find the first step at the current level (the assumption F)
+		const assumptionStep = this.steps.find(
+			(step) => step.level === this.currentLevel,
+		);
+
+		if (!assumptionStep) {
+			throw new Error(
+				"No steps found at the current level for closing sub-proof",
+			);
+		}
+
+		// Get the last step at the current level (the derived conclusion G)
+		const lastStepAtCurrentLevel = [...this.steps]
+			.reverse()
+			.find((step) => step.level === this.currentLevel);
+
+		if (!lastStepAtCurrentLevel) {
+			throw new Error(
+				"No steps found at the current level for closing sub-proof",
+			);
+		}
+
+		// Use generateNaturalProofSteps to create the implication step
 		const newSteps = generateNaturalProofSteps({
 			index: this.steps.length + 1,
 			level: this.currentLevel - 1,
 			step: Step.Derivation,
-			payload,
+			payload: {
+				formulas: [assumptionStep.formula, lastStepAtCurrentLevel.formula],
+				rule: NaturalCalculusRule.II,
+				derivedFrom: [lastStepAtCurrentLevel.index],
+			} as NaturalDerivedPayload,
 		} as NaturalProofStepInput<Step.Derivation>);
 
-		newSteps.forEach((step) => {
-			if (comment) {
-				step.comment = comment;
-			}
-			this.steps.push(step);
-		});
+		const newStep = newSteps[0];
+		if (comment) {
+			newStep.comment = comment;
+		}
 
+		this.steps.push(newStep);
 		this.currentLevel -= 1;
-		return newSteps;
+		return newStep;
 	}
 
 	/**

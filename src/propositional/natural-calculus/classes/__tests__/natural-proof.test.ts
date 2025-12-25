@@ -158,26 +158,18 @@ describe("NaturalProof", () => {
 			proof.addPremise(B);
 			expect(proof.getCurrentLevel()).toBe(1);
 
-			const closingSteps = proof.closeSubProof({
-				formulas: [A, B],
-				rule: NaturalCalculusRule.II,
-				derivedFrom: [1, 2],
-			});
+			const closingStep = proof.closeSubProof();
 
 			expect(proof.getCurrentLevel()).toBe(0);
-			expect(closingSteps.length).toBeGreaterThan(0);
-			expect(closingSteps[0].level).toBe(0);
+			expect(closingStep.level).toBe(0);
+			expect(closingStep.step).toBe(Step.Derivation);
 		});
 
 		it("should throw an error when closing at level 0", () => {
 			const proof = new NaturalProof(implicationAB);
 
 			expect(() => {
-				proof.closeSubProof({
-					formulas: [A, B],
-					rule: NaturalCalculusRule.II,
-					derivedFrom: [1],
-				});
+				proof.closeSubProof();
 			}).toThrow("Cannot close sub-proof when already at level 0");
 		});
 
@@ -188,18 +180,10 @@ describe("NaturalProof", () => {
 			proof.addAssumption(B);
 			expect(proof.getCurrentLevel()).toBe(2);
 
-			proof.closeSubProof({
-				formulas: [B, C],
-				rule: NaturalCalculusRule.II,
-				derivedFrom: [2, 3],
-			});
+			proof.closeSubProof();
 			expect(proof.getCurrentLevel()).toBe(1);
 
-			proof.closeSubProof({
-				formulas: [A, implicationBC],
-				rule: NaturalCalculusRule.II,
-				derivedFrom: [1],
-			});
+			proof.closeSubProof();
 			expect(proof.getCurrentLevel()).toBe(0);
 		});
 
@@ -208,13 +192,9 @@ describe("NaturalProof", () => {
 
 			proof.addAssumption(A);
 			proof.addPremise(B);
-			const closingSteps = proof.closeSubProof({
-				formulas: [A, B],
-				rule: NaturalCalculusRule.II,
-				derivedFrom: [1, 2],
-			});
+			const closingStep = proof.closeSubProof("Custom explanation");
 
-			expect(closingSteps[0].comment).toBe("II: 1, 2");
+			expect(closingStep.comment).toBe("Custom explanation");
 		});
 	});
 
@@ -290,16 +270,10 @@ describe("NaturalProof", () => {
 
 			proof.addAssumption(A);
 			proof.addPremise(B);
-			const closingSteps = proof.closeSubProof({
-				formulas: [A, B],
-				rule: NaturalCalculusRule.II,
-				derivedFrom: [1, 2],
-			});
+			const closingStep = proof.closeSubProof();
 
 			const lastStep = proof.getLastStep();
-			expect(lastStep?.formula).toEqual(
-				closingSteps[closingSteps.length - 1].formula,
-			);
+			expect(lastStep?.formula).toEqual(closingStep.formula);
 		});
 	});
 
@@ -323,11 +297,7 @@ describe("NaturalProof", () => {
 			const proof = new NaturalProof(conjunctionAB);
 			proof.addPremise(A);
 			proof.addAssumption(B);
-			proof.closeSubProof({
-				formulas: [A, B],
-				rule: NaturalCalculusRule.II,
-				derivedFrom: [1, 2],
-			});
+			proof.closeSubProof();
 
 			expect(proof.isComplete()).toBe(false);
 		});
@@ -354,16 +324,10 @@ describe("NaturalProof", () => {
 
 			proof.addAssumption(A);
 			proof.addPremise(B);
-			const closingSteps = proof.closeSubProof({
-				formulas: [A, B],
-				rule: NaturalCalculusRule.II,
-				derivedFrom: [1, 2],
-			});
+			const closingStep = proof.closeSubProof();
 
 			expect(proof.getCurrentLevel()).toBe(0);
-			expect(proof.getLastStep()?.formula).toEqual(
-				closingSteps[closingSteps.length - 1].formula,
-			);
+			expect(proof.getLastStep()?.formula).toEqual(closingStep.formula);
 			expect(proof.isComplete()).toBe(true);
 		});
 	});
@@ -392,11 +356,7 @@ describe("NaturalProof", () => {
 			proof.addPremise(B);
 			expect(proof.getCurrentLevel()).toBe(1);
 
-			proof.closeSubProof({
-				formulas: [A, B],
-				rule: NaturalCalculusRule.II,
-				derivedFrom: [1, 2],
-			});
+			proof.closeSubProof();
 			expect(proof.getCurrentLevel()).toBe(0);
 		});
 	});
@@ -445,11 +405,7 @@ describe("NaturalProof", () => {
 
 			proof.addAssumption(A);
 			proof.addPremise(B);
-			proof.closeSubProof({
-				formulas: [A, B],
-				rule: NaturalCalculusRule.II,
-				derivedFrom: [1, 2],
-			});
+			proof.closeSubProof();
 
 			expect(proof.getCurrentLevel()).toBe(0);
 			expect(proof.isComplete()).toBe(true);
@@ -464,18 +420,10 @@ describe("NaturalProof", () => {
 			proof.addAssumption(B);
 			expect(proof.getCurrentLevel()).toBe(2);
 
-			proof.closeSubProof({
-				formulas: [B, C],
-				rule: NaturalCalculusRule.II,
-				derivedFrom: [2],
-			});
+			proof.closeSubProof();
 			expect(proof.getCurrentLevel()).toBe(1);
 
-			proof.closeSubProof({
-				formulas: [A, implicationBC],
-				rule: NaturalCalculusRule.II,
-				derivedFrom: [1],
-			});
+			proof.closeSubProof();
 			expect(proof.getCurrentLevel()).toBe(0);
 		});
 
@@ -485,16 +433,12 @@ describe("NaturalProof", () => {
 			const step1 = proof.addPremise(A);
 			proof.addAssumption(B);
 			const step3 = proof.addPremise(C);
-			const closingSteps = proof.closeSubProof({
-				formulas: [B, C],
-				rule: NaturalCalculusRule.II,
-				derivedFrom: [2, 3],
-			});
+			const closingStep = proof.closeSubProof();
 
 			expect(step1.index).toBe(1);
 			expect(proof.getStep(2)?.step).toBe(Step.Assumption);
 			expect(step3.index).toBe(3);
-			expect(closingSteps[0].index).toBeGreaterThan(3);
+			expect(closingStep.index).toBeGreaterThan(3);
 		});
 	});
 });
