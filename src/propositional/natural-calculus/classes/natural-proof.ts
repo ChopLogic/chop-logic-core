@@ -150,8 +150,22 @@ export class NaturalProof {
 	}
 
 	/**
+	 * Finds the most recent assumption at the current level.
+	 * Used to identify the premise F when closing a sub-proof.
+	 * @returns The latest assumption step at the current level, or undefined if not found
+	 */
+	private findCurrentAssumption(): PropProofStep | undefined {
+		return [...this.steps]
+			.reverse()
+			.find(
+				(step) =>
+					step.level === this.currentLevel && step.step === Step.Assumption,
+			);
+	}
+
+	/**
 	 * Closes a sub-proof by applying Implication Introduction.
-	 * Automatically takes the assumption (first step at current level) and the
+	 * Automatically takes the assumption (most recent step at current level) and the
 	 * derived conclusion (last step at current level) to create an implication F=>G,
 	 * then adds this implication at level-1.
 	 * @param comment - Optional explanation for the implication closure
@@ -162,14 +176,12 @@ export class NaturalProof {
 			throw new Error("Cannot close sub-proof when already at level 0");
 		}
 
-		// Find the first step at the current level (the assumption F)
-		const assumptionStep = this.steps.find(
-			(step) => step.level === this.currentLevel,
-		);
+		// Find the most recent assumption at the current level (the assumption F)
+		const assumptionStep = this.findCurrentAssumption();
 
 		if (!assumptionStep) {
 			throw new Error(
-				"No steps found at the current level for closing sub-proof",
+				"No assumption found at the current level for closing sub-proof",
 			);
 		}
 

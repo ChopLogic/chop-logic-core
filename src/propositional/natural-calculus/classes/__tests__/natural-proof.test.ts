@@ -440,5 +440,35 @@ describe("NaturalProof", () => {
 			expect(step3.index).toBe(3);
 			expect(closingStep.index).toBeGreaterThan(3);
 		});
+
+		it("should handle multiple sub-proofs at the same level correctly", () => {
+			const D = createPropFormula(createPropExpression("D"));
+			const E = createPropFormula(createPropExpression("E"));
+			const implicationDE = createPropFormula(createPropExpression("(D => E)"));
+
+			const proof = new NaturalProof(implicationAB);
+
+			// First sub-proof: A => B
+			proof.addAssumption(A);
+			proof.addPremise(B);
+			const step1Closure = proof.closeSubProof();
+			expect(step1Closure.formula).toEqual(implicationAB);
+			expect(proof.getCurrentLevel()).toBe(0);
+			expect(step1Closure.step).toBe(Step.Derivation);
+
+			// Verify we're back at level 0
+			expect(proof.getCurrentLevel()).toBe(0);
+
+			// Now if we were to do a second sub-proof at level 0 (starting a new assumption)
+			proof.addAssumption(D);
+			proof.addPremise(E);
+			const step2Closure = proof.closeSubProof();
+			expect(step2Closure.formula).toEqual(implicationDE);
+			expect(proof.getCurrentLevel()).toBe(0);
+
+			// Verify that the second closure correctly references the D assumption, not the A assumption
+			const allSteps = proof.getSteps();
+			expect(allSteps[allSteps.length - 1]).toEqual(step2Closure);
+		});
 	});
 });
