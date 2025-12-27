@@ -8,7 +8,6 @@ describe("NaturalProof", () => {
 	const C = createPropFormula(createPropExpression("C"));
 	const conjunctionAB = createPropFormula(createPropExpression("(A & B)"));
 	const implicationAB = createPropFormula(createPropExpression("(A => B)"));
-	const implicationBC = createPropFormula(createPropExpression("(B => C)"));
 
 	describe("constructor", () => {
 		it("should create a new proof with a goal formula", () => {
@@ -427,6 +426,117 @@ describe("NaturalProof", () => {
 			expect(proof.getCurrentLevel()).toBe(0);
 		});
 
+		it("should handle sub-proof nested inside another sub-proof with multiple steps", () => {
+			// Proof structure:
+			// (1) p→q (Premise)
+			// (2) q→r (Premise)
+			// (3) p (Assumption)
+			// (4) q (Implication Elimination: 1, 3)
+			// (5) ¬r (Assumption)
+			// (6) r (Implication Elimination: 2, 4)
+			// (7) ¬r → r (Implication Introduction: 5, 6)
+			// (8) p → (¬r → r) (Implication Introduction: 3, 7)
+
+			const p = createPropFormula(createPropExpression("p"));
+			const q = createPropFormula(createPropExpression("q"));
+			const negR = createPropFormula(createPropExpression("~r"));
+			const pToQ = createPropFormula(createPropExpression("(p => q)"));
+			const qToR = createPropFormula(createPropExpression("(q => r)"));
+			const negRToR = createPropFormula(createPropExpression("(~r => r)"));
+			const pToNegRToR = createPropFormula(
+				createPropExpression("(p => (~r => r))"),
+			);
+
+			const proof = new NaturalProof(pToNegRToR);
+
+			// Step 1: p→q (Premise)
+			const step1 = proof.addPremise(pToQ);
+			expect(step1.index).toBe(1);
+			expect(step1.level).toBe(0);
+
+			// Step 2: q→r (Premise)
+			const step2 = proof.addPremise(qToR);
+			expect(step2.index).toBe(2);
+			expect(step2.level).toBe(0);
+
+			// Step 3: p (Assumption) - opens first sub-proof
+			const step3 = proof.addAssumption(p);
+			expect(step3.index).toBe(3);
+			expect(step3.level).toBe(1);
+			expect(proof.getCurrentLevel()).toBe(1);
+
+			// Step 4: q (Implication Elimination: 1, 3)
+			const step4 = proof.addDerivedStep({
+				formulas: [pToQ, p],
+				rule: NaturalCalculusRule.IE,
+				derivedFrom: [1, 3],
+			});
+			expect(step4[0].level).toBe(1);
+			const step4LastIndex = step4[step4.length - 1].index;
+
+			// Step 5: ¬r (Assumption) - opens nested sub-proof
+			const step5 = proof.addAssumption(negR);
+			expect(step5.index).toBeGreaterThanOrEqual(step4LastIndex);
+			expect(step5.level).toBe(2);
+			expect(proof.getCurrentLevel()).toBe(2);
+
+			// Step 6: r (Implication Elimination: 2, 4)
+			const step6 = proof.addDerivedStep({
+				formulas: [qToR, q],
+				rule: NaturalCalculusRule.IE,
+				derivedFrom: [2, step4LastIndex],
+			});
+			expect(step6[0].level).toBe(2);
+
+			// Step 7: ¬r → r (Implication Introduction: 5, 6) - closes nested sub-proof
+			const step7 = proof.closeSubProof();
+			expect(step7.level).toBe(1);
+			expect(step7.formula).toEqual(negRToR);
+			expect(proof.getCurrentLevel()).toBe(1);
+
+			// Step 8: p → (¬r → r) (Implication Introduction: 3, 7) - closes first sub-proof
+			const step8 = proof.closeSubProof();
+			expect(step8.level).toBe(0);
+			expect(step8.formula).toEqual(pToNegRToR);
+			expect(proof.getCurrentLevel()).toBe(0);
+
+			// Verify the proof is complete
+			expect(proof.isComplete()).toBe(true);
+			expect(proof.getStepCount()).toBeGreaterThanOrEqual(8);
+
+			// Verify step structure
+			const allSteps = proof.getSteps();
+			expect(allSteps.length).toBeGreaterThanOrEqual(8);
+
+			// Check level transitions are correct: we should see 0, 0, 1, ..., 2, 2, ..., 1, 0
+			// The exact indices might vary due to derived step generation, but levels should follow the pattern
+			expect(allSteps[0].level).toBe(0); // Step 1 - Premise
+			expect(allSteps[1].level).toBe(0); // Step 2 - Premise
+			expect(allSteps[2].level).toBe(1); // Step 3 - Assumption (level 1 opens)
+			// Find the nested assumption at level 2
+			const nestedAssumptionIndex = allSteps.findIndex(
+				(s, i) => i > 2 && s.level === 2,
+			);
+			expect(nestedAssumptionIndex).toBeGreaterThan(2);
+			expect(allSteps[nestedAssumptionIndex].step).toBe(Step.Assumption);
+			// After nested assumption, we should have level 2 steps
+			expect(allSteps[nestedAssumptionIndex + 1].level).toBe(2);
+			// Find first closure back to level 1
+			const firstClosureIndex = allSteps.findIndex(
+				(s, i) =>
+					i > nestedAssumptionIndex &&
+					s.level === 1 &&
+					s.step === Step.Derivation,
+			);
+			expect(firstClosureIndex).toBeGreaterThan(nestedAssumptionIndex);
+			// Find final closure to level 0
+			const finalClosureIndex = allSteps.findIndex(
+				(s, i) =>
+					i > firstClosureIndex && s.level === 0 && s.step === Step.Derivation,
+			);
+			expect(finalClosureIndex).toBeGreaterThan(firstClosureIndex);
+		});
+
 		it("should properly track indices across multiple operations", () => {
 			const proof = new NaturalProof(implicationAB);
 
@@ -469,6 +579,38 @@ describe("NaturalProof", () => {
 			// Verify that the second closure correctly references the D assumption, not the A assumption
 			const allSteps = proof.getSteps();
 			expect(allSteps[allSteps.length - 1]).toEqual(step2Closure);
+		});
+
+		it("should prove the law of identity (F => F) by assuming F and immediately closing", () => {
+			// Law of Identity: (p => p)
+			// (1) p (Assumption)
+			// (2) p => p (Implication Introduction: 1)
+			const p = createPropFormula(createPropExpression("p"));
+			const pToP = createPropFormula(createPropExpression("(p => p)"));
+
+			const proof = new NaturalProof(pToP);
+
+			// Step 1: Assume p
+			const assumption = proof.addAssumption(p);
+			expect(assumption.index).toBe(1);
+			expect(assumption.level).toBe(1);
+			expect(assumption.step).toBe(Step.Assumption);
+
+			// Step 2: Close the sub-proof to derive p => p
+			const closure = proof.closeSubProof();
+			expect(closure.level).toBe(0);
+			expect(closure.step).toBe(Step.Derivation);
+			expect(closure.formula).toEqual(pToP);
+
+			// Verify the proof is complete
+			expect(proof.getCurrentLevel()).toBe(0);
+			expect(proof.isComplete()).toBe(true);
+			expect(proof.getStepCount()).toBeGreaterThanOrEqual(2);
+
+			// Verify step structure
+			const allSteps = proof.getSteps();
+			expect(allSteps[0].formula).toEqual(p); // First step is the assumption
+			expect(allSteps[allSteps.length - 1].formula).toEqual(pToP); // Last step is p => p
 		});
 	});
 });
