@@ -77,6 +77,18 @@ export class NaturalProofBuilder {
 	}
 
 	/**
+	 * Reiterates (repeats) a previously proved step at the current level (inside a sub-proof).
+	 * Allows referring to a formula from an outer level within an inner sub-proof.
+	 * @param fromIndex - The index of the step to reiterate (1-based)
+	 * @param comment - Optional explanation for the reiteration
+	 * @returns This builder instance for chaining
+	 */
+	reiterateStep(fromIndex: number, comment?: string): this {
+		this.proof.reiterateStep(fromIndex, comment);
+		return this;
+	}
+
+	/**
 	 * Constructs the proof and returns it.
 	 * @returns The completed NaturalProof instance
 	 */

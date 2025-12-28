@@ -255,5 +255,88 @@ describe("NaturalProofBuilder and functional proof generation", () => {
 			expect(proof.getCurrentLevel()).toBe(0);
 			expect(proof.getStepCount()).toBeGreaterThanOrEqual(6);
 		});
+
+		it("should chain reiterateStep method", () => {
+			const proof = new NaturalProofBuilder(implicationAB)
+				.addPremise(A)
+				.addAssumption(B)
+				.reiterateStep(1)
+				.build();
+
+			expect(proof.getStepCount()).toBe(3);
+			const step3 = proof.getStep(3);
+			expect(step3?.step).toBe(Step.Reiteration);
+			expect(step3?.formula).toBe(A);
+		});
+
+		it("should chain reiterateStep with custom comment", () => {
+			const proof = new NaturalProofBuilder(implicationAB)
+				.addPremise(A)
+				.addAssumption(B)
+				.reiterateStep(1, "Reiterate premise for use in derivation")
+				.build();
+
+			const step3 = proof.getStep(3);
+			expect(step3?.comment).toBe("Reiterate premise for use in derivation");
+		});
+
+		it("should support multiple riterations in sequence", () => {
+			const proof = new NaturalProofBuilder(implicationAB)
+				.addPremise(A)
+				.addPremise(B)
+				.addAssumption(C)
+				.reiterateStep(1, "Reiterate A")
+				.reiterateStep(2, "Reiterate B")
+				.build();
+
+			const step4 = proof.getStep(4);
+			const step5 = proof.getStep(5);
+
+			expect(step4?.step).toBe(Step.Reiteration);
+			expect(step4?.formula).toBe(A);
+			expect(step5?.step).toBe(Step.Reiteration);
+			expect(step5?.formula).toBe(B);
+		});
+
+		it("should integrate reiterateStep with other builder methods", () => {
+			const proof = new NaturalProofBuilder(implicationAB)
+				.addPremise(A, "Premise A")
+				.addAssumption(B, "Assume B")
+				.reiterateStep(1, "Reiterate A in sub-proof")
+				.addDerivedStep({
+					formulas: [A, B],
+					rule: NaturalCalculusRule.CI,
+					derivedFrom: [3, 2],
+				})
+				.closeSubProof("A => (B & A)")
+				.build();
+
+			expect(proof.getCurrentLevel()).toBe(0);
+			expect(proof.getStepCount()).toBeGreaterThan(5);
+			const reiteStep = proof.getStep(3);
+			expect(reiteStep?.step).toBe(Step.Reiteration);
+		});
+
+		it("should work with nested riterations across multiple levels", () => {
+			const proof = new NaturalProofBuilder(implicationAB)
+				.addPremise(A)
+				.addAssumption(B)
+				.addAssumption(C)
+				.reiterateStep(1, "Reiterate A at level 2")
+				.reiterateStep(2, "Reiterate B at level 2")
+				.closeSubProof("B => result")
+				.reiterateStep(1, "Reiterate A at level 1")
+				.closeSubProof("A => result")
+				.build();
+
+			expect(proof.getCurrentLevel()).toBe(0);
+			const step4 = proof.getStep(4);
+			const step5 = proof.getStep(5);
+
+			expect(step4?.step).toBe(Step.Reiteration);
+			expect(step4?.level).toBe(2);
+			expect(step5?.step).toBe(Step.Reiteration);
+			expect(step5?.level).toBe(2);
+		});
 	});
 });

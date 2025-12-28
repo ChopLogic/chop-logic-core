@@ -150,6 +150,46 @@ export class NaturalProof {
 	}
 
 	/**
+	 * Reiterates (repeats) a previously proved step at the current level (inside a sub-proof).
+	 * Allows referring to a formula from an outer level within an inner sub-proof.
+	 * @param fromIndex - The index of the step to reiterate (1-based)
+	 * @param comment - Optional explanation for the reiteration
+	 * @returns The added reiteration step
+	 * @throws {Error} if the step index is invalid
+	 */
+	reiterateStep(fromIndex: number, comment?: string): PropProofStep {
+		const sourceStep = this.getStep(fromIndex);
+
+		if (!sourceStep) {
+			throw new Error(`Cannot reiterate: step ${fromIndex} not found in proof`);
+		}
+
+		const sourceLevel = sourceStep.level ?? 0;
+
+		if (sourceLevel >= this.currentLevel) {
+			throw new Error(
+				`Cannot reiterate: step ${fromIndex} is at level ${sourceLevel}, ` +
+					`which is not outer to the current level ${this.currentLevel}`,
+			);
+		}
+
+		// Create a reiteration step at the current level with the same formula
+		const step: PropProofStep = {
+			index: this.steps.length + 1,
+			level: this.currentLevel,
+			step: Step.Reiteration,
+			formula: sourceStep.formula,
+			expression: sourceStep.expression,
+			stringView: sourceStep.stringView,
+			derivedFrom: [fromIndex],
+			comment: comment || `Reiteration: ${fromIndex}`,
+		};
+
+		this.steps.push(step);
+		return step;
+	}
+
+	/**
 	 * Finds the most recent assumption at the current level.
 	 * Used to identify the premise F when closing a sub-proof.
 	 * @returns The latest assumption step at the current level, or undefined if not found

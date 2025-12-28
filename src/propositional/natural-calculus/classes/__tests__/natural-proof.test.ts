@@ -613,4 +613,205 @@ describe("NaturalProof", () => {
 			expect(allSteps[allSteps.length - 1].formula).toEqual(pToP); // Last step is p => p
 		});
 	});
+
+	describe("reiterateStep", () => {
+		it("should add a reiteration step with the formula from the source step", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			// Add a premise at level 0
+			proof.addPremise(A);
+			// Add an assumption to go to level 1
+			proof.addAssumption(B);
+			// Reiterate the premise inside the assumption
+			const reiterationStep = proof.reiterateStep(1);
+
+			expect(reiterationStep.formula).toBe(A);
+			expect(reiterationStep.step).toBe(Step.Reiteration);
+			expect(reiterationStep.level).toBe(1);
+			expect(reiterationStep.derivedFrom).toEqual([1]);
+		});
+
+		it("should increment step indices correctly for reiteration", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			const step1 = proof.addPremise(A);
+			proof.addAssumption(B);
+			const step3 = proof.reiterateStep(1);
+
+			expect(step1.index).toBe(1);
+			expect(proof.getStep(2)?.step).toBe(Step.Assumption);
+			expect(step3.index).toBe(3);
+		});
+
+		it("should use default comment format when no comment is provided", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			proof.addPremise(A);
+			proof.addAssumption(B);
+			const reiterationStep = proof.reiterateStep(1);
+
+			expect(reiterationStep.comment).toBe("Reiteration: 1");
+		});
+
+		it("should use custom comment when provided", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			proof.addPremise(A);
+			proof.addAssumption(B);
+			const customComment = "Reiterate premise A for use in derivation";
+			const reiterationStep = proof.reiterateStep(1, customComment);
+
+			expect(reiterationStep.comment).toBe(customComment);
+		});
+
+		it("should throw error when source step does not exist", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			proof.addPremise(A);
+			proof.addAssumption(B);
+
+			expect(() => {
+				proof.reiterateStep(99);
+			}).toThrow("Cannot reiterate: step 99 not found in proof");
+		});
+
+		it("should throw error when trying to reiterate from the same level", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			proof.addAssumption(A);
+			proof.addPremise(B); // Both at level 1
+
+			expect(() => {
+				proof.reiterateStep(2); // Try to reiterate step 2 (at level 1) while at level 1
+			}).toThrow(
+				"Cannot reiterate: step 2 is at level 1, which is not outer to the current level 1",
+			);
+		});
+
+		it("should allow reiterating from any outer level to inner level", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			proof.addPremise(A); // Level 0, step 1
+			proof.addAssumption(B); // Level 1, step 2
+			proof.addAssumption(C); // Level 2, step 3
+
+			// All of these should work - can reiterate from level 0 or 1 at level 2
+			const reitStep1 = proof.reiterateStep(1); // From level 0 to level 2
+			expect(reitStep1.level).toBe(2);
+
+			const reitStep2 = proof.reiterateStep(2); // From level 1 to level 2
+			expect(reitStep2.level).toBe(2);
+		});
+
+		it("should properly set expression field from source step formula", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			proof.addPremise(A);
+			proof.addAssumption(B);
+			const reiterationStep = proof.reiterateStep(1);
+
+			expect(reiterationStep.expression).toBeDefined();
+			expect(Array.isArray(reiterationStep.expression)).toBe(true);
+			expect(reiterationStep.expression.length).toBeGreaterThan(0);
+		});
+
+		it("should preserve stringView from source step", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			const premiseStep = proof.addPremise(A);
+			proof.addAssumption(B);
+			const reiterationStep = proof.reiterateStep(1);
+
+			expect(reiterationStep.stringView).toBe(premiseStep.stringView);
+		});
+
+		it("should allow reiteration from level 0 to level 1", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			proof.addPremise(A); // Level 0
+			proof.addAssumption(B); // Open level 1
+			const reiteration = proof.reiterateStep(1); // Reiterate from level 0
+
+			expect(reiteration.level).toBe(1);
+			expect(reiteration.derivedFrom).toEqual([1]);
+		});
+
+		it("should allow reiteration from level 0 to level 2 (across nested assumptions)", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			proof.addPremise(A); // Level 0
+			proof.addAssumption(B); // Level 1
+			proof.addAssumption(C); // Level 2
+			const reiteration = proof.reiterateStep(1); // Reiterate from level 0 at level 2
+
+			expect(reiteration.level).toBe(2);
+			expect(reiteration.derivedFrom).toEqual([1]);
+		});
+
+		it("should handle reiteration with complex formulas", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			const complexFormula = createPropFormula(
+				createPropExpression("((A & B) | (C => D))"),
+			);
+			proof.addPremise(complexFormula);
+			proof.addAssumption(A);
+			const reiterationStep = proof.reiterateStep(1);
+
+			expect(reiterationStep.formula).toEqual(complexFormula);
+			expect(reiterationStep.expression).toBeDefined();
+		});
+
+		it("should work in context of a full proof with reiteration and derivation", () => {
+			// Proof: p, p => q, ¬q ⊢ contradiction
+			// (1) p (Premise)
+			// (2) p => q (Premise)
+			// (3) ¬q (Assumption)
+			// (4) p (Reiteration: 1)
+			// (5) q (Modus Ponens: 2, 4)
+			// (6) ¬q → (q & ¬q) (Implication Introduction: 3, derive q & ¬q)
+
+			const p = createPropFormula(createPropExpression("p"));
+			const pToQ = createPropFormula(createPropExpression("(p => q)"));
+			const negQ = createPropFormula(createPropExpression("~q"));
+			const qAndNegQ = createPropFormula(createPropExpression("(q & ~q)"));
+
+			const proof = new NaturalProof(qAndNegQ);
+
+			// Step 1: Premise p
+			const step1 = proof.addPremise(p);
+			expect(step1.level).toBe(0);
+
+			// Step 2: Premise p => q
+			const step2 = proof.addPremise(pToQ);
+			expect(step2.level).toBe(0);
+
+			// Step 3: Assumption ¬q (open sub-proof)
+			const step3 = proof.addAssumption(negQ);
+			expect(step3.level).toBe(1);
+			expect(proof.getCurrentLevel()).toBe(1);
+
+			// Step 4: Reiterate p inside the assumption
+			const step4 = proof.reiterateStep(1);
+			expect(step4.formula).toEqual(p);
+			expect(step4.step).toBe(Step.Reiteration);
+			expect(step4.level).toBe(1);
+			expect(step4.derivedFrom).toEqual([1]);
+
+			// Step 5: Use modus ponens with reiterateated step
+			const step5 = proof.addDerivedStep({
+				formulas: [pToQ, p],
+				rule: NaturalCalculusRule.IE,
+				derivedFrom: [2, 4], // Using the reiterated step
+			});
+			expect(step5[0].level).toBe(1);
+
+			// Verify the proof structure
+			const allSteps = proof.getSteps();
+			expect(allSteps[0].step).toBe(Step.Premise); // p
+			expect(allSteps[1].step).toBe(Step.Premise); // p => q
+			expect(allSteps[2].step).toBe(Step.Assumption); // ¬q
+			expect(allSteps[3].step).toBe(Step.Reiteration); // p (reiterated)
+		});
+	});
 });
