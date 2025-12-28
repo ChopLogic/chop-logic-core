@@ -15,7 +15,7 @@ import { generateHilbertProofStep } from "../generators/generate-hilbert-proof-s
  * Manages a sequence of proof steps where the final step is the goal formula.
  * Each step can be an axiom, premise, or derived from previous steps.
  *
- * @category Hilbert Proof System
+ * @category Hilbert Calculus
  */
 export class HilbertProof {
 	private steps: PropProofStep[] = [];

@@ -5,7 +5,7 @@ import { implicationReversal } from "./implication-reversal";
 /**
  *
  * @namespace
- * @category Hilbert Proof System
+ * @category Hilbert Calculus
  */
 export const HilbertAxioms = Object.freeze({
 	II: implicationIntroduction,

@@ -17,7 +17,7 @@ import { HilbertProof } from "./hilbert-proof";
  *	.build();
  * ```
  *
- * @category Hilbert Proof System
+ * @category Hilbert Calculus
  */
 export class HilbertProofBuilder {
 	private readonly proof: HilbertProof;

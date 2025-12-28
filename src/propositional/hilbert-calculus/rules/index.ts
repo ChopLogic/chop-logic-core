@@ -3,7 +3,7 @@ import { implicationElimination } from "./implication-elimination";
 /**
  *
  * @namespace
- * @category Hilbert Proof System
+ * @category Hilbert Calculus
  */
 export const HilbertRules = Object.freeze({
 	IE: implicationElimination,

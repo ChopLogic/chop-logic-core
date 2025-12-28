@@ -21,7 +21,7 @@ import { HilbertProofBuilder } from "../classes/hilbert-proof-builder";
  * }
  * ```
  *
- * @category Hilbert Proof System
+ * @category Hilbert Calculus
  */
 export function buildHilbertProof(goal: PropFormula): HilbertProofBuilder {
 	return new HilbertProofBuilder(goal);
