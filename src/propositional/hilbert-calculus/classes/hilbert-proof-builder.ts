@@ -17,7 +17,7 @@ import { HilbertProof } from "./hilbert-proof";
  *	.build();
  * ```
  *
- * @category Hilbert Proof System
+ * @category Hilbert Calculus
  */
 export class HilbertProofBuilder {
 	private readonly proof: HilbertProof;
@@ -60,6 +60,18 @@ export class HilbertProofBuilder {
 	 */
 	addDerivedStep(payload: HilbertDerivedPayload, comment?: string): this {
 		this.proof.addDerivedStep(payload, comment);
+		return this;
+	}
+
+	/**
+	 * Reiterates (repeats) a previously proved step.
+	 * Allows referring to a formula from an earlier step in the proof.
+	 * @param fromIndex - The index of the step to reiterate (1-based)
+	 * @param comment - Optional explanation for the reiteration
+	 * @returns This builder instance for chaining
+	 */
+	reiterateStep(fromIndex: number, comment?: string): this {
+		this.proof.reiterateStep(fromIndex, comment);
 		return this;
 	}
 

@@ -1,4 +1,4 @@
-import { HilbertCalculusSchema } from "../../../../enums";
+import { HilbertCalculusSchema, Step } from "../../../../enums";
 import { createPropExpression, createPropFormula } from "../../../builders";
 import { buildHilbertProof } from "../../generators/build-hilbert-proof";
 import { composeHilbertProof } from "../../generators/compose-hilbert-proof";
@@ -132,6 +132,63 @@ describe("HilbertProofBuilder and functional proof generation", () => {
 				.build();
 
 			expect(proof.getStepCount()).toBe(2);
+		});
+
+		it("should chain reiterateStep method", () => {
+			const proof = new HilbertProofBuilder(A)
+				.addPremise(A)
+				.reiterateStep(1)
+				.build();
+
+			expect(proof.getStepCount()).toBe(2);
+			const step2 = proof.getStep(2);
+			expect(step2?.step).toBe(Step.Reiteration);
+			expect(step2?.formula).toBe(A);
+		});
+
+		it("should chain reiterateStep with custom comment", () => {
+			const proof = new HilbertProofBuilder(B)
+				.addPremise(B)
+				.reiterateStep(1, "Reiterate for use in derivation")
+				.build();
+
+			const step2 = proof.getStep(2);
+			expect(step2?.comment).toBe("Reiterate for use in derivation");
+		});
+
+		it("should support multiple reiterations in sequence", () => {
+			const proof = new HilbertProofBuilder(A)
+				.addPremise(A)
+				.reiterateStep(1, "First reiteration")
+				.reiterateStep(1, "Second reiteration")
+				.build();
+
+			expect(proof.getStepCount()).toBe(3);
+			const step2 = proof.getStep(2);
+			const step3 = proof.getStep(3);
+
+			expect(step2?.step).toBe(Step.Reiteration);
+			expect(step3?.step).toBe(Step.Reiteration);
+			expect(step2?.formula).toBe(A);
+			expect(step3?.formula).toBe(A);
+		});
+
+		it("should integrate reiterateStep with other builder methods", () => {
+			const proof = new HilbertProofBuilder(B)
+				.addPremise(A, "Premise A")
+				.addPremise(B, "Premise B")
+				.reiterateStep(1, "Reiterate A")
+				.addDerivedStep({
+					formulas: [implicationAB, A],
+					schema: HilbertCalculusSchema.IE,
+					derivedFrom: [3, 2],
+				})
+				.build();
+
+			expect(proof.getStepCount()).toBe(4);
+			const step3 = proof.getStep(3);
+			expect(step3?.step).toBe(Step.Reiteration);
+			expect(step3?.derivedFrom).toEqual([1]);
 		});
 	});
 });

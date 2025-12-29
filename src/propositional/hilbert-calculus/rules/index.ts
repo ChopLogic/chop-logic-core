@@ -1,9 +1,17 @@
 import { implicationElimination } from "./implication-elimination";
 
 /**
+ * Namespace containing all inference rules in Hilbert-style calculus.
+ * Rules are the mechanisms for deriving new formulas from existing ones.
+ *
+ * Available rules:
+ * - IE: Implication Elimination (Modus Ponens)
+ *
+ * Hilbert-style calculus uses a minimal set of rules, relying heavily on axiom schemas
+ * for its deductive power.
  *
  * @namespace
- * @category Hilbert Proof System
+ * @category Hilbert Calculus
  */
 export const HilbertRules = Object.freeze({
 	IE: implicationElimination,

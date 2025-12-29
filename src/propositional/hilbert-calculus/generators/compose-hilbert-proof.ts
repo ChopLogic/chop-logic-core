@@ -25,7 +25,7 @@ import { buildHilbertProof } from "./build-hilbert-proof";
  * const proof = composeHilbertProof(goal, createPremises, createAxioms);
  * ```
  *
- * @category Hilbert Proof System
+ * @category Hilbert Calculus
  */
 export function composeHilbertProof(
 	goal: PropFormula,

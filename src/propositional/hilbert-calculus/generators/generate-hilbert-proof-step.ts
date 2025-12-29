@@ -19,7 +19,7 @@ import { implicationElimination } from "../rules/implication-elimination";
  * schema-based transformations and constructs the string and symbolic expression views.
  * @param input - An object with necessary data for the new proof step.
  * @returns A new proof step based on the input.
- * @category Hilbert Proof System
+ * @category Hilbert Calculus
  */
 export function generateHilbertProofStep<T>(
 	input: HilbertProofStepInput<T>,
