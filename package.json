@@ -1,6 +1,6 @@
 {
 	"name": "chop-logic-core",
-	"version": "1.5.0",
+	"version": "1.6.0",
 	"description": "Core classes, methods and functions for calculating logical formulas and constructing proofs within the Chop Logic project.",
 	"main": "lib/index.cjs",
 	"module": "lib/index.mjs",
