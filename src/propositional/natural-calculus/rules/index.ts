@@ -10,6 +10,23 @@ import { negationElimination } from "./negation-elimination";
 import { negationIntroduction } from "./negation-introduction";
 
 /**
+ * Namespace containing all Natural Deduction inference rules.
+ * Provides a complete set of introduction and elimination rules for propositional logic.
+ *
+ * Introduction rules allow deriving new formulas:
+ * - NI: Negation Introduction
+ * - CI: Conjunction Introduction
+ * - DI: Disjunction Introduction
+ * - II: Implication Introduction
+ * - EI: Equivalence Introduction
+ *
+ * Elimination rules extract information from formulas:
+ * - NE: Negation Elimination
+ * - CE: Conjunction Elimination
+ * - DE: Disjunction Elimination
+ * - IE: Implication Elimination
+ * - EE: Equivalence Elimination
+ *
  * @namespace
  * @category Natural Calculus
  */
