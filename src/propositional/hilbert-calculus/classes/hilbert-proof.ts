@@ -155,6 +155,40 @@ export class HilbertProof {
 	}
 
 	/**
+	 * Reiterates (repeats) a previously proved step.
+	 * Allows referring to a formula from an earlier step in the proof.
+	 * @param fromIndex - The index of the step to reiterate (1-based)
+	 * @param comment - Optional explanation for the reiteration
+	 * @returns The added reiteration step
+	 * @throws {Error} if the step index is invalid
+	 */
+	reiterateStep(fromIndex: number, comment?: string): PropProofStep {
+		const sourceStep = this.getStep(fromIndex);
+
+		if (!sourceStep) {
+			throw new Error(`Cannot reiterate: step ${fromIndex} not found in proof`);
+		}
+
+		// Create a reiteration step with the same formula
+		const step = generateHilbertProofStep({
+			index: this.steps.length + 1,
+			step: Step.Reiteration,
+			payload: { formula: sourceStep.formula } as HilbertBasePayload,
+		});
+
+		if (comment) {
+			step.comment = comment;
+		} else {
+			step.comment = `Reiteration: ${fromIndex}`;
+		}
+
+		step.derivedFrom = [fromIndex];
+
+		this.steps.push(step);
+		return step;
+	}
+
+	/**
 	 * Clears all steps from the proof.
 	 */
 	clear(): void {

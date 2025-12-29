@@ -64,6 +64,18 @@ export class HilbertProofBuilder {
 	}
 
 	/**
+	 * Reiterates (repeats) a previously proved step.
+	 * Allows referring to a formula from an earlier step in the proof.
+	 * @param fromIndex - The index of the step to reiterate (1-based)
+	 * @param comment - Optional explanation for the reiteration
+	 * @returns This builder instance for chaining
+	 */
+	reiterateStep(fromIndex: number, comment?: string): this {
+		this.proof.reiterateStep(fromIndex, comment);
+		return this;
+	}
+
+	/**
 	 * Constructs the proof and returns it.
 	 * @returns The completed HilbertProof instance
 	 */

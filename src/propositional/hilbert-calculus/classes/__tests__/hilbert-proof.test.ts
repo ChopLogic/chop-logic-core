@@ -215,4 +215,112 @@ describe("HilbertProof", () => {
 			expect(proof.getStep(4)?.comment).toBe("IE: 1, 2");
 		});
 	});
+
+	describe("reiterateStep", () => {
+		it("should add a reiteration step with the formula from the source step", () => {
+			const proof = new HilbertProof(A);
+
+			proof.addPremise(A);
+			const reiterationStep = proof.reiterateStep(1);
+
+			expect(reiterationStep.formula).toBe(A);
+			expect(reiterationStep.step).toBe(Step.Reiteration);
+			expect(reiterationStep.derivedFrom).toEqual([1]);
+		});
+
+		it("should increment step indices correctly for reiteration", () => {
+			const proof = new HilbertProof(B);
+
+			const step1 = proof.addPremise(A);
+			const step2 = proof.addPremise(B);
+			const step3 = proof.reiterateStep(1);
+
+			expect(step1.index).toBe(1);
+			expect(step2.index).toBe(2);
+			expect(step3.index).toBe(3);
+		});
+
+		it("should use default comment format when no comment is provided", () => {
+			const proof = new HilbertProof(A);
+
+			proof.addPremise(A);
+			const reiterationStep = proof.reiterateStep(1);
+
+			expect(reiterationStep.comment).toBe("Reiteration: 1");
+		});
+
+		it("should use custom comment when provided", () => {
+			const proof = new HilbertProof(A);
+
+			proof.addPremise(A);
+			const customComment = "Reiterate premise A for derivation";
+			const reiterationStep = proof.reiterateStep(1, customComment);
+
+			expect(reiterationStep.comment).toBe(customComment);
+		});
+
+		it("should throw error when source step does not exist", () => {
+			const proof = new HilbertProof(A);
+
+			proof.addPremise(A);
+
+			expect(() => {
+				proof.reiterateStep(99);
+			}).toThrow("Cannot reiterate: step 99 not found in proof");
+		});
+
+		it("should allow reiterating from an axiom step", () => {
+			const proof = new HilbertProof(B);
+
+			proof.addAxiom({
+				formulas: [A, B],
+				schema: HilbertCalculusSchema.II,
+			});
+
+			const reiterationStep = proof.reiterateStep(1);
+
+			expect(reiterationStep.derivedFrom).toEqual([1]);
+			expect(reiterationStep.step).toBe(Step.Reiteration);
+		});
+
+		it("should allow reiterating from a derived step", () => {
+			const proof = new HilbertProof(B);
+
+			proof.addPremise(A);
+			proof.addPremise(implicationAB);
+			proof.addDerivedStep({
+				formulas: [implicationAB, A],
+				schema: HilbertCalculusSchema.IE,
+				derivedFrom: [1, 2],
+			});
+
+			const reiterationStep = proof.reiterateStep(3);
+
+			expect(reiterationStep.derivedFrom).toEqual([3]);
+			expect(reiterationStep.formula).toStrictEqual(B);
+		});
+
+		it("should allow multiple riterations in sequence", () => {
+			const proof = new HilbertProof(A);
+
+			proof.addPremise(A);
+			const reiter1 = proof.reiterateStep(1, "First reiteration");
+			const reiter2 = proof.reiterateStep(1, "Second reiteration");
+
+			expect(reiter1.index).toBe(2);
+			expect(reiter2.index).toBe(3);
+			expect(proof.getStepCount()).toBe(3);
+		});
+
+		it("should preserve formula and expression from source step", () => {
+			const proof = new HilbertProof(implicationAB);
+
+			const premise = proof.addPremise(implicationAB);
+			const reiterationStep = proof.reiterateStep(1);
+
+			expect(reiterationStep.formula).toEqual(premise.formula);
+			expect(reiterationStep.expression).toEqual(premise.expression);
+			expect(reiterationStep.stringView).toBe(premise.stringView);
+		});
+	});
 });
