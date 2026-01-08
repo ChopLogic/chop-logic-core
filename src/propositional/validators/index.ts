@@ -5,6 +5,7 @@ export { isDisjunctionEliminationApplicable } from "./is-disjunction-elimination
 export { isDisjunctionIntroductionApplicable } from "./is-disjunction-introduction-applicable";
 export { isEquivalenceEliminationApplicable } from "./is-equivalence-elimination-applicable";
 export { isEquivalenceIntroductionApplicable } from "./is-equivalence-introduction-applicable";
+export { isImplicationCreationApplicable } from "./is-implication-creation-applicable";
 export { isImplicationEliminationApplicable } from "./is-implication-elimination-applicable";
 export { isImplicationIntroductionApplicable } from "./is-implication-introduction-applicable";
 export { isNegationEliminationApplicable } from "./is-negation-elimination-applicable";
