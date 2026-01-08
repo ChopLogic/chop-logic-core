@@ -1,4 +1,5 @@
 import { implicationCreation } from "./implication-creation";
+import { implicationDistribution } from "./implication-distribution";
 import { implicationElimination } from "./implication-elimination";
 
 /**
@@ -8,6 +9,7 @@ import { implicationElimination } from "./implication-elimination";
  * Available rules:
  * - IE: Implication Elimination (Modus Ponens)
  * - IC: Implication Creation
+ * - ID: Implication Distribution
  *
  * Hilbert-style calculus uses a minimal set of rules, relying heavily on axiom schemas
  * for its deductive power.
@@ -17,5 +19,6 @@ import { implicationElimination } from "./implication-elimination";
  */
 export const HilbertRules = Object.freeze({
 	IC: implicationCreation,
+	ID: implicationDistribution,
 	IE: implicationElimination,
 });
