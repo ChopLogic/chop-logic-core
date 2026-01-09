@@ -1,8 +1,8 @@
 import { Operator } from "../../../../enums";
 import type { PropFormula } from "../../../../models";
-import { implicationDistribution } from "../implication-distribution";
+import { implicationDistributionSchema } from "../implication-distribution";
 
-describe("implicationDistribution", () => {
+describe("implicationDistributionSchema", () => {
 	const A: PropFormula = { operator: Operator.Var, values: ["A"] };
 	const B: PropFormula = { operator: Operator.Var, values: ["B"] };
 	const C: PropFormula = { operator: Operator.Var, values: ["C"] };
@@ -30,7 +30,7 @@ describe("implicationDistribution", () => {
 			],
 		};
 
-		expect(implicationDistribution([A, B, C])).toEqual(expected);
+		expect(implicationDistributionSchema([A, B, C])).toEqual(expected);
 	});
 
 	it("should handle complex formulas correctly", () => {
@@ -55,7 +55,7 @@ describe("implicationDistribution", () => {
 		};
 
 		expect(
-			implicationDistribution([implicationAB, negationA, negationA]),
+			implicationDistributionSchema([implicationAB, negationA, negationA]),
 		).toEqual(expected);
 	});
 });

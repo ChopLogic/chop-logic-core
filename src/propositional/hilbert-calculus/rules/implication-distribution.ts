@@ -14,7 +14,7 @@ import { isImplicationDistributionApplicable } from "../../validators/is-implica
  * @returns An array of derived implications, each with form (F => G) => (F => H).
  * @throws {Error} if implication distribution is not applicable.
  */
-export function implicationDistribution(
+export function implicationDistributionRule(
 	formulas: PropFormula[],
 ): PropFormula[] {
 	if (!isImplicationDistributionApplicable(formulas)) {

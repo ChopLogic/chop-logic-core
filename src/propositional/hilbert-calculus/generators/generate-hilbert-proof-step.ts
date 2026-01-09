@@ -8,10 +8,10 @@ import type {
 } from "../../../models";
 import { convertPropFormulaToExpression } from "../../converters/convert-prop-formula-to-expression";
 import { convertPropFormulaToString } from "../../converters/convert-prop-formula-to-string";
-import { implicationDistribution } from "../axioms/implication-distribution";
-import { implicationIntroduction } from "../axioms/implication-introduction";
-import { implicationReversal } from "../axioms/implication-reversal";
-import { implicationElimination } from "../rules/implication-elimination";
+import { implicationDistributionSchema } from "../axioms/implication-distribution";
+import { implicationIntroductionSchema } from "../axioms/implication-introduction";
+import { implicationReversalSchema } from "../axioms/implication-reversal";
+import { implicationEliminationRule } from "../rules/implication-elimination";
 
 /**
  * Generates a PropProofStep object for use in Hilbert-style logic derivations.
@@ -88,12 +88,12 @@ function buildBaseStep(
 function getRuleFunction(schema: HilbertCalculusSchema) {
 	switch (schema) {
 		case HilbertCalculusSchema.II:
-			return implicationIntroduction;
+			return implicationIntroductionSchema;
 		case HilbertCalculusSchema.ID:
-			return implicationDistribution;
+			return implicationDistributionSchema;
 		case HilbertCalculusSchema.IR:
-			return implicationReversal;
+			return implicationReversalSchema;
 		case HilbertCalculusSchema.IE:
-			return implicationElimination;
+			return implicationEliminationRule;
 	}
 }

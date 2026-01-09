@@ -1,8 +1,8 @@
 import { Operator } from "../../../../enums";
 import type { PropFormula } from "../../../../models";
-import { implicationReversal } from "../implication-reversal";
+import { implicationReversalRule } from "../implication-reversal";
 
-describe("implicationReversal", () => {
+describe("implicationReversalRule", () => {
 	it("should reverse a single formula with schema ¬F => ¬G", () => {
 		const F: PropFormula = { operator: Operator.Var, values: ["F"] };
 		const G: PropFormula = { operator: Operator.Var, values: ["G"] };
@@ -15,7 +15,7 @@ describe("implicationReversal", () => {
 			],
 		};
 
-		const result = implicationReversal([formula]);
+		const result = implicationReversalRule([formula]);
 
 		expect(result).toHaveLength(1);
 		expect(result[0]).toEqual({
@@ -46,7 +46,7 @@ describe("implicationReversal", () => {
 			],
 		};
 
-		const result = implicationReversal([formula1, formula2]);
+		const result = implicationReversalRule([formula1, formula2]);
 
 		expect(result).toHaveLength(2);
 		expect(result[0]).toEqual({
@@ -83,7 +83,7 @@ describe("implicationReversal", () => {
 			],
 		};
 
-		const result = implicationReversal([formula]);
+		const result = implicationReversalRule([formula]);
 
 		expect(result).toHaveLength(1);
 		expect(result[0]).toEqual({
@@ -102,13 +102,13 @@ describe("implicationReversal", () => {
 			values: [{ operator: Operator.Not, values: [A] }, B],
 		};
 
-		expect(() => implicationReversal([invalidFormula])).toThrow(
+		expect(() => implicationReversalRule([invalidFormula])).toThrow(
 			"Implication reversal requires each formula to have the form ¬F => ¬G.",
 		);
 	});
 
 	it("should throw an error if no formulas are provided", () => {
-		expect(() => implicationReversal([])).toThrow(
+		expect(() => implicationReversalRule([])).toThrow(
 			"Implication reversal requires each formula to have the form ¬F => ¬G.",
 		);
 	});
@@ -131,7 +131,9 @@ describe("implicationReversal", () => {
 			values: [F, H],
 		};
 
-		expect(() => implicationReversal([validFormula, invalidFormula])).toThrow(
+		expect(() =>
+			implicationReversalRule([validFormula, invalidFormula]),
+		).toThrow(
 			"Implication reversal requires each formula to have the form ¬F => ¬G.",
 		);
 	});
@@ -145,7 +147,7 @@ describe("implicationReversal", () => {
 			values: [F, { operator: Operator.Not, values: [G] }],
 		};
 
-		expect(() => implicationReversal([formula])).toThrow(
+		expect(() => implicationReversalRule([formula])).toThrow(
 			"Implication reversal requires each formula to have the form ¬F => ¬G.",
 		);
 	});
@@ -159,7 +161,7 @@ describe("implicationReversal", () => {
 			values: [{ operator: Operator.Not, values: [F] }, G],
 		};
 
-		expect(() => implicationReversal([formula])).toThrow(
+		expect(() => implicationReversalRule([formula])).toThrow(
 			"Implication reversal requires each formula to have the form ¬F => ¬G.",
 		);
 	});

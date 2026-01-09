@@ -3,7 +3,7 @@ import type { PropFormula } from "../../../models";
 import { isImplicationCreationApplicable } from "../../validators/is-implication-creation-applicable";
 
 /**
- * Applies the rule of Implication Creation.
+ * Applies the rule of Implication Introduction.
  *
  * Given a proven formula F and an arbitrary formula G,
  * it derives the implication G => F.
@@ -17,7 +17,9 @@ import { isImplicationCreationApplicable } from "../../validators/is-implication
  * @returns The implication (newFormula => provenFormula)
  * @throws {Error} if implication creation is not applicable.
  */
-export function implicationCreation(formulas: PropFormula[]): PropFormula {
+export function implicationIntroductionRule(
+	formulas: PropFormula[],
+): PropFormula {
 	if (!isImplicationCreationApplicable(formulas)) {
 		throw new Error(
 			"Implication creation requires exactly two formulas: the proven formula and the new antecedent formula.",

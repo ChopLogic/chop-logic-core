@@ -15,7 +15,9 @@ import { isImplicationReversalApplicable } from "../../validators/is-implication
  * @returns An array of derived implications, each with form G => F.
  * @throws {Error} if implication reversal is not applicable.
  */
-export function implicationReversal(formulas: PropFormula[]): PropFormula[] {
+export function implicationReversalRule(
+	formulas: PropFormula[],
+): PropFormula[] {
 	if (!isImplicationReversalApplicable(formulas)) {
 		throw new Error(
 			"Implication reversal requires each formula to have the form ¬F => ¬G.",

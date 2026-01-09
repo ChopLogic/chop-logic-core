@@ -8,7 +8,9 @@ import type { PropFormula } from "../../../models";
  * @param formulas - An array of propositional formulas.
  * @returns A new propositional formula representing the axiom schema.
  */
-export function implicationDistribution(formulas: PropFormula[]): PropFormula {
+export function implicationDistributionSchema(
+	formulas: PropFormula[],
+): PropFormula {
 	const [A, B, C] = formulas;
 
 	return {

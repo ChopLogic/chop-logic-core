@@ -1,8 +1,8 @@
 import { Operator } from "../../../../enums";
 import type { PropFormula } from "../../../../models";
-import { implicationElimination } from "../implication-elimination";
+import { implicationEliminationRule } from "../implication-elimination";
 
-describe("implicationElimination", () => {
+describe("implicationEliminationRule", () => {
 	it("should apply modus ponens correctly", () => {
 		const A: PropFormula = { operator: Operator.Var, values: ["A"] };
 		const B: PropFormula = { operator: Operator.Var, values: ["B"] };
@@ -11,7 +11,7 @@ describe("implicationElimination", () => {
 			values: [A, B],
 		};
 
-		expect(implicationElimination([implication, A])).toEqual(B);
+		expect(implicationEliminationRule([implication, A])).toEqual(B);
 	});
 
 	it("should throw an error if implication elimination is not applicable", () => {
@@ -22,7 +22,7 @@ describe("implicationElimination", () => {
 			values: [A, B],
 		};
 
-		expect(() => implicationElimination([implication])).toThrow(
+		expect(() => implicationEliminationRule([implication])).toThrow(
 			"Implication elimination is not applicable to the given formulas.",
 		);
 	});
@@ -36,7 +36,7 @@ describe("implicationElimination", () => {
 			values: [A, B],
 		};
 
-		expect(() => implicationElimination([implication, C])).toThrow(
+		expect(() => implicationEliminationRule([implication, C])).toThrow(
 			"Implication elimination is not applicable to the given formulas.",
 		);
 	});

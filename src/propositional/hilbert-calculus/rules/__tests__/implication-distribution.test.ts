@@ -1,8 +1,8 @@
 import { Operator } from "../../../../enums";
 import type { PropFormula } from "../../../../models";
-import { implicationDistribution } from "../implication-distribution";
+import { implicationDistributionRule } from "../implication-distribution";
 
-describe("implicationDistribution", () => {
+describe("implicationDistributionRule", () => {
 	it("should distribute a single formula with schema F => (G => H)", () => {
 		const F: PropFormula = { operator: Operator.Var, values: ["F"] };
 		const G: PropFormula = { operator: Operator.Var, values: ["G"] };
@@ -13,7 +13,7 @@ describe("implicationDistribution", () => {
 			values: [F, { operator: Operator.Implies, values: [G, H] }],
 		};
 
-		const result = implicationDistribution([formula]);
+		const result = implicationDistributionRule([formula]);
 
 		expect(result).toHaveLength(1);
 		expect(result[0]).toEqual({
@@ -49,7 +49,7 @@ describe("implicationDistribution", () => {
 			values: [D, { operator: Operator.Implies, values: [E, F] }],
 		};
 
-		const result = implicationDistribution([formula1, formula2]);
+		const result = implicationDistributionRule([formula1, formula2]);
 
 		expect(result).toHaveLength(2);
 		expect(result[0]).toEqual({
@@ -105,7 +105,7 @@ describe("implicationDistribution", () => {
 			values: [F, { operator: Operator.Implies, values: [G, H] }],
 		};
 
-		const result = implicationDistribution([formula]);
+		const result = implicationDistributionRule([formula]);
 
 		expect(result).toHaveLength(1);
 		expect(result[0]).toEqual({
@@ -132,13 +132,13 @@ describe("implicationDistribution", () => {
 			values: [A, B],
 		};
 
-		expect(() => implicationDistribution([invalidFormula])).toThrow(
+		expect(() => implicationDistributionRule([invalidFormula])).toThrow(
 			"Implication distribution requires each formula to have the form F => (G => H).",
 		);
 	});
 
 	it("should throw an error if no formulas are provided", () => {
-		expect(() => implicationDistribution([])).toThrow(
+		expect(() => implicationDistributionRule([])).toThrow(
 			"Implication distribution requires each formula to have the form F => (G => H).",
 		);
 	});
@@ -159,7 +159,7 @@ describe("implicationDistribution", () => {
 		};
 
 		expect(() =>
-			implicationDistribution([validFormula, invalidFormula]),
+			implicationDistributionRule([validFormula, invalidFormula]),
 		).toThrow(
 			"Implication distribution requires each formula to have the form F => (G => H).",
 		);

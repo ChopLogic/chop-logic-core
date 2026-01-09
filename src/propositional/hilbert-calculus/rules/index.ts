@@ -1,7 +1,7 @@
-import { implicationCreation } from "./implication-creation";
-import { implicationDistribution } from "./implication-distribution";
-import { implicationElimination } from "./implication-elimination";
-import { implicationReversal } from "./implication-reversal";
+import { implicationDistributionRule } from "./implication-distribution";
+import { implicationEliminationRule } from "./implication-elimination";
+import { implicationIntroductionRule } from "./implication-introduction";
+import { implicationReversalRule } from "./implication-reversal";
 
 /**
  * Namespace containing all inference rules in Hilbert-style calculus.
@@ -9,7 +9,7 @@ import { implicationReversal } from "./implication-reversal";
  *
  * Available rules:
  * - IE: Implication Elimination (Modus Ponens)
- * - IC: Implication Creation
+ * - II: Implication Introduction
  * - ID: Implication Distribution
  * - IR: Implication Reversal
  *
@@ -20,8 +20,8 @@ import { implicationReversal } from "./implication-reversal";
  * @category Hilbert Calculus
  */
 export const HilbertRules = Object.freeze({
-	IC: implicationCreation,
-	ID: implicationDistribution,
-	IE: implicationElimination,
-	IR: implicationReversal,
+	II: implicationIntroductionRule,
+	ID: implicationDistributionRule,
+	IE: implicationEliminationRule,
+	IR: implicationReversalRule,
 });

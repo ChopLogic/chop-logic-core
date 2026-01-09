@@ -1,8 +1,8 @@
 import { Operator } from "../../../../enums";
 import type { PropFormula } from "../../../../models";
-import { implicationIntroduction } from "../implication-introduction";
+import { implicationIntroductionSchema } from "../implication-introduction";
 
-describe("implicationIntroduction", () => {
+describe("implicationIntroductionSchema", () => {
 	const formulaA: PropFormula = { operator: Operator.Var, values: ["A"] };
 	const formulaB: PropFormula = { operator: Operator.Var, values: ["B"] };
 	const implicationAB: PropFormula = {
@@ -12,7 +12,7 @@ describe("implicationIntroduction", () => {
 	const negationA: PropFormula = { operator: Operator.Not, values: [formulaA] };
 
 	it("should return the correct formula for A => (B => A)", () => {
-		const result = implicationIntroduction([formulaA, formulaB]);
+		const result = implicationIntroductionSchema([formulaA, formulaB]);
 
 		expect(result).toEqual({
 			operator: Operator.Implies,
@@ -27,7 +27,7 @@ describe("implicationIntroduction", () => {
 	});
 
 	it("should handle identical formulas correctly", () => {
-		const result = implicationIntroduction([formulaA, formulaA]);
+		const result = implicationIntroductionSchema([formulaA, formulaA]);
 
 		expect(result).toEqual({
 			operator: Operator.Implies,
@@ -42,7 +42,7 @@ describe("implicationIntroduction", () => {
 	});
 
 	it("should handle complex formulas correctly", () => {
-		const result = implicationIntroduction([implicationAB, negationA]);
+		const result = implicationIntroductionSchema([implicationAB, negationA]);
 
 		expect(result).toEqual({
 			operator: Operator.Implies,
