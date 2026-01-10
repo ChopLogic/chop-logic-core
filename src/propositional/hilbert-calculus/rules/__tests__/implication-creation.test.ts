@@ -9,10 +9,12 @@ describe("implicationIntroductionRule", () => {
 
 		const result = implicationIntroductionRule([F, G]);
 
-		expect(result).toEqual({
-			operator: Operator.Implies,
-			values: [G, F],
-		});
+		expect(result).toEqual([
+			{
+				operator: Operator.Implies,
+				values: [G, F],
+			},
+		]);
 	});
 
 	it("should create implication with complex formulas", () => {
@@ -33,10 +35,12 @@ describe("implicationIntroductionRule", () => {
 
 		const result = implicationIntroductionRule([F, G]);
 
-		expect(result).toEqual({
-			operator: Operator.Implies,
-			values: [G, F],
-		});
+		expect(result).toEqual([
+			{
+				operator: Operator.Implies,
+				values: [G, F],
+			},
+		]);
 	});
 
 	it("should create implication with nested formulas", () => {
@@ -51,10 +55,12 @@ describe("implicationIntroductionRule", () => {
 
 		const result = implicationIntroductionRule([F, G]);
 
-		expect(result).toEqual({
-			operator: Operator.Implies,
-			values: [G, F],
-		});
+		expect(result).toEqual([
+			{
+				operator: Operator.Implies,
+				values: [G, F],
+			},
+		]);
 	});
 
 	it("should throw an error if only one formula is provided", () => {

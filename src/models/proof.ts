@@ -1,4 +1,5 @@
 import type {
+	HilbertCalculusRule,
 	HilbertCalculusSchema,
 	NaturalCalculusRule,
 	Step,
@@ -56,7 +57,7 @@ export type HilbertAxiomPayload = {
  */
 export type HilbertDerivedPayload = {
 	formulas: PropFormula[];
-	schema: HilbertCalculusSchema.IE;
+	rule: HilbertCalculusRule;
 	derivedFrom: number[];
 };
 

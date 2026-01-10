@@ -11,7 +11,7 @@ describe("implicationEliminationRule", () => {
 			values: [A, B],
 		};
 
-		expect(implicationEliminationRule([implication, A])).toEqual(B);
+		expect(implicationEliminationRule([implication, A])).toEqual([B]);
 	});
 
 	it("should throw an error if implication elimination is not applicable", () => {

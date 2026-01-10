@@ -1,4 +1,8 @@
-import { HilbertCalculusSchema, Step } from "../../../enums";
+import {
+	HilbertCalculusRule,
+	HilbertCalculusSchema,
+	Step,
+} from "../../../enums";
 import { createPropExpression, createPropFormula } from "../../builders";
 import { HilbertProof } from "../classes/hilbert-proof";
 import { HilbertProofBuilder } from "../classes/hilbert-proof-builder";
@@ -47,7 +51,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 							createPropExpression("((q => r) => (p => (q => r)))"),
 						),
 					],
-					schema: HilbertCalculusSchema.IE,
+					rule: HilbertCalculusRule.IE,
 					derivedFrom: [2, 4],
 				})
 				.addDerivedStep({
@@ -59,7 +63,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 							),
 						),
 					],
-					schema: HilbertCalculusSchema.IE,
+					rule: HilbertCalculusRule.IE,
 					derivedFrom: [3, 5],
 				})
 				.addDerivedStep({
@@ -67,7 +71,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 						createPropFormula(createPropExpression("(p => q)")),
 						createPropFormula(createPropExpression("((p => q) => (p => r))")),
 					],
-					schema: HilbertCalculusSchema.IE,
+					rule: HilbertCalculusRule.IE,
 					derivedFrom: [1, 6],
 				})
 				.build();
@@ -143,7 +147,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 						createPropExpression("((q => r) => (p => (q => r)))"),
 					),
 				],
-				schema: HilbertCalculusSchema.IE,
+				rule: HilbertCalculusRule.IE,
 				derivedFrom: [2, 4],
 			});
 			proof.addDerivedStep({
@@ -153,7 +157,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 						createPropExpression("((p => (q => r)) => ((p => q) => (p => r)))"),
 					),
 				],
-				schema: HilbertCalculusSchema.IE,
+				rule: HilbertCalculusRule.IE,
 				derivedFrom: [3, 5],
 			});
 			expect(proof.isComplete()).toBe(false);
@@ -162,7 +166,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 					createPropFormula(createPropExpression("(p => q)")),
 					createPropFormula(createPropExpression("((p => q) => (p => r))")),
 				],
-				schema: HilbertCalculusSchema.IE,
+				rule: HilbertCalculusRule.IE,
 				derivedFrom: [1, 6],
 			});
 
@@ -207,7 +211,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 							),
 						),
 					],
-					schema: HilbertCalculusSchema.IE,
+					rule: HilbertCalculusRule.IE,
 					derivedFrom: [1, 2],
 				})
 				.addAxiom({
@@ -221,7 +225,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 							createPropExpression("((p => (p => p)) => (p => p))"),
 						),
 					],
-					schema: HilbertCalculusSchema.IE,
+					rule: HilbertCalculusRule.IE,
 					derivedFrom: [3, 4],
 				})
 				.build();
@@ -283,7 +287,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 						),
 					),
 				],
-				schema: HilbertCalculusSchema.IE,
+				rule: HilbertCalculusRule.IE,
 				derivedFrom: [1, 2],
 			});
 			expect(proof.isComplete()).toBe(false);
@@ -299,7 +303,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 						createPropExpression("((p => (p => p)) => (p => p))"),
 					),
 				],
-				schema: HilbertCalculusSchema.IE,
+				rule: HilbertCalculusRule.IE,
 				derivedFrom: [3, 4],
 			});
 
@@ -357,7 +361,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 							),
 						),
 					],
-					schema: HilbertCalculusSchema.IE,
+					rule: HilbertCalculusRule.IE,
 					derivedFrom: [4, 3],
 				})
 				.addAxiom({
@@ -369,7 +373,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 						notNotP,
 						createPropFormula(createPropExpression("(~~p => (~p => ~~p))")),
 					],
-					schema: HilbertCalculusSchema.IE,
+					rule: HilbertCalculusRule.IE,
 					derivedFrom: [1, 6],
 				})
 				.addDerivedStep({
@@ -379,7 +383,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 						),
 						createPropFormula(createPropExpression("(~p => ~~p)")),
 					],
-					schema: HilbertCalculusSchema.IE,
+					rule: HilbertCalculusRule.IE,
 					derivedFrom: [5, 7],
 				})
 				.addDerivedStep({
@@ -389,7 +393,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 						),
 						createPropFormula(createPropExpression("(~p => ~~p)")),
 					],
-					schema: HilbertCalculusSchema.IE,
+					rule: HilbertCalculusRule.IE,
 					derivedFrom: [2, 7],
 				})
 				.addDerivedStep({
@@ -397,7 +401,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 						createPropFormula(createPropExpression("(~p => ~p)")),
 						createPropFormula(createPropExpression("((~p => ~p) => p)")),
 					],
-					schema: HilbertCalculusSchema.IE,
+					rule: HilbertCalculusRule.IE,
 					derivedFrom: [8, 9],
 				})
 				.build();
@@ -437,7 +441,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 						),
 					),
 				],
-				schema: HilbertCalculusSchema.IE,
+				rule: HilbertCalculusRule.IE,
 				derivedFrom: [4, 3],
 			});
 			proof.addAxiom({
@@ -449,7 +453,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 					notNotP,
 					createPropFormula(createPropExpression("(~~p => (~p => ~~p))")),
 				],
-				schema: HilbertCalculusSchema.IE,
+				rule: HilbertCalculusRule.IE,
 				derivedFrom: [1, 6],
 			});
 			proof.addDerivedStep({
@@ -459,7 +463,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 					),
 					createPropFormula(createPropExpression("(~p => ~~p)")),
 				],
-				schema: HilbertCalculusSchema.IE,
+				rule: HilbertCalculusRule.IE,
 				derivedFrom: [5, 7],
 			});
 			proof.addDerivedStep({
@@ -469,7 +473,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 					),
 					createPropFormula(createPropExpression("(~p => ~~p)")),
 				],
-				schema: HilbertCalculusSchema.IE,
+				rule: HilbertCalculusRule.IE,
 				derivedFrom: [2, 7],
 			});
 			proof.addDerivedStep({
@@ -477,7 +481,7 @@ describe("Hilbert Calculus Integration Tests", () => {
 					createPropFormula(createPropExpression("(~p => ~p)")),
 					createPropFormula(createPropExpression("((~p => ~p) => p)")),
 				],
-				schema: HilbertCalculusSchema.IE,
+				rule: HilbertCalculusRule.IE,
 				derivedFrom: [8, 9],
 			});
 

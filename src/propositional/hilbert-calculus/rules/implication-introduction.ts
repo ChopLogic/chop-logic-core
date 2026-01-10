@@ -19,7 +19,7 @@ import { isImplicationCreationApplicable } from "../../validators/is-implication
  */
 export function implicationIntroductionRule(
 	formulas: PropFormula[],
-): PropFormula {
+): PropFormula[] {
 	if (!isImplicationCreationApplicable(formulas)) {
 		throw new Error(
 			"Implication creation requires exactly two formulas: the proven formula and the new antecedent formula.",
@@ -28,8 +28,10 @@ export function implicationIntroductionRule(
 
 	const [provenFormula, newFormula] = formulas;
 
-	return {
-		operator: Operator.Implies,
-		values: [newFormula, provenFormula],
-	};
+	return [
+		{
+			operator: Operator.Implies,
+			values: [newFormula, provenFormula],
+		},
+	];
 }

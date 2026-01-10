@@ -1,4 +1,8 @@
-import { HilbertCalculusSchema, Step } from "../../../enums";
+import {
+	HilbertCalculusRule,
+	HilbertCalculusSchema,
+	Step,
+} from "../../../enums";
 import type {
 	HilbertAxiomPayload,
 	HilbertBasePayload,
@@ -11,7 +15,10 @@ import { convertPropFormulaToString } from "../../converters/convert-prop-formul
 import { implicationDistributionSchema } from "../axioms/implication-distribution";
 import { implicationIntroductionSchema } from "../axioms/implication-introduction";
 import { implicationReversalSchema } from "../axioms/implication-reversal";
+import { implicationDistributionRule } from "../rules/implication-distribution";
 import { implicationEliminationRule } from "../rules/implication-elimination";
+import { implicationIntroductionRule } from "../rules/implication-introduction";
+import { implicationReversalRule } from "../rules/implication-reversal";
 
 /**
  * Generates a PropProofStep object for use in Hilbert-style logic derivations.
@@ -21,13 +28,13 @@ import { implicationEliminationRule } from "../rules/implication-elimination";
  * @returns A new proof step based on the input.
  * @category Hilbert Calculus
  */
-export function generateHilbertProofStep<T>(
+export function generateHilbertProofSteps<T>(
 	input: HilbertProofStepInput<T>,
-): PropProofStep {
+): PropProofStep[] {
 	const { index, step } = input;
 
 	if (step === Step.Derivation) {
-		return buildDerivedStep(index, input.payload as HilbertDerivedPayload);
+		return buildDerivedSteps(index, input.payload as HilbertDerivedPayload);
 	}
 
 	if (step === Step.Axiom) {
@@ -37,55 +44,62 @@ export function generateHilbertProofStep<T>(
 	return buildBaseStep(index, step, input.payload as HilbertBasePayload);
 }
 
-function buildDerivedStep(
+function buildDerivedSteps(
 	index: number,
 	payload: HilbertDerivedPayload,
-): PropProofStep {
-	const { formulas, schema, derivedFrom } = payload;
-	const formula = getRuleFunction(schema)(formulas);
-	return {
-		index,
-		step: Step.Derivation,
-		formula,
-		stringView: convertPropFormulaToString(formula),
-		expression: convertPropFormulaToExpression(formula),
-		comment: `${schema}: ${derivedFrom.join(", ")}`,
-		derivedFrom,
-	};
+): PropProofStep[] {
+	const { formulas, rule, derivedFrom } = payload;
+	const derivedFormulas = getRuleFunction(rule)(formulas);
+
+	return derivedFormulas.map((formula, derivedIndex) => {
+		return {
+			index: index + derivedIndex,
+			step: Step.Derivation,
+			formula,
+			stringView: convertPropFormulaToString(formula),
+			expression: convertPropFormulaToExpression(formula),
+			comment: `${rule}: ${derivedFrom.join(", ")}`,
+			derivedFrom,
+		};
+	});
 }
 
 function buildAxiomStep(
 	index: number,
 	payload: HilbertAxiomPayload,
-): PropProofStep {
+): PropProofStep[] {
 	const { formulas, schema } = payload;
-	const formula = getRuleFunction(schema)(formulas);
-	return {
-		index,
-		step: Step.Axiom,
-		formula,
-		stringView: convertPropFormulaToString(formula),
-		expression: convertPropFormulaToExpression(formula),
-		comment: `${schema}`,
-	};
+	const formula = getSchemaFunction(schema)(formulas);
+	return [
+		{
+			index,
+			step: Step.Axiom,
+			formula,
+			stringView: convertPropFormulaToString(formula),
+			expression: convertPropFormulaToExpression(formula),
+			comment: `${schema}`,
+		},
+	];
 }
 
 function buildBaseStep(
 	index: number,
 	step: Step,
 	payload: HilbertBasePayload,
-): PropProofStep {
-	return {
-		index,
-		step,
-		formula: payload.formula,
-		stringView: convertPropFormulaToString(payload.formula),
-		expression: convertPropFormulaToExpression(payload.formula),
-		comment: `${step}`,
-	};
+): PropProofStep[] {
+	return [
+		{
+			index,
+			step,
+			formula: payload.formula,
+			stringView: convertPropFormulaToString(payload.formula),
+			expression: convertPropFormulaToExpression(payload.formula),
+			comment: `${step}`,
+		},
+	];
 }
 
-function getRuleFunction(schema: HilbertCalculusSchema) {
+function getSchemaFunction(schema: HilbertCalculusSchema) {
 	switch (schema) {
 		case HilbertCalculusSchema.II:
 			return implicationIntroductionSchema;
@@ -93,7 +107,18 @@ function getRuleFunction(schema: HilbertCalculusSchema) {
 			return implicationDistributionSchema;
 		case HilbertCalculusSchema.IR:
 			return implicationReversalSchema;
-		case HilbertCalculusSchema.IE:
+	}
+}
+
+function getRuleFunction(rule: HilbertCalculusRule) {
+	switch (rule) {
+		case HilbertCalculusRule.II:
+			return implicationIntroductionRule;
+		case HilbertCalculusRule.ID:
+			return implicationDistributionRule;
+		case HilbertCalculusRule.IR:
+			return implicationReversalRule;
+		case HilbertCalculusRule.IE:
 			return implicationEliminationRule;
 	}
 }

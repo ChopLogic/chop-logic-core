@@ -34,6 +34,20 @@ export enum HilbertCalculusSchema {
 	ID = "ID",
 	/** Implication Reversal */
 	IR = "IR",
+}
+
+/** Deduction rules for the Hilbert Calculus.
+ * @enum {string}
+ *
+ * @category Proof System Enums
+ */
+export enum HilbertCalculusRule {
+	/** Implication Introduction */
+	II = "II",
+	/** Implication Distribution */
+	ID = "ID",
+	/** Implication Reversal */
+	IR = "IR",
 	/** Implication Elimination */
 	IE = "IE",
 }

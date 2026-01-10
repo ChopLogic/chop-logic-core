@@ -9,7 +9,7 @@ describe("hilbert-calculus/generators index", () => {
 		expect(generators.composeHilbertProof).toBeDefined();
 	});
 
-	it("should export generateHilbertProofStep", () => {
-		expect(generators.generateHilbertProofStep).toBeDefined();
+	it("should export generateHilbertProofSteps", () => {
+		expect(generators.generateHilbertProofSteps).toBeDefined();
 	});
 });

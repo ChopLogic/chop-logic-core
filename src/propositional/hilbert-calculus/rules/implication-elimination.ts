@@ -15,7 +15,7 @@ import { isImplicationEliminationApplicable } from "../../validators/is-implicat
  */
 export function implicationEliminationRule(
 	formulas: PropFormula[],
-): PropFormula {
+): PropFormula[] {
 	if (!isImplicationEliminationApplicable(formulas)) {
 		throw new Error(
 			"Implication elimination is not applicable to the given formulas.",
@@ -47,5 +47,5 @@ export function implicationEliminationRule(
 	}
 
 	// Return the consequent of the implication (second value in the array)
-	return implicationFormula?.values[1] as PropFormula;
+	return [implicationFormula?.values[1] as PropFormula];
 }
