@@ -1,13 +1,17 @@
 import type { PropFormula } from "../../models";
 
 /**
- * Checks if implication introduction rule is applicable.
+ * Checks if implication creation is applicable.
  *
- * Implication introduction allows us to infer an implication from any two formulas,
- * one of which is an antecedent and the second one is a consequent.
+ * This function verifies that:
+ * - Exactly two formulas are provided
+ * - Both formulas are well-formed (minimal check)
+ *
+ * Implication creation allows deriving G => F from any proven formula F
+ * with any arbitrary formula G.
  *
  * @param formulas - An array of propositional formulas to check.
- * @returns `true` if there are exactly two formulas in the array, otherwise `false`.
+ * @returns True if implication creation can be applied, false otherwise.
  * @category Validators
  */
 export function isImplicationIntroductionApplicable(

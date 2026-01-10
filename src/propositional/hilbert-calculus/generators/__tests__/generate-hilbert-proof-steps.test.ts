@@ -6,7 +6,7 @@ import {
 import { createPropExpression, createPropFormula } from "../../../builders";
 import { generateHilbertProofSteps } from "../generate-hilbert-proof-steps";
 
-describe("generateProofStep", () => {
+describe("generateProofSteps", () => {
 	const A = createPropFormula(createPropExpression("A"));
 	const B = createPropFormula(createPropExpression("B"));
 	const C = createPropFormula(createPropExpression("C"));
@@ -104,5 +104,109 @@ describe("generateProofStep", () => {
 		expect(result[0].stringView).toBe("B");
 		expect(result[0].step).toBe(Step.Derivation);
 		expect(result[0].index).toBe(5);
+	});
+
+	it("should generate a derived step using implication distribution", () => {
+		const implicationABC = createPropFormula(
+			createPropExpression("(A => (B => C))"),
+		);
+		const expectedDerived = createPropFormula(
+			createPropExpression("((A => B) => (A => C))"),
+		);
+		const result = generateHilbertProofSteps<Step.Derivation>({
+			index: 5,
+			step: Step.Derivation,
+			payload: {
+				formulas: [implicationABC],
+				rule: HilbertCalculusRule.ID,
+				derivedFrom: [1, 2],
+			},
+		});
+
+		expect(result[0].comment).toBe("ID: 1, 2");
+		expect(result[0].stringView).toBe("((A → B) → (A → C))");
+		expect(result[0].step).toBe(Step.Derivation);
+		expect(result[0].index).toBe(5);
+		expect(result[0].formula).toEqual(expectedDerived);
+	});
+
+	it("should generate a derived step using implication introduction", () => {
+		const expectedDerived = createPropFormula(
+			createPropExpression("(C=>(A => B))"),
+		);
+		const result = generateHilbertProofSteps<Step.Derivation>({
+			index: 8,
+			step: Step.Derivation,
+			payload: {
+				formulas: [implicationAB, C],
+				rule: HilbertCalculusRule.II,
+				derivedFrom: [5, 6],
+			},
+		});
+
+		expect(result[0].comment).toBe("II: 5, 6");
+		expect(result[0].stringView).toBe("(C → (A → B))");
+		expect(result[0].step).toBe(Step.Derivation);
+		expect(result[0].index).toBe(8);
+		expect(result[0].formula).toEqual(expectedDerived);
+	});
+
+	it("should generate a derived step using implication reversal", () => {
+		const implicationNotANotB = createPropFormula(
+			createPropExpression("(~A => ~B)"),
+		);
+		const expectedDerived = createPropFormula(createPropExpression("(B => A)"));
+		const result = generateHilbertProofSteps<Step.Derivation>({
+			index: 8,
+			step: Step.Derivation,
+			payload: {
+				formulas: [implicationNotANotB],
+				rule: HilbertCalculusRule.IR,
+				derivedFrom: [5, 6],
+			},
+		});
+
+		expect(result[0].comment).toBe("IR: 5, 6");
+		expect(result[0].stringView).toBe("(B → A)");
+		expect(result[0].step).toBe(Step.Derivation);
+		expect(result[0].index).toBe(8);
+		expect(result[0].formula).toEqual(expectedDerived);
+	});
+
+	it("should generate a derived step using implication reversal with several formulas", () => {
+		const implicationNotANotB = createPropFormula(
+			createPropExpression("(~A => ~B)"),
+		);
+		const implicationNotBNotC = createPropFormula(
+			createPropExpression("(~B => ~C)"),
+		);
+		const expectedDerived1 = createPropFormula(
+			createPropExpression("(B => A)"),
+		);
+		const expectedDerived2 = createPropFormula(
+			createPropExpression("(C => B)"),
+		);
+
+		const result = generateHilbertProofSteps<Step.Derivation>({
+			index: 8,
+			step: Step.Derivation,
+			payload: {
+				formulas: [implicationNotANotB, implicationNotBNotC],
+				rule: HilbertCalculusRule.IR,
+				derivedFrom: [3, 4],
+			},
+		});
+
+		expect(result[0].comment).toBe("IR: 3, 4");
+		expect(result[0].stringView).toBe("(B → A)");
+		expect(result[0].step).toBe(Step.Derivation);
+		expect(result[0].index).toBe(8);
+		expect(result[0].formula).toEqual(expectedDerived1);
+
+		expect(result[1].comment).toBe("IR: 3, 4");
+		expect(result[1].stringView).toBe("(C → B)");
+		expect(result[1].step).toBe(Step.Derivation);
+		expect(result[1].index).toBe(9);
+		expect(result[1].formula).toEqual(expectedDerived2);
 	});
 });

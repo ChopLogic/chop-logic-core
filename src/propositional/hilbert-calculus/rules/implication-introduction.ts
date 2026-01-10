@@ -1,6 +1,6 @@
 import { Operator } from "../../../enums";
 import type { PropFormula } from "../../../models";
-import { isImplicationCreationApplicable } from "../../validators/is-implication-creation-applicable";
+import { isImplicationIntroductionApplicable } from "../../validators";
 
 /**
  * Applies the rule of Implication Introduction.
@@ -20,9 +20,9 @@ import { isImplicationCreationApplicable } from "../../validators/is-implication
 export function implicationIntroductionRule(
 	formulas: PropFormula[],
 ): PropFormula[] {
-	if (!isImplicationCreationApplicable(formulas)) {
+	if (!isImplicationIntroductionApplicable(formulas)) {
 		throw new Error(
-			"Implication creation requires exactly two formulas: the proven formula and the new antecedent formula.",
+			"Implication introduction requires exactly two formulas: the proven formula and the new antecedent formula.",
 		);
 	}
 

@@ -82,11 +82,13 @@ describe("validatePropFormulas", () => {
 			isDI: true,
 			isDE: false,
 			isEI: false,
+			isID: false,
 			isEE: false,
 			isIE: true,
 			isNI: false,
 			isNE: false,
 			isII: true,
+			isIR: false,
 		});
 	});
 

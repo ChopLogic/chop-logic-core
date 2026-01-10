@@ -67,13 +67,13 @@ describe("implicationIntroductionRule", () => {
 		const F: PropFormula = { operator: Operator.Var, values: ["F"] };
 
 		expect(() => implicationIntroductionRule([F])).toThrow(
-			"Implication creation requires exactly two formulas: the proven formula and the new antecedent formula.",
+			"Implication introduction requires exactly two formulas: the proven formula and the new antecedent formula.",
 		);
 	});
 
 	it("should throw an error if no formulas are provided", () => {
 		expect(() => implicationIntroductionRule([])).toThrow(
-			"Implication creation requires exactly two formulas: the proven formula and the new antecedent formula.",
+			"Implication introduction requires exactly two formulas: the proven formula and the new antecedent formula.",
 		);
 	});
 
@@ -83,7 +83,7 @@ describe("implicationIntroductionRule", () => {
 		const H: PropFormula = { operator: Operator.Var, values: ["H"] };
 
 		expect(() => implicationIntroductionRule([F, G, H])).toThrow(
-			"Implication creation requires exactly two formulas: the proven formula and the new antecedent formula.",
+			"Implication introduction requires exactly two formulas: the proven formula and the new antecedent formula.",
 		);
 	});
 });

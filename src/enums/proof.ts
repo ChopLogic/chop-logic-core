@@ -112,4 +112,8 @@ export enum PropFormulaCheck {
 	isNI = "isNI",
 	/** Check if Implication Introduction is applicable */
 	isII = "isII",
+	/** Check if Implication Distribution is applicable */
+	isID = "isID",
+	/** Check if Implication Reversal is applicable */
+	isIR = "isIR",
 }

@@ -7,8 +7,10 @@ import { isDisjunctionEliminationApplicable } from "./is-disjunction-elimination
 import { isDisjunctionIntroductionApplicable } from "./is-disjunction-introduction-applicable";
 import { isEquivalenceEliminationApplicable } from "./is-equivalence-elimination-applicable";
 import { isEquivalenceIntroductionApplicable } from "./is-equivalence-introduction-applicable";
+import { isImplicationDistributionApplicable } from "./is-implication-distribution-applicable";
 import { isImplicationEliminationApplicable } from "./is-implication-elimination-applicable";
 import { isImplicationIntroductionApplicable } from "./is-implication-introduction-applicable";
+import { isImplicationReversalApplicable } from "./is-implication-reversal-applicable";
 import { isNegationEliminationApplicable } from "./is-negation-elimination-applicable";
 import { isNegationIntroductionApplicable } from "./is-negation-introduction-applicable";
 
@@ -29,6 +31,9 @@ const PROP_FORMULA_CHECKS: Record<PropFormulaCheck, PropFormulaCheckFunction> =
 		[PropFormulaCheck.isEI]: isEquivalenceIntroductionApplicable,
 		[PropFormulaCheck.isNI]: isNegationIntroductionApplicable,
 		[PropFormulaCheck.isII]: isImplicationIntroductionApplicable,
+		// Other rules
+		[PropFormulaCheck.isID]: isImplicationDistributionApplicable,
+		[PropFormulaCheck.isIR]: isImplicationReversalApplicable,
 	};
 
 /**
