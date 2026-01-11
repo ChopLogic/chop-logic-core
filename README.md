@@ -142,6 +142,7 @@ This project is licensed under **MIT**. See the [LICENSE](LICENSE) file for deta
 - **GitHub Repository:** [chop-logic-core](https://github.com/ChopLogic/chop-logic-core)
 - **Issue Tracker:** [Report Issues](https://github.com/ChopLogic/chop-logic-core/issues)
 - **npm package**: [chop-logic-core](https://www.npmjs.com/package/chop-logic-core)
+- **Changelog:** [Version History](CHANGELOG.md)
 
 ---
 
