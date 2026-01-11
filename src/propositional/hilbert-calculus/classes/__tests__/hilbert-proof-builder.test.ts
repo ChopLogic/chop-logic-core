@@ -1,4 +1,8 @@
-import { HilbertCalculusSchema, Step } from "../../../../enums";
+import {
+	HilbertCalculusRule,
+	HilbertCalculusSchema,
+	Step,
+} from "../../../../enums";
 import { createPropExpression, createPropFormula } from "../../../builders";
 import { buildHilbertProof } from "../../generators/build-hilbert-proof";
 import { composeHilbertProof } from "../../generators/compose-hilbert-proof";
@@ -180,7 +184,7 @@ describe("HilbertProofBuilder and functional proof generation", () => {
 				.reiterateStep(1, "Reiterate A")
 				.addDerivedStep({
 					formulas: [implicationAB, A],
-					schema: HilbertCalculusSchema.IE,
+					rule: HilbertCalculusRule.IE,
 					derivedFrom: [3, 2],
 				})
 				.build();

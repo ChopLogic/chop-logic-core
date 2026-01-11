@@ -1,4 +1,7 @@
-import { implicationElimination } from "./implication-elimination";
+import { implicationDistributionRule } from "./implication-distribution";
+import { implicationEliminationRule } from "./implication-elimination";
+import { implicationIntroductionRule } from "./implication-introduction";
+import { implicationReversalRule } from "./implication-reversal";
 
 /**
  * Namespace containing all inference rules in Hilbert-style calculus.
@@ -6,6 +9,9 @@ import { implicationElimination } from "./implication-elimination";
  *
  * Available rules:
  * - IE: Implication Elimination (Modus Ponens)
+ * - II: Implication Introduction
+ * - ID: Implication Distribution
+ * - IR: Implication Reversal
  *
  * Hilbert-style calculus uses a minimal set of rules, relying heavily on axiom schemas
  * for its deductive power.
@@ -14,5 +20,8 @@ import { implicationElimination } from "./implication-elimination";
  * @category Hilbert Calculus
  */
 export const HilbertRules = Object.freeze({
-	IE: implicationElimination,
+	II: implicationIntroductionRule,
+	ID: implicationDistributionRule,
+	IE: implicationEliminationRule,
+	IR: implicationReversalRule,
 });

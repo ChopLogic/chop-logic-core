@@ -5,8 +5,10 @@ export { isDisjunctionEliminationApplicable } from "./is-disjunction-elimination
 export { isDisjunctionIntroductionApplicable } from "./is-disjunction-introduction-applicable";
 export { isEquivalenceEliminationApplicable } from "./is-equivalence-elimination-applicable";
 export { isEquivalenceIntroductionApplicable } from "./is-equivalence-introduction-applicable";
+export { isImplicationDistributionApplicable } from "./is-implication-distribution-applicable";
 export { isImplicationEliminationApplicable } from "./is-implication-elimination-applicable";
 export { isImplicationIntroductionApplicable } from "./is-implication-introduction-applicable";
+export { isImplicationReversalApplicable } from "./is-implication-reversal-applicable";
 export { isNegationEliminationApplicable } from "./is-negation-elimination-applicable";
 export { isNegationIntroductionApplicable } from "./is-negation-introduction-applicable";
 export { isWellFormedFormula } from "./is-well-formed-formula";

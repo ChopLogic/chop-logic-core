@@ -10,7 +10,9 @@ import type { PropFormula } from "../../../models";
  * @param formulas - An array of propositional formulas.
  * @returns A new formula representing (A => (B => A)).
  */
-export function implicationIntroduction(formulas: PropFormula[]): PropFormula {
+export function implicationIntroductionSchema(
+	formulas: PropFormula[],
+): PropFormula {
 	const [A, B] = formulas;
 
 	return {

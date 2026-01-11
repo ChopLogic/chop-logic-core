@@ -1,4 +1,8 @@
-import { HilbertCalculusSchema, Step } from "../../../../enums";
+import {
+	HilbertCalculusRule,
+	HilbertCalculusSchema,
+	Step,
+} from "../../../../enums";
 import { createPropExpression, createPropFormula } from "../../../builders";
 import { HilbertProof } from "../hilbert-proof";
 
@@ -71,16 +75,16 @@ describe("HilbertProof", () => {
 			const derivedStep = proof.addDerivedStep(
 				{
 					formulas: [implicationAB, A],
-					schema: HilbertCalculusSchema.IE,
+					rule: HilbertCalculusRule.IE,
 					derivedFrom: [1, 2],
 				},
 				"Modus Ponens",
 			);
 
-			expect(derivedStep.index).toBe(3);
-			expect(derivedStep.step).toBe(Step.Derivation);
-			expect(derivedStep.derivedFrom).toEqual([1, 2]);
-			expect(derivedStep.comment).toBe("Modus Ponens");
+			expect(derivedStep[0].index).toBe(3);
+			expect(derivedStep[0].step).toBe(Step.Derivation);
+			expect(derivedStep[0].derivedFrom).toEqual([1, 2]);
+			expect(derivedStep[0].comment).toBe("Modus Ponens");
 		});
 	});
 
@@ -147,7 +151,7 @@ describe("HilbertProof", () => {
 			proof.addDerivedStep(
 				{
 					formulas: [implicationAB, A],
-					schema: HilbertCalculusSchema.IE,
+					rule: HilbertCalculusRule.IE,
 					derivedFrom: [1, 2],
 				},
 				"Modus Ponens",
@@ -205,7 +209,7 @@ describe("HilbertProof", () => {
 
 			proof.addDerivedStep({
 				formulas: [implicationAB, A],
-				schema: HilbertCalculusSchema.IE,
+				rule: HilbertCalculusRule.IE,
 				derivedFrom: [1, 2],
 			});
 
@@ -290,7 +294,7 @@ describe("HilbertProof", () => {
 			proof.addPremise(implicationAB);
 			proof.addDerivedStep({
 				formulas: [implicationAB, A],
-				schema: HilbertCalculusSchema.IE,
+				rule: HilbertCalculusRule.IE,
 				derivedFrom: [1, 2],
 			});
 

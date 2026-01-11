@@ -8,7 +8,7 @@ import type {
 	PropProofStep,
 } from "../../../models";
 import { arePropFormulasStructurallyEqual } from "../../validators";
-import { generateHilbertProofStep } from "../generators/generate-hilbert-proof-step";
+import { generateHilbertProofSteps } from "../generators/generate-hilbert-proof-steps";
 
 /**
  * Represents a complete proof in Hilbert-style calculus.
@@ -69,12 +69,13 @@ export class HilbertProof {
 	 * @returns The added proof step
 	 */
 	addPremise(formula: PropFormula, comment?: string): PropProofStep {
-		const step = generateHilbertProofStep({
+		const steps = generateHilbertProofSteps({
 			index: this.steps.length + 1,
 			step: Step.Premise,
 			payload: { formula } as HilbertBasePayload,
 		});
 
+		const step = steps[0];
 		if (comment) {
 			step.comment = comment;
 		}
@@ -90,12 +91,13 @@ export class HilbertProof {
 	 * @returns The added proof step
 	 */
 	addAxiom(payload: HilbertAxiomPayload, comment?: string): PropProofStep {
-		const step = generateHilbertProofStep({
+		const steps = generateHilbertProofSteps({
 			index: this.steps.length + 1,
 			step: Step.Axiom,
 			payload,
 		} as HilbertProofStepInput<Step.Axiom>);
 
+		const step = steps[0];
 		if (comment) {
 			step.comment = comment;
 		}
@@ -113,19 +115,21 @@ export class HilbertProof {
 	addDerivedStep(
 		payload: HilbertDerivedPayload,
 		comment?: string,
-	): PropProofStep {
-		const step = generateHilbertProofStep({
+	): PropProofStep[] {
+		const newSteps = generateHilbertProofSteps({
 			index: this.steps.length + 1,
 			step: Step.Derivation,
 			payload,
 		} as HilbertProofStepInput<Step.Derivation>);
 
-		if (comment) {
-			step.comment = comment;
-		}
+		newSteps.forEach((step) => {
+			if (comment) {
+				step.comment = comment;
+			}
+			this.steps.push(step);
+		});
 
-		this.steps.push(step);
-		return step;
+		return newSteps;
 	}
 
 	/**
@@ -170,12 +174,13 @@ export class HilbertProof {
 		}
 
 		// Create a reiteration step with the same formula
-		const step = generateHilbertProofStep({
+		const steps = generateHilbertProofSteps({
 			index: this.steps.length + 1,
 			step: Step.Reiteration,
 			payload: { formula: sourceStep.formula } as HilbertBasePayload,
 		});
 
+		const step = steps[0];
 		if (comment) {
 			step.comment = comment;
 		} else {

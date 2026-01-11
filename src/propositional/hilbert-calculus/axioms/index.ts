@@ -1,6 +1,6 @@
-import { implicationDistribution } from "./implication-distribution";
-import { implicationIntroduction } from "./implication-introduction";
-import { implicationReversal } from "./implication-reversal";
+import { implicationDistributionSchema } from "./implication-distribution";
+import { implicationIntroductionSchema } from "./implication-introduction";
+import { implicationReversalSchema } from "./implication-reversal";
 
 /**
  * Namespace containing all axiom schemas in Hilbert-style calculus.
@@ -17,7 +17,7 @@ import { implicationReversal } from "./implication-reversal";
  * @category Hilbert Calculus
  */
 export const HilbertAxioms = Object.freeze({
-	II: implicationIntroduction,
-	ID: implicationDistribution,
-	IR: implicationReversal,
+	II: implicationIntroductionSchema,
+	ID: implicationDistributionSchema,
+	IR: implicationReversalSchema,
 });

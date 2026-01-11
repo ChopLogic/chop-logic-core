@@ -70,8 +70,8 @@ describe("Propositional Logic Module (index.ts)", () => {
 			expect(typeof propositionalLogic.composeHilbertProof).toBe("function");
 		});
 
-		it("should have generateHilbertProofStep function", () => {
-			expect(typeof propositionalLogic.generateHilbertProofStep).toBe(
+		it("should have generateHilbertProofSteps function", () => {
+			expect(typeof propositionalLogic.generateHilbertProofSteps).toBe(
 				"function",
 			);
 		});
