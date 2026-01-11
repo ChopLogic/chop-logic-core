@@ -151,4 +151,17 @@ describe("isImplicationDistributionApplicable", () => {
 			false,
 		);
 	});
+
+	it("should return false when values property contains more than two elements", () => {
+		const F: PropFormula = { operator: Operator.Var, values: ["F"] };
+		const G: PropFormula = { operator: Operator.Var, values: ["G"] };
+		const H: PropFormula = { operator: Operator.Var, values: ["H"] };
+
+		const formula: PropFormula = {
+			operator: Operator.Implies,
+			values: [F, { operator: Operator.Implies, values: [G, H] }, F],
+		};
+
+		expect(isImplicationDistributionApplicable([formula])).toBe(false);
+	});
 });

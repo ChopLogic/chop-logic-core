@@ -175,4 +175,20 @@ describe("isImplicationReversalApplicable", () => {
 
 		expect(isImplicationReversalApplicable([formula])).toBe(false);
 	});
+
+	it("should return false when values property contains more than two elements", () => {
+		const F: PropFormula = { operator: Operator.Var, values: ["F"] };
+		const G: PropFormula = { operator: Operator.Var, values: ["G"] };
+
+		const formula: PropFormula = {
+			operator: Operator.Implies,
+			values: [
+				{ operator: Operator.Not, values: [F] },
+				{ operator: Operator.Not, values: [G] },
+				F,
+			],
+		};
+
+		expect(isImplicationReversalApplicable([formula])).toBe(false);
+	});
 });
