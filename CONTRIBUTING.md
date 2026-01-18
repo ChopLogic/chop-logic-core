@@ -15,6 +15,7 @@ project. Before you get started, please read through the guidelines below to ens
 - [Branch Names](#branch-names)
 - [Coding Guidelines](#coding-guidelines)
 - [Testing](#testing)
+- [Changelog](#changelog)
 - [License](#license)
 
 ## Code of Conduct
@@ -162,6 +163,30 @@ Write tests for new components and features to maintain quality and prevent regr
 | `propositional/natural-calculus/` | Proof rules for the Natural Deduction proof system.                                                           |
 | `propositional/toolkit/`          | Toolkit utilities for working with propositional formulas (truth tables, formula analysis, evaluation, etc.). |
 | `tokenizer/`                      | Functions for tokenizing input strings, handling logical symbols, and parsing formulas.                       |
+
+## Changelog
+
+All notable changes to this project should be documented in [CHANGELOG.md](CHANGELOG) file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+### Guidelines for Updating This Changelog
+
+When releasing a new version:
+
+1. **Update the version number** in `package.json`
+2. **Add a new section** at the top of this file following the format: `## [X.Y.Z] - YYYY-MM-DD`
+3. **Categorize changes** using these subsections as appropriate:
+   - **Added**: New features or functionality
+   - **Changed**: Changes to existing functionality
+   - **Deprecated**: Soon-to-be removed features
+   - **Removed**: Deleted features or functionality
+   - **Fixed**: Bug fixes
+   - **Security**: Vulnerability fixes
+4. **Keep entries concise** but descriptive, explaining the "what" and "why"
+5. **Link to issues/PRs** when available for detailed context
+6. **Run `npm run docs`** to regenerate documentation including this changelog reference
 
 ## License
 
