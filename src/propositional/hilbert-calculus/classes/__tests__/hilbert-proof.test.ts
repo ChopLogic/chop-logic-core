@@ -3,6 +3,7 @@ import {
 	HilbertCalculusSchema,
 	Step,
 } from "../../../../enums";
+import type { PropProofStep } from "../../../../models";
 import { createPropExpression, createPropFormula } from "../../../builders";
 import { HilbertProof } from "../hilbert-proof";
 
@@ -325,6 +326,94 @@ describe("HilbertProof", () => {
 			expect(reiterationStep.formula).toEqual(premise.formula);
 			expect(reiterationStep.expression).toEqual(premise.expression);
 			expect(reiterationStep.stringView).toBe(premise.stringView);
+		});
+	});
+
+	describe("replace", () => {
+		it("should replace an atom in all proof steps", () => {
+			const proof = new HilbertProof(implicationAB);
+
+			proof.addPremise(A);
+			proof.addPremise(B);
+
+			const step1Before = proof.getStep(1) as PropProofStep;
+			const stringViewBefore = step1Before.stringView;
+
+			proof.replace(["A"], B);
+
+			const step1After = proof.getStep(1) as PropProofStep;
+			const step2After = proof.getStep(2) as PropProofStep;
+
+			// Formulas should be updated
+			expect(step1After.formula).not.toEqual(A);
+			expect(step2After.formula).toEqual(B);
+
+			// stringView should be regenerated
+			expect(step1After.stringView).not.toBe(stringViewBefore);
+			expect(step1After.stringView).toBe("B");
+		});
+
+		it("should not modify the goal formula", () => {
+			const proof = new HilbertProof(A);
+
+			proof.addPremise(B);
+
+			const goalBefore = proof.getGoal();
+
+			proof.replace(["B"], A);
+
+			const goalAfter = proof.getGoal();
+
+			// Goal should remain unchanged
+			expect(goalAfter).toBe(goalBefore);
+			expect(goalAfter).toEqual(A);
+		});
+
+		it("should replace atoms in complex formulas", () => {
+			const proof = new HilbertProof(implicationAB);
+
+			proof.addPremise(implicationAB);
+
+			const stepBefore = proof.getStep(1) as PropProofStep;
+			const stringViewBefore = stepBefore.stringView;
+
+			proof.replace(["A"], B);
+
+			const stepAfter = proof.getStep(1) as PropProofStep;
+
+			// The formula should be updated and reflected in stringView
+			expect(stepAfter.stringView).not.toBe(stringViewBefore);
+			expect(stepAfter.stringView).toBe("(B → B)");
+		});
+
+		it("should update expression and stringView for replaced atoms", () => {
+			const proof = new HilbertProof(B);
+
+			proof.addPremise(A);
+
+			const stepBefore = proof.getStep(1) as PropProofStep;
+			const stringViewBefore = stepBefore.stringView;
+
+			proof.replace(["A"], B);
+
+			const stepAfter = proof.getStep(1) as PropProofStep;
+
+			// stringView should be regenerated
+			expect(stepAfter.stringView).not.toBe(stringViewBefore);
+			expect(stepAfter.stringView).toBe("B");
+		});
+
+		it("should replace atom with another atom", () => {
+			const proof = new HilbertProof(B);
+
+			proof.addPremise(A);
+
+			proof.replace(["A"], ["B"]);
+
+			const step = proof.getStep(1) as PropProofStep;
+
+			expect(step.stringView).toBe("B");
+			expect(step.formula).toEqual(B);
 		});
 	});
 });
