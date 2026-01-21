@@ -3,9 +3,15 @@ import type {
 	NaturalBasePayload,
 	NaturalDerivedPayload,
 	NaturalProofStepInput,
+	PropAtom,
 	PropFormula,
 	PropProofStep,
 } from "../../../models";
+import {
+	convertPropFormulaToExpression,
+	convertPropFormulaToString,
+	replaceAtomInFormula,
+} from "../../converters";
 import { arePropFormulasStructurallyEqual } from "../../validators";
 import { generateNaturalProofSteps } from "../generators/generate-natural-proof-steps";
 
@@ -294,5 +300,27 @@ export class NaturalProof {
 	clear(): void {
 		this.steps = [];
 		this.currentLevel = 0;
+	}
+
+	/**
+	 * Replaces all occurrences of an atom with a formula or atom in all proof steps.
+	 * The goal formula is not modified.
+	 *
+	 * @param atom - The atomic proposition to replace
+	 * @param substitute - The formula or atom to substitute
+	 */
+	replace(atom: PropAtom, substitute: PropFormula | PropAtom): void {
+		this.steps.forEach((step) => {
+			const newFormula = replaceAtomInFormula({
+				formula: step.formula,
+				atom,
+				substitute,
+			});
+
+			// Update the formula and regenerate expression and stringView
+			step.formula = newFormula;
+			step.expression = convertPropFormulaToExpression(newFormula);
+			step.stringView = convertPropFormulaToString(newFormula);
+		});
 	}
 }
