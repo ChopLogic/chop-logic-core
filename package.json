@@ -19,7 +19,7 @@
 		"lint:warnings": "biome check --diagnostic-level warn --max-diagnostics 100",
 		"lint:fix": "biome check --write",
 		"test": "jest --watch",
-		"test:ci": "jest --passWithNoTests",
+		"test:ci": "jest --passWithNoTests --runInBand",
 		"test:coverage": "jest --coverage --collectCoverageFrom='src/**/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}'",
 		"test:mutation": "stryker run",
 		"typecheck": "tsc --pretty --noEmit",
