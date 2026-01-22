@@ -41,6 +41,20 @@ jobs:
           retention-days: 30
           if-no-files-found: warn
 
+      - name: Deploy mutation report to separate branch
+        if: always()
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./reports/mutation
+          destination_dir: ./reports/${{ github.run_number }}
+          publish_branch: mutation-reports
+          keep_files: true
+
+      - name: Clean up mutation reports from workflow
+        if: always()
+        run: rm -rf reports/mutation
+
       - name: Comment PR with mutation score (if applicable)
         if: github.event_name == 'pull_request' && always()
         uses: actions/github-script@v7

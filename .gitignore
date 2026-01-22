@@ -118,3 +118,5 @@ lib
 docs
 # stryker temp files
 .stryker-tmp
+# Generated reports
+reports/
