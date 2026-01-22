@@ -512,6 +512,22 @@ describe("replaceAtomInFormula", () => {
 				],
 			});
 		});
+
+		it("should not replace anything if input is not WFF", () => {
+			const formula: PropFormula = {
+				operator: Operator.And,
+				values: null as unknown as PropFormula[],
+			};
+			const atom: PropAtom = ["x"];
+			const substitute: PropFormula = {
+				operator: Operator.Var,
+				values: ["y"],
+			};
+
+			const result = replaceAtomInFormula({ formula, atom, substitute });
+
+			expect(result).toEqual(formula);
+		});
 	});
 
 	describe("immutability", () => {
