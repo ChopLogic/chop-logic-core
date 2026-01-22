@@ -51,10 +51,6 @@ jobs:
           publish_branch: mutation-reports
           keep_files: true
 
-      - name: Clean up mutation reports from workflow
-        if: always()
-        run: rm -rf reports/mutation
-
       - name: Comment PR with mutation score (if applicable)
         if: github.event_name == 'pull_request' && always()
         uses: actions/github-script@v7
@@ -75,3 +71,7 @@ jobs:
                 body: `## Mutation Testing Report\n\n**Mutation Score:** ${score}%\n\nFull report available in [artifacts](${context.payload.pull_request.html_url}/checks).`
               });
             }
+
+      - name: Clean up mutation reports from workflow
+        if: always()
+        run: rm -rf reports/mutation
