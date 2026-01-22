@@ -6,7 +6,9 @@
 			"!**/lib",
 			"!**/coverage",
 			"!**/node_modules",
-			"!**/docs"
+			"!**/docs",
+			"!**/.stryker-tmp",
+			"!**/reports"
 		]
 	},
 	"linter": {

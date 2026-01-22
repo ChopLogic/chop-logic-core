@@ -7,22 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## Guidelines for Updating This Changelog
+## [1.8.0] - 2026-01-22
 
-When releasing a new version:
+### Added
 
-1. **Update the version number** in `package.json`
-2. **Add a new section** at the top of this file following the format: `## [X.Y.Z] - YYYY-MM-DD`
-3. **Categorize changes** using these subsections as appropriate:
-   - **Added**: New features or functionality
-   - **Changed**: Changes to existing functionality
-   - **Deprecated**: Soon-to-be removed features
-   - **Removed**: Deleted features or functionality
-   - **Fixed**: Bug fixes
-   - **Security**: Vulnerability fixes
-4. **Keep entries concise** but descriptive, explaining the "what" and "why"
-5. **Link to issues/PRs** when available for detailed context
-6. **Run `npm run docs`** to regenerate documentation including this changelog reference
+- **Mutation Testing Infrastructure**:
+  - Integrated Stryker mutation testing framework with Jest
+  - Added `mutation-testing.yml` GitHub Actions workflow for scheduled and manual mutation test runs
+  - Mutation reports deployed to separate `mutation-reports` branch for historical tracking
+  - Automated PR comments with mutation scores for pull requests
+
+- **Formula Manipulation Functions**:
+  - `replaceAtomInFormula()`: New utility function for replacing propositional atoms within formulas while maintaining structural integrity
+
+- **Proof Methods**:
+  - `replace()` method in `HilbertProof` class: Enables replacement of atoms in proof formulas
+  - `replace()` method in `NaturalProof` class: Enables replacement of atoms in proof formulas
+
+### Changed
+
+- Enhanced Jest configuration to exclude `.stryker-tmp/` directory from test runs, preventing duplicate test execution
+- Updated `.gitignore` to exclude generated `reports/` directory
+
+---
 
 ## [1.7.0] - 2026-01-11
 

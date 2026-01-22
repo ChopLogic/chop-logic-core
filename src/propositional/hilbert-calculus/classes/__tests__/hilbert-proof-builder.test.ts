@@ -3,6 +3,7 @@ import {
 	HilbertCalculusSchema,
 	Step,
 } from "../../../../enums";
+import type { PropProofStep } from "../../../../models";
 import { createPropExpression, createPropFormula } from "../../../builders";
 import { buildHilbertProof } from "../../generators/build-hilbert-proof";
 import { composeHilbertProof } from "../../generators/compose-hilbert-proof";
@@ -193,6 +194,55 @@ describe("HilbertProofBuilder and functional proof generation", () => {
 			const step3 = proof.getStep(3);
 			expect(step3?.step).toBe(Step.Reiteration);
 			expect(step3?.derivedFrom).toEqual([1]);
+		});
+
+		it("should chain replace method", () => {
+			const proof = new HilbertProofBuilder(implicationAB)
+				.addPremise(A)
+				.addPremise(B)
+				.replace(["A"], B)
+				.build();
+
+			const step1 = proof.getStep(1) as PropProofStep;
+			const step2 = proof.getStep(2) as PropProofStep;
+
+			// Formulas should be updated
+			expect(step1.formula).not.toEqual(A);
+			expect(step2.formula).toEqual(B);
+
+			// stringView should be regenerated
+			expect(step1.stringView).toBe("B");
+		});
+
+		it("should not modify the goal formula when replacing", () => {
+			const goal = createPropFormula(createPropExpression("A"));
+			const proof = new HilbertProofBuilder(goal)
+				.addPremise(B)
+				.replace(["B"], A)
+				.build();
+
+			// Goal should remain unchanged
+			expect(proof.getGoal()).toBe(goal);
+		});
+
+		it("should allow replace in the middle of the builder chain", () => {
+			const proof = new HilbertProofBuilder(C)
+				.addPremise(A)
+				.addPremise(B)
+				.replace(["A"], C)
+				.addPremise(C)
+				.build();
+
+			const step1 = proof.getStep(1) as PropProofStep;
+			const step2 = proof.getStep(2) as PropProofStep;
+			const step3 = proof.getStep(3) as PropProofStep;
+
+			// First step should be replaced
+			expect(step1.stringView).toBe("C");
+			// Second step is unchanged
+			expect(step2.stringView).toBe("B");
+			// Third step was added after replacement
+			expect(step3.stringView).toBe("C");
 		});
 	});
 });

@@ -14,7 +14,7 @@ body:
       value: |
         Thanks for suggesting a new feature! Please fill out the information below to help us understand your request.
 
-  - type: input
+  - type: textarea
     id: feature_summary
     attributes:
       label: "Feature Summary"

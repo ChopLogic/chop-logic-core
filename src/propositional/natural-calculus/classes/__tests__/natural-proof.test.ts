@@ -1,4 +1,5 @@
 import { NaturalCalculusRule, Step } from "../../../../enums";
+import type { PropProofStep } from "../../../../models";
 import { createPropExpression, createPropFormula } from "../../../builders";
 import { NaturalProof } from "../natural-proof";
 
@@ -812,6 +813,97 @@ describe("NaturalProof", () => {
 			expect(allSteps[1].step).toBe(Step.Premise); // p => q
 			expect(allSteps[2].step).toBe(Step.Assumption); // ¬q
 			expect(allSteps[3].step).toBe(Step.Reiteration); // p (reiterated)
+		});
+	});
+
+	describe("replace", () => {
+		it("should replace an atom in all proof steps", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			proof.addPremise(A);
+			proof.addPremise(B);
+
+			const step1Before = proof.getStep(1) as PropProofStep;
+			const stringViewBefore = step1Before.stringView;
+
+			proof.replace(["A"], B);
+
+			const step1After = proof.getStep(1) as PropProofStep;
+			const step2After = proof.getStep(2) as PropProofStep;
+
+			// Formulas should be updated
+			expect(step1After.formula).not.toEqual(A);
+			expect(step2After.formula).toEqual(B);
+
+			// stringView should be regenerated
+			expect(step1After.stringView).not.toBe(stringViewBefore);
+			expect(step1After.stringView).toBe("B");
+		});
+
+		it("should not modify the goal formula", () => {
+			const proof = new NaturalProof(A);
+
+			proof.addPremise(B);
+
+			const goalBefore = proof.getGoal();
+
+			proof.replace(["B"], A);
+
+			const goalAfter = proof.getGoal();
+
+			// Goal should remain unchanged
+			expect(goalAfter).toBe(goalBefore);
+			expect(goalAfter).toEqual(A);
+		});
+
+		it("should replace atoms in complex formulas", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			proof.addPremise(implicationAB);
+
+			const stepBefore = proof.getStep(1) as PropProofStep;
+			const stringViewBefore = stepBefore.stringView;
+
+			proof.replace(["A"], B);
+
+			const stepAfter = proof.getStep(1) as PropProofStep;
+
+			// The formula should be updated and reflected in stringView
+			expect(stepAfter.stringView).not.toBe(stringViewBefore);
+			expect(stepAfter.stringView).toBe("(B → B)");
+		});
+
+		it("should replace atoms in steps at different levels", () => {
+			const proof = new NaturalProof(implicationAB);
+
+			proof.addPremise(A);
+			proof.addAssumption(B);
+
+			proof.replace(["A"], C);
+
+			const step1After = proof.getStep(1) as PropProofStep;
+			const step2After = proof.getStep(2) as PropProofStep;
+
+			// All steps should have A replaced with C
+			expect(step1After.stringView).toBe("C");
+			expect(step2After.stringView).toBe("B");
+
+			// All should be at their respective levels
+			expect(step1After.level).toBe(0);
+			expect(step2After.level).toBe(1);
+		});
+
+		it("should replace atom with another atom", () => {
+			const proof = new NaturalProof(B);
+
+			proof.addPremise(A);
+
+			proof.replace(["A"], ["B"]);
+
+			const step = proof.getStep(1) as PropProofStep;
+
+			expect(step.stringView).toBe("B");
+			expect(step.formula).toEqual(B);
 		});
 	});
 });

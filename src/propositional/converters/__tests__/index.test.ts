@@ -3,6 +3,7 @@ import { convertPropFormulaToString } from "../convert-prop-formula-to-string";
 import { extractPropSubFormulas } from "../extract-prop-sub-formulas";
 import { extractPropVariables } from "../extract-prop-variables";
 import * as converters from "../index";
+import { replaceAtomInFormula } from "../replace-atom-in-formula";
 
 describe("Converters index file", () => {
 	it("should have all expected functions available", () => {
@@ -21,5 +22,8 @@ describe("Converters index file", () => {
 
 		expect(typeof converters.extractPropVariables).toBe("function");
 		expect(converters.extractPropVariables).toBe(extractPropVariables);
+
+		expect(typeof converters.replaceAtomInFormula).toBe("function");
+		expect(converters.replaceAtomInFormula).toBe(replaceAtomInFormula);
 	});
 });

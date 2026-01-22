@@ -1,4 +1,8 @@
-import type { NaturalDerivedPayload, PropFormula } from "../../../models";
+import type {
+	NaturalDerivedPayload,
+	PropAtom,
+	PropFormula,
+} from "../../../models";
 import { NaturalProof } from "./natural-proof";
 
 /**
@@ -85,6 +89,19 @@ export class NaturalProofBuilder {
 	 */
 	reiterateStep(fromIndex: number, comment?: string): this {
 		this.proof.reiterateStep(fromIndex, comment);
+		return this;
+	}
+
+	/**
+	 * Replaces all occurrences of an atom with a formula or atom in all proof steps.
+	 * The goal formula is not modified.
+	 *
+	 * @param atom - The atomic proposition to replace
+	 * @param substitute - The formula or atom to substitute
+	 * @returns This builder instance for chaining
+	 */
+	replace(atom: PropAtom, substitute: PropFormula | PropAtom): this {
+		this.proof.replace(atom, substitute);
 		return this;
 	}
 
