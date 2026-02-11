@@ -7,9 +7,10 @@ import type { PropAtom, PropFormula } from "../../models";
  * This function traverses the formula tree and replaces every instance of the target atom with the
  * provided substitute. If the atom is not present in the formula, the original formula is returned unchanged.
  *
- * @param formula - The propositional formula in which substitution will occur.
- * @param atom - The atomic proposition (variable) to be replaced.
- * @param substitute - The formula or atom to replace the target atom with.
+ * @param {Object} params - Function parameters:
+ * @param params.formula - The propositional formula in which substitution will occur.
+ * @param params.atom - The atomic proposition (variable) to be replaced.
+ * @param params.substitute - The formula or atom to replace the target atom with.
  * @returns A new formula with all occurrences of the atom replaced by the substitute.
  * @category Converters
  *
