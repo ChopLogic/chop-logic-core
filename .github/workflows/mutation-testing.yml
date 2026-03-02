@@ -51,6 +51,8 @@ jobs:
 
       - name: Send mutation report to Stryker dashboard
         if: always()
+        env:
+          STRYKER_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
         run: |
           REPORT_FILE="reports/${{ github.run_number }}/mutation.json"
           if [ -f "$REPORT_FILE" ]; then
@@ -58,7 +60,7 @@ jobs:
               "https://dashboard.stryker-mutator.io/api/reports/github.com/ChopLogic/chop-logic-core/${{ github.ref_name }}" \
               -H 'Content-Type: application/json' \
               -H 'Host: dashboard.stryker-mutator.io' \
-              -H 'X-Api-Key: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}' \
+              -H "X-Api-Key: $STRYKER_API_KEY" \
               -d @"$REPORT_FILE"
           else
             echo "Warning: Mutation report file not found at $REPORT_FILE"
