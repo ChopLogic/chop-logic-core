@@ -54,7 +54,7 @@ jobs:
         env:
           STRYKER_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
         run: |
-          REPORT_FILE="reports/${{ github.run_number }}/mutation.json"
+          REPORT_FILE="reports/mutation/mutation.json"
           if [ -f "$REPORT_FILE" ]; then
             curl -X PUT \
               "https://dashboard.stryker-mutator.io/api/reports/github.com/ChopLogic/chop-logic-core/${{ github.ref_name }}" \
