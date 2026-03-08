@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.8.1] - 2026-03-08
+
+### Added
+
+- **Mutation Report Badge**: Added mutation testing score badge to README for visibility of mutation coverage status
+
+### Changed
+
+- **Enhanced Test Coverage for Validators**:
+  - `isWellFormedFormula()`: Added 16 new edge case tests covering parser behavior, parenthesis handling, and negation placement
+  - `isNegationEliminationApplicable()`: Added 11 new tests for double negation validation, structure checking, and multiple formula handling
+  - `isNegationIntroductionApplicable()`: Added 12 new tests for antecedent/consequent matching, complex formula structures, and error scenarios
+  - `isDisjunctionEliminationApplicable()`: Added 12 new tests covering formula ordering, antecedent matching, and structure validation
+
+- **Enhanced Test Coverage for Converters**:
+  - `extractPropSubFormulas()`: Added 4 new tests for deduplication, deep nesting, and overlapping formula structures
+
+- **Enhanced Test Coverage for Hilbert Rules**:
+  - `implicationEliminationRule()`: Added 9 new tests for reversed argument order, complex formulas, and detailed error scenarios
+  - `getBinaryOperationValue()`: Added 20 new comprehensive truth table tests for all operators, specifically targeting ReversedImplies, Xor, AntiImplies, ReversedAntiImplies, and error handling
+
+### Fixed
+
+- Minor documentation improvements in validator docstrings
+- Type annotation consistency across test files
+
+---
+
 ## [1.8.0] - 2026-01-22
 
 ### Added
