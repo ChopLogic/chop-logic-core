@@ -1,12 +1,14 @@
 {
 	"compilerOptions": {
 		"target": "ES2021",
+		"lib": ["ES2022"],
 		"module": "ESNext",
-		"moduleResolution": "Node",
+		"moduleResolution": "Bundler",
 		"strict": true,
 		"esModuleInterop": true,
 		"declaration": true,
-		"outDir": "lib"
+		"outDir": "lib",
+		"types": ["jest"]
 	},
 	"include": ["src"]
 }
