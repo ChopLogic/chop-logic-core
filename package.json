@@ -65,20 +65,20 @@
 	},
 	"homepage": "https://choplogic.github.io/chop-logic-core",
 	"devDependencies": {
-		"@biomejs/biome": "^2.4.6",
-		"@commitlint/cli": "^20.4.3",
-		"@commitlint/config-conventional": "^20.4.3",
-		"@jest/globals": "^30.2.0",
-		"@stryker-mutator/core": "^9.6.0",
-		"@stryker-mutator/jest-runner": "^9.6.0",
+		"@biomejs/biome": "^2.4.12",
+		"@commitlint/cli": "^20.5.0",
+		"@commitlint/config-conventional": "^20.5.0",
+		"@jest/globals": "^30.3.0",
+		"@stryker-mutator/core": "^9.6.1",
+		"@stryker-mutator/jest-runner": "^9.6.1",
 		"@types/jest": "^30.0.0",
-		"babel-jest": "^30.2.0",
+		"babel-jest": "^30.3.0",
 		"husky": "^9.1.7",
-		"jest": "^30.2.0",
-		"lint-staged": "^16.3.2",
-		"ts-jest": "^29.4.6",
+		"jest": "^30.3.0",
+		"lint-staged": "^16.4.0",
+		"ts-jest": "^29.4.9",
 		"tsup": "^8.5.1",
-		"typedoc": "^0.28.17",
-		"typescript": "^5.9.3"
+		"typedoc": "^0.28.19",
+		"typescript": "^6.0.3"
 	}
 }
