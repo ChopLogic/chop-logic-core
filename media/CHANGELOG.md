@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.8.2] - 2026-04-21
+
+### Changed
+
+- Upgraded TypeScript to v6.
+- Updated npm dependencies (dev and tooling libraries).
+- Replaced **tsup** with **esbuild** for bundled ESM/CJS output and the TypeScript compiler for declaration emit (`tsconfig.build.json`).
+
+---
+
 ## [1.8.1] - 2026-03-08
 
 ### Added
