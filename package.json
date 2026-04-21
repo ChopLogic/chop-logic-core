@@ -9,7 +9,7 @@
 		"lib"
 	],
 	"scripts": {
-		"build": "tsup src/index.ts --format esm,cjs --dts --out-dir lib",
+		"build": "npm run clean && tsc -p tsconfig.build.json && esbuild src/index.ts --bundle --platform=neutral --target=es2021 --format=esm --outfile=lib/index.mjs && esbuild src/index.ts --bundle --platform=neutral --target=es2021 --format=cjs --outfile=lib/index.cjs",
 		"prepare": "npm run build && husky",
 		"clean": "rm -rf lib",
 		"prepublishOnly": "npm run clean && npm run build",
@@ -77,7 +77,7 @@
 		"jest": "^30.3.0",
 		"lint-staged": "^16.4.0",
 		"ts-jest": "^29.4.9",
-		"tsup": "^8.5.1",
+		"esbuild": "^0.25.0",
 		"typedoc": "^0.28.19",
 		"typescript": "^6.0.3"
 	}
