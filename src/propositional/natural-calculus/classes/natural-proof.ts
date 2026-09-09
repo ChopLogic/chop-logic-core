@@ -88,8 +88,8 @@ export class NaturalProof {
 			index: this.steps.length + 1,
 			level: this.currentLevel,
 			step: Step.Premise,
-			payload: { formula } as NaturalBasePayload,
-		} as NaturalProofStepInput<Step.Premise>);
+			payload: { formula },
+		});
 
 		const step = steps[0];
 		if (comment) {
@@ -114,8 +114,8 @@ export class NaturalProof {
 			index: this.steps.length + 1,
 			level: nextLevel,
 			step: Step.Assumption,
-			payload: { formula } as NaturalBasePayload,
-		} as NaturalProofStepInput<Step.Assumption>);
+			payload: { formula },
+		});
 
 		const step = steps[0];
 		if (comment) {
@@ -138,12 +138,12 @@ export class NaturalProof {
 		payload: NaturalDerivedPayload,
 		comment?: string,
 	): PropProofStep[] {
-		const newSteps = generateNaturalProofSteps({
+		const newSteps = generateNaturalProofSteps<Step.Derivation>({
 			index: this.steps.length + 1,
 			level: this.currentLevel,
 			step: Step.Derivation,
 			payload,
-		} as NaturalProofStepInput<Step.Derivation>);
+		});
 
 		newSteps.forEach((step) => {
 			if (comment) {
@@ -243,7 +243,7 @@ export class NaturalProof {
 		}
 
 		// Use generateNaturalProofSteps to create the implication step
-		const newSteps = generateNaturalProofSteps({
+		const newSteps = generateNaturalProofSteps<Step.Derivation>({
 			index: this.steps.length + 1,
 			level: this.currentLevel - 1,
 			step: Step.Derivation,
@@ -252,7 +252,7 @@ export class NaturalProof {
 				rule: NaturalCalculusRule.II,
 				derivedFrom: [lastStepAtCurrentLevel.index],
 			} as NaturalDerivedPayload,
-		} as NaturalProofStepInput<Step.Derivation>);
+		});
 
 		const newStep = newSteps[0];
 		if (comment) {

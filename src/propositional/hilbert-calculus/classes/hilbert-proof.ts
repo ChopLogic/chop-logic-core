@@ -78,7 +78,7 @@ export class HilbertProof {
 		const steps = generateHilbertProofSteps({
 			index: this.steps.length + 1,
 			step: Step.Premise,
-			payload: { formula } as HilbertBasePayload,
+			payload: { formula },
 		});
 
 		const step = steps[0];
@@ -97,11 +97,11 @@ export class HilbertProof {
 	 * @returns The added proof step
 	 */
 	addAxiom(payload: HilbertAxiomPayload, comment?: string): PropProofStep {
-		const steps = generateHilbertProofSteps({
+		const steps = generateHilbertProofSteps<Step.Axiom>({
 			index: this.steps.length + 1,
 			step: Step.Axiom,
 			payload,
-		} as HilbertProofStepInput<Step.Axiom>);
+		});
 
 		const step = steps[0];
 		if (comment) {
@@ -122,11 +122,11 @@ export class HilbertProof {
 		payload: HilbertDerivedPayload,
 		comment?: string,
 	): PropProofStep[] {
-		const newSteps = generateHilbertProofSteps({
+		const newSteps = generateHilbertProofSteps<Step.Derivation>({
 			index: this.steps.length + 1,
 			step: Step.Derivation,
 			payload,
-		} as HilbertProofStepInput<Step.Derivation>);
+		});
 
 		newSteps.forEach((step) => {
 			if (comment) {
@@ -183,7 +183,7 @@ export class HilbertProof {
 		const steps = generateHilbertProofSteps({
 			index: this.steps.length + 1,
 			step: Step.Reiteration,
-			payload: { formula: sourceStep.formula } as HilbertBasePayload,
+			payload: { formula: sourceStep.formula },
 		});
 
 		const step = steps[0];
