@@ -1,9 +1,7 @@
 import { Step } from "../../../enums";
 import type {
 	HilbertAxiomPayload,
-	HilbertBasePayload,
 	HilbertDerivedPayload,
-	HilbertProofStepInput,
 	PropAtom,
 	PropFormula,
 	PropProofStep,
@@ -75,7 +73,7 @@ export class HilbertProof {
 	 * @returns The added proof step
 	 */
 	addPremise(formula: PropFormula, comment?: string): PropProofStep {
-		const steps = generateHilbertProofSteps({
+		const steps = generateHilbertProofSteps<Step.Premise>({
 			index: this.steps.length + 1,
 			step: Step.Premise,
 			payload: { formula },
@@ -143,15 +141,15 @@ export class HilbertProof {
 	 * @returns True if the last step's formula matches the goal
 	 */
 	isComplete(): boolean {
-		if (this.steps.length === 0) {
+		const lastStep = this.getLastStep();
+
+		if (!lastStep) {
 			return false;
 		}
 
 		if (this.steps.every((step) => step.step === Step.Premise)) {
 			return false;
 		}
-
-		const lastStep = this.getLastStep() as PropProofStep;
 
 		return arePropFormulasStructurallyEqual([lastStep.formula, this.goal]);
 	}
@@ -180,7 +178,7 @@ export class HilbertProof {
 		}
 
 		// Create a reiteration step with the same formula
-		const steps = generateHilbertProofSteps({
+		const steps = generateHilbertProofSteps<Step.Reiteration>({
 			index: this.steps.length + 1,
 			step: Step.Reiteration,
 			payload: { formula: sourceStep.formula },

@@ -1,8 +1,6 @@
 import { NaturalCalculusRule, Step } from "../../../enums";
 import type {
-	NaturalBasePayload,
 	NaturalDerivedPayload,
-	NaturalProofStepInput,
 	PropAtom,
 	PropFormula,
 	PropProofStep,
@@ -84,7 +82,7 @@ export class NaturalProof {
 	 * @returns The added proof step
 	 */
 	addPremise(formula: PropFormula, comment?: string): PropProofStep {
-		const steps = generateNaturalProofSteps({
+		const steps = generateNaturalProofSteps<Step.Premise>({
 			index: this.steps.length + 1,
 			level: this.currentLevel,
 			step: Step.Premise,
@@ -110,7 +108,7 @@ export class NaturalProof {
 	addAssumption(formula: PropFormula, comment?: string): PropProofStep {
 		const nextLevel = this.currentLevel + 1;
 
-		const steps = generateNaturalProofSteps({
+		const steps = generateNaturalProofSteps<Step.Assumption>({
 			index: this.steps.length + 1,
 			level: nextLevel,
 			step: Step.Assumption,
@@ -251,7 +249,7 @@ export class NaturalProof {
 				formulas: [assumptionStep.formula, lastStepAtCurrentLevel.formula],
 				rule: NaturalCalculusRule.II,
 				derivedFrom: [lastStepAtCurrentLevel.index],
-			} as NaturalDerivedPayload,
+			},
 		});
 
 		const newStep = newSteps[0];
@@ -280,7 +278,9 @@ export class NaturalProof {
 	 * @returns True if the proof is complete
 	 */
 	isComplete(): boolean {
-		if (this.steps.length === 0) {
+		const lastStep = this.getLastStep();
+
+		if (!lastStep) {
 			return false;
 		}
 
@@ -288,8 +288,6 @@ export class NaturalProof {
 		if (this.currentLevel !== 0) {
 			return false;
 		}
-
-		const lastStep = this.getLastStep() as PropProofStep;
 
 		return arePropFormulasStructurallyEqual([lastStep.formula, this.goal]);
 	}
