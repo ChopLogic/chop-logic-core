@@ -21,7 +21,7 @@ export function createPropFormula(expression: PropExpression): PropFormula {
 	return parseExpression({ expression, start: 0, end: expression.length - 1 });
 }
 
-function parseExpression({
+export function parseExpression({
 	expression,
 	start,
 	end,
@@ -51,7 +51,7 @@ function parseExpression({
 	throw new Error("Invalid formula structure.");
 }
 
-function isSingleVariable(
+export function isSingleVariable(
 	expression: PropExpression,
 	start: number,
 	end: number,
@@ -59,15 +59,15 @@ function isSingleVariable(
 	return start === end && expression[start].type === GlyphType.Variable;
 }
 
-function parseVariable(symbol: PropSymbol): PropFormula {
+export function parseVariable(symbol: PropSymbol): PropFormula {
 	return { operator: Operator.Var, values: symbol.atom };
 }
 
-function isNegation(expression: PropExpression, start: number): boolean {
+export function isNegation(expression: PropExpression, start: number): boolean {
 	return expression[start].atom[0] === Glyph.Negation;
 }
 
-function parseNegation(
+export function parseNegation(
 	expression: PropExpression,
 	start: number,
 	end: number,
@@ -78,7 +78,7 @@ function parseNegation(
 	};
 }
 
-function isParenthesized(
+export function isParenthesized(
 	expression: PropExpression,
 	start: number,
 	end: number,
@@ -89,7 +89,7 @@ function isParenthesized(
 	);
 }
 
-function parseBinaryExpression(
+export function parseBinaryExpression(
 	expression: PropExpression,
 	start: number,
 	end: number,
@@ -116,7 +116,7 @@ function parseBinaryExpression(
 	};
 }
 
-function findMainOperator(
+export function findMainOperator(
 	expression: PropExpression,
 	start: number,
 	end: number,

@@ -18,7 +18,7 @@ export function tokenizeString(input: string): string[] {
 	const glyphs = Object.values(Glyph).sort((a, b) => b.length - a.length);
 	// Escape special chars
 	const glyphPattern = glyphs
-		.map((g) => g.replaceAll(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+		.map((g) => g.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`))
 		.join("|");
 	// Variables: one or more English letters
 	const variablePattern = "[a-zA-Z]+";

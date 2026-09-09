@@ -8,6 +8,7 @@
 [![npm](https://github.com/ChopLogic/chop-logic-core/actions/workflows/npm.yml/badge.svg)](https://github.com/ChopLogic/chop-logic-core/actions/workflows/npm.yml)
 [![Keep a changelog](https://img.shields.io/badge/Keep%20a%20changelog-1.1.0-E05735?logo=keep-a-changelog&labelColor)](https://keepachangelog.com/en/1.1.0/)
 [![Semantic versioning](https://img.shields.io/badge/SemVer-2.0.0-3F4551?logo=semver&labelColor)](https://semver.org/spec/v2.0.0)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FChopLogic%2Fchop-logic-core%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/ChopLogic/chop-logic-core/main)
 
 **Chop Logic Core** is a TypeScript library providing core functions for working with **symbolic logic**. It is part of the broader [Chop Logic](https://github.com/ChopLogic) project and offers essential utilities for logic processing and deduction.
 

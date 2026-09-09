@@ -1,6 +1,6 @@
 {
 	"name": "chop-logic-core",
-	"version": "1.8.0",
+	"version": "1.8.2",
 	"description": "Core classes, methods and functions for calculating logical formulas and constructing proofs within the Chop Logic project.",
 	"main": "lib/index.cjs",
 	"module": "lib/index.mjs",
@@ -9,7 +9,7 @@
 		"lib"
 	],
 	"scripts": {
-		"build": "tsup src/index.ts --format esm,cjs --dts --out-dir lib",
+		"build": "npm run clean && tsc -p tsconfig.build.json && esbuild src/index.ts --bundle --platform=neutral --target=es2021 --format=esm --outfile=lib/index.mjs && esbuild src/index.ts --bundle --platform=neutral --target=es2021 --format=cjs --outfile=lib/index.cjs",
 		"prepare": "npm run build && husky",
 		"clean": "rm -rf lib",
 		"prepublishOnly": "npm run clean && npm run build",

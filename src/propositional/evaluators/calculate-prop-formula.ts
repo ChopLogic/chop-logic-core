@@ -7,7 +7,7 @@ import { getUnaryOperationValue } from "./get-unary-operation-value";
 /**
  * Evaluates a propositional formula based on a given truth assignment.
  *
- * @param {Object} params - Function parameters.
+ * @param {Object} params - Function parameters:
  * @param {PropFormula} params.formula - The propositional formula in tree-like structure.
  * @param {boolean[]} params.assignment - The truth assignment for the variables.
  * @param {variablesMap} [params.variablesMap] -  The map of formula variables ordered alphabetically
