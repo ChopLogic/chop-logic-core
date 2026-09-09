@@ -1,5 +1,6 @@
 import { Operator } from "../../enums";
 import type { PropAtom, PropFormula } from "../../models";
+import { isPropAtom } from "../validators";
 
 /**
  * Recursively replaces all occurrences of a specified atom in a formula with a substitute formula or atom.
@@ -41,20 +42,14 @@ export function replaceAtomInFormula({
 			const nodeAtom = node.values as PropAtom;
 			if (nodeAtom[0] === atom[0]) {
 				// Replace with substitute
-				if (
-					Array.isArray(substitute) &&
-					substitute.length === 1 &&
-					typeof substitute[0] === "string"
-				) {
-					// substitute is a PropAtom
+				if (isPropAtom(substitute)) {
 					return {
 						operator: Operator.Var,
 						values: substitute,
 					};
-				} else {
-					// substitute is a PropFormula
-					return substitute as PropFormula;
 				}
+				// substitute is a PropFormula
+				return substitute;
 			}
 			// Atom doesn't match, return the node unchanged
 			return node;

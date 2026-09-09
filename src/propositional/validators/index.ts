@@ -11,5 +11,6 @@ export { isImplicationIntroductionApplicable } from "./is-implication-introducti
 export { isImplicationReversalApplicable } from "./is-implication-reversal-applicable";
 export { isNegationEliminationApplicable } from "./is-negation-elimination-applicable";
 export { isNegationIntroductionApplicable } from "./is-negation-introduction-applicable";
+export { isPropAtom } from "./is-prop-atom";
 export { isWellFormedFormula } from "./is-well-formed-formula";
 export { validatePropFormulas } from "./validate-prop-formulas";

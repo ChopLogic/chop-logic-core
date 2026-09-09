@@ -9,7 +9,7 @@
 		"lib"
 	],
 	"scripts": {
-		"build": "npm run clean && tsc -p tsconfig.build.json && esbuild src/index.ts --bundle --platform=neutral --target=es2021 --format=esm --outfile=lib/index.mjs && esbuild src/index.ts --bundle --platform=neutral --target=es2021 --format=cjs --outfile=lib/index.cjs",
+		"build": "tsup src/index.ts --format esm,cjs --dts --out-dir lib",
 		"prepare": "npm run build && husky",
 		"clean": "rm -rf lib",
 		"prepublishOnly": "npm run clean && npm run build",
@@ -65,20 +65,20 @@
 	},
 	"homepage": "https://choplogic.github.io/chop-logic-core",
 	"devDependencies": {
-		"@biomejs/biome": "^2.4.16",
-		"@commitlint/cli": "^21.0.2",
-		"@commitlint/config-conventional": "^21.0.2",
-		"@jest/globals": "^30.4.1",
-		"@stryker-mutator/core": "^9.6.1",
-		"@stryker-mutator/jest-runner": "^9.6.1",
+		"@biomejs/biome": "^2.5.12",
+		"@commitlint/cli": "^21.2.2",
+		"@commitlint/config-conventional": "^21.2.2",
+		"@jest/globals": "^30.5.1",
+		"@stryker-mutator/core": "^10.0.0",
+		"@stryker-mutator/jest-runner": "^10.0.0",
 		"@types/jest": "^30.0.0",
-		"babel-jest": "^30.4.1",
+		"babel-jest": "^30.5.1",
 		"husky": "^9.1.7",
-		"jest": "^30.4.2",
-		"lint-staged": "^17.0.7",
-		"ts-jest": "^29.4.11",
-		"esbuild": "^0.28.0",
-		"typedoc": "^0.28.19",
+		"jest": "^30.5.1",
+		"lint-staged": "^17.5.0",
+		"ts-jest": "^29.4.12",
+		"tsup": "^8.5.1",
+		"typedoc": "^0.28.20",
 		"typescript": "^6.0.3"
 	}
 }

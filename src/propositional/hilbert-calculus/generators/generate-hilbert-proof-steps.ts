@@ -8,6 +8,7 @@ import type {
 	HilbertBasePayload,
 	HilbertDerivedPayload,
 	HilbertProofStepInput,
+	PropFormula,
 	PropProofStep,
 } from "../../../models";
 import { convertPropFormulaToExpression } from "../../converters/convert-prop-formula-to-expression";
@@ -99,7 +100,10 @@ function buildBaseStep(
 	];
 }
 
-function getSchemaFunction(schema: HilbertCalculusSchema) {
+type SchemaFunction = (formulas: PropFormula[]) => PropFormula;
+type RuleFunction = (formulas: PropFormula[]) => PropFormula[];
+
+function getSchemaFunction(schema: HilbertCalculusSchema): SchemaFunction {
 	switch (schema) {
 		case HilbertCalculusSchema.II:
 			return implicationIntroductionSchema;
@@ -110,7 +114,7 @@ function getSchemaFunction(schema: HilbertCalculusSchema) {
 	}
 }
 
-function getRuleFunction(rule: HilbertCalculusRule) {
+function getRuleFunction(rule: HilbertCalculusRule): RuleFunction {
 	switch (rule) {
 		case HilbertCalculusRule.II:
 			return implicationIntroductionRule;

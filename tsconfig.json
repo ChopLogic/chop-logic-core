@@ -1,15 +1,33 @@
 {
 	"compilerOptions": {
-		"target": "ES2021",
-		"lib": ["ES2022"],
+		/* Temporary: silence tsup's internal baseUrl usage until tsup is updated */
+		/* See: https://github.com/egoist/tsup/issues/1388 */
+		"ignoreDeprecations": "6.0",
+
+		/* Language and Environment */
+		"target": "ES2024",
+		"lib": ["es2024"],
+
+		/* Modules */
 		"module": "ESNext",
 		"moduleResolution": "Bundler",
-		"strict": true,
-		"esModuleInterop": true,
+		"resolveJsonModule": true,
+
+		/* Emit */
 		"declaration": true,
 		"outDir": "lib",
-		"rootDir": "src",
-		"types": ["jest"]
+		"rootDir": "./src",
+
+		/* Type Checking - Strict Mode */
+		"strict": true,
+		"noImplicitOverride": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noFallthroughCasesInSwitch": true,
+		"forceConsistentCasingInFileNames": true,
+
+		/* Completeness */
+		"skipLibCheck": true,
+		"types": ["node", "jest"]
 	},
 	"include": ["src"]
 }

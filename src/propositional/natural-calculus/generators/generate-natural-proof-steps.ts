@@ -3,6 +3,7 @@ import type {
 	NaturalBasePayload,
 	NaturalDerivedPayload,
 	NaturalProofStepInput,
+	PropFormula,
 	PropProofStep,
 } from "../../../models";
 import {
@@ -19,6 +20,8 @@ import { implicationElimination } from "../rules/implication-elimination";
 import { implicationIntroduction } from "../rules/implication-introduction";
 import { negationElimination } from "../rules/negation-elimination";
 import { negationIntroduction } from "../rules/negation-introduction";
+
+type RuleFunction = (formulas: PropFormula[]) => PropFormula[];
 
 /**
  * Generates a PropProofStep object for use in Natural-style logic derivations.
@@ -105,7 +108,7 @@ function buildBaseStep({
 	};
 }
 
-function getRuleFunction(rule: NaturalCalculusRule) {
+function getRuleFunction(rule: NaturalCalculusRule): RuleFunction {
 	switch (rule) {
 		// Introduction rules
 		case NaturalCalculusRule.CI:
