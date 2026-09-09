@@ -7,6 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.8.1] - 2026-09-09
+
+### Added
+
+- **Type Guard**:
+  - `isPropAtom()`: New type guard function for safely checking if a value is a `PropAtom`. Exported from validators module for consistency with other validation functions.
+
+### Changed
+
+- **TypeScript 6.0 Upgrade**:
+  - Upgraded TypeScript from 5.x to 6.0.3
+  - Added `"ignoreDeprecations": "6.0"` to tsconfig.json as a temporary workaround for tsup's internal `baseUrl` usage (see [tsup#1388](https://github.com/egoist/tsup/issues/1388))
+
+- **Type Safety Improvements**:
+  - Added explicit generic type parameters to `generateHilbertProofSteps` and `generateNaturalProofSteps` calls in proof classes, improving type inference
+  - Removed unnecessary type assertions in `isComplete()` methods of `HilbertProof` and `NaturalProof` classes by using proper control flow narrowing
+  - Added explicit return types (`SchemaFunction`, `RuleFunction`) to helper functions in proof step generators
+  - Replaced inline type checking with `isPropAtom` type guard in `replaceAtomInFormula`
+
+- **Dependency Updates**:
+  - `typescript`: ^5.x → ^6.0.3
+  - `@biomejs/biome`: ^2.x → ^2.5.12
+  - `@commitlint/cli`: ^21.x → ^21.2.2
+  - `@commitlint/config-conventional`: ^21.x → ^21.2.2
+  - `@jest/globals`: ^30.x → ^30.5.1
+  - `@stryker-mutator/core`: ^10.x → ^10.0.0
+  - `@stryker-mutator/jest-runner`: ^10.x → ^10.0.0
+  - `@types/jest`: ^30.x → ^30.0.0
+  - `babel-jest`: ^30.x → ^30.5.1
+  - `jest`: ^30.x → ^30.5.1
+  - `lint-staged`: ^17.x → ^17.5.0
+  - `ts-jest`: ^29.x → ^29.4.12
+  - `typedoc`: ^0.28.x → ^0.28.20
+
+### Removed
+
+- Removed unused type imports (`HilbertBasePayload`, `NaturalBasePayload`, `NaturalProofStepInput`) from proof classes
+
+---
+
 ## [1.8.0] - 2026-01-22
 
 ### Added
