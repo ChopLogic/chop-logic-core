@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Replaced inline type checking with `isPropAtom` type guard in `replaceAtomInFormula`
 
 - **Dependency Updates**:
-  - `typescript`: ^5.x → ^6.0.3
+  - `typescript`: ^6.0.3
   - `@biomejs/biome`: ^2.x → ^2.5.12
   - `@commitlint/cli`: ^21.x → ^21.2.2
   - `@commitlint/config-conventional`: ^21.x → ^21.2.2
@@ -40,6 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `lint-staged`: ^17.x → ^17.5.0
   - `ts-jest`: ^29.x → ^29.4.12
   - `typedoc`: ^0.28.x → ^0.28.20
+
+- Fixed security vulnerabilities in GitHub Actions
 
 ### Removed
 
