@@ -53,14 +53,14 @@ function disjoin(left: PropFormula, right: PropFormula): PropFormula {
  * Rewrites a propositional formula so that it only uses negation, conjunction and disjunction.
  *
  * The following rewrite rules are applied recursively:
- * - `φ ⇒ ψ` is equal to `¬φ ∨ ψ`
- * - `φ ⇐ ψ` is equal to `φ ∨ ¬ψ`
- * - `φ ⇔ ψ` is equal to `(¬φ ∨ ψ) ∧ (φ ∨ ¬ψ)`
- * - `φ ⊕ ψ` is equal to `(φ ∨ ψ) ∧ (¬φ ∨ ¬ψ)`
- * - `φ ↑ ψ` is equal to `¬φ ∨ ¬ψ`
- * - `φ ↓ ψ` is equal to `¬φ ∧ ¬ψ`
- * - `φ ↛ ψ` is equal to `φ ∧ ¬ψ`
- * - `φ ↚ ψ` is equal to `¬φ ∧ ψ`
+ * - `φ ⇒ ψ` is equivalent to `¬φ ∨ ψ`
+ * - `φ ⇐ ψ` is equivalent to `φ ∨ ¬ψ`
+ * - `φ ⇔ ψ` is equivalent to `(¬φ ∨ ψ) ∧ (φ ∨ ¬ψ)`
+ * - `φ ⊕ ψ` is equivalent to `(φ ∨ ψ) ∧ (¬φ ∨ ¬ψ)`
+ * - `φ ↑ ψ` is equivalent to `¬φ ∨ ¬ψ`
+ * - `φ ↓ ψ` is equivalent to `¬φ ∧ ¬ψ`
+ * - `φ ↛ ψ` is equivalent to `φ ∧ ¬ψ`
+ * - `φ ↚ ψ` is equivalent to `¬φ ∧ ψ`
  *
  * Contradiction (`⊥`) and tautology (`⊤`) nodes are constants whose operands are irrelevant.
  * They are propagated upwards (`¬⊤ = ⊥`, `φ ∧ ⊥ = ⊥`, `φ ∧ ⊤ = φ`, `φ ∨ ⊤ = ⊤`, `φ ∨ ⊥ = φ`),
