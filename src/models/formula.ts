@@ -23,3 +23,19 @@ export interface PropFormula {
  * @category Formula Types
  */
 export type PropFormulaVariablesMap = Map<number, PropAtom>;
+
+/**
+ * A literal: a propositional variable or the negation of a variable (`p` or `¬p`).
+ * Structurally a {@link PropFormula} whose operator is `Var`, or `Not` applied to a `Var`.
+ *
+ * @category Formula Types
+ */
+export type PropLiteral = PropFormula;
+
+/**
+ * A clause: a set of literals interpreted as their disjunction.
+ * The empty clause `[]` is an empty disjunction and is therefore unsatisfiable.
+ *
+ * @category Formula Types
+ */
+export type PropClause = PropLiteral[];
