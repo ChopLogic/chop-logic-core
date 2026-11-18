@@ -4,7 +4,7 @@ description: File a bug report.
 
 title: "[Bug]: "
 
-labels: [ "Core" ]
+labels: ["Core"]
 
 projects: ["ChopLogic/1"]
 

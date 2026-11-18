@@ -58,8 +58,8 @@ The following npm scripts are available for development and maintenance:
 - **`npm run test:coverage`** – Generates a test coverage report.
 - **`npm run typecheck`** – Performs a full type check without emitting output.
 - **`npm run docs`** – Generates documentation using typedoc.
-- **`release:version`** – Bumps the version (`patch`, `minor`, or `major`), commits the change, creates a Git tag, and pushes to `main`. Usage: 
-`npm run release:version patch`
+- **`release:version`** – Bumps the version (`patch`, `minor`, or `major`), commits the change, creates a Git tag, and pushes to `main`. Usage:
+  `npm run release:version patch`
 
 ## 🔧 Usage
 
@@ -67,9 +67,9 @@ The following npm scripts are available for development and maintenance:
 
 ```ts
 import {
-  createPropExpression,
-  createPropFormula,
-  calculatePropFormula,
+	createPropExpression,
+	createPropFormula,
+	calculatePropFormula,
 } from "chop-logic-core";
 
 // Create an implication: p → q
@@ -86,14 +86,14 @@ const result2 = calculatePropFormula(formula, { p: true, q: false }); // false
 import { buildHilbertProof } from "chop-logic-core";
 
 const proof = buildHilbertProof(goalFormula)
-   .addPremise(premiseA, "Given")
-   .addAxiom(axiomPayload, "Axiom II")
-   .addDerivedStep(derivedPayload, "Modus Ponens")
-   .build();
+	.addPremise(premiseA, "Given")
+	.addAxiom(axiomPayload, "Axiom II")
+	.addDerivedStep(derivedPayload, "Modus Ponens")
+	.build();
 
- if (proof.isComplete()) {
-   console.log("Proof is valid!");
- }
+if (proof.isComplete()) {
+	console.log("Proof is valid!");
+}
 ```
 
 ### Truth Table Generation
@@ -112,9 +112,9 @@ const truthTable = generatePropTruthTable(formula);
 
 ```ts
 import {
-  isConjunctionIntroductionApplicable,
-  PropFormula,
-  Operator
+	isConjunctionIntroductionApplicable,
+	PropFormula,
+	Operator,
 } from "chop-logic-core";
 
 const formula1: PropFormula = { operator: Operator.Var, values: ["P"] };

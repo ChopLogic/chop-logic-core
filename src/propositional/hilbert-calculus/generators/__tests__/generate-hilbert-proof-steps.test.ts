@@ -42,7 +42,7 @@ describe("generateProofSteps", () => {
 		});
 	});
 
-	it("should generate a derived step using implication introduction", () => {
+	it("should generate a derived step using implication introduction for two atoms", () => {
 		const result = generateHilbertProofSteps<Step.Axiom>({
 			index: 2,
 			step: Step.Axiom,
@@ -57,7 +57,7 @@ describe("generateProofSteps", () => {
 		expect(result[0].stringView).toBe("(A → (B → A))");
 	});
 
-	it("should generate a derived step using implication distribution", () => {
+	it("should generate a derived step using implication distribution for three formulas", () => {
 		const result = generateHilbertProofSteps<Step.Axiom>({
 			index: 4,
 			step: Step.Axiom,
@@ -73,7 +73,7 @@ describe("generateProofSteps", () => {
 		expect(result[0].stringView).toBe("((A → (B → C)) → ((A → B) → (A → C)))");
 	});
 
-	it("should generate a derived step using implication reversal", () => {
+	it("should generate a derived Hilbert proof step using implication reversal", () => {
 		const notA = createPropFormula(createPropExpression("~A"));
 		const notB = createPropFormula(createPropExpression("~B"));
 		const result = generateHilbertProofSteps<Step.Axiom>({
@@ -106,7 +106,7 @@ describe("generateProofSteps", () => {
 		expect(result[0].index).toBe(5);
 	});
 
-	it("should generate a derived step using implication distribution", () => {
+	it("should generate a derived step using implication distribution for one formula", () => {
 		const implicationABC = createPropFormula(
 			createPropExpression("(A => (B => C))"),
 		);
@@ -130,7 +130,7 @@ describe("generateProofSteps", () => {
 		expect(result[0].formula).toEqual(expectedDerived);
 	});
 
-	it("should generate a derived step using implication introduction", () => {
+	it("should generate a derived step using implication introduction for an implication and an atom", () => {
 		const expectedDerived = createPropFormula(
 			createPropExpression("(C=>(A => B))"),
 		);
@@ -151,7 +151,7 @@ describe("generateProofSteps", () => {
 		expect(result[0].formula).toEqual(expectedDerived);
 	});
 
-	it("should generate a derived step using implication reversal", () => {
+	it("should generate a derived step using implication reversal for implicationNotANotB", () => {
 		const implicationNotANotB = createPropFormula(
 			createPropExpression("(~A => ~B)"),
 		);

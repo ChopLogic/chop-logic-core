@@ -1,7 +1,9 @@
-# Contributing to Chop Logic Components
+# Contributing to Chop Logic Core
 
 Thank you for your interest in contributing to **Chop Logic**! We appreciate your help in improving and maintaining this
 project. Before you get started, please read through the guidelines below to ensure a smooth contribution process.
+
+> Using an AI coding agent? Project instructions for agents are in [AGENTS.md](AGENTS.md).
 
 ## Table of Contents
 
@@ -15,6 +17,7 @@ project. Before you get started, please read through the guidelines below to ens
 - [Branch Names](#branch-names)
 - [Coding Guidelines](#coding-guidelines)
 - [Testing](#testing)
+- [Folder Structure](#folder-structure)
 - [Changelog](#changelog)
 - [License](#license)
 
@@ -32,7 +35,7 @@ our [GitHub issue tracker](https://github.com/ChopLogic/chop-logic-core/issues) 
 - A clear and descriptive title.
 - Steps to reproduce the issue.
 - Expected vs. actual behavior.
-- Environment details (e.g., OS, browser, Chop Logic version).
+- Environment details (e.g., OS, Node.js version, `chop-logic-core` version).
 - Any relevant screenshots or logs.
 
 ### Submitting Pull Requests
@@ -45,17 +48,17 @@ our [GitHub issue tracker](https://github.com/ChopLogic/chop-logic-core/issues) 
 
 2. **Make your changes**, ensuring they align with our [coding guidelines](#coding-guidelines).
 
-3. **Run tests** locally before submitting:
+3. **Run the checks** locally before submitting:
 
    ```sh
-   npm run test
+   npm run typecheck && npm run lint:errors && npm run test:ci
    ```
 
 4. **Commit your changes** with a meaningful message
    following [Conventional Commits](https://www.conventionalcommits.org/):
 
    ```sh
-   git commit -m "feat: add new button variant"
+   git commit -m "feat: add disjunction elimination rule"
    ```
 
 5. **Push your changes** to your forked repository:
@@ -71,7 +74,7 @@ our [GitHub issue tracker](https://github.com/ChopLogic/chop-logic-core/issues) 
 - Keep your PR focused and concise.
 - Link related issues in your PR description.
 - Ensure CI checks pass before requesting a review.
-- Document new features or changes in Storybook if applicable.
+- Document new public APIs with TSDoc comments (they are published via TypeDoc) and add a `CHANGELOG.md` entry.
 
 ### Feature Requests
 
@@ -90,18 +93,30 @@ We welcome feature requests! Please open an issue and describe:
    cd chop-logic-core
    ```
 
-2. Install dependencies:
+2. Install dependencies (requires Node.js 22 or newer; CI uses Node.js 24):
 
    ```sh
    npm install
    ```
 
-3. Make changes and test them.
+3. Make changes and test them. Useful scripts:
+
+   | Command                 | Purpose                                    |
+   | ----------------------- | ------------------------------------------ |
+   | `npm run typecheck`     | Type check without emitting                |
+   | `npm run lint:fix`      | Lint and format with Biome, applying fixes |
+   | `npm run test:ci`       | Run all tests once                         |
+   | `npm test`              | Run Jest in watch mode                     |
+   | `npm run test:coverage` | Generate a coverage report                 |
+   | `npm run test:mutation` | Run Stryker mutation testing (slow)        |
+   | `npm run build`         | Build ESM, CJS and type declarations       |
+   | `npm run docs`          | Generate API documentation with TypeDoc    |
 
 ## Commit Rules
 
 We enforce [Conventional Commits](https://www.conventionalcommits.org/) to maintain a consistent commit history. A
-pre-commit hook is set up to lint commit messages, and commits that do not follow the correct format will be rejected.
+`commit-msg` hook lints commit messages, and commits that do not follow the correct format will be rejected. A
+`pre-commit` hook runs type checking and Biome on staged files.
 
 Commit message structure:
 
@@ -134,39 +149,50 @@ Please use the following branch name conventions:
 
 Please follow these guidelines to maintain code consistency:
 
-- Follow the project's existing coding style (ESLint and Prettier).
-- Write clear and concise documentation.
-- Prefer functional components and hooks.
-- Use TypeScript for type safety.
-- Keep components reusable and accessible.
+- Code style is enforced by [Biome](https://biomejs.dev) (lint and format). Run `npm run lint:fix` rather than
+  formatting by hand.
+- TypeScript runs in strict mode. Avoid `any` and unnecessary type assertions; prefer type guards.
+- One exported function per file. File names are kebab-case and match the camelCase function name
+  (e.g. `extract-prop-variables.ts` → `extractPropVariables`).
+- Export every public symbol through the folder's `index.ts` barrel up to `src/index.ts`.
+- Document every exported symbol with TSDoc (`@param`, `@returns`, `@throws`, `@category`). The category is used to
+  group the generated API docs.
+- Treat formulas as immutable data; do not mutate inputs.
 
 ## Testing
 
-We use **Jest** for testing. Ensure all tests pass before submitting changes:
+We use **Jest** for unit tests and **StrykerJS** for mutation testing. Ensure all checks pass before submitting changes:
 
 ```sh
-npm run test
+npm run typecheck && npm run lint:errors && npm run test:ci
 ```
 
-Write tests for new components and features to maintain quality and prevent regressions.
+- Place tests in a sibling `__tests__/` folder, named `<file-name>.test.ts`.
+- Cover success paths as well as every error/rejection path; assert exact values and error messages.
+- When adding public exports, update the corresponding `index.test.ts` export tests.
+- Mutation testing runs monthly in CI (the build breaks below a 60% mutation score). To check a single file locally:
+  `npx stryker run --mutate src/path/to/file.ts`.
 
 ## Folder Structure
 
-| Folder                            | Description                                                                                                   |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `enums/`                          | Contains enums used across the library for consistent values and configuration options.                       |
-| `models/`                         | Defines TypeScript interfaces and types representing the core domain models of the library.                   |
-| `propositional/`                  | Implementation of Propositional Logic utilities, factories, proof systems, and helper methods.                |
-| `propositional/checks/`           | Utility functions for validating and checking well-formed formulas and expressions.                           |
-| `propositional/factory/`          | Factory functions for creating logical symbols, operators, expressions, and formulas.                         |
-| `propositional/hilbert-calculus/` | Proof rules and axioms based on the Hilbert-style proof system.                                               |
-| `propositional/natural-calculus/` | Proof rules for the Natural Deduction proof system.                                                           |
-| `propositional/toolkit/`          | Toolkit utilities for working with propositional formulas (truth tables, formula analysis, evaluation, etc.). |
-| `tokenizer/`                      | Functions for tokenizing input strings, handling logical symbols, and parsing formulas.                       |
+All source code lives in `src/`:
+
+| Folder                            | Description                                                                         |
+| --------------------------------- | ----------------------------------------------------------------------------------- |
+| `enums/`                          | Operators, glyphs, proof step types, rule/schema codes and validation check names.  |
+| `models/`                         | TypeScript interfaces and types for formulas, expressions, proofs and truth tables. |
+| `tokenizer/`                      | Tokenizing input strings and converting between glyph representations.              |
+| `propositional/builders/`         | Factory functions for symbols, operators, expressions and formulas.                 |
+| `propositional/converters/`       | Converting formulas to expressions/strings, extracting sub-formulas and variables.  |
+| `propositional/evaluators/`       | Evaluating formulas and logical operations.                                         |
+| `propositional/truth-tables/`     | Generating truth assignments and truth tables.                                      |
+| `propositional/validators/`       | Well-formedness, structural equality and rule applicability checks.                 |
+| `propositional/hilbert-calculus/` | Hilbert-style axioms, rules, proof classes and proof generators.                    |
+| `propositional/natural-calculus/` | Natural deduction rules, proof classes and proof generators.                        |
 
 ## Changelog
 
-All notable changes to this project should be documented in [CHANGELOG.md](CHANGELOG) file.
+All notable changes to this project should be documented in the [CHANGELOG.md](CHANGELOG.md) file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -194,5 +220,4 @@ By contributing to Chop Logic, you agree that your contributions will be license
 
 ---
 
-Thanks for contributing to Chop Logic! Your support helps us create a better, more reusable component library for
-everyone.
+Thanks for contributing to Chop Logic! Your support helps us build better tools for symbolic logic for everyone.
