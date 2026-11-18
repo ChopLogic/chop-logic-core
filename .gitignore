@@ -120,3 +120,5 @@ docs
 .stryker-tmp/
 # Generated reports
 reports/
+# Claude Code personal settings
+.claude/settings.local.json
