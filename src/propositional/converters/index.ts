@@ -1,5 +1,9 @@
+export { convertPropFormulaToClauses } from "./convert-prop-formula-to-clauses";
+export { convertPropFormulaToCNF } from "./convert-prop-formula-to-cnf";
 export { convertPropFormulaToExpression } from "./convert-prop-formula-to-expression";
+export { convertPropFormulaToNNF } from "./convert-prop-formula-to-nnf";
 export { convertPropFormulaToString } from "./convert-prop-formula-to-string";
+export { eliminatePropImplications } from "./eliminate-prop-implications";
 export { extractPropSubFormulas } from "./extract-prop-sub-formulas";
 export { extractPropVariables } from "./extract-prop-variables";
 export { replaceAtomInFormula } from "./replace-atom-in-formula";

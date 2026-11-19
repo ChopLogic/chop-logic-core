@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.9.0] - 2026-10-19
+
+### Added
+
+- **Clausal Form Conversion** (groundwork for resolution proofs):
+  - `convertPropFormulaToClauses()`: Converts an arbitrary formula into an equivalent set of clauses. Duplicate literals within a clause and duplicate clauses are removed; a tautology yields `[]` and a contradiction yields the empty clause `[[]]`.
+  - `eliminatePropImplications()`: Rewrites a formula using only `¬`, `∧` and `∨` (handles `⇒`, `⇐`, `⇔`, `⊕`, `↑`, `↓`, `↛`, `↚`) and folds `⊤`/`⊥` constants.
+  - `convertPropFormulaToNNF()`: Converts a formula to negation normal form.
+  - `convertPropFormulaToCNF()`: Converts a formula to conjunctive normal form.
+- **Types**: `PropLiteral` and `PropClause`.
+- **Validator**: `isPropLiteral()` checks whether a formula is a variable or a negated variable.
+
 ## [1.8.3] - 2026-09-09
 
 ### Added

@@ -10,6 +10,8 @@ import { isImplicationEliminationApplicable } from "../is-implication-eliminatio
 import { isImplicationIntroductionApplicable } from "../is-implication-introduction-applicable";
 import { isNegationEliminationApplicable } from "../is-negation-elimination-applicable";
 import { isNegationIntroductionApplicable } from "../is-negation-introduction-applicable";
+import { isPropAtom } from "../is-prop-atom";
+import { isPropLiteral } from "../is-prop-literal";
 import { isWellFormedFormula } from "../is-well-formed-formula";
 import { validatePropFormulas } from "../validate-prop-formulas";
 
@@ -91,5 +93,11 @@ describe("Validators index file", () => {
 
 		expect(typeof validators.isWellFormedFormula).toBe("function");
 		expect(validators.isWellFormedFormula).toBe(isWellFormedFormula);
+
+		expect(typeof validators.isPropAtom).toBe("function");
+		expect(validators.isPropAtom).toBe(isPropAtom);
+
+		expect(typeof validators.isPropLiteral).toBe("function");
+		expect(validators.isPropLiteral).toBe(isPropLiteral);
 	});
 });
