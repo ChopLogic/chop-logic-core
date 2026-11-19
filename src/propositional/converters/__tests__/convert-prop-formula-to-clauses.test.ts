@@ -86,6 +86,31 @@ describe("convertPropFormulaToClauses", () => {
 		]);
 	});
 
+	it("removes duplicate literals regardless of object property order", () => {
+		const reorderedP = { values: ["p"], operator: Operator.Var } as PropFormula;
+		const reorderedNotP = {
+			values: [reorderedP],
+			operator: Operator.Not,
+		} as PropFormula;
+
+		expect(convertPropFormulaToClauses(or(p, reorderedP))).toEqual([[p]]);
+		expect(convertPropFormulaToClauses(or(not(p), reorderedNotP))).toEqual([
+			[not(p)],
+		]);
+		expect(convertPropFormulaToClauses(or(not(p), not(reorderedP)))).toEqual([
+			[not(p)],
+		]);
+	});
+
+	it("removes duplicate clauses regardless of object property order", () => {
+		const reorderedP = { values: ["p"], operator: Operator.Var } as PropFormula;
+
+		expect(convertPropFormulaToClauses(and(p, reorderedP))).toEqual([[p]]);
+		expect(
+			convertPropFormulaToClauses(and(or(p, not(q)), or(not(q), reorderedP))),
+		).toEqual([[p, not(q)]]);
+	});
+
 	it("does not confuse a variable named like a negated literal", () => {
 		const tildeP: PropFormula = { operator: Operator.Var, values: ["~p"] };
 		expect(convertPropFormulaToClauses(or(not(p), tildeP))).toEqual([
