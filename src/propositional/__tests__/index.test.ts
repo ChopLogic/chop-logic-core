@@ -43,6 +43,30 @@ describe("Propositional Logic Module (index.ts)", () => {
 		it("should have extractPropVariables function", () => {
 			expect(typeof propositionalLogic.extractPropVariables).toBe("function");
 		});
+
+		it("should have eliminatePropImplications function", () => {
+			expect(typeof propositionalLogic.eliminatePropImplications).toBe(
+				"function",
+			);
+		});
+
+		it("should have convertPropFormulaToNNF function", () => {
+			expect(typeof propositionalLogic.convertPropFormulaToNNF).toBe(
+				"function",
+			);
+		});
+
+		it("should have convertPropFormulaToCNF function", () => {
+			expect(typeof propositionalLogic.convertPropFormulaToCNF).toBe(
+				"function",
+			);
+		});
+
+		it("should have convertPropFormulaToClauses function", () => {
+			expect(typeof propositionalLogic.convertPropFormulaToClauses).toBe(
+				"function",
+			);
+		});
 	});
 
 	describe("Evaluators exports", () => {
@@ -102,6 +126,10 @@ describe("Propositional Logic Module (index.ts)", () => {
 			expect(typeof propositionalLogic.arePropFormulasStructurallyEqual).toBe(
 				"function",
 			);
+		});
+
+		it("should have isPropLiteral function", () => {
+			expect(typeof propositionalLogic.isPropLiteral).toBe("function");
 		});
 
 		it("should have isConjunctionEliminationApplicable function", () => {
