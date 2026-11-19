@@ -60,7 +60,9 @@ export function convertPropFormulaToClauses(
 			clause.push(literal);
 		}
 
-		const clauseKey = JSON.stringify(Array.from(literalKeys).sort());
+		const clauseKey = JSON.stringify(
+			Array.from(literalKeys).sort((a, b) => a.localeCompare(b)),
+		);
 		if (clauseKeys.has(clauseKey)) continue;
 		clauseKeys.add(clauseKey);
 		clauses.push(clause);
