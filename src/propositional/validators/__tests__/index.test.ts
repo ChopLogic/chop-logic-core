@@ -1,4 +1,5 @@
 import { arePropFormulasStructurallyEqual } from "../are-prop-formulas-structurally-equal";
+import { arePropLiteralsComplementary } from "../are-prop-literals-complementary";
 import * as validators from "../index";
 import { isConjunctionEliminationApplicable } from "../is-conjunction-elimination-applicable";
 import { isConjunctionIntroductionApplicable } from "../is-conjunction-introduction-applicable";
@@ -11,7 +12,9 @@ import { isImplicationIntroductionApplicable } from "../is-implication-introduct
 import { isNegationEliminationApplicable } from "../is-negation-elimination-applicable";
 import { isNegationIntroductionApplicable } from "../is-negation-introduction-applicable";
 import { isPropAtom } from "../is-prop-atom";
+import { isPropClause } from "../is-prop-clause";
 import { isPropLiteral } from "../is-prop-literal";
+import { isResolutionApplicable } from "../is-resolution-applicable";
 import { isWellFormedFormula } from "../is-well-formed-formula";
 import { validatePropFormulas } from "../validate-prop-formulas";
 
@@ -99,5 +102,13 @@ describe("Validators index file", () => {
 
 		expect(typeof validators.isPropLiteral).toBe("function");
 		expect(validators.isPropLiteral).toBe(isPropLiteral);
+	});
+
+	it("should export the resolution validators", () => {
+		expect(validators.isPropClause).toBe(isPropClause);
+		expect(validators.arePropLiteralsComplementary).toBe(
+			arePropLiteralsComplementary,
+		);
+		expect(validators.isResolutionApplicable).toBe(isResolutionApplicable);
 	});
 });
