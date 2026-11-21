@@ -7,7 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.9.0] - 2026-10-19
+## [1.10.0] - 2026-11-21
+
+### Added
+
+- **Resolution Calculus** (Robinson-style refutation proofs): a proof of `φ` from `Δ` is a derivation of the empty clause `{}` from the clausal form of `Δ ∪ {¬φ}`.
+  - `ResolutionProof` class: `addPremise()` (converts a formula with `convertPropFormulaToClauses()`, one step per clause), `addPremiseClause()`, `addNegatedGoal()`, `resolve()` (adds one step per resolvent when several complementary pairs exist), `reiterateStep()`, `replace()` (atom-for-atom), `clear()`, `hasNegatedGoal()`, `hasEmptyClause()` and `isComplete()`.
+  - `ResolutionProofBuilder` class, `buildResolutionProof()`, `composeResolutionProof()` and `generateResolutionProofSteps()`.
+  - `ResolutionRules` namespace with the `R` rule (`resolutionRule()`).
+- **Validators**: `isPropClause()`, `arePropLiteralsComplementary()` and `isResolutionApplicable()`.
+- **Converters**: `convertPropClauseToString()` (set notation, e.g. `{p, ¬q}`) and `normalizePropClause()` (merges duplicate literals).
+- **Enums**: `Step.NegatedGoal` and `ResolutionCalculusRule`.
+- **Types**: `ResolutionProofStep`, `ResolutionDerivedPayload`, `ResolutionBasePayload` and `ResolutionProofStepInput`.
+
+## [1.9.0] - 2026-11-19
 
 ### Added
 
