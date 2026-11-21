@@ -2,10 +2,11 @@ import type {
 	HilbertCalculusRule,
 	HilbertCalculusSchema,
 	NaturalCalculusRule,
+	ResolutionCalculusRule,
 	Step,
 } from "../enums";
 import type { PropExpression } from "./basic";
-import type { PropFormula } from "./formula";
+import type { PropClause, PropFormula, PropLiteral } from "./formula";
 
 // ============== Proof System Types ==============
 
@@ -84,7 +85,10 @@ export interface HilbertProofStepInput<T> {
 		? Step.Derivation
 		: T extends Step.Axiom
 			? Step.Axiom
-			: Exclude<Step, Step.Derivation | Step.Axiom | Step.Assumption>;
+			: Exclude<
+					Step,
+					Step.Derivation | Step.Axiom | Step.Assumption | Step.NegatedGoal
+				>;
 	payload: T extends Step.Derivation
 		? HilbertDerivedPayload
 		: T extends Step.Axiom
@@ -130,8 +134,65 @@ export interface NaturalProofStepInput<T> {
 	assumptionIndex?: number;
 	step: T extends Step.Derivation
 		? Step.Derivation
-		: Exclude<Step, Step.Derivation | Step.Axiom>;
+		: Exclude<Step, Step.Derivation | Step.Axiom | Step.NegatedGoal>;
 	payload: T extends Step.Derivation
 		? NaturalDerivedPayload
 		: NaturalBasePayload;
+}
+
+// ============== Resolution Calculus ==============
+
+/**
+ * Represents a single step in a resolution proof.
+ * Each step holds a clause (a set of literals interpreted as their disjunction).
+ *
+ * @category Proof System Types
+ */
+export interface ResolutionProofStep {
+	index: number;
+	step: Step;
+	clause: PropClause;
+	stringView: string;
+	comment: string;
+	derivedFrom?: number[];
+	resolvedLiteral?: PropLiteral;
+}
+
+/**
+ * Payload for a derived step in the resolution calculus.
+ * Contains the two clauses to resolve, the rule used, and indices of the steps they were taken from.
+ *
+ * @category Proof System Types
+ */
+export type ResolutionDerivedPayload = {
+	clauses: PropClause[];
+	rule: ResolutionCalculusRule;
+	derivedFrom: number[];
+};
+
+/**
+ * Base payload for premise, negated goal and reiteration steps in the resolution calculus.
+ * Contains a single clause.
+ *
+ * @category Proof System Types
+ */
+export type ResolutionBasePayload = {
+	clause: PropClause;
+};
+
+/**
+ * Generic input interface for creating a resolution proof step.
+ * The payload type is determined by the step type (Derivation or a base step).
+ *
+ * @template T - The step type
+ * @category Proof System Types
+ */
+export interface ResolutionProofStepInput<T> {
+	index: number;
+	step: T extends Step.Derivation
+		? Step.Derivation
+		: Exclude<Step, Step.Derivation | Step.Axiom | Step.Assumption>;
+	payload: T extends Step.Derivation
+		? ResolutionDerivedPayload
+		: ResolutionBasePayload;
 }

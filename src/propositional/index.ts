@@ -8,5 +8,6 @@ export * from "./converters";
 export * from "./evaluators";
 export * from "./hilbert-calculus";
 export * from "./natural-calculus";
+export * from "./resolution-calculus";
 export * from "./truth-tables";
 export * from "./validators";

@@ -109,6 +109,46 @@ describe("Propositional Logic Module (index.ts)", () => {
 		});
 	});
 
+	describe("Resolution Calculus exports", () => {
+		it("should have buildResolutionProof function", () => {
+			expect(typeof propositionalLogic.buildResolutionProof).toBe("function");
+		});
+
+		it("should have composeResolutionProof function", () => {
+			expect(typeof propositionalLogic.composeResolutionProof).toBe("function");
+		});
+
+		it("should have generateResolutionProofSteps function", () => {
+			expect(typeof propositionalLogic.generateResolutionProofSteps).toBe(
+				"function",
+			);
+		});
+
+		it("should have ResolutionProof class", () => {
+			expect(typeof propositionalLogic.ResolutionProof).toBe("function");
+		});
+
+		it("should have ResolutionProofBuilder class", () => {
+			expect(typeof propositionalLogic.ResolutionProofBuilder).toBe("function");
+		});
+
+		it("should have frozen ResolutionRules namespace", () => {
+			expect(Object.isFrozen(propositionalLogic.ResolutionRules)).toBe(true);
+		});
+
+		it("should have clause converters and validators", () => {
+			expect(typeof propositionalLogic.convertPropClauseToString).toBe(
+				"function",
+			);
+			expect(typeof propositionalLogic.normalizePropClause).toBe("function");
+			expect(typeof propositionalLogic.isPropClause).toBe("function");
+			expect(typeof propositionalLogic.arePropLiteralsComplementary).toBe(
+				"function",
+			);
+			expect(typeof propositionalLogic.isResolutionApplicable).toBe("function");
+		});
+	});
+
 	describe("Truth Tables exports", () => {
 		it("should have generatePropTruthTable function", () => {
 			expect(typeof propositionalLogic.generatePropTruthTable).toBe("function");

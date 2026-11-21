@@ -1,22 +1,13 @@
 import { Operator } from "../../enums";
-import type { PropClause, PropFormula, PropLiteral } from "../../models";
+import type { PropClause, PropFormula } from "../../models";
 import { convertPropFormulaToCNF } from "./convert-prop-formula-to-cnf";
+import { getPropLiteralKey } from "./get-prop-literal-key";
 
 function collect(node: PropFormula, operator: Operator): PropFormula[] {
 	if (node.operator !== operator) return [node];
 	return (node.values as PropFormula[]).flatMap((value) =>
 		collect(value, operator),
 	);
-}
-
-/**
- * Builds a key from the literal's polarity and variable name, so it doesn't depend on
- * the order of object properties.
- */
-function getLiteralKey(literal: PropLiteral): string {
-	const isNegated = literal.operator === Operator.Not;
-	const atom = isNegated ? (literal.values[0] as PropFormula) : literal;
-	return JSON.stringify([isNegated, atom.values[0]]);
 }
 
 /**
@@ -64,7 +55,7 @@ export function convertPropFormulaToClauses(
 		const literalKeys = new Set<string>();
 
 		for (const literal of collect(conjunct, Operator.Or)) {
-			const key = getLiteralKey(literal);
+			const key = getPropLiteralKey(literal);
 			if (literalKeys.has(key)) continue;
 			literalKeys.add(key);
 			clause.push(literal);

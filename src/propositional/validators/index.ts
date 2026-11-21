@@ -1,4 +1,5 @@
 export { arePropFormulasStructurallyEqual } from "./are-prop-formulas-structurally-equal";
+export { arePropLiteralsComplementary } from "./are-prop-literals-complementary";
 export { isConjunctionEliminationApplicable } from "./is-conjunction-elimination-applicable";
 export { isConjunctionIntroductionApplicable } from "./is-conjunction-introduction-applicable";
 export { isDisjunctionEliminationApplicable } from "./is-disjunction-elimination-applicable";
@@ -12,6 +13,8 @@ export { isImplicationReversalApplicable } from "./is-implication-reversal-appli
 export { isNegationEliminationApplicable } from "./is-negation-elimination-applicable";
 export { isNegationIntroductionApplicable } from "./is-negation-introduction-applicable";
 export { isPropAtom } from "./is-prop-atom";
+export { isPropClause } from "./is-prop-clause";
 export { isPropLiteral } from "./is-prop-literal";
+export { isResolutionApplicable } from "./is-resolution-applicable";
 export { isWellFormedFormula } from "./is-well-formed-formula";
 export { validatePropFormulas } from "./validate-prop-formulas";
