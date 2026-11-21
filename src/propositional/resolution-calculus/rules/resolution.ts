@@ -17,7 +17,6 @@ import { isResolutionApplicable } from "../../validators/is-resolution-applicabl
  * @param clauses - An array of exactly two clauses.
  * @returns The list of resolvents (the empty clause `[]` means a contradiction was derived).
  * @throws {Error} if resolution is not applicable.
- * @category Resolution Calculus
  *
  * @example
  * // {p, q} and {¬q, r} derive {p, r}

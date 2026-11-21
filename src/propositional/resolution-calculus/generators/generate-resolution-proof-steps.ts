@@ -18,7 +18,7 @@ const BASE_STEP_COMMENTS: Partial<Record<Step, string>> = {
 /**
  * Generates ResolutionProofStep objects for use in resolution proofs.
  * Supports Derivation, Premise, NegatedGoal, Reiteration and Shortcut step types.
- * A derivation produces one step per resolvent (see {@link resolutionRule}).
+ * A derivation produces one step per resolvent (see {@link ResolutionRules}).
  *
  * @param input - An object with necessary data for the new proof step(s).
  * @returns New proof steps based on the input.
