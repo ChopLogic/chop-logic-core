@@ -14,7 +14,7 @@ describe("NaturalProofBuilder and functional proof generation", () => {
 			const builder = new NaturalProofBuilder(implicationAB);
 			const proof = builder.build();
 
-			expect(proof.getGoal()).toBe(implicationAB);
+			expect(proof.getGoal()).toStrictEqual(implicationAB);
 			expect(proof.getStepCount()).toBe(0);
 		});
 
@@ -25,8 +25,8 @@ describe("NaturalProofBuilder and functional proof generation", () => {
 				.build();
 
 			expect(proof.getStepCount()).toBe(2);
-			expect(proof.getStep(1)?.formula).toBe(A);
-			expect(proof.getStep(2)?.formula).toBe(B);
+			expect(proof.getStep(1)?.formula).toStrictEqual(A);
+			expect(proof.getStep(2)?.formula).toStrictEqual(B);
 			expect(proof.isComplete()).toBe(true);
 		});
 
@@ -36,7 +36,7 @@ describe("NaturalProofBuilder and functional proof generation", () => {
 				.build();
 
 			expect(proof.getStepCount()).toBe(1);
-			expect(proof.getStep(1)?.formula).toBe(A);
+			expect(proof.getStep(1)?.formula).toStrictEqual(A);
 			expect(proof.getCurrentLevel()).toBe(1);
 		});
 
@@ -181,7 +181,7 @@ describe("NaturalProofBuilder and functional proof generation", () => {
 			const previewProof = builder.preview();
 
 			expect(previewProof.getStepCount()).toBe(2);
-			expect(previewProof.getGoal()).toBe(implicationAB);
+			expect(previewProof.getGoal()).toStrictEqual(implicationAB);
 		});
 
 		it("should return same instance as build", () => {
@@ -267,7 +267,7 @@ describe("NaturalProofBuilder and functional proof generation", () => {
 			expect(proof.getStepCount()).toBe(3);
 			const step3 = proof.getStep(3);
 			expect(step3?.step).toBe(Step.Reiteration);
-			expect(step3?.formula).toBe(A);
+			expect(step3?.formula).toStrictEqual(A);
 		});
 
 		it("should chain reiterateStep with custom comment", () => {
@@ -294,9 +294,9 @@ describe("NaturalProofBuilder and functional proof generation", () => {
 			const step5 = proof.getStep(5);
 
 			expect(step4?.step).toBe(Step.Reiteration);
-			expect(step4?.formula).toBe(A);
+			expect(step4?.formula).toStrictEqual(A);
 			expect(step5?.step).toBe(Step.Reiteration);
-			expect(step5?.formula).toBe(B);
+			expect(step5?.formula).toStrictEqual(B);
 		});
 
 		it("should integrate reiterateStep with other builder methods", () => {
@@ -368,7 +368,7 @@ describe("NaturalProofBuilder and functional proof generation", () => {
 				.build();
 
 			// Goal should remain unchanged
-			expect(proof.getGoal()).toBe(goal);
+			expect(proof.getGoal()).toStrictEqual(goal);
 		});
 
 		it("should allow replace in the middle of the builder chain", () => {

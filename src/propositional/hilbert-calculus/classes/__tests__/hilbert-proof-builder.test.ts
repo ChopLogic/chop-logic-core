@@ -21,7 +21,7 @@ describe("HilbertProofBuilder and functional proof generation", () => {
 			const builder = new HilbertProofBuilder(implicationAB);
 			const proof = builder.build();
 
-			expect(proof.getGoal()).toBe(implicationAB);
+			expect(proof.getGoal()).toStrictEqual(implicationAB);
 			expect(proof.getStepCount()).toBe(0);
 		});
 
@@ -32,8 +32,8 @@ describe("HilbertProofBuilder and functional proof generation", () => {
 				.build();
 
 			expect(proof.getStepCount()).toBe(2);
-			expect(proof.getStep(1)?.formula).toBe(A);
-			expect(proof.getStep(2)?.formula).toBe(B);
+			expect(proof.getStep(1)?.formula).toStrictEqual(A);
+			expect(proof.getStep(2)?.formula).toStrictEqual(B);
 		});
 
 		it("should chain addAxiom calls", () => {
@@ -108,7 +108,7 @@ describe("HilbertProofBuilder and functional proof generation", () => {
 				.build();
 
 			expect(proof.getStepCount()).toBe(4);
-			expect(proof.getLastStep()?.formula).toBe(C);
+			expect(proof.getLastStep()?.formula).toStrictEqual(C);
 		});
 
 		it("should compose from generator functions", () => {
@@ -148,7 +148,7 @@ describe("HilbertProofBuilder and functional proof generation", () => {
 			expect(proof.getStepCount()).toBe(2);
 			const step2 = proof.getStep(2);
 			expect(step2?.step).toBe(Step.Reiteration);
-			expect(step2?.formula).toBe(A);
+			expect(step2?.formula).toStrictEqual(A);
 		});
 
 		it("should chain reiterateStep with custom comment", () => {
@@ -174,8 +174,8 @@ describe("HilbertProofBuilder and functional proof generation", () => {
 
 			expect(step2?.step).toBe(Step.Reiteration);
 			expect(step3?.step).toBe(Step.Reiteration);
-			expect(step2?.formula).toBe(A);
-			expect(step3?.formula).toBe(A);
+			expect(step2?.formula).toStrictEqual(A);
+			expect(step3?.formula).toStrictEqual(A);
 		});
 
 		it("should integrate reiterateStep with other builder methods", () => {
@@ -222,7 +222,7 @@ describe("HilbertProofBuilder and functional proof generation", () => {
 				.build();
 
 			// Goal should remain unchanged
-			expect(proof.getGoal()).toBe(goal);
+			expect(proof.getGoal()).toStrictEqual(goal);
 		});
 
 		it("should allow replace in the middle of the builder chain", () => {

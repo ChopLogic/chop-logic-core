@@ -24,7 +24,7 @@ describe("ResolutionProofBuilder", () => {
 	it("builds a ResolutionProof with the goal", () => {
 		const proof = new ResolutionProofBuilder(r).build();
 		expect(proof).toBeInstanceOf(ResolutionProof);
-		expect(proof.getGoal()).toBe(r);
+		expect(proof.getGoal()).toStrictEqual(r);
 	});
 
 	it("chains every step method", () => {

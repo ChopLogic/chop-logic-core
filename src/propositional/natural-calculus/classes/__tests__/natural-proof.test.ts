@@ -14,7 +14,7 @@ describe("NaturalProof", () => {
 		it("should create a new proof with a goal formula", () => {
 			const proof = new NaturalProof(implicationAB);
 
-			expect(proof.getGoal()).toBe(implicationAB);
+			expect(proof.getGoal()).toStrictEqual(implicationAB);
 			expect(proof.getStepCount()).toBe(0);
 			expect(proof.getCurrentLevel()).toBe(0);
 			expect(proof.isComplete()).toBe(false);
@@ -29,7 +29,7 @@ describe("NaturalProof", () => {
 
 			expect(step.index).toBe(1);
 			expect(step.step).toBe(Step.Premise);
-			expect(step.formula).toBe(A);
+			expect(step.formula).toStrictEqual(A);
 			expect(step.level).toBe(0);
 			expect(step.comment).toBe("Given assumption");
 			expect(proof.getStepCount()).toBe(1);
@@ -66,7 +66,7 @@ describe("NaturalProof", () => {
 
 			expect(step.index).toBe(1);
 			expect(step.step).toBe(Step.Assumption);
-			expect(step.formula).toBe(A);
+			expect(step.formula).toStrictEqual(A);
 			expect(step.level).toBe(1);
 			expect(step.comment).toBe("Assume A");
 			expect(proof.getCurrentLevel()).toBe(1);
@@ -235,8 +235,8 @@ describe("NaturalProof", () => {
 			const firstStep = proof.getStep(1);
 			const secondStep = proof.getStep(2);
 
-			expect(firstStep?.formula).toBe(A);
-			expect(secondStep?.formula).toBe(B);
+			expect(firstStep?.formula).toStrictEqual(A);
+			expect(secondStep?.formula).toStrictEqual(B);
 		});
 
 		it("should return undefined for out-of-bounds indices", () => {
@@ -256,7 +256,7 @@ describe("NaturalProof", () => {
 			const lastStep = proof.getLastStep();
 
 			expect(lastStep?.index).toBe(2);
-			expect(lastStep?.formula).toBe(B);
+			expect(lastStep?.formula).toStrictEqual(B);
 		});
 
 		it("should return undefined when proof is empty", () => {
@@ -626,7 +626,7 @@ describe("NaturalProof", () => {
 			// Reiterate the premise inside the assumption
 			const reiterationStep = proof.reiterateStep(1);
 
-			expect(reiterationStep.formula).toBe(A);
+			expect(reiterationStep.formula).toStrictEqual(A);
 			expect(reiterationStep.step).toBe(Step.Reiteration);
 			expect(reiterationStep.level).toBe(1);
 			expect(reiterationStep.derivedFrom).toEqual([1]);
@@ -852,7 +852,7 @@ describe("NaturalProof", () => {
 			const goalAfter = proof.getGoal();
 
 			// Goal should remain unchanged
-			expect(goalAfter).toBe(goalBefore);
+			expect(goalAfter).toStrictEqual(goalBefore);
 			expect(goalAfter).toEqual(A);
 		});
 
@@ -904,6 +904,97 @@ describe("NaturalProof", () => {
 
 			expect(step.stringView).toBe("B");
 			expect(step.formula).toEqual(B);
+		});
+	});
+
+	describe("defensive copies", () => {
+		const fresh = (expression: string) =>
+			createPropFormula(createPropExpression(expression));
+
+		it("does not let mutating getSteps() results complete the proof", () => {
+			const proof = new NaturalProof(fresh("B"));
+			proof.addPremise(fresh("A"));
+
+			const steps = proof.getSteps();
+			steps[0].formula = fresh("B");
+
+			expect(Object.isFrozen(steps)).toBe(true);
+			expect(proof.isComplete()).toBe(false);
+			expect(proof.getStep(1)?.formula).toStrictEqual(A);
+		});
+
+		it("does not let mutating getStep() and getLastStep() results change the proof", () => {
+			const proof = new NaturalProof(fresh("B"));
+			proof.addPremise(fresh("A"));
+
+			const step = proof.getStep(1);
+			const last = proof.getLastStep();
+			if (step) step.formula.values = ["X"];
+			if (last) last.level = 5;
+
+			expect(proof.getStep(1)?.formula).toStrictEqual(A);
+			expect(proof.getLastStep()?.level).toBe(0);
+		});
+
+		it("does not let mutating steps returned by add methods change the proof", () => {
+			const proof = new NaturalProof(fresh("(A => (B & A))"));
+			const premise = proof.addPremise(fresh("B"));
+			const assumption = proof.addAssumption(fresh("A"));
+			const reiterated = proof.reiterateStep(1);
+			const [derived] = proof.addDerivedStep({
+				formulas: [fresh("A"), fresh("B")],
+				rule: NaturalCalculusRule.CI,
+				derivedFrom: [2, 3],
+			});
+			const closed = proof.closeSubProof();
+
+			for (const step of [premise, assumption, reiterated, derived, closed]) {
+				step.formula.values = ["X"];
+				step.comment = "tampered";
+				step.level = 9;
+			}
+
+			expect(proof.getSteps().map((step) => step.stringView)).toEqual([
+				"B",
+				"A",
+				"B",
+				"(A ∧ B)",
+				"(B ∧ A)",
+				"(A → (B ∧ A))",
+			]);
+			expect(proof.getSteps().map((step) => step.level)).toEqual([
+				0, 1, 1, 1, 1, 0,
+			]);
+			expect(proof.getSteps().map((step) => step.comment)).not.toContain(
+				"tampered",
+			);
+			expect(proof.isComplete()).toBe(true);
+		});
+
+		it("detaches stored steps from input formulas", () => {
+			const proof = new NaturalProof(fresh("B"));
+			const premise = fresh("A");
+			const assumption = fresh("C");
+
+			proof.addPremise(premise);
+			proof.addAssumption(assumption);
+			premise.values = ["X"];
+			assumption.values = ["Y"];
+
+			expect(proof.getStep(1)?.formula).toStrictEqual(A);
+			expect(proof.getStep(2)?.formula).toStrictEqual(C);
+		});
+
+		it("detaches the stored goal from the constructor argument and getGoal() results", () => {
+			const goal = fresh("A");
+			const proof = new NaturalProof(goal);
+			proof.addPremise(fresh("A"));
+
+			goal.values = ["Y"];
+			proof.getGoal().values = ["Z"];
+
+			expect(proof.getGoal()).toStrictEqual(A);
+			expect(proof.isComplete()).toBe(true);
 		});
 	});
 });

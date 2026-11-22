@@ -33,8 +33,8 @@ describe("composeHilbertProof function", () => {
 		);
 
 		expect(proof.getStepCount()).toBe(3);
-		expect(proof.getStep(1)?.formula).toBe(A);
-		expect(proof.getStep(2)?.formula).toBe(B);
+		expect(proof.getStep(1)?.formula).toStrictEqual(A);
+		expect(proof.getStep(2)?.formula).toStrictEqual(B);
 	});
 
 	it("should compose with multiple generators in order", () => {
@@ -51,6 +51,6 @@ describe("composeHilbertProof function", () => {
 		const proof = composeHilbertProof(implicationAB);
 
 		expect(proof.getStepCount()).toBe(0);
-		expect(proof.getGoal()).toBe(implicationAB);
+		expect(proof.getGoal()).toStrictEqual(implicationAB);
 	});
 });

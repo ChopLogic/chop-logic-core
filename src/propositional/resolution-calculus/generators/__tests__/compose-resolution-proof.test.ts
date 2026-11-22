@@ -12,7 +12,7 @@ describe("composeResolutionProof", () => {
 	it("returns an empty proof without generators", () => {
 		const proof = composeResolutionProof(r);
 		expect(proof).toBeInstanceOf(ResolutionProof);
-		expect(proof.getGoal()).toBe(r);
+		expect(proof.getGoal()).toStrictEqual(r);
 		expect(proof.getStepCount()).toBe(0);
 	});
 

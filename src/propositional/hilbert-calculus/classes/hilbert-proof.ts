@@ -27,26 +27,27 @@ export class HilbertProof {
 
 	/**
 	 * Creates a new Hilbert proof with a goal formula.
+	 * The goal is copied, so later changes to the passed object do not affect the proof.
 	 * @param goal - The target formula to prove
 	 */
 	constructor(goal: PropFormula) {
-		this.goal = goal;
+		this.goal = structuredClone(goal);
 	}
 
 	/**
 	 * Gets all proof steps in order.
-	 * @returns Array of proof steps
+	 * @returns A frozen array of copies of the proof steps; changing them does not affect the proof
 	 */
 	getSteps(): readonly PropProofStep[] {
-		return Object.freeze([...this.steps]);
+		return Object.freeze(this.steps.map((step) => structuredClone(step)));
 	}
 
 	/**
 	 * Gets the goal formula of this proof.
-	 * @returns The target formula
+	 * @returns A copy of the target formula
 	 */
 	getGoal(): PropFormula {
-		return this.goal;
+		return structuredClone(this.goal);
 	}
 
 	/**
@@ -60,10 +61,11 @@ export class HilbertProof {
 	/**
 	 * Gets a specific step by index (1-based).
 	 * @param index - The step number (1-based)
-	 * @returns The proof step, or undefined if not found
+	 * @returns A copy of the proof step, or undefined if not found
 	 */
 	getStep(index: number): PropProofStep | undefined {
-		return this.steps[index - 1];
+		const step = this.steps[index - 1];
+		return step && structuredClone(step);
 	}
 
 	/**
@@ -84,8 +86,7 @@ export class HilbertProof {
 			step.comment = comment;
 		}
 
-		this.steps.push(step);
-		return step;
+		return this.pushStep(step);
 	}
 
 	/**
@@ -106,8 +107,7 @@ export class HilbertProof {
 			step.comment = comment;
 		}
 
-		this.steps.push(step);
-		return step;
+		return this.pushStep(step);
 	}
 
 	/**
@@ -126,14 +126,12 @@ export class HilbertProof {
 			payload,
 		});
 
-		newSteps.forEach((step) => {
+		return newSteps.map((step) => {
 			if (comment) {
 				step.comment = comment;
 			}
-			this.steps.push(step);
+			return this.pushStep(step);
 		});
-
-		return newSteps;
 	}
 
 	/**
@@ -159,7 +157,8 @@ export class HilbertProof {
 	 * @returns The final proof step, or undefined if no steps exist
 	 */
 	getLastStep(): PropProofStep | undefined {
-		return this.steps.at(-1);
+		const step = this.steps.at(-1);
+		return step && structuredClone(step);
 	}
 
 	/**
@@ -171,7 +170,7 @@ export class HilbertProof {
 	 * @throws {Error} if the step index is invalid
 	 */
 	reiterateStep(fromIndex: number, comment?: string): PropProofStep {
-		const sourceStep = this.getStep(fromIndex);
+		const sourceStep = this.steps[fromIndex - 1];
 
 		if (!sourceStep) {
 			throw new Error(`Cannot reiterate: step ${fromIndex} not found in proof`);
@@ -193,8 +192,7 @@ export class HilbertProof {
 
 		step.derivedFrom = [fromIndex];
 
-		this.steps.push(step);
-		return step;
+		return this.pushStep(step);
 	}
 
 	/**
@@ -224,5 +222,15 @@ export class HilbertProof {
 			step.expression = convertPropFormulaToExpression(newFormula);
 			step.stringView = convertPropFormulaToString(newFormula);
 		});
+	}
+
+	/**
+	 * Stores a copy of the step (detaching it from caller-provided data) and returns
+	 * another copy, so neither inputs nor return values share state with the proof.
+	 */
+	private pushStep(step: PropProofStep): PropProofStep {
+		const stored = structuredClone(step);
+		this.steps.push(stored);
+		return structuredClone(stored);
 	}
 }

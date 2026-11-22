@@ -9,7 +9,7 @@ describe("buildResolutionProof", () => {
 	it("returns a builder for the goal", () => {
 		const builder = buildResolutionProof(p);
 		expect(builder).toBeInstanceOf(ResolutionProofBuilder);
-		expect(builder.build().getGoal()).toBe(p);
+		expect(builder.build().getGoal()).toStrictEqual(p);
 	});
 
 	it("returns a new builder on every call", () => {

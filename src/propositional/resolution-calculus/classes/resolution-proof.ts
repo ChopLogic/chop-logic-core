@@ -40,26 +40,27 @@ export class ResolutionProof {
 
 	/**
 	 * Creates a new resolution proof with a goal formula.
+	 * The goal is copied, so later changes to the passed object do not affect the proof.
 	 * @param goal - The target formula to prove
 	 */
 	constructor(goal: PropFormula) {
-		this.goal = goal;
+		this.goal = structuredClone(goal);
 	}
 
 	/**
 	 * Gets all proof steps in order.
-	 * @returns Array of proof steps
+	 * @returns A frozen array of copies of the proof steps; changing them does not affect the proof
 	 */
 	getSteps(): readonly ResolutionProofStep[] {
-		return Object.freeze([...this.steps]);
+		return Object.freeze(this.steps.map((step) => structuredClone(step)));
 	}
 
 	/**
 	 * Gets the goal formula of this proof.
-	 * @returns The target formula
+	 * @returns A copy of the target formula
 	 */
 	getGoal(): PropFormula {
-		return this.goal;
+		return structuredClone(this.goal);
 	}
 
 	/**
@@ -73,10 +74,11 @@ export class ResolutionProof {
 	/**
 	 * Gets a specific step by index (1-based).
 	 * @param index - The step number (1-based)
-	 * @returns The proof step, or undefined if not found
+	 * @returns A copy of the proof step, or undefined if not found
 	 */
 	getStep(index: number): ResolutionProofStep | undefined {
-		return this.steps[index - 1];
+		const step = this.steps[index - 1];
+		return step && structuredClone(step);
 	}
 
 	/**
@@ -84,7 +86,8 @@ export class ResolutionProof {
 	 * @returns The final proof step, or undefined if no steps exist
 	 */
 	getLastStep(): ResolutionProofStep | undefined {
-		return this.steps.at(-1);
+		const step = this.steps.at(-1);
+		return step && structuredClone(step);
 	}
 
 	/**
@@ -166,8 +169,8 @@ export class ResolutionProof {
 		secondIndex: number,
 		comment?: string,
 	): ResolutionProofStep[] {
-		const first = this.getExistingStep(firstIndex, "resolve");
-		const second = this.getExistingStep(secondIndex, "resolve");
+		const first = this.getStoredStep(firstIndex, "resolve");
+		const second = this.getStoredStep(secondIndex, "resolve");
 
 		const newSteps = generateResolutionProofSteps<Step.Derivation>({
 			index: this.steps.length + 1,
@@ -190,7 +193,7 @@ export class ResolutionProof {
 	 * @throws {Error} if the step index is invalid
 	 */
 	reiterateStep(fromIndex: number, comment?: string): ResolutionProofStep {
-		const sourceStep = this.getExistingStep(fromIndex, "reiterate");
+		const sourceStep = this.getStoredStep(fromIndex, "reiterate");
 
 		const [step] = generateResolutionProofSteps<Step.Reiteration>({
 			index: this.steps.length + 1,
@@ -201,8 +204,7 @@ export class ResolutionProof {
 		step.comment = comment ?? `Reiteration: ${fromIndex}`;
 		step.derivedFrom = [fromIndex];
 
-		this.steps.push(step);
-		return step;
+		return this.pushSteps([step])[0];
 	}
 
 	/**
@@ -259,8 +261,11 @@ export class ResolutionProof {
 		});
 	}
 
-	private getExistingStep(index: number, action: string): ResolutionProofStep {
-		const step = this.getStep(index);
+	/**
+	 * Returns the stored (internal) step, not a copy. Must not be exposed to callers.
+	 */
+	private getStoredStep(index: number, action: string): ResolutionProofStep {
+		const step = this.steps[index - 1];
 
 		if (!step) {
 			throw new Error(`Cannot ${action}: step ${index} not found in proof`);
@@ -285,17 +290,21 @@ export class ResolutionProof {
 		return this.pushSteps(newSteps, comment);
 	}
 
+	/**
+	 * Stores copies of the new steps (detaching them from caller-provided data) and
+	 * returns separate copies, so neither inputs nor return values share state with the proof.
+	 */
 	private pushSteps(
 		newSteps: ResolutionProofStep[],
 		comment?: string,
 	): ResolutionProofStep[] {
-		newSteps.forEach((step) => {
+		return newSteps.map((step) => {
 			if (comment) {
 				step.comment = comment;
 			}
-			this.steps.push(step);
+			const stored = structuredClone(step);
+			this.steps.push(stored);
+			return structuredClone(stored);
 		});
-
-		return newSteps;
 	}
 }

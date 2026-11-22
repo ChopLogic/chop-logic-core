@@ -26,7 +26,7 @@ describe("ResolutionProof", () => {
 	describe("initial state", () => {
 		it("stores the goal and has no steps", () => {
 			const proof = new ResolutionProof(r);
-			expect(proof.getGoal()).toBe(r);
+			expect(proof.getGoal()).toStrictEqual(r);
 			expect(proof.getSteps()).toEqual([]);
 			expect(proof.getStepCount()).toBe(0);
 			expect(proof.getLastStep()).toBeUndefined();
@@ -61,8 +61,8 @@ describe("ResolutionProof", () => {
 			proof.addPremise(p);
 			const [step] = proof.addPremise(implies(p, q));
 			expect(step.index).toBe(2);
-			expect(proof.getStep(2)).toBe(step);
-			expect(proof.getLastStep()).toBe(step);
+			expect(proof.getStep(2)).toStrictEqual(step);
+			expect(proof.getLastStep()).toStrictEqual(step);
 		});
 
 		it("applies the custom comment to every added step", () => {
@@ -347,6 +347,99 @@ describe("ResolutionProof", () => {
 			proof.replace(["q"], ["s"]);
 			expect(proof.getStep(1)?.clause).toEqual([p]);
 			expect(proof.getStep(1)?.resolvedLiteral).toBeUndefined();
+		});
+	});
+
+	describe("defensive copies", () => {
+		const buildIncompleteProof = () => {
+			const proof = new ResolutionProof(v("q"));
+			proof.addPremise(v("p"));
+			proof.addNegatedGoal();
+			return proof;
+		};
+
+		it("does not let mutating getSteps() results complete the proof", () => {
+			const proof = buildIncompleteProof();
+
+			proof.getSteps()[0].clause.length = 0;
+
+			expect(proof.hasEmptyClause()).toBe(false);
+			expect(proof.isComplete()).toBe(false);
+			expect(views(proof)).toEqual(["{p}", "{¬q}"]);
+		});
+
+		it("returns a frozen array from getSteps()", () => {
+			expect(Object.isFrozen(buildIncompleteProof().getSteps())).toBe(true);
+		});
+
+		it("does not let mutating getStep() and getLastStep() results change the proof", () => {
+			const proof = buildIncompleteProof();
+
+			const first = proof.getStep(1);
+			const last = proof.getLastStep();
+			first?.clause.splice(0);
+			last?.clause.splice(0);
+			if (last) last.stringView = "{}";
+
+			expect(proof.isComplete()).toBe(false);
+			expect(proof.getStep(1)?.clause).toEqual([p]);
+			expect(proof.getLastStep()?.clause).toEqual([not(q)]);
+			expect(proof.getLastStep()?.stringView).toBe("{¬q}");
+		});
+
+		it("does not let mutating steps returned by add methods change the proof", () => {
+			const proof = new ResolutionProof(r);
+			const [premise] = proof.addPremise(v("p"));
+			const clauseStep = proof.addPremiseClause([not(v("p")), v("r")]);
+			const [negated] = proof.addNegatedGoal();
+			const [resolved] = proof.resolve(1, 2);
+			const reiterated = proof.reiterateStep(1);
+
+			for (const step of [premise, clauseStep, negated, resolved, reiterated]) {
+				step.clause.length = 0;
+				step.comment = "tampered";
+			}
+
+			expect(proof.isComplete()).toBe(false);
+			expect(views(proof)).toEqual(["{p}", "{¬p, r}", "{¬r}", "{r}", "{p}"]);
+			expect(proof.getSteps().map((step) => step.comment)).not.toContain(
+				"tampered",
+			);
+		});
+
+		it("detaches the stored goal from the constructor argument", () => {
+			const goal = v("q");
+			const proof = new ResolutionProof(goal);
+
+			goal.values = ["p"];
+			proof.addPremise(v("p"));
+			proof.addNegatedGoal();
+
+			expect(proof.getGoal()).toEqual(q);
+			expect(views(proof)).toEqual(["{p}", "{¬q}"]);
+		});
+
+		it("does not let mutating getGoal() results change the goal", () => {
+			const proof = new ResolutionProof(v("q"));
+
+			proof.getGoal().values = ["p"];
+
+			expect(proof.getGoal()).toEqual(q);
+			expect(proof.addNegatedGoal()[0].clause).toEqual([not(q)]);
+		});
+
+		it("detaches stored steps from premise inputs", () => {
+			const proof = new ResolutionProof(r);
+			const formula = v("p");
+			const clause = [v("q")];
+
+			proof.addPremise(formula);
+			proof.addPremiseClause(clause);
+			formula.values = ["x"];
+			clause[0].values = ["y"];
+			clause.length = 0;
+
+			expect(views(proof)).toEqual(["{p}", "{q}"]);
 		});
 	});
 });
