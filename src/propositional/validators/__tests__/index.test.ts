@@ -1,3 +1,4 @@
+import { arePropClausesEqual } from "../are-prop-clauses-equal";
 import { arePropFormulasStructurallyEqual } from "../are-prop-formulas-structurally-equal";
 import { arePropLiteralsComplementary } from "../are-prop-literals-complementary";
 import * as validators from "../index";
@@ -14,6 +15,7 @@ import { isNegationIntroductionApplicable } from "../is-negation-introduction-ap
 import { isPropAtom } from "../is-prop-atom";
 import { isPropClause } from "../is-prop-clause";
 import { isPropLiteral } from "../is-prop-literal";
+import { isPropResolvent } from "../is-prop-resolvent";
 import { isResolutionApplicable } from "../is-resolution-applicable";
 import { isWellFormedFormula } from "../is-well-formed-formula";
 import { validatePropFormulas } from "../validate-prop-formulas";
@@ -110,5 +112,7 @@ describe("Validators index file", () => {
 			arePropLiteralsComplementary,
 		);
 		expect(validators.isResolutionApplicable).toBe(isResolutionApplicable);
+		expect(validators.arePropClausesEqual).toBe(arePropClausesEqual);
+		expect(validators.isPropResolvent).toBe(isPropResolvent);
 	});
 });

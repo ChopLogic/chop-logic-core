@@ -146,6 +146,8 @@ describe("Propositional Logic Module (index.ts)", () => {
 				"function",
 			);
 			expect(typeof propositionalLogic.isResolutionApplicable).toBe("function");
+			expect(typeof propositionalLogic.arePropClausesEqual).toBe("function");
+			expect(typeof propositionalLogic.isPropResolvent).toBe("function");
 		});
 	});
 

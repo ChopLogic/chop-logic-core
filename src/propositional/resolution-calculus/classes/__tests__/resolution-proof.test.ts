@@ -320,7 +320,7 @@ describe("ResolutionProof", () => {
 	});
 
 	describe("replace", () => {
-		it("renames a variable in every clause but not in the goal", () => {
+		it("renames a variable in every clause and keeps a goal without it unchanged", () => {
 			const proof = new ResolutionProof(r);
 			proof.addPremiseClause([p, q]);
 			proof.addPremiseClause([not(q), r]);
@@ -347,6 +347,79 @@ describe("ResolutionProof", () => {
 			proof.replace(["q"], ["s"]);
 			expect(proof.getStep(1)?.clause).toEqual([p]);
 			expect(proof.getStep(1)?.resolvedLiteral).toBeUndefined();
+		});
+
+		it("renames the variable in the goal as well", () => {
+			const proof = new ResolutionProof(implies(p, q));
+			proof.replace(["q"], ["s"]);
+
+			expect(proof.getGoal()).toEqual(implies(p, v("s")));
+			expect(proof.addNegatedGoal().map((step) => step.stringView)).toEqual([
+				"{p}",
+				"{¬s}",
+			]);
+		});
+
+		it("keeps the goal consistent with the negated goal steps", () => {
+			const proof = new ResolutionProof(q);
+			proof.addPremise(p);
+			proof.addNegatedGoal();
+			proof.replace(["q"], ["p"]);
+			proof.resolve(1, 2);
+
+			expect(proof.getGoal()).toEqual(p);
+			expect(views(proof)).toEqual(["{p}", "{¬p}", "{}"]);
+			expect(proof.isComplete()).toBe(true);
+		});
+
+		it("keeps derived steps that are still valid resolvents", () => {
+			const proof = new ResolutionProof(r);
+			proof.addPremiseClause([p, q]);
+			proof.addPremiseClause([not(p), r]);
+			proof.resolve(1, 2);
+			proof.reiterateStep(3);
+			proof.replace(["r"], ["q"]);
+
+			expect(views(proof)).toEqual(["{p, q}", "{¬p, q}", "{q}", "{q}"]);
+			expect(proof.getStep(3)?.resolvedLiteral).toEqual(p);
+			expect(proof.getGoal()).toEqual(q);
+		});
+
+		it("rejects a renaming that invalidates a derived step and leaves the proof unchanged", () => {
+			const proof = new ResolutionProof(r);
+			proof.addPremiseClause([p, q]);
+			proof.addPremiseClause([not(p)]);
+			proof.resolve(1, 2);
+
+			expect(() => proof.replace(["q"], ["p"])).toThrow(
+				"Cannot replace: step 3 would no longer be a resolvent of steps 1, 2.",
+			);
+			expect(views(proof)).toEqual(["{p, q}", "{¬p}", "{q}"]);
+			expect(proof.getStep(3)?.resolvedLiteral).toEqual(p);
+			expect(proof.getGoal()).toEqual(r);
+		});
+
+		it("rejects a renaming that merges the complementary pairs of derived steps", () => {
+			const proof = new ResolutionProof(r);
+			proof.addPremiseClause([p, q]);
+			proof.addPremiseClause([not(p), not(q)]);
+			proof.resolve(1, 2);
+
+			expect(views(proof)).toEqual([
+				"{p, q}",
+				"{¬p, ¬q}",
+				"{q, ¬q}",
+				"{p, ¬p}",
+			]);
+			expect(() => proof.replace(["q"], ["p"])).toThrow(
+				"Cannot replace: step 3 would no longer be a resolvent of steps 1, 2.",
+			);
+			expect(views(proof)).toEqual([
+				"{p, q}",
+				"{¬p, ¬q}",
+				"{q, ¬q}",
+				"{p, ¬p}",
+			]);
 		});
 	});
 

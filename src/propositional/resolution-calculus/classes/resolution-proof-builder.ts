@@ -89,10 +89,12 @@ export class ResolutionProofBuilder {
 	}
 
 	/**
-	 * Renames a variable in all clauses of the proof. The goal formula is not modified.
+	 * Renames a variable in the goal formula and in all clauses of the proof.
+	 * See {@link ResolutionProof.replace}.
 	 * @param atom - The atomic proposition to replace
 	 * @param substitute - The atomic proposition to substitute
 	 * @returns This builder instance for chaining
+	 * @throws {Error} if a derived step would no longer follow from its parent steps by resolution
 	 */
 	replace(atom: PropAtom, substitute: PropAtom): this {
 		this.proof.replace(atom, substitute);

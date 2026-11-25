@@ -10,6 +10,7 @@ import { convertPropFormulaToClauses } from "../../converters/convert-prop-formu
 import { normalizePropClause } from "../../converters/normalize-prop-clause";
 import { replaceAtomInFormula } from "../../converters/replace-atom-in-formula";
 import { isPropClause } from "../../validators/is-prop-clause";
+import { isPropResolvent } from "../../validators/is-prop-resolvent";
 import { generateResolutionProofSteps } from "../generators/generate-resolution-proof-steps";
 
 /**
@@ -35,7 +36,7 @@ import { generateResolutionProofSteps } from "../generators/generate-resolution-
  */
 export class ResolutionProof {
 	private steps: ResolutionProofStep[] = [];
-	private readonly goal: PropFormula;
+	private goal: PropFormula;
 	private negatedGoalAdded = false;
 
 	/**
@@ -233,32 +234,42 @@ export class ResolutionProof {
 	}
 
 	/**
-	 * Renames a variable in all clauses of the proof. Literals that become equal are merged.
-	 * The goal formula is not modified.
+	 * Renames a variable throughout the proof: in the goal formula and in every clause.
+	 * Literals that become equal are merged.
+	 *
+	 * The goal is renamed together with the clauses, so the negated goal steps always stay the
+	 * negation of the goal. The renamed proof is then a proof of the renamed goal from the
+	 * renamed premises.
+	 *
+	 * Merging literals can change which complementary pairs a clause contains, so after renaming
+	 * every derived step is checked again. If a derived clause would no longer be a resolvent of
+	 * the steps it was derived from, the replacement is rejected and the proof is left unchanged.
 	 *
 	 * Only atom-for-atom substitution is supported, since substituting a composite formula
 	 * would break the clausal form.
 	 *
 	 * @param atom - The atomic proposition to replace
 	 * @param substitute - The atomic proposition to substitute
+	 * @throws {Error} if a derived step would no longer follow from its parent steps by resolution
 	 */
 	replace(atom: PropAtom, substitute: PropAtom): void {
-		this.steps.forEach((step) => {
-			const clause = step.clause.map((literal) =>
-				replaceAtomInFormula({ formula: literal, atom, substitute }),
-			);
+		const renamedSteps = this.steps.map((step) =>
+			renameStep(step, atom, substitute),
+		);
 
-			step.clause = normalizePropClause(clause);
-			step.stringView = convertPropClauseToString(step.clause);
-
-			if (step.resolvedLiteral) {
-				step.resolvedLiteral = replaceAtomInFormula({
-					formula: step.resolvedLiteral,
-					atom,
-					substitute,
-				});
+		renamedSteps.forEach((step) => {
+			if (
+				step.step === Step.Derivation &&
+				!isStillResolvent(step, renamedSteps)
+			) {
+				throw new Error(
+					`Cannot replace: step ${step.index} would no longer be a resolvent of steps ${step.derivedFrom?.join(", ")}.`,
+				);
 			}
 		});
+
+		this.steps = renamedSteps;
+		this.goal = replaceAtomInFormula({ formula: this.goal, atom, substitute });
 	}
 
 	/**
@@ -307,4 +318,55 @@ export class ResolutionProof {
 			return structuredClone(stored);
 		});
 	}
+}
+
+/**
+ * Returns a renamed copy of a step. The original step is not mutated.
+ */
+function renameStep(
+	step: ResolutionProofStep,
+	atom: PropAtom,
+	substitute: PropAtom,
+): ResolutionProofStep {
+	const clause = normalizePropClause(
+		step.clause.map((literal) =>
+			replaceAtomInFormula({ formula: literal, atom, substitute }),
+		),
+	);
+	const renamed: ResolutionProofStep = {
+		...structuredClone(step),
+		clause,
+		stringView: convertPropClauseToString(clause),
+	};
+
+	if (step.resolvedLiteral) {
+		renamed.resolvedLiteral = replaceAtomInFormula({
+			formula: step.resolvedLiteral,
+			atom,
+			substitute,
+		});
+	}
+
+	return renamed;
+}
+
+/**
+ * Checks that a derived step is still a resolvent of its parent steps,
+ * obtained by resolving on its recorded literal.
+ */
+function isStillResolvent(
+	step: ResolutionProofStep,
+	steps: ResolutionProofStep[],
+): boolean {
+	const parents = (step.derivedFrom ?? []).map((index) => steps[index - 1]);
+
+	if (parents.some((parent) => !parent)) {
+		return false;
+	}
+
+	return isPropResolvent(
+		parents.map((parent) => parent.clause),
+		step.clause,
+		step.resolvedLiteral,
+	);
 }
