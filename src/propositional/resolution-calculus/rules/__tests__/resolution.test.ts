@@ -92,6 +92,14 @@ describe("resolutionRule", () => {
 		["three clauses", [[p], [not(p)], [q]]],
 		["an empty clause", [[], [p]]],
 		["a non-literal", [[{ operator: Operator.And, values: [p, q] }], [not(p)]]],
+		[
+			"a malformed variable and its negation",
+			[
+				[{ operator: Operator.Var, values: [] }],
+				[not({ operator: Operator.Var, values: [] } as unknown as PropFormula)],
+			],
+		],
+		["a null literal", [[null], [not(p)]]],
 	])("throws for %s", (_, clauses) => {
 		expect(() => resolutionRule(clauses as PropFormula[][])).toThrow(
 			"Resolution is not applicable to the given clauses.",

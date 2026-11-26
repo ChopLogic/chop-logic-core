@@ -27,4 +27,26 @@ describe("isPropClause", () => {
 	it("returns false for a non-array value", () => {
 		expect(isPropClause(p as unknown as PropClause)).toBe(false);
 	});
+
+	it("returns false for a clause with a malformed variable", () => {
+		const empty = {
+			operator: Operator.Var,
+			values: [],
+		} as unknown as PropFormula;
+
+		expect(isPropClause([p, empty])).toBe(false);
+		expect(isPropClause([{ operator: Operator.Not, values: [empty] }])).toBe(
+			false,
+		);
+	});
+
+	it("returns false for null or undefined elements instead of throwing", () => {
+		expect(isPropClause([p, null as unknown as PropFormula])).toBe(false);
+		expect(isPropClause([undefined as unknown as PropFormula, p])).toBe(false);
+		expect(
+			isPropClause([
+				{ operator: Operator.Not, values: [null as unknown as PropFormula] },
+			]),
+		).toBe(false);
+	});
 });

@@ -49,4 +49,31 @@ describe("arePropLiteralsComplementary", () => {
 		expect(arePropLiteralsComplementary([p])).toBe(false);
 		expect(arePropLiteralsComplementary([p, notP, p])).toBe(false);
 	});
+
+	it("returns false for a malformed variable and its negation", () => {
+		const empty = {
+			operator: Operator.Var,
+			values: [],
+		} as unknown as PropFormula;
+		const notEmpty: PropFormula = { operator: Operator.Not, values: [empty] };
+
+		expect(arePropLiteralsComplementary([empty, notEmpty])).toBe(false);
+		expect(arePropLiteralsComplementary([notEmpty, empty])).toBe(false);
+	});
+
+	it("returns false for null or undefined literals instead of throwing", () => {
+		const nil = null as unknown as PropFormula;
+
+		expect(arePropLiteralsComplementary([nil, notP])).toBe(false);
+		expect(arePropLiteralsComplementary([p, nil])).toBe(false);
+		expect(
+			arePropLiteralsComplementary([p, undefined as unknown as PropFormula]),
+		).toBe(false);
+		expect(
+			arePropLiteralsComplementary([
+				p,
+				{ operator: Operator.Not, values: [nil] },
+			]),
+		).toBe(false);
+	});
 });
