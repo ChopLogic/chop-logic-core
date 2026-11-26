@@ -25,6 +25,8 @@ export interface PropSymbol {
 	position: number;
 	/** String representation */
 	view: string;
+	/** Optional display color */
+	color?: string;
 }
 
 /**
@@ -33,3 +35,17 @@ export interface PropSymbol {
  * @category Basic Types
  */
 export type PropExpression = PropSymbol[];
+
+/**
+ * Display colors used to colorize a propositional expression.
+ *
+ * @category Basic Types
+ */
+export interface PropExpressionColors {
+	/** Color for every variable */
+	variables: string;
+	/** Color for every logical operator, including logical constants */
+	operators: string;
+	/** Colors from outermost to innermost depth, repeated as needed. An empty palette preserves existing parenthesis colors. */
+	parentheses: readonly string[];
+}

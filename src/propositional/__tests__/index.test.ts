@@ -1,3 +1,4 @@
+import { colorizePropExpression } from "../../index";
 import * as propositionalLogic from "../index";
 
 /**
@@ -24,6 +25,13 @@ describe("Propositional Logic Module (index.ts)", () => {
 	});
 
 	describe("Converters exports", () => {
+		it("should expose colorizePropExpression from both public entry points", () => {
+			expect(typeof propositionalLogic.colorizePropExpression).toBe("function");
+			expect(colorizePropExpression).toBe(
+				propositionalLogic.colorizePropExpression,
+			);
+		});
+
 		it("should have convertPropFormulaToExpression function", () => {
 			expect(typeof propositionalLogic.convertPropFormulaToExpression).toBe(
 				"function",

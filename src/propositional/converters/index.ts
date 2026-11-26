@@ -1,3 +1,4 @@
+export { colorizePropExpression } from "./colorize-prop-expression";
 export { convertPropFormulaToClauses } from "./convert-prop-formula-to-clauses";
 export { convertPropFormulaToCNF } from "./convert-prop-formula-to-cnf";
 export { convertPropFormulaToExpression } from "./convert-prop-formula-to-expression";
