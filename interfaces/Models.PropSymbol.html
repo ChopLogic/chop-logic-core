@@ -15,9 +15,9 @@
 <div class="tsd-comment tsd-typography"><p>Represents a symbol in a propositional formula.
 Could be a variable, operator, or parenthesis.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">PropSymbol</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#atom">atom</a><span class="tsd-signature-symbol">:</span> <a href="../types/Models.PropAtom.html" class="tsd-signature-type tsd-kind-type-alias">PropAtom</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#type">type</a><span class="tsd-signature-symbol">:</span> <a href="../enums/Enums.GlyphType.html" class="tsd-signature-type tsd-kind-enum">GlyphType</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#position">position</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#view">view</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">PropSymbol</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#atom">atom</a><span class="tsd-signature-symbol">:</span> <a href="../types/Models.PropAtom.html" class="tsd-signature-type tsd-kind-type-alias">PropAtom</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#type">type</a><span class="tsd-signature-symbol">:</span> <a href="../enums/Enums.GlyphType.html" class="tsd-signature-type tsd-kind-enum">GlyphType</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#position">position</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#view">view</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#color">color</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/238dff09eba6be4c0cfe42a8e58d098ec51d618f/src/models/basic.ts#L19">models/basic.ts:19</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/2e1e99e8754e7a0d5dc7b378ad3c15dedaabfd1a/src/models/basic.ts#L19">models/basic.ts:19</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -29,6 +29,7 @@ Could be a variable, operator, or parenthesis.</p>
 <a href="#type" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>type</span></a>
 <a href="#position" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>position</span></a>
 <a href="#view" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>view</span></a>
+<a href="#color" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>color?</span></a>
 </div></section></div></details></section></section>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
@@ -39,28 +40,35 @@ Could be a variable, operator, or parenthesis.</p>
 <div class="tsd-comment tsd-typography"><p>The atomic component of the symbol</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/238dff09eba6be4c0cfe42a8e58d098ec51d618f/src/models/basic.ts#L21">models/basic.ts:21</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/2e1e99e8754e7a0d5dc7b378ad3c15dedaabfd1a/src/models/basic.ts#L21">models/basic.ts:21</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="type"><span>type</span><a href="#type" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">type</span><span class="tsd-signature-symbol">:</span> <a href="../enums/Enums.GlyphType.html" class="tsd-signature-type tsd-kind-enum">GlyphType</a></div>
 <div class="tsd-comment tsd-typography"><p>Type classification of the symbol</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/238dff09eba6be4c0cfe42a8e58d098ec51d618f/src/models/basic.ts#L23">models/basic.ts:23</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/2e1e99e8754e7a0d5dc7b378ad3c15dedaabfd1a/src/models/basic.ts#L23">models/basic.ts:23</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="position"><span>position</span><a href="#position" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">position</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Position in the expression</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/238dff09eba6be4c0cfe42a8e58d098ec51d618f/src/models/basic.ts#L25">models/basic.ts:25</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/2e1e99e8754e7a0d5dc7b378ad3c15dedaabfd1a/src/models/basic.ts#L25">models/basic.ts:25</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="view"><span>view</span><a href="#view" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">view</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>String representation</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/238dff09eba6be4c0cfe42a8e58d098ec51d618f/src/models/basic.ts#L27">models/basic.ts:27</a></li></ul></aside></section></section></details></div>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/2e1e99e8754e7a0d5dc7b378ad3c15dedaabfd1a/src/models/basic.ts#L27">models/basic.ts:27</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="color"><code class="tsd-tag">Optional</code><span>color</span><a href="#color" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">color</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>Optional display color</p>
+</div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/2e1e99e8754e7a0d5dc7b378ad3c15dedaabfd1a/src/models/basic.ts#L29">models/basic.ts:29</a></li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -75,7 +83,7 @@ Could be a variable, operator, or parenthesis.</p>
 <h3>On This Page</h3></summary>
 <div class="tsd-accordion-details">
 <details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
-<div><a href="#atom"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>atom</span></a><a href="#type"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>type</span></a><a href="#position"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>position</span></a><a href="#view"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>view</span></a></div></details></div></details></div>
+<div><a href="#atom"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>atom</span></a><a href="#type"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>type</span></a><a href="#position"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>position</span></a><a href="#view"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>view</span></a><a href="#color"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>color</span></a></div></details></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="../modules.html">Chop Logic Core - v1.9.0</a>
 <ul class="tsd-small-nested-navigation" id="tsd-nav-container">
