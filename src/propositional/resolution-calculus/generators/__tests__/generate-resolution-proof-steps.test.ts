@@ -106,6 +106,52 @@ describe("generateResolutionProofSteps", () => {
 		expect(step.comment).toBe("R: 2, 1");
 	});
 
+	it("builds a single step for clauses with duplicate literals", () => {
+		expect(
+			generateResolutionProofSteps<Step.Derivation>({
+				index: 3,
+				step: Step.Derivation,
+				payload: {
+					clauses: [[p, p], [not(p)]],
+					rule: ResolutionCalculusRule.R,
+					derivedFrom: [1, 2],
+				},
+			}),
+		).toEqual([
+			{
+				index: 3,
+				step: Step.Derivation,
+				clause: [],
+				stringView: "{}",
+				comment: "R: 1, 2",
+				derivedFrom: [1, 2],
+				resolvedLiteral: p,
+			},
+		]);
+	});
+
+	it("keeps resolved literals aligned with resolvents when clauses have duplicates", () => {
+		const steps = generateResolutionProofSteps<Step.Derivation>({
+			index: 3,
+			step: Step.Derivation,
+			payload: {
+				clauses: [
+					[p, q, p],
+					[not(q), not(p), not(q)],
+				],
+				rule: ResolutionCalculusRule.R,
+				derivedFrom: [1, 2],
+			},
+		});
+
+		expect(
+			steps.map((step) => [step.index, step.stringView, step.resolvedLiteral]),
+		).toEqual([
+			[3, "{q, ¬q}", p],
+			[4, "{p, ¬p}", q],
+		]);
+	});
+
 	it("builds one step per resolvent with consecutive indexes", () => {
 		const steps = generateResolutionProofSteps<Step.Derivation>({
 			index: 5,

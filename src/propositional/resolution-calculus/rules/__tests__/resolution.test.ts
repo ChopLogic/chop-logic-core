@@ -78,6 +78,46 @@ describe("resolutionRule", () => {
 		).toEqual([[not(m), q]]);
 	});
 
+	describe("treats input clauses as sets", () => {
+		it("derives only the empty clause from {p, p} and {¬p}", () => {
+			expect(resolutionRule([[p, p], [not(p)]])).toEqual([[]]);
+			expect(resolutionRule([[not(p)], [p, p]])).toEqual([[]]);
+		});
+
+		it("merges duplicates in the second clause: {p} and {¬p, ¬p} derive only {}", () => {
+			expect(resolutionRule([[p], [not(p), not(p)]])).toEqual([[]]);
+		});
+
+		it("resolves each complementary pair once when both clauses have duplicates", () => {
+			expect(
+				resolutionRule([
+					[p, q, p],
+					[not(p), r, not(p)],
+				]),
+			).toEqual([[q, r]]);
+		});
+
+		it("keeps one resolvent per distinct pair: {p, q, p} and {¬p, ¬q}", () => {
+			expect(
+				resolutionRule([
+					[p, q, p],
+					[not(p), not(q)],
+				]),
+			).toEqual([
+				[q, not(q)],
+				[p, not(p)],
+			]);
+		});
+
+		it("does not mutate clauses with duplicate literals", () => {
+			const first = [p, p, q];
+			const second = [not(p), not(p)];
+			resolutionRule([first, second]);
+			expect(first).toEqual([p, p, q]);
+			expect(second).toEqual([not(p), not(p)]);
+		});
+	});
+
 	it("does not mutate the input clauses", () => {
 		const first = [p, q];
 		const second = [not(q), r];

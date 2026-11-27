@@ -12,7 +12,9 @@ import { isResolutionApplicable } from "../../validators/is-resolution-applicabl
  *
  * Only one complementary pair is resolved at a time. When the clauses contain several complementary
  * pairs, one resolvent is returned for each pair, in the order the pairs occur in the first clause.
- * Duplicate literals in a resolvent are merged; the order of first occurrences is preserved.
+ * Clauses are sets: duplicate literals in the input clauses and in each resolvent are merged, so
+ * every complementary pair is resolved exactly once (`{p, p}` and `{¬p}` derive only `{}`).
+ * The order of first occurrences is preserved. The input clauses are not mutated.
  *
  * @param clauses - An array of exactly two clauses.
  * @returns The list of resolvents (the empty clause `[]` means a contradiction was derived).
@@ -27,7 +29,7 @@ export function resolutionRule(clauses: PropClause[]): PropClause[] {
 		throw new Error("Resolution is not applicable to the given clauses.");
 	}
 
-	const [first, second] = clauses;
+	const [first, second] = clauses.map(normalizePropClause);
 	const resolvents: PropClause[] = [];
 
 	first.forEach((literal, i) => {

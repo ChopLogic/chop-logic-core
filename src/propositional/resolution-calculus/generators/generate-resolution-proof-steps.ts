@@ -8,6 +8,7 @@ import type {
 	ResolutionProofStepInput,
 } from "../../../models";
 import { convertPropClauseToString } from "../../converters/convert-prop-clause-to-string";
+import { normalizePropClause } from "../../converters/normalize-prop-clause";
 import { arePropLiteralsComplementary } from "../../validators/are-prop-literals-complementary";
 import { resolutionRule } from "../rules/resolution";
 
@@ -74,8 +75,11 @@ function buildBaseStep(
 
 /**
  * Returns the positive literal of every complementary pair, in the same order as the resolvents.
+ * The clauses are normalized the same way as in {@link resolutionRule}, so each pair occurs once.
  */
-function getResolvedLiterals([first, second]: PropClause[]): PropLiteral[] {
+function getResolvedLiterals(clauses: PropClause[]): PropLiteral[] {
+	const [first, second] = clauses.map(normalizePropClause);
+
 	return first.flatMap((literal) =>
 		second
 			.filter((other) => arePropLiteralsComplementary([literal, other]))
