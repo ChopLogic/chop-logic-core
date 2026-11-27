@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **Expression colorizer**: `colorizePropExpression()` sets the optional `PropSymbol.color` using configurable variable and operator colors and a cycling palette for parenthesis nesting. ([#56](https://github.com/ChopLogic/chop-logic-core/issues/56))
+
 ## [1.9.0] - 2026-10-19
 
 ### Added

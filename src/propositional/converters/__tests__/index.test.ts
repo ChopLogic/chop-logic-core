@@ -1,3 +1,4 @@
+import { colorizePropExpression } from "../colorize-prop-expression";
 import { convertPropFormulaToClauses } from "../convert-prop-formula-to-clauses";
 import { convertPropFormulaToCNF } from "../convert-prop-formula-to-cnf";
 import { convertPropFormulaToExpression } from "../convert-prop-formula-to-expression";
@@ -11,6 +12,8 @@ import { replaceAtomInFormula } from "../replace-atom-in-formula";
 
 describe("Converters index file", () => {
 	it("should have all expected functions available", () => {
+		expect(converters.colorizePropExpression).toBe(colorizePropExpression);
+
 		expect(typeof converters.convertPropFormulaToExpression).toBe("function");
 		expect(converters.convertPropFormulaToExpression).toBe(
 			convertPropFormulaToExpression,
