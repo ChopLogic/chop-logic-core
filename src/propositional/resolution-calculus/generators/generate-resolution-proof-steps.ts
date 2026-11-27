@@ -1,4 +1,4 @@
-import { Operator, ResolutionCalculusRule, Step } from "../../../enums";
+import { Operator, Step } from "../../../enums";
 import type {
 	PropClause,
 	PropLiteral,
@@ -10,7 +10,7 @@ import type {
 import { convertPropClauseToString } from "../../converters/convert-prop-clause-to-string";
 import { normalizePropClause } from "../../converters/normalize-prop-clause";
 import { arePropLiteralsComplementary } from "../../validators/are-prop-literals-complementary";
-import { resolutionRule } from "../rules/resolution";
+import { ResolutionRules } from "../rules";
 
 const BASE_STEP_COMMENTS: Partial<Record<Step, string>> = {
 	[Step.NegatedGoal]: "Negated goal",
@@ -43,7 +43,7 @@ function buildDerivedSteps(
 	payload: ResolutionDerivedPayload,
 ): ResolutionProofStep[] {
 	const { clauses, rule, derivedFrom } = payload;
-	const resolvents = getRuleFunction(rule)(clauses);
+	const resolvents = ResolutionRules[rule](clauses);
 	const resolvedLiterals = getResolvedLiterals(clauses);
 
 	return resolvents.map((clause, derivedIndex) => ({
@@ -75,7 +75,7 @@ function buildBaseStep(
 
 /**
  * Returns the positive literal of every complementary pair, in the same order as the resolvents.
- * The clauses are normalized the same way as in {@link resolutionRule}, so each pair occurs once.
+ * The clauses are normalized the same way as in the resolution rule, so each pair occurs once.
  */
 function getResolvedLiterals(clauses: PropClause[]): PropLiteral[] {
 	const [first, second] = clauses.map(normalizePropClause);
@@ -85,13 +85,4 @@ function getResolvedLiterals(clauses: PropClause[]): PropLiteral[] {
 			.filter((other) => arePropLiteralsComplementary([literal, other]))
 			.map((other) => (literal.operator === Operator.Not ? other : literal)),
 	);
-}
-
-type RuleFunction = (clauses: PropClause[]) => PropClause[];
-
-function getRuleFunction(rule: ResolutionCalculusRule): RuleFunction {
-	switch (rule) {
-		case ResolutionCalculusRule.R:
-			return resolutionRule;
-	}
 }
