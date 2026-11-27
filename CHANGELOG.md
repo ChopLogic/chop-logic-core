@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Converters**: `convertPropClauseToString()` (set notation, e.g. `{p, ¬q}`) and `normalizePropClause()` (merges duplicate literals).
 - **Enums**: `Step.NegatedGoal` and `ResolutionCalculusRule`.
 - **Types**: `ResolutionProofStep`, `ResolutionDerivedPayload`, `ResolutionBasePayload` and `ResolutionProofStepInput`.
+- **Expression colorizer**: `colorizePropExpression()` sets the optional `PropSymbol.color` using configurable variable and operator colors and a cycling palette for parenthesis nesting.
 
 ### Changed
 
