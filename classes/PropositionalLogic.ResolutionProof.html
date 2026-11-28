@@ -1,0 +1,387 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>ResolutionProof | Chop Logic Core - v1.9.0</title><meta name="description" content="Documentation for Chop Logic Core"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">Chop Logic Core - v1.9.0</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+<li><a href="../modules/PropositionalLogic.html">PropositionalLogic</a></li>
+<li><a href="" aria-current="page">ResolutionProof</a></li></ul>
+<h1>Class ResolutionProof</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>Represents a resolution proof (Robinson-style refutation) of a goal formula.</p>
+<p>A resolution proof of a goal <code>φ</code> from premises <code>Δ</code> is a derivation of the empty clause <code>{}</code>
+from the clausal form of <code>Δ ∪ {¬φ}</code>. Premises are converted to clauses with
+<a href="../functions/PropositionalLogic.convertPropFormulaToClauses.html" class="tsd-kind-function">convertPropFormulaToClauses</a>; the clauses of the negated goal are added with
+<a href="#addnegatedgoal" class="tsd-kind-method">ResolutionProof.addNegatedGoal</a>; new clauses are derived with <a href="#resolve" class="tsd-kind-method">ResolutionProof.resolve</a>.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-example">
+<h4 class="tsd-anchor-link" id="example">Example<a href="#example" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="typescript"><span class="hl-6">const</span><span class="hl-1"> </span><span class="hl-7">proof</span><span class="hl-1"> = </span><span class="hl-6">new</span><span class="hl-1"> </span><span class="hl-0">ResolutionProof</span><span class="hl-1">(</span><span class="hl-4">r</span><span class="hl-1">);</span><br/><span class="hl-4">proof</span><span class="hl-1">.</span><span class="hl-0">addPremise</span><span class="hl-1">(</span><span class="hl-4">p</span><span class="hl-1">);         </span><span class="hl-5">// 1. {p}</span><br/><span class="hl-4">proof</span><span class="hl-1">.</span><span class="hl-0">addPremise</span><span class="hl-1">(</span><span class="hl-4">pImpliesR</span><span class="hl-1">); </span><span class="hl-5">// 2. {¬p, r}</span><br/><span class="hl-4">proof</span><span class="hl-1">.</span><span class="hl-0">addNegatedGoal</span><span class="hl-1">();      </span><span class="hl-5">// 3. {¬r}</span><br/><span class="hl-4">proof</span><span class="hl-1">.</span><span class="hl-0">resolve</span><span class="hl-1">(</span><span class="hl-9">1</span><span class="hl-1">, </span><span class="hl-9">2</span><span class="hl-1">);         </span><span class="hl-5">// 4. {r}</span><br/><span class="hl-4">proof</span><span class="hl-1">.</span><span class="hl-0">resolve</span><span class="hl-1">(</span><span class="hl-9">3</span><span class="hl-1">, </span><span class="hl-9">4</span><span class="hl-1">);         </span><span class="hl-5">// 5. {}</span><br/><span class="hl-4">proof</span><span class="hl-1">.</span><span class="hl-0">isComplete</span><span class="hl-1">();          </span><span class="hl-5">// true</span>
+</code><button type="button">Copy</button></pre>
+
+</div></div></section>
+<section class="tsd-panel tsd-hierarchy" data-refl="591">
+<h4>Hierarchy (<a href="../hierarchy.html#PropositionalLogic.ResolutionProof">View Summary</a>)</h4>
+<ul class="tsd-hierarchy">
+<li class="tsd-hierarchy-item"><a href="PropositionalLogic.BaseProof.html" class="tsd-signature-type tsd-kind-class">BaseProof</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a><span class="tsd-signature-symbol">&gt;</span>
+<ul class="tsd-hierarchy">
+<li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">ResolutionProof</span></li></ul></li></ul></section><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/resolution-calculus/classes/resolution-proof.ts#L38">propositional/resolution-calculus/classes/resolution-proof.ts:38</a></li></ul></aside>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h5 class="tsd-index-heading uppercase">Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="constructors">Constructors<a href="#constructors" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#constructor" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Constructor"><use href="../assets/icons.svg#icon-512"></use></svg><span>constructor</span></a>
+</div></section>
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="methods">Methods<a href="#methods" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#getsteps" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Steps</span></a>
+<a href="#getgoal" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Goal</span></a>
+<a href="#getstepcount" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Step<wbr/>Count</span></a>
+<a href="#getstep" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Step</span></a>
+<a href="#getlaststep" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Last<wbr/>Step</span></a>
+<a href="#hasnegatedgoal" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>has<wbr/>Negated<wbr/>Goal</span></a>
+<a href="#addpremise" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>add<wbr/>Premise</span></a>
+<a href="#addpremiseclause" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>add<wbr/>Premise<wbr/>Clause</span></a>
+<a href="#addnegatedgoal" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>add<wbr/>Negated<wbr/>Goal</span></a>
+<a href="#resolve" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>resolve</span></a>
+<a href="#reiteratestep" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>reiterate<wbr/>Step</span></a>
+<a href="#hasemptyclause" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>has<wbr/>Empty<wbr/>Clause</span></a>
+<a href="#iscomplete" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>is<wbr/>Complete</span></a>
+<a href="#clear" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>clear</span></a>
+<a href="#replace" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>replace</span></a>
+</div></section></div></details></section></section>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Constructors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="constructors-1">Constructors<a href="#constructors-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="constructor"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="constructorresolutionproof"><span class="tsd-signature-keyword">new</span> <span class="tsd-kind-constructor-signature">ResolutionProof</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">goal</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/Models.PropFormula.html" class="tsd-signature-type tsd-kind-interface">PropFormula</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">ResolutionProof</a><a href="#constructorresolutionproof" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Creates a new proof with a goal formula.
+The goal is copied, so later changes to the passed object do not affect the proof.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">goal</span>: <a href="../interfaces/Models.PropFormula.html" class="tsd-signature-type tsd-kind-interface">PropFormula</a></span>
+<div class="tsd-comment tsd-typography"><p>The target formula to prove</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">ResolutionProof</a></h4><aside class="tsd-sources">
+<p>Inherited from <a href="PropositionalLogic.BaseProof.html">BaseProof</a>.<a href="PropositionalLogic.BaseProof.html#constructor">constructor</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/common/base-proof.ts#L34">propositional/common/base-proof.ts:34</a></li></ul></aside></div></li></ul></section></section></details>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member tsd-is-inherited">
+<h3 class="tsd-anchor-link" id="getsteps"><span>get<wbr/>Steps</span><a href="#getsteps" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-is-inherited">
+<li class="tsd-is-inherited">
+<div class="tsd-signature tsd-anchor-link" id="getsteps-1"><span class="tsd-kind-call-signature">getSteps</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a><span class="tsd-signature-symbol">[]</span><a href="#getsteps-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Gets all proof steps in order.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a><span class="tsd-signature-symbol">[]</span></h4><p>A frozen array of copies of the proof steps; changing them does not affect the proof</p>
+<aside class="tsd-sources">
+<p>Inherited from <a href="PropositionalLogic.BaseProof.html">BaseProof</a>.<a href="PropositionalLogic.BaseProof.html#getsteps">getSteps</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/common/base-proof.ts#L42">propositional/common/base-proof.ts:42</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member tsd-is-inherited">
+<h3 class="tsd-anchor-link" id="getgoal"><span>get<wbr/>Goal</span><a href="#getgoal" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-is-inherited">
+<li class="tsd-is-inherited">
+<div class="tsd-signature tsd-anchor-link" id="getgoal-1"><span class="tsd-kind-call-signature">getGoal</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/Models.PropFormula.html" class="tsd-signature-type tsd-kind-interface">PropFormula</a><a href="#getgoal-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Gets the goal formula of this proof.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/Models.PropFormula.html" class="tsd-signature-type tsd-kind-interface">PropFormula</a></h4><p>A copy of the target formula</p>
+<aside class="tsd-sources">
+<p>Inherited from <a href="PropositionalLogic.BaseProof.html">BaseProof</a>.<a href="PropositionalLogic.BaseProof.html#getgoal">getGoal</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/common/base-proof.ts#L50">propositional/common/base-proof.ts:50</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member tsd-is-inherited">
+<h3 class="tsd-anchor-link" id="getstepcount"><span>get<wbr/>Step<wbr/>Count</span><a href="#getstepcount" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-is-inherited">
+<li class="tsd-is-inherited">
+<div class="tsd-signature tsd-anchor-link" id="getstepcount-1"><span class="tsd-kind-call-signature">getStepCount</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><a href="#getstepcount-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Gets the number of steps in the proof.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><p>The current step count</p>
+<aside class="tsd-sources">
+<p>Inherited from <a href="PropositionalLogic.BaseProof.html">BaseProof</a>.<a href="PropositionalLogic.BaseProof.html#getstepcount">getStepCount</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/common/base-proof.ts#L58">propositional/common/base-proof.ts:58</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member tsd-is-inherited">
+<h3 class="tsd-anchor-link" id="getstep"><span>get<wbr/>Step</span><a href="#getstep" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-is-inherited">
+<li class="tsd-is-inherited">
+<div class="tsd-signature tsd-anchor-link" id="getstep-1"><span class="tsd-kind-call-signature">getStep</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">index</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#getstep-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Gets a specific step by index (1-based).</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">index</span>: <span class="tsd-signature-type">number</span></span>
+<div class="tsd-comment tsd-typography"><p>The step number (1-based)</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><p>A copy of the proof step, or undefined if not found</p>
+<aside class="tsd-sources">
+<p>Inherited from <a href="PropositionalLogic.BaseProof.html">BaseProof</a>.<a href="PropositionalLogic.BaseProof.html#getstep">getStep</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/common/base-proof.ts#L67">propositional/common/base-proof.ts:67</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member tsd-is-inherited">
+<h3 class="tsd-anchor-link" id="getlaststep"><span>get<wbr/>Last<wbr/>Step</span><a href="#getlaststep" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-is-inherited">
+<li class="tsd-is-inherited">
+<div class="tsd-signature tsd-anchor-link" id="getlaststep-1"><span class="tsd-kind-call-signature">getLastStep</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#getlaststep-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Gets the last step in the proof.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><p>A copy of the final proof step, or undefined if no steps exist</p>
+<aside class="tsd-sources">
+<p>Inherited from <a href="PropositionalLogic.BaseProof.html">BaseProof</a>.<a href="PropositionalLogic.BaseProof.html#getlaststep">getLastStep</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/common/base-proof.ts#L76">propositional/common/base-proof.ts:76</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="hasnegatedgoal"><span>has<wbr/>Negated<wbr/>Goal</span><a href="#hasnegatedgoal" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="hasnegatedgoal-1"><span class="tsd-kind-call-signature">hasNegatedGoal</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#hasnegatedgoal-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Checks whether the clauses of the negated goal have been added to the proof.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><p>True if <a href="#addnegatedgoal" class="tsd-kind-method">ResolutionProof.addNegatedGoal</a> has been called</p>
+<aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/resolution-calculus/classes/resolution-proof.ts#L45">propositional/resolution-calculus/classes/resolution-proof.ts:45</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="addpremise"><span>add<wbr/>Premise</span><a href="#addpremise" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="addpremise-1"><span class="tsd-kind-call-signature">addPremise</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">formula</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/Models.PropFormula.html" class="tsd-signature-type tsd-kind-interface">PropFormula</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">comment</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a><span class="tsd-signature-symbol">[]</span><a href="#addpremise-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Adds a premise formula to the proof. The formula is converted to clausal form and
+one premise step is added for each clause. A tautological premise adds no steps.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">formula</span>: <a href="../interfaces/Models.PropFormula.html" class="tsd-signature-type tsd-kind-interface">PropFormula</a></span>
+<div class="tsd-comment tsd-typography"><p>The premise formula</p>
+</div></li>
+<li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">comment</span>: <span class="tsd-signature-type">string</span></span>
+<div class="tsd-comment tsd-typography"><p>Optional explanation applied to every added step</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a><span class="tsd-signature-symbol">[]</span></h4><p>The added proof steps</p>
+<aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/resolution-calculus/classes/resolution-proof.ts#L56">propositional/resolution-calculus/classes/resolution-proof.ts:56</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="addpremiseclause"><span>add<wbr/>Premise<wbr/>Clause</span><a href="#addpremiseclause" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="addpremiseclause-1"><span class="tsd-kind-call-signature">addPremiseClause</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">clause</span><span class="tsd-signature-symbol">:</span> <a href="../types/Models.PropClause.html" class="tsd-signature-type tsd-kind-type-alias">PropClause</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">comment</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a><a href="#addpremiseclause-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Adds a premise given directly as a clause. Duplicate literals are merged.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">clause</span>: <a href="../types/Models.PropClause.html" class="tsd-signature-type tsd-kind-type-alias">PropClause</a></span>
+<div class="tsd-comment tsd-typography"><p>The premise clause (a list of literals <code>p</code> or <code>¬p</code>)</p>
+</div></li>
+<li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">comment</span>: <span class="tsd-signature-type">string</span></span>
+<div class="tsd-comment tsd-typography"><p>Optional explanation for the premise</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a></h4><p>The added proof step</p>
+
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-throws">
+<h4 class="tsd-anchor-link" id="throws">Throws<a href="#throws" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>if the clause contains anything other than literals</p>
+</div></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/resolution-calculus/classes/resolution-proof.ts#L71">propositional/resolution-calculus/classes/resolution-proof.ts:71</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="addnegatedgoal"><span>add<wbr/>Negated<wbr/>Goal</span><a href="#addnegatedgoal" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="addnegatedgoal-1"><span class="tsd-kind-call-signature">addNegatedGoal</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">comment</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a><span class="tsd-signature-symbol">[]</span><a href="#addnegatedgoal-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Adds the clauses of the negated goal (<code>¬φ</code>) to the proof as negated goal steps.
+Can only be called once per proof.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">comment</span>: <span class="tsd-signature-type">string</span></span>
+<div class="tsd-comment tsd-typography"><p>Optional explanation applied to every added step</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a><span class="tsd-signature-symbol">[]</span></h4><p>The added proof steps</p>
+
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-throws">
+<h4 class="tsd-anchor-link" id="throws-1">Throws<a href="#throws-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>if the negated goal has already been added</p>
+</div></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/resolution-calculus/classes/resolution-proof.ts#L92">propositional/resolution-calculus/classes/resolution-proof.ts:92</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="resolve"><span>resolve</span><a href="#resolve" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="resolve-1"><span class="tsd-kind-call-signature">resolve</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">firstIndex</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">secondIndex</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">comment</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a><span class="tsd-signature-symbol">[]</span><a href="#resolve-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Resolves the clauses of two earlier steps using the Resolution Principle.
+If the clauses contain several complementary pairs, one step is added for each resolvent.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">firstIndex</span>: <span class="tsd-signature-type">number</span></span>
+<div class="tsd-comment tsd-typography"><p>The index of the first step (1-based)</p>
+</div></li>
+<li><span><span class="tsd-kind-parameter">secondIndex</span>: <span class="tsd-signature-type">number</span></span>
+<div class="tsd-comment tsd-typography"><p>The index of the second step (1-based)</p>
+</div></li>
+<li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">comment</span>: <span class="tsd-signature-type">string</span></span>
+<div class="tsd-comment tsd-typography"><p>Optional explanation applied to every added step</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a><span class="tsd-signature-symbol">[]</span></h4><p>The added proof steps</p>
+
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-throws">
+<h4 class="tsd-anchor-link" id="throws-2">Throws<a href="#throws-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>if a step index is invalid or resolution is not applicable</p>
+</div></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/resolution-calculus/classes/resolution-proof.ts#L115">propositional/resolution-calculus/classes/resolution-proof.ts:115</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="reiteratestep"><span>reiterate<wbr/>Step</span><a href="#reiteratestep" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="reiteratestep-1"><span class="tsd-kind-call-signature">reiterateStep</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">fromIndex</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">comment</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a><a href="#reiteratestep-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Reiterates (repeats) the clause of a previous step.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">fromIndex</span>: <span class="tsd-signature-type">number</span></span>
+<div class="tsd-comment tsd-typography"><p>The index of the step to reiterate (1-based)</p>
+</div></li>
+<li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">comment</span>: <span class="tsd-signature-type">string</span></span>
+<div class="tsd-comment tsd-typography"><p>Optional explanation for the reiteration</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/Models.ResolutionProofStep.html" class="tsd-signature-type tsd-kind-interface">ResolutionProofStep</a></h4><p>The added reiteration step</p>
+
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-throws">
+<h4 class="tsd-anchor-link" id="throws-3">Throws<a href="#throws-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>if the step index is invalid</p>
+</div></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/resolution-calculus/classes/resolution-proof.ts#L143">propositional/resolution-calculus/classes/resolution-proof.ts:143</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="hasemptyclause"><span>has<wbr/>Empty<wbr/>Clause</span><a href="#hasemptyclause" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="hasemptyclause-1"><span class="tsd-kind-call-signature">hasEmptyClause</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#hasemptyclause-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Checks whether any step of the proof contains the empty clause.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><p>True if the empty clause is present</p>
+<aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/resolution-calculus/classes/resolution-proof.ts#L162">propositional/resolution-calculus/classes/resolution-proof.ts:162</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="iscomplete"><span>is<wbr/>Complete</span><a href="#iscomplete" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="iscomplete-1"><span class="tsd-kind-call-signature">isComplete</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#iscomplete-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Checks if the proof is complete: the negated goal has been added and the empty clause
+has been reached, i.e. <code>Δ ∪ {¬φ}</code> is shown to be unsatisfiable.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><p>True if the proof is complete</p>
+<aside class="tsd-sources">
+<p>Overrides <a href="PropositionalLogic.BaseProof.html">BaseProof</a>.<a href="PropositionalLogic.BaseProof.html#iscomplete">isComplete</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/resolution-calculus/classes/resolution-proof.ts#L171">propositional/resolution-calculus/classes/resolution-proof.ts:171</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="clear"><span>clear</span><a href="#clear" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="clear-1"><span class="tsd-kind-call-signature">clear</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#clear-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Clears all steps from the proof, including the negated goal.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Overrides <a href="PropositionalLogic.BaseProof.html">BaseProof</a>.<a href="PropositionalLogic.BaseProof.html#clear">clear</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/resolution-calculus/classes/resolution-proof.ts#L178">propositional/resolution-calculus/classes/resolution-proof.ts:178</a></li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="replace"><span>replace</span><a href="#replace" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="replace-1"><span class="tsd-kind-call-signature">replace</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">atom</span><span class="tsd-signature-symbol">:</span> <a href="../types/Models.PropAtom.html" class="tsd-signature-type tsd-kind-type-alias">PropAtom</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">substitute</span><span class="tsd-signature-symbol">:</span> <a href="../types/Models.PropAtom.html" class="tsd-signature-type tsd-kind-type-alias">PropAtom</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#replace-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Renames a variable throughout the proof: in the goal formula and in every clause.
+Literals that become equal are merged.</p>
+<p>The goal is renamed together with the clauses, so the negated goal steps always stay the
+negation of the goal. The renamed proof is then a proof of the renamed goal from the
+renamed premises.</p>
+<p>Merging literals can change which complementary pairs a clause contains, so after renaming
+every derived step is checked again. If a derived clause would no longer be a resolvent of
+the steps it was derived from, the replacement is rejected and the proof is left unchanged.</p>
+<p>Only atom-for-atom substitution is supported, since substituting a composite formula
+would break the clausal form.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">atom</span>: <a href="../types/Models.PropAtom.html" class="tsd-signature-type tsd-kind-type-alias">PropAtom</a></span>
+<div class="tsd-comment tsd-typography"><p>The atomic proposition to replace</p>
+</div></li>
+<li><span><span class="tsd-kind-parameter">substitute</span>: <a href="../types/Models.PropAtom.html" class="tsd-signature-type tsd-kind-type-alias">PropAtom</a></span>
+<div class="tsd-comment tsd-typography"><p>The atomic proposition to substitute</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-throws">
+<h4 class="tsd-anchor-link" id="throws-4">Throws<a href="#throws-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>if a derived step would no longer follow from its parent steps by resolution</p>
+</div></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ChopLogic/chop-logic-core/blob/fe45e8a20cc8f6055bfa9c05f7364326601704df/src/propositional/resolution-calculus/classes/resolution-proof.ts#L202">propositional/resolution-calculus/classes/resolution-proof.ts:202</a></li></ul></aside></div></li></ul></section></section></details></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Constructors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Constructors</summary>
+<div><a href="#constructor"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Constructor"><use href="../assets/icons.svg#icon-512"></use></svg><span>constructor</span></a></div></details>
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Methods</summary>
+<div><a href="#getsteps" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Steps</span></a><a href="#getgoal" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Goal</span></a><a href="#getstepcount" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Step<wbr/>Count</span></a><a href="#getstep" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Step</span></a><a href="#getlaststep" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Last<wbr/>Step</span></a><a href="#hasnegatedgoal"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>has<wbr/>Negated<wbr/>Goal</span></a><a href="#addpremise"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>add<wbr/>Premise</span></a><a href="#addpremiseclause"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>add<wbr/>Premise<wbr/>Clause</span></a><a href="#addnegatedgoal"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>add<wbr/>Negated<wbr/>Goal</span></a><a href="#resolve"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>resolve</span></a><a href="#reiteratestep"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>reiterate<wbr/>Step</span></a><a href="#hasemptyclause"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>has<wbr/>Empty<wbr/>Clause</span></a><a href="#iscomplete"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>is<wbr/>Complete</span></a><a href="#clear"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>clear</span></a><a href="#replace"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>replace</span></a></div></details></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../modules.html">Chop Logic Core - v1.9.0</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>
