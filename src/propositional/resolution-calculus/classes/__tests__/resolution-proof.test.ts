@@ -421,6 +421,33 @@ describe("ResolutionProof", () => {
 				"{p, ¬p}",
 			]);
 		});
+
+		it("rejects a renaming when a derived step refers to a missing parent step", () => {
+			// The public API cannot create such a step, so a subclass stores one directly.
+			class CorruptedResolutionProof extends ResolutionProof {
+				addDanglingDerivedStep(): void {
+					this.steps.push({
+						index: this.steps.length + 1,
+						step: Step.Derivation,
+						clause: [q],
+						stringView: "{q}",
+						comment: "",
+						derivedFrom: [1, 5],
+						resolvedLiteral: p,
+					});
+				}
+			}
+
+			const proof = new CorruptedResolutionProof(r);
+			proof.addPremiseClause([p, q]);
+			proof.addDanglingDerivedStep();
+
+			expect(() => proof.replace(["q"], ["s"])).toThrow(
+				"Cannot replace: step 2 would no longer be a resolvent of steps 1, 5.",
+			);
+			expect(views(proof)).toEqual(["{p, q}", "{q}"]);
+			expect(proof.getGoal()).toEqual(r);
+		});
 	});
 
 	describe("defensive copies", () => {
