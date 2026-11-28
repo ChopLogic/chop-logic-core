@@ -24,6 +24,28 @@ describe("Propositional Logic Module (index.ts)", () => {
 		});
 	});
 
+	describe("Common exports", () => {
+		it("should have BaseProof class", () => {
+			expect(typeof propositionalLogic.BaseProof).toBe("function");
+		});
+
+		it("should have proof classes extending BaseProof", () => {
+			const goal = propositionalLogic.createPropFormula(
+				propositionalLogic.createPropExpression("A"),
+			);
+
+			expect(new propositionalLogic.HilbertProof(goal)).toBeInstanceOf(
+				propositionalLogic.BaseProof,
+			);
+			expect(new propositionalLogic.NaturalProof(goal)).toBeInstanceOf(
+				propositionalLogic.BaseProof,
+			);
+			expect(new propositionalLogic.ResolutionProof(goal)).toBeInstanceOf(
+				propositionalLogic.BaseProof,
+			);
+		});
+	});
+
 	describe("Converters exports", () => {
 		it("should expose colorizePropExpression from both public entry points", () => {
 			expect(typeof propositionalLogic.colorizePropExpression).toBe("function");

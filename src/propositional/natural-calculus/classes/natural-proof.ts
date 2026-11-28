@@ -5,11 +5,8 @@ import type {
 	PropFormula,
 	PropProofStep,
 } from "../../../models";
-import {
-	convertPropFormulaToExpression,
-	convertPropFormulaToString,
-	replaceAtomInFormula,
-} from "../../converters";
+import { BaseProof } from "../../common/base-proof";
+import { replaceAtomInProofStep } from "../../common/replace-atom-in-proof-step";
 import { arePropFormulasStructurallyEqual } from "../../validators";
 import { generateNaturalProofSteps } from "../generators/generate-natural-proof-steps";
 
@@ -21,53 +18,8 @@ import { generateNaturalProofSteps } from "../generators/generate-natural-proof-
  *
  * @category Natural Calculus
  */
-export class NaturalProof {
-	private steps: PropProofStep[] = [];
-	private readonly goal: PropFormula;
+export class NaturalProof extends BaseProof<PropProofStep> {
 	private currentLevel: number = 0;
-
-	/**
-	 * Creates a new Natural Deduction proof with a goal formula.
-	 * The goal is copied, so later changes to the passed object do not affect the proof.
-	 * @param goal - The target formula to prove
-	 */
-	constructor(goal: PropFormula) {
-		this.goal = structuredClone(goal);
-	}
-
-	/**
-	 * Gets all proof steps in order.
-	 * @returns A frozen array of copies of the proof steps; changing them does not affect the proof
-	 */
-	getSteps(): readonly PropProofStep[] {
-		return Object.freeze(this.steps.map((step) => structuredClone(step)));
-	}
-
-	/**
-	 * Gets the goal formula of this proof.
-	 * @returns A copy of the target formula
-	 */
-	getGoal(): PropFormula {
-		return structuredClone(this.goal);
-	}
-
-	/**
-	 * Gets the number of steps in the proof.
-	 * @returns The current step count
-	 */
-	getStepCount(): number {
-		return this.steps.length;
-	}
-
-	/**
-	 * Gets a specific step by index (1-based).
-	 * @param index - The step number (1-based)
-	 * @returns A copy of the proof step, or undefined if not found
-	 */
-	getStep(index: number): PropProofStep | undefined {
-		const step = this.steps[index - 1];
-		return step && structuredClone(step);
-	}
 
 	/**
 	 * Gets the current nesting level for sub-proofs.
@@ -91,12 +43,7 @@ export class NaturalProof {
 			payload: { formula },
 		});
 
-		const step = steps[0];
-		if (comment) {
-			step.comment = comment;
-		}
-
-		return this.pushStep(step);
+		return this.pushSteps(steps, comment)[0];
 	}
 
 	/**
@@ -116,12 +63,7 @@ export class NaturalProof {
 			payload: { formula },
 		});
 
-		const step = steps[0];
-		if (comment) {
-			step.comment = comment;
-		}
-
-		const added = this.pushStep(step);
+		const [added] = this.pushSteps(steps, comment);
 		this.currentLevel = nextLevel;
 		return added;
 	}
@@ -144,12 +86,7 @@ export class NaturalProof {
 			payload,
 		});
 
-		return newSteps.map((step) => {
-			if (comment) {
-				step.comment = comment;
-			}
-			return this.pushStep(step);
-		});
+		return this.pushSteps(newSteps, comment);
 	}
 
 	/**
@@ -161,12 +98,7 @@ export class NaturalProof {
 	 * @throws {Error} if the step index is invalid
 	 */
 	reiterateStep(fromIndex: number, comment?: string): PropProofStep {
-		const sourceStep = this.steps[fromIndex - 1];
-
-		if (!sourceStep) {
-			throw new Error(`Cannot reiterate: step ${fromIndex} not found in proof`);
-		}
-
+		const sourceStep = this.getStoredStep(fromIndex, "reiterate");
 		const sourceLevel = sourceStep.level ?? 0;
 
 		if (sourceLevel >= this.currentLevel) {
@@ -188,7 +120,7 @@ export class NaturalProof {
 			comment: comment || `Reiteration: ${fromIndex}`,
 		};
 
-		return this.pushStep(step);
+		return this.pushSteps([step])[0];
 	}
 
 	/**
@@ -250,23 +182,9 @@ export class NaturalProof {
 			},
 		});
 
-		const newStep = newSteps[0];
-		if (comment) {
-			newStep.comment = comment;
-		}
-
-		const added = this.pushStep(newStep);
+		const [added] = this.pushSteps(newSteps, comment);
 		this.currentLevel -= 1;
 		return added;
-	}
-
-	/**
-	 * Gets the last step in the proof.
-	 * @returns The final proof step, or undefined if no steps exist
-	 */
-	getLastStep(): PropProofStep | undefined {
-		const step = this.steps.at(-1);
-		return step && structuredClone(step);
 	}
 
 	/**
@@ -276,8 +194,8 @@ export class NaturalProof {
 	 * 2. All sub-proofs are closed (current level is 0)
 	 * @returns True if the proof is complete
 	 */
-	isComplete(): boolean {
-		const lastStep = this.getLastStep();
+	override isComplete(): boolean {
+		const lastStep = this.steps.at(-1);
 
 		if (!lastStep) {
 			return false;
@@ -294,8 +212,8 @@ export class NaturalProof {
 	/**
 	 * Clears all steps from the proof and resets the level to 0.
 	 */
-	clear(): void {
-		this.steps = [];
+	override clear(): void {
+		super.clear();
 		this.currentLevel = 0;
 	}
 
@@ -307,27 +225,8 @@ export class NaturalProof {
 	 * @param substitute - The formula or atom to substitute
 	 */
 	replace(atom: PropAtom, substitute: PropFormula | PropAtom): void {
-		this.steps.forEach((step) => {
-			const newFormula = replaceAtomInFormula({
-				formula: step.formula,
-				atom,
-				substitute,
-			});
-
-			// Update the formula and regenerate expression and stringView
-			step.formula = newFormula;
-			step.expression = convertPropFormulaToExpression(newFormula);
-			step.stringView = convertPropFormulaToString(newFormula);
-		});
-	}
-
-	/**
-	 * Stores a copy of the step (detaching it from caller-provided data) and returns
-	 * another copy, so neither inputs nor return values share state with the proof.
-	 */
-	private pushStep(step: PropProofStep): PropProofStep {
-		const stored = structuredClone(step);
-		this.steps.push(stored);
-		return structuredClone(stored);
+		this.steps = this.steps.map((step) =>
+			replaceAtomInProofStep(step, atom, substitute),
+		);
 	}
 }

@@ -11,26 +11,35 @@ import type { PropClause, PropFormula, PropLiteral } from "./formula";
 // ============== Proof System Types ==============
 
 /**
+ * Minimal shape shared by the steps of every proof system.
+ * Extended by {@link PropProofStep} and {@link ResolutionProofStep}.
+ *
+ * @category Proof System Types
+ */
+export interface BaseProofStep {
+	/** Sequential number of the step in the proof (1-based) */
+	index: number;
+	/** Type of the proof step */
+	step: Step;
+	/** Explanation or justification */
+	comment: string;
+	/** References to steps this was derived from */
+	derivedFrom?: number[];
+}
+
+/**
  * Represents a single step in a logical proof.
  * Contains all information needed to display and validate the step.
  *
  * @category Proof System Types
  */
-export interface PropProofStep {
-	/** Sequential number of the step in the proof */
-	index: number;
-	/** Type of the proof step */
-	step: Step;
+export interface PropProofStep extends BaseProofStep {
 	/** Logical formula for this step */
 	formula: PropFormula;
 	/** Symbolic expression of the formula */
 	expression: PropExpression;
 	/** String representation for display */
 	stringView: string;
-	/** Explanation or justification */
-	comment: string;
-	/** References to steps this was derived from */
-	derivedFrom?: number[];
 	/** Nesting level for sub-proofs */
 	level?: number;
 	/** Reference to the assumption this step depends on */
@@ -148,13 +157,12 @@ export interface NaturalProofStepInput<T> {
  *
  * @category Proof System Types
  */
-export interface ResolutionProofStep {
-	index: number;
-	step: Step;
+export interface ResolutionProofStep extends BaseProofStep {
+	/** Clause of this step (a set of literals interpreted as their disjunction) */
 	clause: PropClause;
+	/** String representation of the clause in set notation, e.g. `{p, ¬q}` */
 	stringView: string;
-	comment: string;
-	derivedFrom?: number[];
+	/** Literal resolved upon, for derived steps */
 	resolvedLiteral?: PropLiteral;
 }
 

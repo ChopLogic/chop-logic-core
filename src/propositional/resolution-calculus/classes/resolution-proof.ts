@@ -5,6 +5,7 @@ import type {
 	PropFormula,
 	ResolutionProofStep,
 } from "../../../models";
+import { BaseProof } from "../../common/base-proof";
 import { convertPropClauseToString } from "../../converters/convert-prop-clause-to-string";
 import { convertPropFormulaToClauses } from "../../converters/convert-prop-formula-to-clauses";
 import { normalizePropClause } from "../../converters/normalize-prop-clause";
@@ -34,62 +35,8 @@ import { generateResolutionProofSteps } from "../generators/generate-resolution-
  *
  * @category Resolution Calculus
  */
-export class ResolutionProof {
-	private steps: ResolutionProofStep[] = [];
-	private goal: PropFormula;
+export class ResolutionProof extends BaseProof<ResolutionProofStep> {
 	private negatedGoalAdded = false;
-
-	/**
-	 * Creates a new resolution proof with a goal formula.
-	 * The goal is copied, so later changes to the passed object do not affect the proof.
-	 * @param goal - The target formula to prove
-	 */
-	constructor(goal: PropFormula) {
-		this.goal = structuredClone(goal);
-	}
-
-	/**
-	 * Gets all proof steps in order.
-	 * @returns A frozen array of copies of the proof steps; changing them does not affect the proof
-	 */
-	getSteps(): readonly ResolutionProofStep[] {
-		return Object.freeze(this.steps.map((step) => structuredClone(step)));
-	}
-
-	/**
-	 * Gets the goal formula of this proof.
-	 * @returns A copy of the target formula
-	 */
-	getGoal(): PropFormula {
-		return structuredClone(this.goal);
-	}
-
-	/**
-	 * Gets the number of steps in the proof.
-	 * @returns The current step count
-	 */
-	getStepCount(): number {
-		return this.steps.length;
-	}
-
-	/**
-	 * Gets a specific step by index (1-based).
-	 * @param index - The step number (1-based)
-	 * @returns A copy of the proof step, or undefined if not found
-	 */
-	getStep(index: number): ResolutionProofStep | undefined {
-		const step = this.steps[index - 1];
-		return step && structuredClone(step);
-	}
-
-	/**
-	 * Gets the last step in the proof.
-	 * @returns The final proof step, or undefined if no steps exist
-	 */
-	getLastStep(): ResolutionProofStep | undefined {
-		const step = this.steps.at(-1);
-		return step && structuredClone(step);
-	}
 
 	/**
 	 * Checks whether the clauses of the negated goal have been added to the proof.
@@ -221,15 +168,15 @@ export class ResolutionProof {
 	 * has been reached, i.e. `Δ ∪ {¬φ}` is shown to be unsatisfiable.
 	 * @returns True if the proof is complete
 	 */
-	isComplete(): boolean {
+	override isComplete(): boolean {
 		return this.negatedGoalAdded && this.hasEmptyClause();
 	}
 
 	/**
 	 * Clears all steps from the proof, including the negated goal.
 	 */
-	clear(): void {
-		this.steps = [];
+	override clear(): void {
+		super.clear();
 		this.negatedGoalAdded = false;
 	}
 
@@ -272,19 +219,6 @@ export class ResolutionProof {
 		this.goal = replaceAtomInFormula({ formula: this.goal, atom, substitute });
 	}
 
-	/**
-	 * Returns the stored (internal) step, not a copy. Must not be exposed to callers.
-	 */
-	private getStoredStep(index: number, action: string): ResolutionProofStep {
-		const step = this.steps[index - 1];
-
-		if (!step) {
-			throw new Error(`Cannot ${action}: step ${index} not found in proof`);
-		}
-
-		return step;
-	}
-
 	private addBaseSteps(
 		step: Step.Premise | Step.NegatedGoal,
 		clauses: PropClause[],
@@ -299,24 +233,6 @@ export class ResolutionProof {
 		);
 
 		return this.pushSteps(newSteps, comment);
-	}
-
-	/**
-	 * Stores copies of the new steps (detaching them from caller-provided data) and
-	 * returns separate copies, so neither inputs nor return values share state with the proof.
-	 */
-	private pushSteps(
-		newSteps: ResolutionProofStep[],
-		comment?: string,
-	): ResolutionProofStep[] {
-		return newSteps.map((step) => {
-			if (comment) {
-				step.comment = comment;
-			}
-			const stored = structuredClone(step);
-			this.steps.push(stored);
-			return structuredClone(stored);
-		});
 	}
 }
 
