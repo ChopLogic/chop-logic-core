@@ -15,7 +15,7 @@ describe("buildNaturalProof function", () => {
 			.build();
 
 		expect(proof.getStepCount()).toBeGreaterThanOrEqual(3);
-		expect(proof.getGoal()).toBe(implicationAB);
+		expect(proof.getGoal()).toStrictEqual(implicationAB);
 		expect(proof.getCurrentLevel()).toBe(0);
 	});
 

@@ -7,13 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [1.10.0] - 2026-11-28
 
 ### Added
 
-- **Expression colorizer**: `colorizePropExpression()` sets the optional `PropSymbol.color` using configurable variable and operator colors and a cycling palette for parenthesis nesting. ([#56](https://github.com/ChopLogic/chop-logic-core/issues/56))
+- **Resolution Calculus** (Robinson-style refutation proofs): a proof of `φ` from `Δ` is a derivation of the empty clause `{}` from the clausal form of `Δ ∪ {¬φ}`.
+  - `ResolutionProof` class: `addPremise()` (converts a formula with `convertPropFormulaToClauses()`, one step per clause), `addPremiseClause()`, `addNegatedGoal()`, `resolve()` (adds one step per resolvent when several complementary pairs exist), `reiterateStep()`, `replace()`, `clear()`, `hasNegatedGoal()`, `hasEmptyClause()` and `isComplete()`.
+    - `replace()` renames an atom (atom-for-atom only) in the goal and in every clause, so the negated goal steps always stay the negation of the goal. Every derived step is then checked again with `isPropResolvent()`; if a renaming would turn a step into something that is no longer a resolvent of its parent steps (e.g. by merging literals), it throws and leaves the proof unchanged.
+    - The goal and all steps are copied on input and output: the constructor, `getGoal()`, `getSteps()`, `getStep()`, `getLastStep()` and the step-adding methods never share objects with the proof's internal state, so mutating them cannot corrupt the proof.
+  - `ResolutionProofBuilder` class, `buildResolutionProof()`, `composeResolutionProof()` and `generateResolutionProofSteps()`.
+  - `ResolutionRules` namespace with the `R` rule (`resolutionRule()`). Input clauses are treated as sets: duplicate literals are merged before resolving, so each complementary pair is resolved once (`{p, p}` and `{¬p}` derive only `{}`).
+- **Validators**: `isPropClause()`, `arePropLiteralsComplementary()`, `isResolutionApplicable()`, `arePropClausesEqual()` (compares clauses as sets of literals) and `isPropResolvent()` (checks that a clause is a resolvent of two clauses, optionally on a given literal).
+- **Converters**: `convertPropClauseToString()` (set notation, e.g. `{p, ¬q}`) and `normalizePropClause()` (merges duplicate literals).
+- **Enums**: `Step.NegatedGoal` and `ResolutionCalculusRule`.
+- **Types**: `ResolutionProofStep`, `ResolutionDerivedPayload`, `ResolutionBasePayload` and `ResolutionProofStepInput`.
+- **`BaseProof`** abstract class (new `Common` category): shared base of `HilbertProof`, `NaturalProof` and `ResolutionProof` with the goal, the step list and the accessors `getGoal()`, `getSteps()`, `getStep()`, `getStepCount()`, `getLastStep()`, `clear()` and the abstract `isComplete()`. Also adds the `BaseProofStep` type, which `PropProofStep` and `ResolutionProofStep` now extend.
+- **Expression colorizer**: `colorizePropExpression()` sets the optional `PropSymbol.color` using configurable variable and operator colors and a cycling palette for parenthesis nesting.
 
-## [1.9.0] - 2026-10-19
+### Changed
+
+- **Defensive copies in `HilbertProof` and `NaturalProof`**: the constructor and every step-adding method store copies of their inputs, and `getGoal()`, `getSteps()`, `getStep()`, `getLastStep()` and the step-adding methods return copies. Mutating a passed-in formula or a returned step/goal no longer changes the proof (previously it could, e.g., make `isComplete()` report a proof that was never derived). Returned objects are now equal to, but no longer identical (`===`) with, the stored ones.
+- **Proof classes refactored**: `HilbertProof`, `NaturalProof` and `ResolutionProof` now extend `BaseProof`, which removes duplicated code; their public API and behaviour are unchanged. `HilbertProof.replace()` and `NaturalProof.replace()` share an internal helper.
+
+### Fixed
+
+- **`isPropLiteral()`** now validates the full shape of a literal: a variable must hold exactly one string atom (checked with `isPropAtom()`), and a negation exactly one such variable. Malformed variables (e.g. `values: []`) are rejected, and `null`/`undefined` formulas or operands return `false` instead of throwing. The new clause validators build on it, so a malformed variable and its negation are never treated as a complementary pair.
+
+## [1.9.0] - 2026-11-19
 
 ### Added
 

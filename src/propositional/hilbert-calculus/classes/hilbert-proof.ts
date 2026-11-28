@@ -6,11 +6,8 @@ import type {
 	PropFormula,
 	PropProofStep,
 } from "../../../models";
-import {
-	convertPropFormulaToExpression,
-	convertPropFormulaToString,
-	replaceAtomInFormula,
-} from "../../converters";
+import { BaseProof } from "../../common/base-proof";
+import { replaceAtomInProofStep } from "../../common/replace-atom-in-proof-step";
 import { arePropFormulasStructurallyEqual } from "../../validators";
 import { generateHilbertProofSteps } from "../generators/generate-hilbert-proof-steps";
 
@@ -21,51 +18,7 @@ import { generateHilbertProofSteps } from "../generators/generate-hilbert-proof-
  *
  * @category Hilbert Calculus
  */
-export class HilbertProof {
-	private steps: PropProofStep[] = [];
-	private readonly goal: PropFormula;
-
-	/**
-	 * Creates a new Hilbert proof with a goal formula.
-	 * @param goal - The target formula to prove
-	 */
-	constructor(goal: PropFormula) {
-		this.goal = goal;
-	}
-
-	/**
-	 * Gets all proof steps in order.
-	 * @returns Array of proof steps
-	 */
-	getSteps(): readonly PropProofStep[] {
-		return Object.freeze([...this.steps]);
-	}
-
-	/**
-	 * Gets the goal formula of this proof.
-	 * @returns The target formula
-	 */
-	getGoal(): PropFormula {
-		return this.goal;
-	}
-
-	/**
-	 * Gets the number of steps in the proof.
-	 * @returns The current step count
-	 */
-	getStepCount(): number {
-		return this.steps.length;
-	}
-
-	/**
-	 * Gets a specific step by index (1-based).
-	 * @param index - The step number (1-based)
-	 * @returns The proof step, or undefined if not found
-	 */
-	getStep(index: number): PropProofStep | undefined {
-		return this.steps[index - 1];
-	}
-
+export class HilbertProof extends BaseProof<PropProofStep> {
 	/**
 	 * Adds a premise (given assumption) to the proof.
 	 * @param formula - The premise formula
@@ -79,13 +32,7 @@ export class HilbertProof {
 			payload: { formula },
 		});
 
-		const step = steps[0];
-		if (comment) {
-			step.comment = comment;
-		}
-
-		this.steps.push(step);
-		return step;
+		return this.pushSteps(steps, comment)[0];
 	}
 
 	/**
@@ -101,20 +48,14 @@ export class HilbertProof {
 			payload,
 		});
 
-		const step = steps[0];
-		if (comment) {
-			step.comment = comment;
-		}
-
-		this.steps.push(step);
-		return step;
+		return this.pushSteps(steps, comment)[0];
 	}
 
 	/**
 	 * Adds a derived step to the proof using a Hilbert calculus rule.
 	 * @param payload - The derived step payload containing formulas, schema, and step references
 	 * @param comment - Optional explanation for the derivation
-	 * @returns The added proof step
+	 * @returns The added proof steps
 	 */
 	addDerivedStep(
 		payload: HilbertDerivedPayload,
@@ -126,22 +67,16 @@ export class HilbertProof {
 			payload,
 		});
 
-		newSteps.forEach((step) => {
-			if (comment) {
-				step.comment = comment;
-			}
-			this.steps.push(step);
-		});
-
-		return newSteps;
+		return this.pushSteps(newSteps, comment);
 	}
 
 	/**
 	 * Checks if the proof is complete (last step matches the goal).
+	 * A proof consisting only of premises is not complete.
 	 * @returns True if the last step's formula matches the goal
 	 */
-	isComplete(): boolean {
-		const lastStep = this.getLastStep();
+	override isComplete(): boolean {
+		const lastStep = this.steps.at(-1);
 
 		if (!lastStep) {
 			return false;
@@ -155,14 +90,6 @@ export class HilbertProof {
 	}
 
 	/**
-	 * Gets the last step in the proof (which should be the goal).
-	 * @returns The final proof step, or undefined if no steps exist
-	 */
-	getLastStep(): PropProofStep | undefined {
-		return this.steps.at(-1);
-	}
-
-	/**
 	 * Reiterates (repeats) a previously proved step.
 	 * Allows referring to a formula from an earlier step in the proof.
 	 * @param fromIndex - The index of the step to reiterate (1-based)
@@ -171,37 +98,18 @@ export class HilbertProof {
 	 * @throws {Error} if the step index is invalid
 	 */
 	reiterateStep(fromIndex: number, comment?: string): PropProofStep {
-		const sourceStep = this.getStep(fromIndex);
+		const sourceStep = this.getStoredStep(fromIndex, "reiterate");
 
-		if (!sourceStep) {
-			throw new Error(`Cannot reiterate: step ${fromIndex} not found in proof`);
-		}
-
-		// Create a reiteration step with the same formula
-		const steps = generateHilbertProofSteps<Step.Reiteration>({
+		const [step] = generateHilbertProofSteps<Step.Reiteration>({
 			index: this.steps.length + 1,
 			step: Step.Reiteration,
 			payload: { formula: sourceStep.formula },
 		});
 
-		const step = steps[0];
-		if (comment) {
-			step.comment = comment;
-		} else {
-			step.comment = `Reiteration: ${fromIndex}`;
-		}
-
+		step.comment = comment || `Reiteration: ${fromIndex}`;
 		step.derivedFrom = [fromIndex];
 
-		this.steps.push(step);
-		return step;
-	}
-
-	/**
-	 * Clears all steps from the proof.
-	 */
-	clear(): void {
-		this.steps = [];
+		return this.pushSteps([step])[0];
 	}
 
 	/**
@@ -212,17 +120,8 @@ export class HilbertProof {
 	 * @param substitute - The formula or atom to substitute
 	 */
 	replace(atom: PropAtom, substitute: PropFormula | PropAtom): void {
-		this.steps.forEach((step) => {
-			const newFormula = replaceAtomInFormula({
-				formula: step.formula,
-				atom,
-				substitute,
-			});
-
-			// Update the formula and regenerate expression and stringView
-			step.formula = newFormula;
-			step.expression = convertPropFormulaToExpression(newFormula);
-			step.stringView = convertPropFormulaToString(newFormula);
-		});
+		this.steps = this.steps.map((step) =>
+			replaceAtomInProofStep(step, atom, substitute),
+		);
 	}
 }

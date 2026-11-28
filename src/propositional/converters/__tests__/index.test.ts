@@ -1,4 +1,5 @@
 import { colorizePropExpression } from "../colorize-prop-expression";
+import { convertPropClauseToString } from "../convert-prop-clause-to-string";
 import { convertPropFormulaToClauses } from "../convert-prop-formula-to-clauses";
 import { convertPropFormulaToCNF } from "../convert-prop-formula-to-cnf";
 import { convertPropFormulaToExpression } from "../convert-prop-formula-to-expression";
@@ -8,6 +9,7 @@ import { eliminatePropImplications } from "../eliminate-prop-implications";
 import { extractPropSubFormulas } from "../extract-prop-sub-formulas";
 import { extractPropVariables } from "../extract-prop-variables";
 import * as converters from "../index";
+import { normalizePropClause } from "../normalize-prop-clause";
 import { replaceAtomInFormula } from "../replace-atom-in-formula";
 
 describe("Converters index file", () => {
@@ -48,5 +50,12 @@ describe("Converters index file", () => {
 		expect(converters.convertPropFormulaToClauses).toBe(
 			convertPropFormulaToClauses,
 		);
+	});
+
+	it("should export the clause converters", () => {
+		expect(converters.convertPropClauseToString).toBe(
+			convertPropClauseToString,
+		);
+		expect(converters.normalizePropClause).toBe(normalizePropClause);
 	});
 });

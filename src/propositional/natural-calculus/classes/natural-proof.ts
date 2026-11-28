@@ -5,11 +5,8 @@ import type {
 	PropFormula,
 	PropProofStep,
 } from "../../../models";
-import {
-	convertPropFormulaToExpression,
-	convertPropFormulaToString,
-	replaceAtomInFormula,
-} from "../../converters";
+import { BaseProof } from "../../common/base-proof";
+import { replaceAtomInProofStep } from "../../common/replace-atom-in-proof-step";
 import { arePropFormulasStructurallyEqual } from "../../validators";
 import { generateNaturalProofSteps } from "../generators/generate-natural-proof-steps";
 
@@ -21,51 +18,8 @@ import { generateNaturalProofSteps } from "../generators/generate-natural-proof-
  *
  * @category Natural Calculus
  */
-export class NaturalProof {
-	private steps: PropProofStep[] = [];
-	private readonly goal: PropFormula;
+export class NaturalProof extends BaseProof<PropProofStep> {
 	private currentLevel: number = 0;
-
-	/**
-	 * Creates a new Natural Deduction proof with a goal formula.
-	 * @param goal - The target formula to prove
-	 */
-	constructor(goal: PropFormula) {
-		this.goal = goal;
-	}
-
-	/**
-	 * Gets all proof steps in order.
-	 * @returns Array of proof steps
-	 */
-	getSteps(): readonly PropProofStep[] {
-		return Object.freeze([...this.steps]);
-	}
-
-	/**
-	 * Gets the goal formula of this proof.
-	 * @returns The target formula
-	 */
-	getGoal(): PropFormula {
-		return this.goal;
-	}
-
-	/**
-	 * Gets the number of steps in the proof.
-	 * @returns The current step count
-	 */
-	getStepCount(): number {
-		return this.steps.length;
-	}
-
-	/**
-	 * Gets a specific step by index (1-based).
-	 * @param index - The step number (1-based)
-	 * @returns The proof step, or undefined if not found
-	 */
-	getStep(index: number): PropProofStep | undefined {
-		return this.steps[index - 1];
-	}
 
 	/**
 	 * Gets the current nesting level for sub-proofs.
@@ -89,13 +43,7 @@ export class NaturalProof {
 			payload: { formula },
 		});
 
-		const step = steps[0];
-		if (comment) {
-			step.comment = comment;
-		}
-
-		this.steps.push(step);
-		return step;
+		return this.pushSteps(steps, comment)[0];
 	}
 
 	/**
@@ -115,14 +63,9 @@ export class NaturalProof {
 			payload: { formula },
 		});
 
-		const step = steps[0];
-		if (comment) {
-			step.comment = comment;
-		}
-
-		this.steps.push(step);
+		const [added] = this.pushSteps(steps, comment);
 		this.currentLevel = nextLevel;
-		return step;
+		return added;
 	}
 
 	/**
@@ -143,14 +86,7 @@ export class NaturalProof {
 			payload,
 		});
 
-		newSteps.forEach((step) => {
-			if (comment) {
-				step.comment = comment;
-			}
-			this.steps.push(step);
-		});
-
-		return newSteps;
+		return this.pushSteps(newSteps, comment);
 	}
 
 	/**
@@ -162,12 +98,7 @@ export class NaturalProof {
 	 * @throws {Error} if the step index is invalid
 	 */
 	reiterateStep(fromIndex: number, comment?: string): PropProofStep {
-		const sourceStep = this.getStep(fromIndex);
-
-		if (!sourceStep) {
-			throw new Error(`Cannot reiterate: step ${fromIndex} not found in proof`);
-		}
-
+		const sourceStep = this.getStoredStep(fromIndex, "reiterate");
 		const sourceLevel = sourceStep.level ?? 0;
 
 		if (sourceLevel >= this.currentLevel) {
@@ -189,8 +120,7 @@ export class NaturalProof {
 			comment: comment || `Reiteration: ${fromIndex}`,
 		};
 
-		this.steps.push(step);
-		return step;
+		return this.pushSteps([step])[0];
 	}
 
 	/**
@@ -252,22 +182,9 @@ export class NaturalProof {
 			},
 		});
 
-		const newStep = newSteps[0];
-		if (comment) {
-			newStep.comment = comment;
-		}
-
-		this.steps.push(newStep);
+		const [added] = this.pushSteps(newSteps, comment);
 		this.currentLevel -= 1;
-		return newStep;
-	}
-
-	/**
-	 * Gets the last step in the proof.
-	 * @returns The final proof step, or undefined if no steps exist
-	 */
-	getLastStep(): PropProofStep | undefined {
-		return this.steps.at(-1);
+		return added;
 	}
 
 	/**
@@ -277,8 +194,8 @@ export class NaturalProof {
 	 * 2. All sub-proofs are closed (current level is 0)
 	 * @returns True if the proof is complete
 	 */
-	isComplete(): boolean {
-		const lastStep = this.getLastStep();
+	override isComplete(): boolean {
+		const lastStep = this.steps.at(-1);
 
 		if (!lastStep) {
 			return false;
@@ -295,8 +212,8 @@ export class NaturalProof {
 	/**
 	 * Clears all steps from the proof and resets the level to 0.
 	 */
-	clear(): void {
-		this.steps = [];
+	override clear(): void {
+		super.clear();
 		this.currentLevel = 0;
 	}
 
@@ -308,17 +225,8 @@ export class NaturalProof {
 	 * @param substitute - The formula or atom to substitute
 	 */
 	replace(atom: PropAtom, substitute: PropFormula | PropAtom): void {
-		this.steps.forEach((step) => {
-			const newFormula = replaceAtomInFormula({
-				formula: step.formula,
-				atom,
-				substitute,
-			});
-
-			// Update the formula and regenerate expression and stringView
-			step.formula = newFormula;
-			step.expression = convertPropFormulaToExpression(newFormula);
-			step.stringView = convertPropFormulaToString(newFormula);
-		});
+		this.steps = this.steps.map((step) =>
+			replaceAtomInProofStep(step, atom, substitute),
+		);
 	}
 }

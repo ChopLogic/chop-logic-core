@@ -2,12 +2,30 @@ import type {
 	HilbertCalculusRule,
 	HilbertCalculusSchema,
 	NaturalCalculusRule,
+	ResolutionCalculusRule,
 	Step,
 } from "../enums";
 import type { PropExpression } from "./basic";
-import type { PropFormula } from "./formula";
+import type { PropClause, PropFormula, PropLiteral } from "./formula";
 
 // ============== Proof System Types ==============
+
+/**
+ * Minimal shape shared by the steps of every proof system.
+ * Extended by {@link PropProofStep} and {@link ResolutionProofStep}.
+ *
+ * @category Proof System Types
+ */
+export interface BaseProofStep {
+	/** Sequential number of the step in the proof (1-based) */
+	index: number;
+	/** Type of the proof step */
+	step: Step;
+	/** Explanation or justification */
+	comment: string;
+	/** References to steps this was derived from */
+	derivedFrom?: number[];
+}
 
 /**
  * Represents a single step in a logical proof.
@@ -15,21 +33,13 @@ import type { PropFormula } from "./formula";
  *
  * @category Proof System Types
  */
-export interface PropProofStep {
-	/** Sequential number of the step in the proof */
-	index: number;
-	/** Type of the proof step */
-	step: Step;
+export interface PropProofStep extends BaseProofStep {
 	/** Logical formula for this step */
 	formula: PropFormula;
 	/** Symbolic expression of the formula */
 	expression: PropExpression;
 	/** String representation for display */
 	stringView: string;
-	/** Explanation or justification */
-	comment: string;
-	/** References to steps this was derived from */
-	derivedFrom?: number[];
 	/** Nesting level for sub-proofs */
 	level?: number;
 	/** Reference to the assumption this step depends on */
@@ -84,7 +94,10 @@ export interface HilbertProofStepInput<T> {
 		? Step.Derivation
 		: T extends Step.Axiom
 			? Step.Axiom
-			: Exclude<Step, Step.Derivation | Step.Axiom | Step.Assumption>;
+			: Exclude<
+					Step,
+					Step.Derivation | Step.Axiom | Step.Assumption | Step.NegatedGoal
+				>;
 	payload: T extends Step.Derivation
 		? HilbertDerivedPayload
 		: T extends Step.Axiom
@@ -130,8 +143,64 @@ export interface NaturalProofStepInput<T> {
 	assumptionIndex?: number;
 	step: T extends Step.Derivation
 		? Step.Derivation
-		: Exclude<Step, Step.Derivation | Step.Axiom>;
+		: Exclude<Step, Step.Derivation | Step.Axiom | Step.NegatedGoal>;
 	payload: T extends Step.Derivation
 		? NaturalDerivedPayload
 		: NaturalBasePayload;
+}
+
+// ============== Resolution Calculus ==============
+
+/**
+ * Represents a single step in a resolution proof.
+ * Each step holds a clause (a set of literals interpreted as their disjunction).
+ *
+ * @category Proof System Types
+ */
+export interface ResolutionProofStep extends BaseProofStep {
+	/** Clause of this step (a set of literals interpreted as their disjunction) */
+	clause: PropClause;
+	/** String representation of the clause in set notation, e.g. `{p, ¬q}` */
+	stringView: string;
+	/** Literal resolved upon, for derived steps */
+	resolvedLiteral?: PropLiteral;
+}
+
+/**
+ * Payload for a derived step in the resolution calculus.
+ * Contains the two clauses to resolve, the rule used, and indices of the steps they were taken from.
+ *
+ * @category Proof System Types
+ */
+export type ResolutionDerivedPayload = {
+	clauses: PropClause[];
+	rule: ResolutionCalculusRule;
+	derivedFrom: number[];
+};
+
+/**
+ * Base payload for premise, negated goal and reiteration steps in the resolution calculus.
+ * Contains a single clause.
+ *
+ * @category Proof System Types
+ */
+export type ResolutionBasePayload = {
+	clause: PropClause;
+};
+
+/**
+ * Generic input interface for creating a resolution proof step.
+ * The payload type is determined by the step type (Derivation or a base step).
+ *
+ * @template T - The step type
+ * @category Proof System Types
+ */
+export interface ResolutionProofStepInput<T> {
+	index: number;
+	step: T extends Step.Derivation
+		? Step.Derivation
+		: Exclude<Step, Step.Derivation | Step.Axiom | Step.Assumption>;
+	payload: T extends Step.Derivation
+		? ResolutionDerivedPayload
+		: ResolutionBasePayload;
 }

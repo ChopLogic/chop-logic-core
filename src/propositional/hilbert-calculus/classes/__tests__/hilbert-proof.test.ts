@@ -17,7 +17,7 @@ describe("HilbertProof", () => {
 		it("should create a new proof with a goal formula", () => {
 			const proof = new HilbertProof(implicationAB);
 
-			expect(proof.getGoal()).toBe(implicationAB);
+			expect(proof.getGoal()).toStrictEqual(implicationAB);
 			expect(proof.getStepCount()).toBe(0);
 			expect(proof.isComplete()).toBe(false);
 		});
@@ -31,7 +31,7 @@ describe("HilbertProof", () => {
 
 			expect(step.index).toBe(1);
 			expect(step.step).toBe(Step.Premise);
-			expect(step.formula).toBe(A);
+			expect(step.formula).toStrictEqual(A);
 			expect(step.comment).toBe("Given assumption");
 			expect(proof.getStepCount()).toBe(1);
 		});
@@ -111,8 +111,8 @@ describe("HilbertProof", () => {
 			const firstStep = proof.getStep(1);
 			const secondStep = proof.getStep(2);
 
-			expect(firstStep?.formula).toBe(A);
-			expect(secondStep?.formula).toBe(B);
+			expect(firstStep?.formula).toStrictEqual(A);
+			expect(secondStep?.formula).toStrictEqual(B);
 		});
 
 		it("should return undefined for out-of-bounds indices", () => {
@@ -132,7 +132,7 @@ describe("HilbertProof", () => {
 			const lastStep = proof.getLastStep();
 
 			expect(lastStep?.index).toBe(2);
-			expect(lastStep?.formula).toBe(B);
+			expect(lastStep?.formula).toStrictEqual(B);
 		});
 
 		it("should return undefined when proof is empty", () => {
@@ -228,7 +228,7 @@ describe("HilbertProof", () => {
 			proof.addPremise(A);
 			const reiterationStep = proof.reiterateStep(1);
 
-			expect(reiterationStep.formula).toBe(A);
+			expect(reiterationStep.formula).toStrictEqual(A);
 			expect(reiterationStep.step).toBe(Step.Reiteration);
 			expect(reiterationStep.derivedFrom).toEqual([1]);
 		});
@@ -365,7 +365,7 @@ describe("HilbertProof", () => {
 			const goalAfter = proof.getGoal();
 
 			// Goal should remain unchanged
-			expect(goalAfter).toBe(goalBefore);
+			expect(goalAfter).toStrictEqual(goalBefore);
 			expect(goalAfter).toEqual(A);
 		});
 
@@ -414,6 +414,101 @@ describe("HilbertProof", () => {
 
 			expect(step.stringView).toBe("B");
 			expect(step.formula).toEqual(B);
+		});
+	});
+
+	describe("defensive copies", () => {
+		const fresh = (expression: string) =>
+			createPropFormula(createPropExpression(expression));
+
+		it("does not let mutating getSteps() results complete the proof", () => {
+			const proof = new HilbertProof(fresh("B"));
+			proof.addPremise(fresh("A"));
+			proof.addAxiom({
+				formulas: [fresh("A"), fresh("B")],
+				schema: HilbertCalculusSchema.II,
+			});
+
+			const steps = proof.getSteps();
+			steps[1].formula = fresh("B");
+
+			expect(Object.isFrozen(steps)).toBe(true);
+			expect(proof.isComplete()).toBe(false);
+			expect(proof.getStep(2)?.formula).toStrictEqual(fresh("(A => (B => A))"));
+		});
+
+		it("does not let mutating getStep() and getLastStep() results change the proof", () => {
+			const proof = new HilbertProof(fresh("B"));
+			proof.addPremise(fresh("A"));
+
+			const step = proof.getStep(1);
+			const last = proof.getLastStep();
+			if (step) step.formula.values = ["X"];
+			if (last) last.stringView = "X";
+
+			expect(proof.getStep(1)?.formula).toStrictEqual(A);
+			expect(proof.getLastStep()?.stringView).toBe("A");
+		});
+
+		it("does not let mutating steps returned by add methods change the proof", () => {
+			const proof = new HilbertProof(fresh("B"));
+			const premise = proof.addPremise(fresh("A"));
+			const implication = proof.addPremise(fresh("(A => B)"));
+			const axiom = proof.addAxiom({
+				formulas: [fresh("A"), fresh("B")],
+				schema: HilbertCalculusSchema.II,
+			});
+			const [derived] = proof.addDerivedStep({
+				formulas: [fresh("(A => B)"), fresh("A")],
+				rule: HilbertCalculusRule.IE,
+				derivedFrom: [2, 1],
+			});
+			const reiterated = proof.reiterateStep(1);
+
+			for (const step of [premise, implication, axiom, derived, reiterated]) {
+				step.formula.values = ["X"];
+				step.comment = "tampered";
+			}
+
+			expect(proof.getSteps().map((step) => step.stringView)).toEqual([
+				"A",
+				"(A → B)",
+				"(A → (B → A))",
+				"B",
+				"A",
+			]);
+			expect(proof.getSteps().map((step) => step.formula)).not.toContainEqual(
+				fresh("X"),
+			);
+			expect(proof.getSteps().map((step) => step.comment)).not.toContain(
+				"tampered",
+			);
+		});
+
+		it("detaches stored steps from input formulas", () => {
+			const proof = new HilbertProof(fresh("B"));
+			const premise = fresh("A");
+
+			proof.addPremise(premise);
+			premise.values = ["X"];
+
+			expect(proof.getStep(1)?.formula).toStrictEqual(A);
+		});
+
+		it("detaches the stored goal from the constructor argument and getGoal() results", () => {
+			const goal = fresh("B");
+			const proof = new HilbertProof(goal);
+			proof.addPremise(fresh("A"));
+			proof.addAxiom({
+				formulas: [fresh("A"), fresh("B")],
+				schema: HilbertCalculusSchema.II,
+			});
+
+			goal.values = ["Y"];
+			proof.getGoal().values = ["Z"];
+
+			expect(proof.getGoal()).toStrictEqual(B);
+			expect(proof.isComplete()).toBe(false);
 		});
 	});
 });

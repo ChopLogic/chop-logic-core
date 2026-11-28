@@ -24,6 +24,28 @@ describe("Propositional Logic Module (index.ts)", () => {
 		});
 	});
 
+	describe("Common exports", () => {
+		it("should have BaseProof class", () => {
+			expect(typeof propositionalLogic.BaseProof).toBe("function");
+		});
+
+		it("should have proof classes extending BaseProof", () => {
+			const goal = propositionalLogic.createPropFormula(
+				propositionalLogic.createPropExpression("A"),
+			);
+
+			expect(new propositionalLogic.HilbertProof(goal)).toBeInstanceOf(
+				propositionalLogic.BaseProof,
+			);
+			expect(new propositionalLogic.NaturalProof(goal)).toBeInstanceOf(
+				propositionalLogic.BaseProof,
+			);
+			expect(new propositionalLogic.ResolutionProof(goal)).toBeInstanceOf(
+				propositionalLogic.BaseProof,
+			);
+		});
+	});
+
 	describe("Converters exports", () => {
 		it("should expose colorizePropExpression from both public entry points", () => {
 			expect(typeof propositionalLogic.colorizePropExpression).toBe("function");
@@ -114,6 +136,48 @@ describe("Propositional Logic Module (index.ts)", () => {
 
 		it("should have HilbertProofBuilder class", () => {
 			expect(typeof propositionalLogic.HilbertProofBuilder).toBe("function");
+		});
+	});
+
+	describe("Resolution Calculus exports", () => {
+		it("should have buildResolutionProof function", () => {
+			expect(typeof propositionalLogic.buildResolutionProof).toBe("function");
+		});
+
+		it("should have composeResolutionProof function", () => {
+			expect(typeof propositionalLogic.composeResolutionProof).toBe("function");
+		});
+
+		it("should have generateResolutionProofSteps function", () => {
+			expect(typeof propositionalLogic.generateResolutionProofSteps).toBe(
+				"function",
+			);
+		});
+
+		it("should have ResolutionProof class", () => {
+			expect(typeof propositionalLogic.ResolutionProof).toBe("function");
+		});
+
+		it("should have ResolutionProofBuilder class", () => {
+			expect(typeof propositionalLogic.ResolutionProofBuilder).toBe("function");
+		});
+
+		it("should have frozen ResolutionRules namespace", () => {
+			expect(Object.isFrozen(propositionalLogic.ResolutionRules)).toBe(true);
+		});
+
+		it("should have clause converters and validators", () => {
+			expect(typeof propositionalLogic.convertPropClauseToString).toBe(
+				"function",
+			);
+			expect(typeof propositionalLogic.normalizePropClause).toBe("function");
+			expect(typeof propositionalLogic.isPropClause).toBe("function");
+			expect(typeof propositionalLogic.arePropLiteralsComplementary).toBe(
+				"function",
+			);
+			expect(typeof propositionalLogic.isResolutionApplicable).toBe("function");
+			expect(typeof propositionalLogic.arePropClausesEqual).toBe("function");
+			expect(typeof propositionalLogic.isPropResolvent).toBe("function");
 		});
 	});
 

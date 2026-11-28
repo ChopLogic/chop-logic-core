@@ -1,4 +1,5 @@
 export { colorizePropExpression } from "./colorize-prop-expression";
+export { convertPropClauseToString } from "./convert-prop-clause-to-string";
 export { convertPropFormulaToClauses } from "./convert-prop-formula-to-clauses";
 export { convertPropFormulaToCNF } from "./convert-prop-formula-to-cnf";
 export { convertPropFormulaToExpression } from "./convert-prop-formula-to-expression";
@@ -7,4 +8,5 @@ export { convertPropFormulaToString } from "./convert-prop-formula-to-string";
 export { eliminatePropImplications } from "./eliminate-prop-implications";
 export { extractPropSubFormulas } from "./extract-prop-sub-formulas";
 export { extractPropVariables } from "./extract-prop-variables";
+export { normalizePropClause } from "./normalize-prop-clause";
 export { replaceAtomInFormula } from "./replace-atom-in-formula";

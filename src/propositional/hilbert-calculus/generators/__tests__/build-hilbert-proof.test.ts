@@ -22,7 +22,7 @@ describe("buildHilbertProof function", () => {
 			.build();
 
 		expect(proof.getStepCount()).toBe(2);
-		expect(proof.getGoal()).toBe(implicationAB);
+		expect(proof.getGoal()).toStrictEqual(implicationAB);
 	});
 
 	it("should support fluent API usage", () => {

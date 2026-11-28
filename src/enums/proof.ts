@@ -18,6 +18,8 @@ export enum Step {
 	Derivation = "Derivation",
 	/** Basic axiom of the system */
 	Axiom = "Axiom",
+	/** Clause obtained from the negation of the goal (resolution refutation) */
+	NegatedGoal = "NegatedGoal",
 }
 
 /**
@@ -80,6 +82,17 @@ export enum NaturalCalculusRule {
 	IE = "IE",
 	/** Equivalence Elimination */
 	EE = "EE",
+}
+
+/**
+ * Rules for the Resolution calculus.
+ * @enum {string}
+ *
+ * @category Proof System Enums
+ */
+export enum ResolutionCalculusRule {
+	/** Resolution Principle */
+	R = "R",
 }
 
 /**
