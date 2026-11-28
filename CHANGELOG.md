@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.10.0] - 2026-11-27
+## [1.10.0] - 2026-11-28
 
 ### Added
 
@@ -21,11 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Converters**: `convertPropClauseToString()` (set notation, e.g. `{p, ¬q}`) and `normalizePropClause()` (merges duplicate literals).
 - **Enums**: `Step.NegatedGoal` and `ResolutionCalculusRule`.
 - **Types**: `ResolutionProofStep`, `ResolutionDerivedPayload`, `ResolutionBasePayload` and `ResolutionProofStepInput`.
+- **`BaseProof`** abstract class (new `Common` category): shared base of `HilbertProof`, `NaturalProof` and `ResolutionProof` with the goal, the step list and the accessors `getGoal()`, `getSteps()`, `getStep()`, `getStepCount()`, `getLastStep()`, `clear()` and the abstract `isComplete()`. Also adds the `BaseProofStep` type, which `PropProofStep` and `ResolutionProofStep` now extend.
 - **Expression colorizer**: `colorizePropExpression()` sets the optional `PropSymbol.color` using configurable variable and operator colors and a cycling palette for parenthesis nesting.
 
 ### Changed
 
 - **Defensive copies in `HilbertProof` and `NaturalProof`**: the constructor and every step-adding method store copies of their inputs, and `getGoal()`, `getSteps()`, `getStep()`, `getLastStep()` and the step-adding methods return copies. Mutating a passed-in formula or a returned step/goal no longer changes the proof (previously it could, e.g., make `isComplete()` report a proof that was never derived). Returned objects are now equal to, but no longer identical (`===`) with, the stored ones.
+- **Proof classes refactored**: `HilbertProof`, `NaturalProof` and `ResolutionProof` now extend `BaseProof`, which removes duplicated code; their public API and behaviour are unchanged. `HilbertProof.replace()` and `NaturalProof.replace()` share an internal helper.
 
 ### Fixed
 
